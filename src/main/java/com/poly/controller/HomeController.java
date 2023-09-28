@@ -51,4 +51,6 @@ public class HomeController {
 	public String wishlist() {
 		return "wishlist";
 	}
+	
+	
 }
