@@ -32,7 +32,7 @@ CREATE TABLE [Services] (
 );
 						 
 --Loại khách sạn
-CREATE TABLE HotelTypes (
+CREATE TABLE HOTELTYPES (
     hotel_type_id INT PRIMARY KEY NOT NULL,				--ID duy nhất cho loại khách sạn
 	hotel_level Float NOT NULL,							--Mức độ khách sạn
 	created_at BIGINT,									--Thời gian tạo
@@ -109,7 +109,7 @@ go
 CREATE TABLE Users (
     username VARCHAR(50) NOT NULL,          -- Tên người dùng
     email VARCHAR(100),                     -- Địa chỉ email của người dùng
-	CMT VARCHAR(20) PRIMARY KEY,						-- Chứng minh thư của người dùng
+	cmt VARCHAR(20) PRIMARY KEY,						-- Chứng minh thư của người dùng
     [password] VARCHAR(100),                -- Mật khẩu (được lưu dưới dạng mã hóa)
     phone_number VARCHAR(20),               -- Số điện thoại của người dùng
     access_level bit ,                      -- Quyền truy cập (người dùng thường, quản trị viên)
@@ -151,6 +151,20 @@ CREATE TABLE Booking_room (
 );
 go
 
+-- Tạo bảng blog
+CREATE TABLE blogs (
+    id INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    short_description VARCHAR(255) NOT NULL,
+    author VARCHAR(100),
+    created_at BIGINT,
+	updated_at BIGINT,
+	image_id INT NOT NULL,
+	FOREIGN KEY (image_id) REFERENCES Images(image_id)
+);
+
+
 
 insert into Place values (1, N'Đà Lạt', 1694272166, 1694272231),
 						 (2, N'Nha Trang', 1694272166, 1694272231),
@@ -175,7 +189,7 @@ insert into [Services] values (1, N'Wifi-Free', 1, 1694272166, 1694272231),
 							  (4, N'Bar', 5, 1694272166, 1694272231),
 							  (5, N'Spa', 2, 1694272166, 1694272231)
 
-insert into HotelTypes values   (1, 1.2, 1694272166, 1694272231),
+insert into HOTELTYPES values   (1, 1.2, 1694272166, 1694272231),
 								(2, 1.7, 1694272166, 1694272231),
 								(3, 2.2, 1694272166, 1694272231),
 								(4, 3.0, 1694272166, 1694272231),
@@ -641,8 +655,16 @@ insert into Booking_room values (1, 10, 1694272166, 1694272231),
 								(26, 190, 1694272166, 1694272231),
 								(36, 200, 1694272166, 1694272231)
 
-
-
-
-
-
+-- Thêm dữ liệu vào bảng blogs
+INSERT INTO blogs (id, title, content, short_description, author, created_at, updated_at, image_id)
+VALUES
+(1, 'Bài viết 1', 'Nội dung bài viết 1', 'Mô tả ngắn 1', 'Tác giả 1', 1633900000, 1634000000, 1),
+(2, 'Bài viết 2', 'Nội dung bài viết 2', 'Mô tả ngắn 2', 'Tác giả 2', 1633901000, 1634001000, 2),
+(3, 'Bài viết 3', 'Nội dung bài viết 3', 'Mô tả ngắn 3', 'Tác giả 3', 1633902000, 1634002000, 3),
+(4, 'Bài viết 4', 'Nội dung bài viết 4', 'Mô tả ngắn 4', 'Tác giả 4', 1633903000, 1634003000, 4),
+(5, 'Bài viết 5', 'Nội dung bài viết 5', 'Mô tả ngắn 5', 'Tác giả 5', 1633904000, 1634004000, 5),
+(6, 'Bài viết 6', 'Nội dung bài viết 6', 'Mô tả ngắn 6', 'Tác giả 6', 1633905000, 1634005000, 1),
+(7, 'Bài viết 7', 'Nội dung bài viết 7', 'Mô tả ngắn 7', 'Tác giả 7', 1633906000, 1634006000, 2),
+(8, 'Bài viết 8', 'Nội dung bài viết 8', 'Mô tả ngắn 8', 'Tác giả 8', 1633907000, 1634007000, 3),
+(9, 'Bài viết 9', 'Nội dung bài viết 9', 'Mô tả ngắn 9', 'Tác giả 9', 1633908000, 1634008000, 4),
+(10, 'Bài viết 10', 'Nội dung bài viết 10', 'Mô tả ngắn 10', 'Tác giả 10', 1633909000, 1634009000, 5);

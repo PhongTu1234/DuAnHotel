@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* CSS cho giao diện form */
+        form {
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            flex-basis: calc(2/3 * 100% - 10px); /* 2/3 chiều rộng của màn hình desktop */
+            margin-right: 10px; /* Khoảng cách giữa các form-group */
+            margin-bottom: 8px; /* Khoảng cách dưới cùng của form-group */
+            position: relative; /* Để tạo không gian cho biểu tượng */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* Biểu tượng trong input và select */
+        .input-icon,
+        .select-icon {
+            position: absolute;
+            left: 10px; /* Điều chỉnh vị trí của biểu tượng */
+            top: 60%;
+            transform: translateY(-50%);
+            color: #999999;
+            font-size: 24px; /* Điều chỉnh kích thước của biểu tượng */
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 90%;
+            padding: 10px;
+            padding-left: 40px; /* Để tạo không gian cho biểu tượng */
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+
+        select option {
+            font-weight: normal;
+        }
+
+        select option:checked {
+            font-weight: bold;
+            background-color: #f7f7f7;
+        }
+
+        /* Định dạng form trên màn hình desktop */
+        @media (min-width: 768px) {
+            form {
+                width: 66.66%; /* 2/3 chiều rộng của màn hình desktop */
+            }
+
+            .form-group {
+                flex-basis: calc(50% - 10px); /* 50% chiều rộng của màn hình desktop */
+            }
+
+            label {
+                text-align: left; /* Căn trái cho label */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Tìm kiếm khách sạn</h1>
+    <form id="hotel-search-form">
+        <div class="form-group">
+            <label for="location">Thành phố, địa điểm hoặc tên khách sạn:</label>
+            <i class="fas fa-map-marker input-icon"></i>
+            <input type="text" id="location" name="location" required>
+        </div>
+
+        <div class="form-group">
+            <label for="check-in">Nhận phòng:</label>
+            <i class="far fa-calendar-alt input-icon"></i>
+            <input type="date" id="check-in" name="check-in" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nights">Đêm:</label>
+            <i class="fas fa-moon input-icon"></i>
+            <input type="number" id="nights" name="nights" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="guests">Khách và Phòng:</label>
+            <i class="fas fa-users select-icon"></i>
+            <select id="guests" name="guests" required>
+                <option value="1">1 người - 1 phòng</option>
+                <option value="2">2 người - 1 phòng</option>
+                <option value="2">2 người - 2 phòng</option>
+                <!-- Thêm các tùy chọn khác tùy theo nhu cầu của bạn -->
+            </select>
+        </div>
+        
+        <input type="submit" value="Tìm Phòng">
+    </form>
+</body>
+</html>

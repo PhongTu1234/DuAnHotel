@@ -11,4 +11,6 @@ public class ProductController {
 	public String detail() {
 		return "product/single-product-variable";
 	}
+	
+	
 }
