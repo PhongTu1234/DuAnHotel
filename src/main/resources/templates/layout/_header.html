@@ -105,22 +105,14 @@
 											<ul>
 												<li th:each="ht:${ht}"><a
 													th:href="@{|/index?htid=${ht.hotel_type_id}|}">[[${ht.hotelLevel}]]</a></li>
-											</ul></li>
-										<li><span class="title">Product Style</span>
+											</ul>
+										</li>
+										<li><span class="title">Room Style</span>
 											<ul>
-												<li><a href="single-product-variable.html">Single
-														Product Variable</a></li>
-												<li><a href="single-product-group.html">Single
-														Product Group</a></li>
-												<li><a href="single-product.html">Single Product
-														Default</a></li>
-												<li><a href="single-product-affiliate.html">Single
-														Product Affiliate</a></li>
-												<li><a href="single-product-sale.html">Single
-														Product Sale</a></li>
-												<li><a href="single-product-sticky.html">Single
-														Product Sticky</a></li>
-											</ul></li>
+												<li th:each="rt:${rt}"><a
+													th:href="@{|/index?htid=${rt.room_type_id}|}">[[${rt.room_type_name}]]</a></li>
+											</ul>
+										</li>
 										<li><span class="title">Product Related</span>
 											<ul>
 												<li><a href="my-account.html">My Account</a></li>

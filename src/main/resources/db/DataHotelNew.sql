@@ -66,7 +66,7 @@ go
 
 
 -- Bảng Loại Phòng
-CREATE TABLE RoomTypes (
+CREATE TABLE ROOMTYPES (
     room_type_id INT PRIMARY KEY,           -- ID duy nhất cho loại phòng
     room_type_name NVARCHAR(50) NOT NULL,   -- Tên loại phòng (ví dụ: Standard, Deluxe, Suite)
     price DECIMAL(10, 2),					-- Giá tiền của loại phòng
@@ -242,7 +242,7 @@ insert into Hotels values   (1, 'Thuy Van Hotel', N'10 Quang Trung phường 1 t
 							(40, 'Elegant Manor House', '3600 Manor Road, Countryside', '555-444-6666', 'tuannhps21725@gmail.com', 'Elegant manor house in the countryside', 'Manicured Gardens, High Tea', 4.5, 4, 1, 3, 1694272166, 1694272231);
 
 
-insert into RoomTypes values (1, N'Standard', 100.00, 1694272166, 1694272231),
+insert into ROOMTYPES values (1, N'Standard', 100.00, 1694272166, 1694272231),
 							 (2, 'Beachfront', 220.00, 1694272166, 1694272231),
 							 (3, 'Deluxe', 150.00, 1694272166, 1694272231),
 							 (4, 'Suite', 250.00, 1694272166, 1694272231),
