@@ -109,7 +109,7 @@ go
 CREATE TABLE Users (
     username VARCHAR(50) NOT NULL,          -- Tên người dùng
     email VARCHAR(100),                     -- Địa chỉ email của người dùng
-	cmt VARCHAR(20) PRIMARY KEY,						-- Chứng minh thư của người dùng
+	cmt VARCHAR(20) PRIMARY KEY				-- Chứng minh thư của người dùng
     [password] VARCHAR(100),                -- Mật khẩu (được lưu dưới dạng mã hóa)
     phone_number VARCHAR(20),               -- Số điện thoại của người dùng
     access_level bit ,                      -- Quyền truy cập (người dùng thường, quản trị viên)
@@ -153,18 +153,29 @@ go
 
 -- Tạo bảng blog
 CREATE TABLE blogs (
-    id INT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    short_description VARCHAR(255) NOT NULL,
-    author VARCHAR(100),
-    created_at BIGINT,
-	updated_at BIGINT,
-	image_id INT NOT NULL,
+    id INT PRIMARY KEY,						--ID duy nhất cho Tin tức
+    title VARCHAR(255) NOT NULL,			--Tiêu đề Tin tức
+    content TEXT NOT NULL,					--Nội dung
+    short_description VARCHAR(255) NOT NULL,--Mô tả ngắn
+    author VARCHAR(100),					--Tác giả
+    created_at BIGINT,						--Thời gian tạo
+	updated_at BIGINT,						--Thời gian chỉnh sửa
+	image_id INT NOT NULL,					--ID Hình ảnh
 	FOREIGN KEY (image_id) REFERENCES Images(image_id)
 );
-
-
+go
+-- Tạo bảng COMMENTROOM
+CREATE TABLE COMMENTROOM (
+    comment_id INT PRIMARY KEY,				--ID duy nhất cho Bình luận
+    room_id INT,							--ID duy nhất cho Phòng
+    cmt VARCHAR(20),						--ID duy nhất cho Người dùng
+    comment_text TEXT,						--Nội dung Bình luận
+	like_count INT DEFAULT 0,				--Số lượt thích
+    created_at BIGINT,						--Thời gian tạo
+	updated_at BIGINT,						--Thời gian chỉnh sửa
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id),
+    FOREIGN KEY (cmt) REFERENCES Users(cmt)
+);
 
 insert into Place values (1, N'Đà Lạt', 1694272166, 1694272231),
 						 (2, N'Nha Trang', 1694272166, 1694272231),
