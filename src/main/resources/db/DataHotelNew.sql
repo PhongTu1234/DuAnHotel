@@ -1,4 +1,6 @@
-﻿CREATE DATABASE DataHotel_new
+﻿USE [master]
+go
+CREATE DATABASE DataHotel_new
 go
 USE DataHotel_new
 go
@@ -66,7 +68,7 @@ go
 
 
 -- Bảng Loại Phòng
-CREATE TABLE ROOMTYPES (
+CREATE TABLE RoomTypes (
     room_type_id INT PRIMARY KEY,           -- ID duy nhất cho loại phòng
     room_type_name NVARCHAR(50) NOT NULL,   -- Tên loại phòng (ví dụ: Standard, Deluxe, Suite)
     price DECIMAL(10, 2),					-- Giá tiền của loại phòng
@@ -104,21 +106,32 @@ CREATE TABLE Payments (
 );
 go
 
-
+-- Bảng Phân quyền
+CREATE TABLE Roles(
+	Id nvarchar (10) PRIMARY KEY NOT NULL,
+	[Name] nvarchar(50) NOT NULL,
+)
+go
 -- Bảng Người dùng
 CREATE TABLE Users (
     username VARCHAR(50) NOT NULL,          -- Tên người dùng
     email VARCHAR(100),                     -- Địa chỉ email của người dùng
-	cmt VARCHAR(20) PRIMARY KEY				-- Chứng minh thư của người dùng
+	cmt VARCHAR(20) PRIMARY KEY,			-- Chứng minh thư của người dùng
     [password] VARCHAR(100),                -- Mật khẩu (được lưu dưới dạng mã hóa)
     phone_number VARCHAR(20),               -- Số điện thoại của người dùng
-    access_level bit ,                      -- Quyền truy cập (người dùng thường, quản trị viên)
+	Token nvarchar(50) NOT NULL,
 	created_at BIGINT,						--Thời gian tạo
 	updated_at BIGINT,						--Thời gian chỉnh sửa
 );
+
+CREATE TABLE [dbo].[Authorities](
+	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Cmt varchar(20) NOT NULL,
+	RoleId nvarchar(10) NOT NULL,
+	FOREIGN KEY (RoleId) REFERENCES Roles(Id),
+	FOREIGN KEY (Cmt) REFERENCES Users(cmt)
+)
 go
-
-
 -- Bảng Đặt phòng
 CREATE TABLE Bookings (
     booking_id INT PRIMARY KEY,             -- ID duy nhất cho đặt phòng
@@ -153,28 +166,15 @@ go
 
 -- Tạo bảng blog
 CREATE TABLE blogs (
-    id INT PRIMARY KEY,						--ID duy nhất cho Tin tức
-    title VARCHAR(255) NOT NULL,			--Tiêu đề Tin tức
-    content TEXT NOT NULL,					--Nội dung
-    short_description VARCHAR(255) NOT NULL,--Mô tả ngắn
-    author VARCHAR(100),					--Tác giả
-    created_at BIGINT,						--Thời gian tạo
-	updated_at BIGINT,						--Thời gian chỉnh sửa
-	image_id INT NOT NULL,					--ID Hình ảnh
+    id INT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    short_description VARCHAR(255) NOT NULL,
+    author VARCHAR(100),
+    created_at BIGINT,
+	updated_at BIGINT,
+	image_id INT NOT NULL,
 	FOREIGN KEY (image_id) REFERENCES Images(image_id)
-);
-go
--- Tạo bảng COMMENTROOM
-CREATE TABLE COMMENTROOM (
-    comment_id INT PRIMARY KEY,				--ID duy nhất cho Bình luận
-    room_id INT,							--ID duy nhất cho Phòng
-    cmt VARCHAR(20),						--ID duy nhất cho Người dùng
-    comment_text TEXT,						--Nội dung Bình luận
-	like_count INT DEFAULT 0,				--Số lượt thích
-    created_at BIGINT,						--Thời gian tạo
-	updated_at BIGINT,						--Thời gian chỉnh sửa
-    FOREIGN KEY (room_id) REFERENCES rooms(room_id),
-    FOREIGN KEY (cmt) REFERENCES Users(cmt)
 );
 
 insert into Place values (1, N'Đà Lạt', 1694272166, 1694272231),
@@ -253,7 +253,7 @@ insert into Hotels values   (1, 'Thuy Van Hotel', N'10 Quang Trung phường 1 t
 							(40, 'Elegant Manor House', '3600 Manor Road, Countryside', '555-444-6666', 'tuannhps21725@gmail.com', 'Elegant manor house in the countryside', 'Manicured Gardens, High Tea', 4.5, 4, 1, 3, 1694272166, 1694272231);
 
 
-insert into ROOMTYPES values (1, N'Standard', 100.00, 1694272166, 1694272231),
+insert into RoomTypes values (1, N'Standard', 100.00, 1694272166, 1694272231),
 							 (2, 'Beachfront', 220.00, 1694272166, 1694272231),
 							 (3, 'Deluxe', 150.00, 1694272166, 1694272231),
 							 (4, 'Suite', 250.00, 1694272166, 1694272231),
@@ -514,86 +514,169 @@ insert into Payments values (1, '2023-09-05', 500.00, 'credit_card', 1694272166,
 							(48, '2023-10-22', 5200.00, 'paypal', 1694272166, 1694272231),
 							(49, '2023-10-23', 5300.00, 'credit_card', 1694272166, 1694272231),
 							(50, '2023-10-24', 5400.00, 'paypal', 1694272166, 1694272231);
-insert into Users values('user1', 'user1@example.com', '081456789375', 'hashed_password_1', '1234567890', 0, 1694272166, 1694272231),
-						('user2', 'user2@example.com', '012456789375', 'hashed_password_2', '2345678901', 0, 1694272166, 1694272231),
-						('user3', 'user3@example.com', '083456789375', 'hashed_password_3', '3456789012', 0, 1694272166, 1694272231),
-						('user4', 'user4@example.com', '084456789375', 'hashed_password_4', '4567890123', 0, 1694272166, 1694272231),
-						('user5', 'user5@example.com', '085456789375', 'hashed_password_5', '5678901234', 0, 1694272166, 1694272231),
-						('user6', 'user6@example.com', '086456789375', 'hashed_password_6', '6789012345', 0, 1694272166, 1694272231),
-						('user7', 'user7@example.com', '087456789375', 'hashed_password_7', '7890123456', 0, 1694272166, 1694272231),
-						('user8', 'user8@example.com', '088456789375', 'hashed_password_8', '8901234567', 0, 1694272166, 1694272231),
-						('user9', 'user9@example.com', '089456789375', 'hashed_password_9', '9012345678', 0, 1694272166, 1694272231),
-						('user10', 'user10@example.com', '082156789375', 'hashed_password_10', '0123456789', 0, 1694272166, 1694272231),
-						('admin1', 'admin1@example.com', '082256789375', 'hashed_admin_password_1', '1111111111', 1, 1694272166, 1694272231),
-						('admin2', 'admin2@example.com', '082356789375', 'hashed_admin_password_2', '2222222222', 1, 1694272166, 1694272231),
-						('admin3', 'admin3@example.com', '022456789375', 'hashed_admin_password_3', '3333333333', 1, 1694272166, 1694272231),
-						('admin4', 'admin4@example.com', '082556789375', 'hashed_admin_password_4', '4444444444', 1, 1694272166, 1694272231),
-						('admin5', 'admin5@example.com', '082656789375', 'hashed_admin_password_5', '5555555555', 1, 1694272166, 1694272231),
-						('admin6', 'admin6@example.com', '082756789375', 'hashed_admin_password_6', '6666666666', 1, 1694272166, 1694272231),
-						('admin7', 'admin7@example.com', '082856789375', 'hashed_admin_password_7', '7777777777', 1, 1694272166, 1694272231),
-						('admin8', 'admin8@example.com', '082956789375', 'hashed_admin_password_8', '8888888888', 1, 1694272166, 1694272231),
-						('admin9', 'admin9@example.com', '082416789375', 'hashed_admin_password_9', '9999999999', 1, 1694272166, 1694272231),
-						('admin10', 'admin10@example.com', '082426789375', 'hashed_admin_password_10', '0000000000', 1, 1694272166, 1694272231),
-						('user11', 'user11@example.com', '082436789375', 'hashed_password_11', '1234567890', 0, 1694272166, 1694272231),
-						('user12', 'user12@example.com', '082446789375', 'hashed_password_12', '2345678901', 0, 1694272166, 1694272231),
-						('user13', 'user13@example.com', '032456789375', 'hashed_password_13', '3456789012', 0, 1694272166, 1694272231),
-						('user14', 'user14@example.com', '082466789375', 'hashed_password_14', '4567890123', 0, 1694272166, 1694272231),
-						('user15', 'user15@example.com', '082476789375', 'hashed_password_15', '5678901234', 0, 1694272166, 1694272231),
-						('user16', 'user16@example.com', '082486789375', 'hashed_password_16', '6789012345', 0, 1694272166, 1694272231),
-						('user17', 'user17@example.com', '082496789375', 'hashed_password_17', '7890123456', 0, 1694272166, 1694272231),
-						('user18', 'user18@example.com', '082451789375', 'hashed_password_18', '8901234567', 0, 1694272166, 1694272231),
-						('user19', 'user19@example.com', '082452789375', 'hashed_password_19', '9012345678', 0, 1694272166, 1694272231),
-						('user20', 'user20@example.com', '082453789375', 'hashed_password_20', '0123456789', 0, 1694272166, 1694272231),
-						('user21', 'user21@example.com', '082454789375', 'hashed_password_21', '1234567890', 0, 1694272166, 1694272231),
-						('user22', 'user22@example.com', '082455789375', 'hashed_password_22', '2345678901', 0, 1694272166, 1694272231),
-						('user23', 'user23@example.com', '042456789375', 'hashed_password_23', '3456789012', 0, 1694272166, 1694272231),
-						('user24', 'user24@example.com', '082457789375', 'hashed_password_24', '4567890123', 0, 1694272166, 1694272231),
-						('user25', 'user25@example.com', '082458789375', 'hashed_password_25', '5678901234', 0, 1694272166, 1694272231),
-						('user26', 'user26@example.com', '082459789375', 'hashed_password_26', '6789012345', 0, 1694272166, 1694272231),
-						('user27', 'user27@example.com', '082456189375', 'hashed_password_27', '7890123456', 0, 1694272166, 1694272231),
-						('user28', 'user28@example.com', '082456289375', 'hashed_password_28', '8901234567', 0, 1694272166, 1694272231),
-						('user29', 'user29@example.com', '082456389375', 'hashed_password_29', '9012345678', 0, 1694272166, 1694272231),
-						('user30', 'user30@example.com', '082456489375', 'hashed_password_30', '0123456789', 0, 1694272166, 1694272231),
-						('user31', 'user31@example.com', '082456589375', 'hashed_password_31', '1234567890', 0, 1694272166, 1694272231),
-						('user32', 'user32@example.com', '082456689375', 'hashed_password_32', '2345678901', 0, 1694272166, 1694272231),
-						('user33', 'user33@example.com', '052456789375', 'hashed_password_33', '3456789012', 0, 1694272166, 1694272231),
-						('user34', 'user34@example.com', '082456889375', 'hashed_password_34', '4567890123', 0, 1694272166, 1694272231),
-						('user35', 'user35@example.com', '082456989375', 'hashed_password_35', '5678901234', 0, 1694272166, 1694272231),
-						('user36', 'user36@example.com', '082456719375', 'hashed_password_36', '6789012345', 0, 1694272166, 1694272231),
-						('user37', 'user37@example.com', '082456729375', 'hashed_password_37', '7890123456', 0, 1694272166, 1694272231),
-						('user38', 'user38@example.com', '082456739375', 'hashed_password_38', '8901234567', 0, 1694272166, 1694272231),
-						('user39', 'user39@example.com', '082456749375', 'hashed_password_39', '9012345678', 0, 1694272166, 1694272231),
-						('user40', 'user40@example.com', '082456759375', 'hashed_password_40', '0123456789', 0, 1694272166, 1694272231),
-						('user41', 'user41@example.com', '082456769375', 'hashed_password_41', '1234567890', 0, 1694272166, 1694272231),
-						('user42', 'user42@example.com', '082456779375', 'hashed_password_42', '2345678901', 0, 1694272166, 1694272231),
-						('user43', 'user43@example.com', '062456789375', 'hashed_password_43', '3456789012', 0, 1694272166, 1694272231),
-						('user44', 'user44@example.com', '082456799375', 'hashed_password_44', '4567890123', 0, 1694272166, 1694272231),
-						('user45', 'user45@example.com', '082456781375', 'hashed_password_45', '5678901234', 0, 1694272166, 1694272231),
-						('user46', 'user46@example.com', '082456782375', 'hashed_password_46', '6789012345', 0, 1694272166, 1694272231),
-						('user47', 'user47@example.com', '082456783375', 'hashed_password_47', '7890123456', 0, 1694272166, 1694272231),
-						('user48', 'user48@example.com', '082456784375', 'hashed_password_48', '8901234567', 0, 1694272166, 1694272231),
-						('user49', 'user49@example.com', '082456785375', 'hashed_password_49', '9012345678', 0, 1694272166, 1694272231),
-						('user50', 'user50@example.com', '082456786375', 'hashed_password_50', '0123456789', 0, 1694272166, 1694272231),
-						('user51', 'user51@example.com', '082456787375', 'hashed_password_51', '1234567890', 0, 1694272166, 1694272231),
-						('user52', 'user52@example.com', '082456788375', 'hashed_password_52', '2345678901', 0, 1694272166, 1694272231),
-						('user53', 'user53@example.com', '072456789375', 'hashed_password_53', '3456789012', 0, 1694272166, 1694272231),
-						('user54', 'user54@example.com', '082456789175', 'hashed_password_54', '4567890123', 0, 1694272166, 1694272231),
-						('user55', 'user55@example.com', '082456789275', 'hashed_password_55', '5678901234', 0, 1694272166, 1694272231),
-						('user56', 'user56@example.com', '092456789375', 'hashed_password_56', '6789012345', 0, 1694272166, 1694272231),
-						('user57', 'user57@example.com', '082456789475', 'hashed_password_57', '7890123456', 0, 1694272166, 1694272231),
-						('user58', 'user58@example.com', '082456789575', 'hashed_password_58', '8901234567', 0, 1694272166, 1694272231),
-						('user59', 'user59@example.com', '082456789675', 'hashed_password_59', '9012345678', 0, 1694272166, 1694272231),
-						('user60', 'user60@example.com', '082456789775', 'hashed_password_60', '0123456789', 0, 1694272166, 1694272231),
-						('user61', 'user61@example.com', '082456789875', 'hashed_password_61', '1234567890', 0, 1694272166, 1694272231),
-						('user62', 'user62@example.com', '082456789975', 'hashed_password_62', '2345678901', 0, 1694272166, 1694272231),
-						('user63', 'user63@example.com', '082456789315', 'hashed_password_63', '3456789012', 0, 1694272166, 1694272231),
-						('user64', 'user64@example.com', '082456789325', 'hashed_password_64', '4567890123', 0, 1694272166, 1694272231),
-						('user65', 'user65@example.com', '082456789335', 'hashed_password_65', '5678901234', 0, 1694272166, 1694272231),
-						('user66', 'user66@example.com', '082456789345', 'hashed_password_66', '6789012345', 0, 1694272166, 1694272231),
-						('user67', 'user67@example.com', '082456789355', 'hashed_password_67', '7890123456', 0, 1694272166, 1694272231),
-						('user68', 'user68@example.com', '082456789365', 'hashed_password_68', '8901234567', 0, 1694272166, 1694272231),
-						('user69', 'user69@example.com', '082456789385', 'hashed_password_69', '9012345678', 0, 1694272166, 1694272231),
-						('user70', 'user70@example.com', '082456789395', 'hashed_password_70', '0123456789', 0, 1694272166, 1694272231);
+insert into Roles values (N'CUST', N'Customers'),
+						(N'DIRE', N'Directors');
+
+insert into Users values('user1', 'user1@example.com', '081456789375', 'hashed_password_1', '1234567890', N'token', 1694272166, 1694272231),
+						('user2', 'user2@example.com', '012456789375', 'hashed_password_2', '2345678901', N'token', 1694272166, 1694272231),
+						('user3', 'user3@example.com', '083456789375', 'hashed_password_3', '3456789012', N'token', 1694272166, 1694272231),
+						('user4', 'user4@example.com', '084456789375', 'hashed_password_4', '4567890123', N'token', 1694272166, 1694272231),
+						('user5', 'user5@example.com', '085456789375', 'hashed_password_5', '5678901234', N'token', 1694272166, 1694272231),
+						('user6', 'user6@example.com', '086456789375', 'hashed_password_6', '6789012345', N'token', 1694272166, 1694272231),
+						('user7', 'user7@example.com', '087456789375', 'hashed_password_7', '7890123456', N'token', 1694272166, 1694272231),
+						('user8', 'user8@example.com', '088456789375', 'hashed_password_8', '8901234567', N'token', 1694272166, 1694272231),
+						('user9', 'user9@example.com', '089456789375', 'hashed_password_9', '9012345678', N'token', 1694272166, 1694272231),
+						('user10', 'user10@example.com', '082156789375', 'hashed_password_10', '0123456789', N'token', 1694272166, 1694272231),
+						('user11', 'user11@example.com', '082436789375', 'hashed_password_11', '1234567890', N'token', 1694272166, 1694272231),
+						('user12', 'user12@example.com', '082446789375', 'hashed_password_12', '2345678901', N'token', 1694272166, 1694272231),
+						('user13', 'user13@example.com', '032456789375', 'hashed_password_13', '3456789012', N'token', 1694272166, 1694272231),
+						('user14', 'user14@example.com', '082466789375', 'hashed_password_14', '4567890123', N'token', 1694272166, 1694272231),
+						('user15', 'user15@example.com', '082476789375', 'hashed_password_15', '5678901234', N'token', 1694272166, 1694272231),
+						('user16', 'user16@example.com', '082486789375', 'hashed_password_16', '6789012345', N'token', 1694272166, 1694272231),
+						('user17', 'user17@example.com', '082496789375', 'hashed_password_17', '7890123456', N'token', 1694272166, 1694272231),
+						('user18', 'user18@example.com', '082451789375', 'hashed_password_18', '8901234567', N'token', 1694272166, 1694272231),
+						('user19', 'user19@example.com', '082452789375', 'hashed_password_19', '9012345678', N'token', 1694272166, 1694272231),
+						('user20', 'user20@example.com', '082453789375', 'hashed_password_20', '0123456789', N'token', 1694272166, 1694272231),
+						('user21', 'user21@example.com', '082454789375', 'hashed_password_21', '1234567890', N'token', 1694272166, 1694272231),
+						('user22', 'user22@example.com', '082455789375', 'hashed_password_22', '2345678901', N'token', 1694272166, 1694272231),
+						('user23', 'user23@example.com', '042456789375', 'hashed_password_23', '3456789012', N'token', 1694272166, 1694272231),
+						('user24', 'user24@example.com', '082457789375', 'hashed_password_24', '4567890123', N'token', 1694272166, 1694272231),
+						('user25', 'user25@example.com', '082458789375', 'hashed_password_25', '5678901234', N'token', 1694272166, 1694272231),
+						('user26', 'user26@example.com', '082459789375', 'hashed_password_26', '6789012345', N'token', 1694272166, 1694272231),
+						('user27', 'user27@example.com', '082456189375', 'hashed_password_27', '7890123456', N'token', 1694272166, 1694272231),
+						('user28', 'user28@example.com', '082456289375', 'hashed_password_28', '8901234567', N'token', 1694272166, 1694272231),
+						('user29', 'user29@example.com', '082456389375', 'hashed_password_29', '9012345678', N'token', 1694272166, 1694272231),
+						('user30', 'user30@example.com', '082456489375', 'hashed_password_30', '0123456789', N'token', 1694272166, 1694272231),
+						('user31', 'user31@example.com', '082456589375', 'hashed_password_31', '1234567890', N'token', 1694272166, 1694272231),
+						('user32', 'user32@example.com', '082456689375', 'hashed_password_32', '2345678901', N'token', 1694272166, 1694272231),
+						('user33', 'user33@example.com', '052456789375', 'hashed_password_33', '3456789012', N'token', 1694272166, 1694272231),
+						('user34', 'user34@example.com', '082456889375', 'hashed_password_34', '4567890123', N'token', 1694272166, 1694272231),
+						('user35', 'user35@example.com', '082456989375', 'hashed_password_35', '5678901234', N'token', 1694272166, 1694272231),
+						('user36', 'user36@example.com', '082456719375', 'hashed_password_36', '6789012345', N'token', 1694272166, 1694272231),
+						('user37', 'user37@example.com', '082456729375', 'hashed_password_37', '7890123456', N'token', 1694272166, 1694272231),
+						('user38', 'user38@example.com', '082456739375', 'hashed_password_38', '8901234567', N'token', 1694272166, 1694272231),
+						('user39', 'user39@example.com', '082456749375', 'hashed_password_39', '9012345678', N'token', 1694272166, 1694272231),
+						('user40', 'user40@example.com', '082456759375', 'hashed_password_40', '0123456789', N'token', 1694272166, 1694272231),
+						('user41', 'user41@example.com', '082456769375', 'hashed_password_41', '1234567890', N'token', 1694272166, 1694272231),
+						('user42', 'user42@example.com', '082456779375', 'hashed_password_42', '2345678901', N'token', 1694272166, 1694272231),
+						('user43', 'user43@example.com', '062456789375', 'hashed_password_43', '3456789012', N'token', 1694272166, 1694272231),
+						('user44', 'user44@example.com', '082456799375', 'hashed_password_44', '4567890123', N'token', 1694272166, 1694272231),
+						('user45', 'user45@example.com', '082456781375', 'hashed_password_45', '5678901234', N'token', 1694272166, 1694272231),
+						('user46', 'user46@example.com', '082456782375', 'hashed_password_46', '6789012345', N'token', 1694272166, 1694272231),
+						('user47', 'user47@example.com', '082456783375', 'hashed_password_47', '7890123456', N'token', 1694272166, 1694272231),
+						('user48', 'user48@example.com', '082456784375', 'hashed_password_48', '8901234567', N'token', 1694272166, 1694272231),
+						('user49', 'user49@example.com', '082456785375', 'hashed_password_49', '9012345678', N'token', 1694272166, 1694272231),
+						('user50', 'user50@example.com', '082456786375', 'hashed_password_50', '0123456789', N'token', 1694272166, 1694272231),
+						('user51', 'user51@example.com', '082456787375', 'hashed_password_51', '1234567890', N'token', 1694272166, 1694272231),
+						('user52', 'user52@example.com', '082456788375', 'hashed_password_52', '2345678901', N'token', 1694272166, 1694272231),
+						('user53', 'user53@example.com', '072456789375', 'hashed_password_53', '3456789012', N'token', 1694272166, 1694272231),
+						('user54', 'user54@example.com', '082456789175', 'hashed_password_54', '4567890123', N'token', 1694272166, 1694272231),
+						('user55', 'user55@example.com', '082456789275', 'hashed_password_55', '5678901234', N'token', 1694272166, 1694272231),
+						('user56', 'user56@example.com', '092456789375', 'hashed_password_56', '6789012345', N'token', 1694272166, 1694272231),
+						('user57', 'user57@example.com', '082456789475', 'hashed_password_57', '7890123456', N'token', 1694272166, 1694272231),
+						('user58', 'user58@example.com', '082456789575', 'hashed_password_58', '8901234567', N'token', 1694272166, 1694272231),
+						('user59', 'user59@example.com', '082456789675', 'hashed_password_59', '9012345678', N'token', 1694272166, 1694272231),
+						('user60', 'user60@example.com', '082456789775', 'hashed_password_60', '0123456789', N'token', 1694272166, 1694272231),
+						('user61', 'user61@example.com', '082456789875', 'hashed_password_61', '1234567890', N'token', 1694272166, 1694272231),
+						('user62', 'user62@example.com', '082456789975', 'hashed_password_62', '2345678901', N'token', 1694272166, 1694272231),
+						('user63', 'user63@example.com', '082456789315', 'hashed_password_63', '3456789012', N'token', 1694272166, 1694272231),
+						('user64', 'user64@example.com', '082456789325', 'hashed_password_64', '4567890123', N'token', 1694272166, 1694272231),
+						('user65', 'user65@example.com', '082456789335', 'hashed_password_65', '5678901234', N'token', 1694272166, 1694272231),
+						('user66', 'user66@example.com', '082456789345', 'hashed_password_66', '6789012345', N'token', 1694272166, 1694272231),
+						('user67', 'user67@example.com', '082456789355', 'hashed_password_67', '7890123456', N'token', 1694272166, 1694272231),
+						('user68', 'user68@example.com', '082456789365', 'hashed_password_68', '8901234567', N'token', 1694272166, 1694272231),
+						('user69', 'user69@example.com', '082456789385', 'hashed_password_69', '9012345678', N'token', 1694272166, 1694272231),
+						('user70', 'user70@example.com', '082456789395', 'hashed_password_70', '0123456789', N'token', 1694272166, 1694272231),
+						('admin1', 'admin1@example.com', '082256789375', 'hashed_admin_password_1', '1111111111', N'token', 1694272166, 1694272231),
+						('admin2', 'admin2@example.com', '082356789375', 'hashed_admin_password_2', '2222222222', N'token', 1694272166, 1694272231),
+						('admin3', 'admin3@example.com', '022456789375', 'hashed_admin_password_3', '3333333333', N'token', 1694272166, 1694272231),
+						('admin4', 'admin4@example.com', '082556789375', 'hashed_admin_password_4', '4444444444', N'token', 1694272166, 1694272231),
+						('admin5', 'admin5@example.com', '082656789375', 'hashed_admin_password_5', '5555555555', N'token', 1694272166, 1694272231),
+						('admin6', 'admin6@example.com', '082756789375', 'hashed_admin_password_6', '6666666666', N'token', 1694272166, 1694272231),
+						('admin7', 'admin7@example.com', '082856789375', 'hashed_admin_password_7', '7777777777', N'token', 1694272166, 1694272231),
+						('admin8', 'admin8@example.com', '082956789375', 'hashed_admin_password_8', '8888888888', N'token', 1694272166, 1694272231),
+						('admin9', 'admin9@example.com', '082416789375', 'hashed_admin_password_9', '9999999999', N'token', 1694272166, 1694272231),
+						('admin10', 'admin10@example.com', '082426789375', 'hashed_admin_password_10', '0000000000', N'token', 1694272166, 1694272231);
+						SET IDENTITY_INSERT [dbo].[Authorities] ON 
+INSERT INTO Authorities (Id, Cmt, RoleId) VALUES (2, N'012456789375', N'CUST'),
+												(3, N'083456789375', N'CUST'),
+												(4, N'084456789375', N'CUST'),
+												(5, N'085456789375', N'CUST'),
+												(6, N'086456789375', N'CUST'),
+												(7, N'087456789375', N'CUST'),
+												(8, N'088456789375', N'CUST'),
+												(9, N'089456789375', N'CUST'),
+												(10, N'082156789375', N'CUST'),
+												(11, N'082436789375', N'CUST'),
+												(12, N'082446789375', N'CUST'),
+												(13, N'032456789375', N'CUST'),
+												(14, N'082466789375', N'CUST'),
+												(15, N'082476789375', N'CUST'),
+												(16, N'082486789375', N'CUST'),
+												(17, N'082496789375', N'CUST'),
+												(18, N'082451789375', N'CUST'),
+												(19, N'082452789375', N'CUST'),
+												(20, N'082453789375', N'CUST'),
+												(21, N'082454789375', N'CUST'),
+												(22, N'082455789375', N'CUST'),
+												(23, N'042456789375', N'CUST'),
+												(24, N'082457789375', N'CUST'),
+												(25, N'082458789375', N'CUST'),
+												(26, N'082459789375', N'CUST'),
+												(27, N'082456189375', N'CUST'),
+												(28, N'082456289375', N'CUST'),
+												(29, N'082456389375', N'CUST'),
+												(30, N'082456489375', N'CUST'),
+												(31, N'082456589375', N'CUST'),
+												(32, N'082456689375', N'CUST'),
+												(33, N'052456789375', N'CUST'),
+												(34, N'082456889375', N'CUST'),
+												(35, N'082456989375', N'CUST'),
+												(36, N'082456719375', N'CUST'),
+												(37, N'082456729375', N'CUST'),
+												(38, N'082456739375', N'CUST'),
+												(39, N'082456749375', N'CUST'),
+												(40, N'082456759375', N'CUST'),
+												(41, N'082456769375', N'CUST'),
+												(42, N'082456779375', N'CUST'),
+												(43, N'062456789375', N'CUST'),
+												(44, N'082456799375', N'CUST'),
+												(45, N'082456781375', N'CUST'),
+												(46, N'082456782375', N'CUST'),
+												(47, N'082456783375', N'CUST'),
+												(48, N'082456784375', N'CUST'),
+												(49, N'082456785375', N'CUST'),
+												(50, N'082456786375', N'CUST'),
+												(51, N'082456787375', N'CUST'),
+												(52, N'082456788375', N'CUST'),
+												(53, N'072456789375', N'CUST'),
+												(54, N'082456789175', N'CUST'),
+												(55, N'082456789275', N'CUST'),
+												(56, N'092456789375', N'CUST'),
+												(57, N'082456789475', N'CUST'),
+												(58, N'082456789575', N'CUST'),
+												(59, N'082456789675', N'CUST'),
+												(60, N'082456789775', N'CUST'),
+												(61, N'082456789875', N'CUST'),
+												(62, N'082456789975', N'CUST'),
+												(63, N'082456789315', N'CUST'),
+												(64, N'082456789325', N'CUST'),
+												(65, N'082456789335', N'CUST'),
+												(66, N'082456789345', N'CUST'),
+												(67, N'082456789355', N'CUST'),
+												(68, N'082456789365', N'CUST'),
+												(69, N'082456789385', N'CUST'),
+												(70, N'082456789395', N'CUST'),
+												(71, N'082256789375', N'DIRE'),
+												(72, N'082356789375', N'DIRE'),
+												(73, N'022456789375', N'DIRE'),
+												(74, N'082556789375', N'DIRE'),
+												(75, N'082656789375', N'DIRE'),
+												(76, N'082756789375', N'DIRE'),
+												(77, N'082856789375', N'DIRE'),
+												(78, N'082956789375', N'DIRE'),
+												(79, N'082416789375', N'DIRE'),
+												(80, N'082426789375', N'DIRE');
 INSERT INTO Bookings (booking_id, CMT, payment_id, booking_date, checkin_date, checkout_date, payment_status, total_price, created_at, updated_at, hotel_id)
 VALUES
 					(1, '081456789375', 1, '2023-08-01', '2023-08-15', '2023-08-20', 1, 750.00, 1694272166, 1694272231,1),

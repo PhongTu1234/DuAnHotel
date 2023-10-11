@@ -35,6 +35,8 @@ public class AuthController {
 	@Autowired
 	UserService accountService;
 
+//	@Autowired
+//	MailerService mailer;
 
 	@CrossOrigin("*")
 	@ResponseBody
@@ -44,18 +46,18 @@ public class AuthController {
 	}
 
 	@RequestMapping("/auth/login/form")
-	public String logInForm(Model model, @ModelAttribute("users") Users users) {
+	public String logInForm(Model model, @ModelAttribute("user") Users users) {
 		return "auth/login_register";
 	}
 
 	@RequestMapping("/auth/login/success")
-	public String logInSuccess(Model model, @ModelAttribute("users") Users users) {
+	public String logInSuccess(Model model, @ModelAttribute("user") Users users) {
 		model.addAttribute("message", "Logged in successfully");
 		return "redirect:/index";
 	}
 
 	@RequestMapping("/auth/login/error")
-	public String logInError(Model model, @Validated @ModelAttribute("users") Users users, Errors errors) {
+	public String logInError(Model model, @Validated @ModelAttribute("user") Users users, Errors errors) {
 		if (errors.hasErrors()) {
 			model.addAttribute("message", "Wrong login information!");
 			return "auth/login_register";
@@ -64,13 +66,13 @@ public class AuthController {
 	}
 
 	@RequestMapping("/auth/unauthoried")
-	public String unauthoried(Model model, @ModelAttribute("users") Users users) {
+	public String unauthoried(Model model, @ModelAttribute("user") Users users) {
 		model.addAttribute("message", "You don't have access!");
 		return "auth/login_register";
 	}
 
 	@RequestMapping("/auth/logout/success")
-	public String logOutSuccess(Model model, @ModelAttribute("users") Users users) {
+	public String logOutSuccess(Model model, @ModelAttribute("user") Users users) {
 		model.addAttribute("message", "You are logged out!");
 		return "auth/login_register";
 	}
@@ -79,7 +81,7 @@ public class AuthController {
 	@RequestMapping("/oauth2/login/success")
 	public String oauth2(OAuth2AuthenticationToken oauth2) {
 		accountService.loginFromOAuth2(oauth2);
-		return "forward:/auth/login_register/success";
+		return "forward:/auth/login/success";
 	}
 
 	@GetMapping("/auth/register")
@@ -89,15 +91,15 @@ public class AuthController {
 	}
 
 	@PostMapping("/auth/register")
-	public String signUpSuccess(Model model, @Validated @ModelAttribute("users") Users users, Errors error,
+	public String signUpSuccess(Model model, @Validated @ModelAttribute("user") Users account, Errors error,
 			HttpServletResponse response) {
 		if (error.hasErrors()) {
 			model.addAttribute("message", "Please correct the error below!");
 			return "auth/register";
 		}
-//		account.setPhoto("user.png");
-//		account.setToken("token");
-		accountService.create(users);
+		//account.setPhoto("user.png");
+		account.setToken("token");
+		accountService.create(account);
 		model.addAttribute("message", "New account registration successful!");
 		response.addHeader("refresh", "2;url=/auth/login/form");
 		return "auth/register";
@@ -123,6 +125,45 @@ public class AuthController {
 			model.addAttribute("error", "Error while sending email");
 		}
 		return "auth/forgot-password";
+	}
+
+	@GetMapping("/auth/reset-password")
+	public String resetPasswordForm(@Param(value = "token") String token, Model model) {
+		Users account = accountService.getByToken(token);
+		model.addAttribute("token", token);
+		if (account == null) {
+			model.addAttribute("message", "Invalid token!");
+			return "redirect:/auth/login/form";
+		}
+		return "auth/reset-password";
+	}
+
+	@PostMapping("/auth/reset-password")
+	public String processResetPassword(@RequestParam("token") String code, @RequestParam("password") String password,
+			HttpServletResponse response, Model model) {
+		Users token = accountService.getByToken(code);
+		if (token == null) {
+			model.addAttribute("message", "Invalid token!");
+		} else {
+			accountService.updatePassword(token, password);
+			model.addAttribute("message", "You have successfully changed your password!");
+			response.addHeader("refresh", "2;url=/auth/login/form");
+		}
+		return "auth/reset-password";
+	}
+
+	@GetMapping("/auth/change-password")
+	public String changePasswordForm(Model model) {
+		return "auth/change-password";
+	}
+
+	@PostMapping("/auth/change-password")
+	public String processChangePassword(Model model, @RequestParam("username") String username,
+			@RequestParam("password") String newPassword) {
+		Users account = accountService.findById(username);
+		accountService.changePassword(account, newPassword);
+		model.addAttribute("message", "Change password successfully!");
+		return "auth/change-password";
 	}
 
 	public String getSiteURL(HttpServletRequest request) {

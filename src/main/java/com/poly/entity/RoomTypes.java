@@ -18,19 +18,19 @@ public class RoomTypes implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_type_id")
-    private Integer room_type_id;
+    Integer room_type_id;
 
     @Column(name = "room_type_name")
-    private String room_type_name;
+    String room_type_name;
 
     @Column(name = "price", precision = 10, scale = 2) 
-    private BigDecimal price;
+    BigDecimal price;
 
     @Column(name = "created_at")
-    private Long createdAt;
+    Long createdAt;
     
     @Column(name = "updated_at")
-    private Long updatedAt;
+    Long updatedAt;
     
     @JsonIgnore
 	@OneToMany(mappedBy = "rt_id")

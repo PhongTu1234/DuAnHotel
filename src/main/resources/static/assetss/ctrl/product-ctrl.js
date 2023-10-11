@@ -1,6 +1,6 @@
 app.controller("product-ctrl", function ($scope, $http) {
-    var url = "/rest/hotels";
-    var url1 = "/rest/hoteltypes";
+    var url = "/rest/products";
+    var url1 = "/rest/categories";
     var url2 = "/rest/upload/images";
     $scope.items = [];
     $scope.cates = [];

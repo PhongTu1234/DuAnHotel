@@ -1,5 +1,5 @@
-app.controller("hoteltypes-ctrl", function ($scope, $http) {
-    var url = "/rest/hoteltypes";
+app.controller("category-ctrl", function ($scope, $http) {
+    var url = "/rest/categories";
     $scope.items = [];
     $scope.form = {};
 

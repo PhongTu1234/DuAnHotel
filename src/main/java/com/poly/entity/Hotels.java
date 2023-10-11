@@ -22,43 +22,43 @@ public class Hotels implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_id")
-    private Integer hotelId;
+    Integer hotelId;
 
     @Column(name = "hotel_name", nullable = false, length = 100)
-    private String hotelName;
+    String hotelName;
 
     @Column(name = "address", length = 200)
-    private String address;
+    String address;
 
     @Column(name = "phone_number", length = 20)
-    private String phoneNumber;
+    String phoneNumber;
 
     @Column(name = "Email_hotel", length = 50)
-    private String email;
+    String email;
 
     @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
+    String description;
 
     @Column(name = "amenities", columnDefinition = "TEXT")
-    private String amenities;
+    String amenities;
 
     @Column(name = "rating")
-    private Float rating;
+     Float rating;
 
     @Column(name = "place_id")
-    private Integer placeId;
+     Integer placeId;
 
 //    @Column(name = "hotel_type_id")
-//    private Integer hotelTypeId;
+//     Integer hotelTypeId;
 
     @Column(name = "image_id")
-    private Integer imageId;
+     Integer imageId;
 
     @Column(name = "created_at")
-    private Long createdAt;
+     Long createdAt;
 
     @Column(name = "updated_at")
-    private Long updatedAt;
+     Long updatedAt;
     
     @ManyToOne
 	@JoinColumn(name = "hotel_type_id")

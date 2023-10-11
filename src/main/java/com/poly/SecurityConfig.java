@@ -1,7 +1,5 @@
 package com.poly;
 
-
-
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,20 +52,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/* Quản lý dữ liệu người sử dụng */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(cmt -> {
+		auth.userDetailsService(username -> {
 			try {
-				Users user = accountService.findById(cmt);
-				String password = user.getPassword(); // Mã hóa mật khấu
-//				String[] roles = user.getAuthorities().stream().map(er -> er.getRole().getId())
-//						.collect(Collectors.toList()).toArray(new String[0]);
+				Users user = accountService.findById(username);
+				String password = pe.encode(user.getPassword()); // Mã hóa mật khấu
+				String[] roles = user.getAuthorities().stream().map(er -> er.getRole().getId())
+						.collect(Collectors.toList()).toArray(new String[0]);
 				Map<String, Object> authentication = new HashMap<>();
 				authentication.put("user", user);
-//				byte[] token = (cmt + ":" + user.getPassword()).getBytes();
-//				authentication.put("token", "Basic " + Base64.getEncoder().encodeToString(token));
+				byte[] token = (username + ":" + user.getPassword()).getBytes();
+				authentication.put("token", "Basic " + Base64.getEncoder().encodeToString(token));
 				session.setAttribute("authentication", authentication);
-				return User.withUsername(cmt).password(password).build();
+				return User.withUsername(username).password(password).roles(roles).build();
 			} catch (NoSuchElementException e) {
-				throw new UsernameNotFoundException(cmt + " not found!");
+				throw new UsernameNotFoundException(username + " not found!");
 			}
 		});
 	}
@@ -77,9 +75,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Tắt thuật tấn công giả mạo
 		http.csrf().disable();
 		// Quyền yêu cầu truy cập
-		http.authorizeRequests().antMatchers("/order/**", "/auth/change-password").authenticated()
-				.antMatchers("/admin/**").hasAnyRole("STAF", "DIRE").antMatchers("/rest/authorities").hasRole("DIRE")
-				.anyRequest().permitAll();
+//		http.authorizeRequests().antMatchers("/order/**", "/auth/change-password").authenticated()
+//				.antMatchers("/admin/**").hasAnyRole("STAF", "DIRE").antMatchers("/rest/authorities").hasRole("DIRE")
+//				.anyRequest().permitAll();
 		// Đăng nhập
 		http.formLogin().loginPage("/auth/login/form").loginProcessingUrl("/auth/login")
 				.defaultSuccessUrl("/auth/login/success", false).failureUrl("/auth/login/error");
