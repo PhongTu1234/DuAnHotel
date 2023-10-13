@@ -1,4 +1,4 @@
-app.controller("hoteltypes-ctrl", function ($scope, $http) {
+app.controller("category-ctrl", function ($scope, $http) {
     var url = "/rest/hoteltypes";
     $scope.items = [];
     $scope.form = {};

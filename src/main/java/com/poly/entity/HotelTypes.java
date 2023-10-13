@@ -15,18 +15,17 @@ import lombok.Data;
 @Table(name = "HOTELTYPES")
 public class HotelTypes implements Serializable{
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_type_id")
-    private Integer hotel_type_id;
+    Integer hotel_type_id;
 
     @Column(name = "hotel_level")
-    private Float hotelLevel;
+    Float hotelLevel;
 
     @Column(name = "created_at")
-    private Long createdAt;
+    Long createdAt;
 
     @Column(name = "updated_at")
-    private Long updatedAt;
+    Long updatedAt;
     
     @JsonIgnore
 	@OneToMany(mappedBy = "ht_id")

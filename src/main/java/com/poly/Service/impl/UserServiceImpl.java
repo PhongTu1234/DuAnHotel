@@ -2,7 +2,6 @@ package com.poly.Service.impl;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,10 +35,10 @@ public class UserServiceImpl implements UserService {
 		return adao.findAll();
 	}
 
-//	@Override
-//	public List<Users> getAdministrators() {
-//		return adao.getAdministrators();
-//	}
+	@Override
+	public List<Users> getAdministrators() {
+		return adao.getAdministrators();
+	}
 
 	@Override
 	public Users create(Users account) {
@@ -71,22 +70,22 @@ public class UserServiceImpl implements UserService {
 	public void updateToken(String token, String email) throws Exception {
 		Users entity = adao.findByEmail(email);
 		if (entity != null) {
-			entity.setEmail(email);
+			entity.setToken(token);
 			adao.save(entity);
 		} else {
 			throw new Exception("Cannot find any account with email: " + email);
 		}
 	}
 
-//	@Override
-//	public Users getByToken(String token) {
-//		return adao.findByToken(token);
-//	}
+	@Override
+	public Users getByToken(String token) {
+		return adao.findByToken(token);
+	}
 
 	@Override
 	public void updatePassword(Users entity, String newPassword) {
 		entity.setPassword(newPassword);
-		entity.setEmail("token");
+		entity.setToken("token");
 		adao.save(entity);
 	}
 
@@ -94,11 +93,5 @@ public class UserServiceImpl implements UserService {
 	public void changePassword(Users entity, String newPassword) {
 		entity.setPassword(newPassword);
 		adao.save(entity);
-	}
-
-	@Override
-	public Users getUserByCMT(String cmt) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

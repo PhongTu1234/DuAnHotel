@@ -3,15 +3,15 @@ app = angular.module("admin-app", ["ngRoute"]);
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/account", {
-            templateUrl: "/admin/account/index.html",
+            templateUrl: "/admin/Users/index.html",
             controller: "account-ctrl"
         })
-        .when("/product", {
-            templateUrl: "/admin/product/index.html",
+        .when("/Hotel", {
+            templateUrl: "/admin/Hotel/index.html",
             controller: "product-ctrl"
         })
-        .when("/category", {
-            templateUrl: "/admin/category/index.html",
+        .when("/HotelType", {
+            templateUrl: "/admin/HotelType/index.html",
             controller: "category-ctrl"
         })
         .when("/authorize", {
@@ -21,6 +21,10 @@ app.config(function ($routeProvider) {
         .when("/unauthorized", {
             templateUrl: "/admin/authority/unauthorized.html",
             controller: "authority-ctrl"
+        })
+        .when("/room", {
+            templateUrl: "/admin/Rooms/index.html",
+            controller: "room-ctrl"
         })
         .otherwise({
             templateUrl: "/admin/dashboard.html"

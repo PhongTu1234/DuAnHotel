@@ -42,5 +42,40 @@ public class HotelServiceImpl implements HotelService {
 	public void delete(Integer id) {
 		hdao.deleteById(id);
 	}
+	
+//	@Override
+//	public List<Hotels> findByHotelTypeHotelLevelBetween(String startLevel, String endLevel) {
+//		return hdao.findByHotelTypeHotelLevelBetween(endLevel, endLevel);
+//	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel0to1() {
+		return hdao.findHotelByHotelLevel0to1();
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel1to2() {
+		return hdao.findHotelByHotelLevel1to2();
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel2to3() {
+		return hdao.findHotelByHotelLevel2to3();
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel3to4() {
+		return hdao.findHotelByHotelLevel3to4();
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel4to5() {
+		return hdao.findHotelByHotelLevel4to5();
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel5() {
+		return hdao.findHotelByHotelLevel5();
+	}
 
 }

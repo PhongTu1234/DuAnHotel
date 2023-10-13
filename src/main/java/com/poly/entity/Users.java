@@ -1,37 +1,48 @@
 package com.poly.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
+@SuppressWarnings("serial")
 @Data
 @Entity
 @Table(name = "Users")
-public class Users {
+public class Users implements Serializable{
     @Id
-    @Column(name = "cmt", nullable = false, unique = true, length = 20)
-    private String cmt;
+    @Column(name = "cmt")
+    @NotBlank(message = "Không được để trống")
+    String cmt;
 
-    @Column(name = "username", nullable = false, length = 50)
-    private String username;
+    @Column(name = "username")
+    String username;
 
     @Column(name = "email", length = 100)
-    private String email;
+    String email;
 
-    @Column(name = "password", nullable = false, length = 100)
-    private String password;
+    @Column(name = "password")
+    @NotBlank(message = "Không được để trống")
+    String password;
 
     @Column(name = "phone_number", length = 20)
-    private String phoneNumber;
-
-    @Column(name = "access_level")
-    private boolean accessLevel;
+    String phoneNumber;
+    
+    @Column(name = "Token")
+    String token;
 
     @Column(name = "created_at")
-    private long createdAt;
+    long createdAt;
 
     @Column(name = "updated_at")
-    private long updatedAt;
+    long updatedAt;
 
-    // Getters and setters
+    @JsonIgnore
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	List<Authority> authorities;
 }

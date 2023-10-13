@@ -9,7 +9,7 @@
         &.style {
             &-1 {
                 justify-content: flex-start;
-                min-height: 730px;
+                //min-height: 730px;
                 @include breakpoint(max-md-device) {
                     padding-top: 30px;
                     padding-bottom: 40px;

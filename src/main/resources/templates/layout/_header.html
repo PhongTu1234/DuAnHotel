@@ -63,10 +63,31 @@
 										<i class="pe-7s-users"></i>
 									</button>
 									<ul class="dropdown-menu" aria-labelledby="settingButton">
-										<li><a class="dropdown-item" href="my-account.html">My
-												account</a></li>
-										<li><a class="dropdown-item"
-											th:href="@{/auth/login/form}">Login | Register</a></li>
+										<!--<li><a class="dropdown-item" href="my-account.html">My account</a></li>-->
+										<!-- <li><a class="dropdown-item" th:href="@{/auth/login/form}">Login | Register</a></li> -->
+										<th:block th:unless="${#request.remoteUser}">
+											<li><a class="dropdown-item" th:href="@{/auth/login/form}">Login</a></li>
+											<li>
+												<a class="dropdown-item" th:href="@{/auth/register}">Register</a>
+											</li>
+											<li>
+												<a class="dropdown-item" th:href="@{/auth/forgot-password}">Forgot Password?</a>
+											</li>
+										</th:block>
+										<th:block th:if="${#request.remoteUser}">
+											<li th:if="${#request.isUserInRole('Dire') or #request.isUserInRole('STAF')}">
+												<a th:href="@{/admin}">Adminstrator</a>
+											</li>
+											<li>
+												<a th:href="@{/order/list}">Your Order</a>
+											</li>
+											<li>
+												<a th:href="@{/auth/change-password}">Change Password</a>
+											</li>
+											<li>
+												<a th:href="@{/auth/logout}">Logout</a>
+											</li>
+										</th:block>
 									</ul>
 								</li>
 								<li class="d-none d-lg-block"><a href="wishlist.html">
@@ -106,20 +127,20 @@
 												<li th:each="ht:${ht}"><a
 													th:href="@{|/index?htid=${ht.hotel_type_id}|}">[[${ht.hotelLevel}]]</a></li>
 											</ul></li>
-										<li><span class="title">Product Style</span>
+										<li><span class="title">Hotel Types</span>
 											<ul>
-												<li><a href="single-product-variable.html">Single
-														Product Variable</a></li>
-												<li><a href="single-product-group.html">Single
-														Product Group</a></li>
-												<li><a href="single-product.html">Single Product
-														Default</a></li>
-												<li><a href="single-product-affiliate.html">Single
-														Product Affiliate</a></li>
-												<li><a href="single-product-sale.html">Single
-														Product Sale</a></li>
-												<li><a href="single-product-sticky.html">Single
-														Product Sticky</a></li>
+												<li><a th:href="@{/hotel/all}">all</a></li>
+												<li><a th:href="@{/hotel/0to1}">0-1</a></li>
+												<li><a th:href="@{/hotel/1to2}">1-2</a></li>
+												<li><a th:href="@{/hotel/2to3}">2-3</a></li>
+												<li><a th:href="@{/hotel/3to4}">3-4</a></li>
+												<li><a th:href="@{/hotel/4to5}">4-5</a></li>
+												<li><a th:href="@{/hotel/5}">5</a></li>
+											</ul></li>
+										<li><span class="title">Room Style</span>
+											<ul>
+												<li th:each="rt:${rt}"><a
+													th:href="@{|/index?htid=${rt.room_type_id}|}">[[${rt.room_type_name}]]</a></li>
 											</ul></li>
 										<li><span class="title">Product Related</span>
 											<ul>

@@ -15,28 +15,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entity.Users;
 import com.poly.Service.UserService;
+import com.poly.entity.Users;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/user")
+@RequestMapping("/rest/users")
 public class UserRestController {
 
 	@Autowired
 	UserService accountService;
 
-//	@GetMapping
-//	public List<Users> getAccounts(@RequestParam("admin") Optional<Boolean> admin) {
-//		if (admin.orElse(false)) {
-//			return accountService.getAdministrators();
-//		}
-//		return accountService.findAll();
-//	}
+	@GetMapping
+	public List<Users> getAccounts(@RequestParam("admin") Optional<Boolean> admin) {
+		if (admin.orElse(false)) {
+			return accountService.getAdministrators();
+		}
+		return accountService.findAll();
+	}
 
 	@GetMapping("{cmt}")
-	public Users getOne(@PathVariable("cmt") String cmt) {
-		return accountService.findById(cmt);
+	public Users getOne(@PathVariable("cmt") String id) {
+		return accountService.findById(id);
 	}
 
 	@PostMapping
@@ -45,12 +45,12 @@ public class UserRestController {
 	}
 
 	@PutMapping("{cmt}")
-	public Users update(@PathVariable("cmt") String cmt, @RequestBody Users account) {
+	public Users update(@PathVariable("cmt") String id, @RequestBody Users account) {
 		return accountService.update(account);
 	}
 
 	@DeleteMapping("{cmt}")
-	public void delete(@PathVariable("cmt") String cmt) {
-		accountService.delete(cmt);
+	public void delete(@PathVariable("cmt") String id) {
+		accountService.delete(id);
 	}
 }
