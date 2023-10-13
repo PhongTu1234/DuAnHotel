@@ -62,7 +62,7 @@ public class HomeController {
 		return "about";
 	}
 	
-	@RequestMapping("404")
+	@RequestMapping("/404")
 	public String error() {
 		return "404";
 	}

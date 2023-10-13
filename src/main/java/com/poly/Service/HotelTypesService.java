@@ -14,4 +14,6 @@ public interface HotelTypesService {
 	HotelTypes update(HotelTypes hoteltypes);
 
 	void delete(String id);
+	
+//	List<HotelTypes> getHotelLevel1to2();
 }

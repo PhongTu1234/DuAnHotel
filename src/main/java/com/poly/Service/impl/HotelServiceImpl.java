@@ -43,4 +43,35 @@ public class HotelServiceImpl implements HotelService {
 		hdao.deleteById(id);
 	}
 
+	@Override
+	public List<Hotels> findHotelByHotelLevel1to2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel2to3() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel3to4() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel4to5() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel5() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

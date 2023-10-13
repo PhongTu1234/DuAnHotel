@@ -16,5 +16,17 @@ public interface HotelService {
 	Hotels update(Hotels product);
 
 	void delete(Integer id);
+	
+	List<Hotels> findHotelByHotelLevel1to2();
+	
+	List<Hotels> findHotelByHotelLevel2to3();
+	
+	List<Hotels> findHotelByHotelLevel3to4();
+	
+	List<Hotels> findHotelByHotelLevel4to5();
+	
+	List<Hotels> findHotelByHotelLevel5();
+
+
 
 }

@@ -39,4 +39,15 @@ public class HotelTypesServiceImpl implements HotelTypesService {
 		htdao.deleteById(id);
 	}
 
+//	@Override
+//	public List<HotelTypes> getHotelLevel1to2() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+//	@Override
+//	public List<HotelTypes> getHotelLevel1to2() {
+//		return htdao.getHotelLevel1to2();
+//	}
+
 }
