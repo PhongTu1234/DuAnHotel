@@ -22,7 +22,6 @@ public class Authority implements Serializable {
 
 	@Id
 	@Column(name = "Id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@ManyToOne

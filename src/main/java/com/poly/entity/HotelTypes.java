@@ -15,7 +15,6 @@ import lombok.Data;
 @Table(name = "HOTELTYPES")
 public class HotelTypes implements Serializable{
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_type_id")
     Integer hotel_type_id;
 

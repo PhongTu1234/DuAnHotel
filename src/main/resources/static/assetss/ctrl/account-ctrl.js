@@ -1,5 +1,5 @@
 app.controller("account-ctrl", function ($scope, $http) {
-    var url = "/rest/accounts";
+    var url = "/rest/users";
     var url1 = "/rest/roles";
     var url2 = "/rest/upload/images";
     $scope.roles = [];

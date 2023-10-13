@@ -1,27 +1,25 @@
 <div class="row mx-0 bg-white" ng-if="items">
 	<div class="col-12 py-3">
-		<table id="datatable-buttons" class="table table-collapse table-bordered dt-responsive">
+		<table class="table table-collapse table-bordered">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Name</th>
-					<th>Price</th>
-					<th>Create Date</th>
-					<th>Image</th>
-					<th>Category</th>
-					<th>Available</th>
+					<th>CMT</th>
+					<th>Username</th>
+					<th>email</th>
+					<th>password</th>
+					<th>phoneNumber</th>
+					<th>Photo</th>
 					<th>#</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="item in items">
-					<td class="align-center">{{item.id}}</td>
-					<td class="align-center w-25">{{item.name}}</td>
-					<td class="align-center">$ {{item.price | number:2}}</td>
-					<td class="align-center">{{item.createDate | date:'dd/MM/yyyy'}}</td>
-					<td class="align-center">{{item.image}}</td>
-					<td class="align-center">{{item.category.name}}</td>
-					<td class="align-center">{{item.available?'Yes':'No'}}</td>
+				<tr ng-repeat="item in pager.items">
+					<td class="align-center">{{item.cmt}}</td>
+					<td class="align-center">{{item.username}}</td>
+					<td class="align-center">{{item.email}}</td>
+					<td class="align-center">{{item.password}}</td>
+					<td class="align-center">{{item.phoneNumber}}</td>
+					<td class="align-center">{{item.photo}}</td>
 					<td class="align-center">
 						<div class="btn-group btn-group-xs">
 							<button ng-click="edit(item)" class="btn btn-icon">
@@ -37,7 +35,7 @@
 		</table>
 	</div>
 </div>
-<!-- <div class="card-header text-center">
+<div class="card-header text-center">
 	<button ng-click="pager.first()" class="btn btn-danger">
 		<i class="fas fa-arrow-to-left"></i>
 	</button>
@@ -51,5 +49,5 @@
 	<button ng-click="pager.last()" class="btn btn-danger">
 		<i class="fas fa-arrow-to-right"></i>
 	</button>
-</div> -->
+</div>
 <script src="/assetss/js/init.js"></script>

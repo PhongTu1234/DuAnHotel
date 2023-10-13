@@ -1,15 +1,20 @@
 package com.poly.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -20,9 +25,8 @@ import lombok.Data;
 public class Hotels implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_id")
-    Integer hotelId;
+    Integer hotel_id;
 
     @Column(name = "hotel_name", nullable = false, length = 100)
     String hotelName;
@@ -63,4 +67,8 @@ public class Hotels implements Serializable {
     @ManyToOne
 	@JoinColumn(name = "hotel_type_id")
 	HotelTypes ht_id;
+    
+    @JsonIgnore
+	@OneToMany(mappedBy = "hotel_id", fetch = FetchType.EAGER)
+	List<Rooms> rooms;
 }

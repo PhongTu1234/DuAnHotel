@@ -13,4 +13,7 @@ public interface RoomDAO extends JpaRepository<Rooms, Integer> {
 
 //	@Query(value = "SELECT count(p.id) FROM Products p", nativeQuery = true)
 //	Integer countAllProduct();
+	
+	@Query("SELECT p FROM Rooms p WHERE p.hotel_id.hotel_id=?1")
+	List<Rooms> findByHotelId(Integer hid);
 }

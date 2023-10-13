@@ -43,4 +43,9 @@ public class RoomServiceImpl implements RoomService {
 		rdao.deleteById(id);
 	}
 
+	@Override
+	public List<Rooms> findByHotelId(Integer hid) {
+		return rdao.findByHotelId(hid);
+	}
+
 }

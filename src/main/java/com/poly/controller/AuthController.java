@@ -81,13 +81,13 @@ public class AuthController {
 	@RequestMapping("/oauth2/login/success")
 	public String oauth2(OAuth2AuthenticationToken oauth2) {
 		accountService.loginFromOAuth2(oauth2);
-		return "forward:/auth/login/success";
+		return "forward:/auth/login_register/success";
 	}
 
 	@GetMapping("/auth/register")
 	public String signUpForm(Model model) {
-		model.addAttribute("account", new Users());
-		return "auth/register";
+		model.addAttribute("user", new Users());
+		return "auth/login_register";
 	}
 
 	@PostMapping("/auth/register")
@@ -95,14 +95,14 @@ public class AuthController {
 			HttpServletResponse response) {
 		if (error.hasErrors()) {
 			model.addAttribute("message", "Please correct the error below!");
-			return "auth/register";
+			return "auth/login_register";
 		}
 		//account.setPhoto("user.png");
 		account.setToken("token");
 		accountService.create(account);
 		model.addAttribute("message", "New account registration successful!");
-		response.addHeader("refresh", "2;url=/auth/login/form");
-		return "auth/register";
+		response.addHeader("refresh", "2;url=/auth/login_register/form");
+		return "auth/login_register";
 	}
 
 	@GetMapping("/auth/forgot-password")
@@ -133,7 +133,7 @@ public class AuthController {
 		model.addAttribute("token", token);
 		if (account == null) {
 			model.addAttribute("message", "Invalid token!");
-			return "redirect:/auth/login/form";
+			return "redirect:/auth/login_register/form";
 		}
 		return "auth/reset-password";
 	}
@@ -147,7 +147,7 @@ public class AuthController {
 		} else {
 			accountService.updatePassword(token, password);
 			model.addAttribute("message", "You have successfully changed your password!");
-			response.addHeader("refresh", "2;url=/auth/login/form");
+			response.addHeader("refresh", "2;url=/auth/login_register/form");
 		}
 		return "auth/reset-password";
 	}

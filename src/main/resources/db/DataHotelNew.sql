@@ -79,7 +79,7 @@ go
 -- Bảng Phòng
 CREATE TABLE Rooms (
     room_id INT PRIMARY KEY,                -- ID duy nhất cho phòng
-    hotel_id INT,                           -- Khóa ngoại liên kết với bảng Khách sạn
+    hotel_id INT NOT NULL,                           -- Khóa ngoại liên kết với bảng Khách sạn
     room_type_id INT,                       -- Khóa ngoại liên kết với bảng Loại Phòng
     room_number VARCHAR(10),                -- Số phòng
     status nvarchar(50),                    -- Trạng thái phòng (đã đặt, trống)
@@ -124,8 +124,8 @@ CREATE TABLE Users (
 	updated_at BIGINT,						--Thời gian chỉnh sửa
 );
 
-CREATE TABLE [dbo].[Authorities](
-	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+CREATE TABLE Authorities(
+	Id int PRIMARY KEY NOT NULL,
 	Cmt varchar(20) NOT NULL,
 	RoleId nvarchar(10) NOT NULL,
 	FOREIGN KEY (RoleId) REFERENCES Roles(Id),
@@ -514,10 +514,12 @@ insert into Payments values (1, '2023-09-05', 500.00, 'credit_card', 1694272166,
 							(48, '2023-10-22', 5200.00, 'paypal', 1694272166, 1694272231),
 							(49, '2023-10-23', 5300.00, 'credit_card', 1694272166, 1694272231),
 							(50, '2023-10-24', 5400.00, 'paypal', 1694272166, 1694272231);
-insert into Roles values (N'CUST', N'Customers'),
-						(N'DIRE', N'Directors');
+insert into Roles values	(N'CUST', N'Customers'),
+							(N'STAF', N'Staffs'),
+							(N'DIRE', N'Directors');
 
-insert into Users values('user1', 'user1@example.com', '081456789375', 'hashed_password_1', '1234567890', N'token', 1694272166, 1694272231),
+insert into Users values('user0', 'user1@example.com', '081456789370', 'hashed_password_1', '1234567890', N'token', 1694272166, 1694272231),
+						('user1', 'user1@example.com', '081456789375', 'hashed_password_1', '1234567890', N'token', 1694272166, 1694272231),
 						('user2', 'user2@example.com', '012456789375', 'hashed_password_2', '2345678901', N'token', 1694272166, 1694272231),
 						('user3', 'user3@example.com', '083456789375', 'hashed_password_3', '3456789012', N'token', 1694272166, 1694272231),
 						('user4', 'user4@example.com', '084456789375', 'hashed_password_4', '4567890123', N'token', 1694272166, 1694272231),
@@ -597,8 +599,8 @@ insert into Users values('user1', 'user1@example.com', '081456789375', 'hashed_p
 						('admin8', 'admin8@example.com', '082956789375', 'hashed_admin_password_8', '8888888888', N'token', 1694272166, 1694272231),
 						('admin9', 'admin9@example.com', '082416789375', 'hashed_admin_password_9', '9999999999', N'token', 1694272166, 1694272231),
 						('admin10', 'admin10@example.com', '082426789375', 'hashed_admin_password_10', '0000000000', N'token', 1694272166, 1694272231);
-						SET IDENTITY_INSERT [dbo].[Authorities] ON 
-INSERT INTO Authorities (Id, Cmt, RoleId) VALUES (2, N'012456789375', N'CUST'),
+INSERT INTO Authorities VALUES					(1, N'081456789370', N'CUST'),
+												(2, N'012456789375', N'CUST'),
 												(3, N'083456789375', N'CUST'),
 												(4, N'084456789375', N'CUST'),
 												(5, N'085456789375', N'CUST'),
@@ -667,7 +669,7 @@ INSERT INTO Authorities (Id, Cmt, RoleId) VALUES (2, N'012456789375', N'CUST'),
 												(68, N'082456789365', N'CUST'),
 												(69, N'082456789385', N'CUST'),
 												(70, N'082456789395', N'CUST'),
-												(71, N'082256789375', N'DIRE'),
+												(71, N'082256789375', N'STAF'),
 												(72, N'082356789375', N'DIRE'),
 												(73, N'022456789375', N'DIRE'),
 												(74, N'082556789375', N'DIRE'),

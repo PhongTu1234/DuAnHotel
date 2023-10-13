@@ -10,22 +10,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Data;
 
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "Rooms")
+@Table(name = "Rooms", uniqueConstraints = { @UniqueConstraint(columnNames = { "hotel_id" }) })
 public class Rooms implements Serializable {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id")
     Integer roomId;
 
-    @Column(name = "hotel_id")
-    Integer hotelId;
+//    @Column(name = "hotel_id")
+//    Integer hotelId;
 
 //    @Column(name = "room_type_id")
 //    Integer roomTypeId;
@@ -54,4 +54,8 @@ public class Rooms implements Serializable {
     @ManyToOne
 	@JoinColumn(name = "room_type_id")
 	RoomTypes rt_id;
+    
+    @ManyToOne
+	@JoinColumn(name = "hotel_id")
+	Hotels hotel_id;
 }

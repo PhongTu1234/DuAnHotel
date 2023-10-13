@@ -16,5 +16,7 @@ public interface RoomService {
 	Rooms update(Rooms room);
 
 	void delete(Integer id);
+	
+	List<Rooms> findByHotelId(Integer hid);
 
 }

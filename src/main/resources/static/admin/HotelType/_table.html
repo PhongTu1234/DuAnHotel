@@ -4,14 +4,14 @@
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
+					<th>Level</th>
 					<th>#</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="item in items">
-					<td class="align-center">{{item.id}}</td>
-					<td class="align-center">{{item.name}}</td>
+					<td class="align-center">{{item.hotel_type_id}}</td>
+					<td class="align-center">{{item.hotelLevel}}</td>
 					<td class="align-center">
 						<div class="btn-group btn-group-xs">
 							<button ng-click="edit(item)" class="btn btn-icon">
