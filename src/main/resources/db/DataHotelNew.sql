@@ -211,7 +211,7 @@ insert into HOTELTYPES values   (1, 1.2, 1694272166, 1694272231),
 								(9, 5.0, 1694272166, 1694272231),
 								(10, 3.8, 1694272166, 1694272231)
 
-insert into Hotels values   (1, 'Thuy Van Hotel', N'10 Quang Trung phường 1 thành phố Đà Lạt', '012-345-6789', 'tuannhps21725@gmail.com', N'Sang Trong, đẹp đẽ', N'Free wifi,								security', 4.5, 1, 2, 1, 1694272166, 1694272231),
+insert into Hotels values   (1, 'Thuy Van Hotel', N'10 Quang Trung phường 1 thành phố Đà Lạt', '012-345-6789', 'tuannhps21725@gmail.com', N'Sang Trong, đẹp đẽ', N'Free wifi, security', 4.5, 1, 2, 1, 1694272166, 1694272231),
 							(2, 'Grand Hotel', '123 Main Street, City', '123-456-7890', 'hoangvu07102003@gmail.com', 'A luxurious hotel in the heart of the city', 'Spa, Gym, Restaurant', 4.5, 1, 2, 3, 1694272166, 1694272231),
 							(3, 'Seaside Resort', '456 Beach Road, Coastal Town', '987-654-3210', 'lethingocnga770@gmail.com', 'A relaxing resort by the sea', 'Private Beach, Pool, Water Sports', 4.2, 2, 1, 1, 1694272166, 1694272231),
 							(4, 'Mountain Lodge', '789 Mountain View, Hillside', '555-123-4567', 'tuannhps21725@gmail.com', 'Cozy lodge nestled in the mountains', 'Fireplace, Hiking Trails', 4.0, 1,  1, 3, 1694272166, 1694272231),
