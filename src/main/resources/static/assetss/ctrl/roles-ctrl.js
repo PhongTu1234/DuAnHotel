@@ -1,9 +1,6 @@
-app.controller("student-ctrl", function ($scope, $http) {
-    var url = "/rest/student";
-    var url1 = "/rest/categories";
-    var url2 = "/rest/upload/images";
+app.controller("roles-ctrl", function ($scope, $http) {
+    var url = "/rest/roles";
     $scope.items = [];
-    $scope.cates = [];
     $scope.form = {};
 
     var sweetalert = function (text) {
@@ -16,17 +13,9 @@ app.controller("student-ctrl", function ($scope, $http) {
     }
 
     $scope.initialize = function () {
-        //load student
+        //load account
         $http.get(url).then(resp => {
             $scope.items = resp.data;
-            $scope.items.forEach(item => {
-                item.createDate = new Date(item.createDate)
-            })
-        });
-
-        //load categories
-        $http.get(url1).then(resp => {
-            $scope.cates = resp.data;
         });
     }
 
@@ -35,11 +24,7 @@ app.controller("student-ctrl", function ($scope, $http) {
 
     //xoa form
     $scope.reset = function () {
-        $scope.form = {
-            createDate: new Date(),
-            image: 'cloud-upload.jpg',
-            ivailable: true,
-        };
+        $scope.form = {};
     }
 
     //hien thi len form
@@ -52,12 +37,11 @@ app.controller("student-ctrl", function ($scope, $http) {
     $scope.create = function () {
         var item = angular.copy($scope.form);
         $http.post(`${url}`, item).then(resp => {
-            resp.data.createDate = new Date(resp.data.createDate)
             $scope.items.push(resp.data);
             $scope.reset();
             sweetalert("Thêm mới thành công!");
         }).catch(error => {
-            sweetalert("Lỗi thêm mới sản phẩm!");
+            sweetalert("Lỗi thêm mới danh mục!");
             console.log("Error", error);
         });
     }
@@ -69,9 +53,9 @@ app.controller("student-ctrl", function ($scope, $http) {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
             $scope.reset();
-            sweetalert("Cập nhật sản phẩm thành công!");
+            sweetalert("Cập nhật danh mục thành công!");
         }).catch(error => {
-            sweetalert("Lỗi cập nhật sản phẩm!");
+            sweetalert("Lỗi cập nhật danh mục!");
             console.log("Error", error);
         });
     }
@@ -82,26 +66,11 @@ app.controller("student-ctrl", function ($scope, $http) {
             var index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items.splice(index, 1);
             $scope.reset();
-            sweetalert("Xóa sản phẩm thành công!");
+            sweetalert("Xóa danh mục thành công!");
         }).catch(error => {
-            sweetalert("Lỗi xóa sản phẩm!");
+            sweetalert("Lỗi xóa danh mục!");
             console.log("Error", error);
         });
-    }
-
-    //upload hinh
-    $scope.imageChanged = function (files) {
-        var data = new FormData();
-        data.append('file', files[0]);
-        $http.post(url2, data, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).then(resp => {
-            $scope.form.image = resp.data.name;
-        }).catch(error => {
-            sweetalert("Lỗi tải lên hình ảnh!");
-            console.log("Error", error);
-        })
     }
 
     //phan trang

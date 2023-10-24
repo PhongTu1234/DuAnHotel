@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
 	PasswordEncoder pe;
 
 	@Override
-	public Users findById(String username) {
-		return adao.findById(username).get();
+	public Users findById(String cmt) {
+		return adao.findById(cmt).get();
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(String username) {
-		adao.deleteById(username);
+	public void delete(String cmt) {
+		adao.deleteById(cmt);
 	}
 
 	@Override

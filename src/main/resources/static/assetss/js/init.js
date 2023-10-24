@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('#datatable').DataTable();
     
     var table = $('#datatable-buttons').DataTable({
-        pageLength: 10,
+        pageLength: 12,
         pagingType: 'full_numbers',
         lengthChange: false,
         buttons: ['excel', 'pdf', 'print']

@@ -25,7 +25,7 @@ public class Authority implements Serializable {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name = "Cmt")
+	@JoinColumn(name = "cmt")
 	private Users user;
 	
 	@ManyToOne

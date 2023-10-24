@@ -21,7 +21,7 @@ public class HotelTypesServiceImpl implements HotelTypesService {
 	}
 
 	@Override
-	public HotelTypes findById(String id) {
+	public HotelTypes findById(Integer id) {
 		return htdao.findById(id).get();
 	}
 
@@ -35,7 +35,7 @@ public class HotelTypesServiceImpl implements HotelTypesService {
 	}
 
 	@Override
-	public void delete(String id) {
+	public void delete(Integer id) {
 		htdao.deleteById(id);
 	}
 

@@ -22,15 +22,6 @@ public class RoomTypes implements Serializable{
     @Column(name = "room_type_name")
     String room_type_name;
 
-    @Column(name = "price", precision = 10, scale = 2) 
-    BigDecimal price;
-
-    @Column(name = "created_at")
-    Long createdAt;
-    
-    @Column(name = "updated_at")
-    Long updatedAt;
-    
     @JsonIgnore
 	@OneToMany(mappedBy = "rt_id")
 	List<Rooms> roomtypes;

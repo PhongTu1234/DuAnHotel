@@ -15,13 +15,14 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="item in items">
-					<td class="align-center">{{item.hotel_id}}</td>
-					<td class="align-center w-25">{{item.hotelName}}</td>
-					<td class="align-center">{{item.address}}</td>
+					<td class="align-center">{{item.HotelId}}</td>
+					<td class="align-center w-5">{{item.hotelName}}</td>
+					<td class="align-center w-25">{{item.address}}</td>
 					<td class="align-center">{{item.phoneNumber}}</td>
-					<td class="align-center">{{item.email}}</td>
-					<td class="align-center">{{item.hoteltypes.hotelLevel}}</td>
-					<td class="align-center">{{item.description}}</td>
+					<td class="align-center ">{{item.email}}</td>
+					<td class="align-center">{{item.ht_id.hotelLevel}}</td>
+					<td class="align-center">Null</td>
+					<!--  <td class="align-center">{{item.description}}</td>-->
 					<td class="align-center">
 						<div class="btn-group btn-group-xs">
 							<button ng-click="edit(item)" class="btn btn-icon">

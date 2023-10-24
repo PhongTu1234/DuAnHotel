@@ -1,28 +1,17 @@
 <div class="row mx-0 bg-white" ng-if="items">
 	<div class="col-12 py-3">
-	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 		<table id="datatable-buttons" class="table table-collapse table-bordered dt-responsive">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Name</th>
-					<th>Price</th>
-					<th>Create Date</th>
-					<th>Image</th>
-					<th>Category</th>
-					<th>Available</th>
 					<th>#</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="item in items">
 					<td class="align-center">{{item.id}}</td>
-					<td class="align-center w-25">{{item.name}}</td>
-					<td class="align-center">$ {{item.price | number:2}}</td>
-					<td class="align-center">{{item.createDate | date:'dd/MM/yyyy'}}</td>
-					<td class="align-center">{{item.image}}</td>
-					<td class="align-center">{{item.category.name}}</td>
-					<td class="align-center">{{item.available?'Yes':'No'}}</td>
+					<td class="align-center">{{item.name}}</td>
 					<td class="align-center">
 						<div class="btn-group btn-group-xs">
 							<button ng-click="edit(item)" class="btn btn-icon">

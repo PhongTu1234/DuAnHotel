@@ -11,6 +11,7 @@ public interface UserDAO extends JpaRepository<Users, String> {
 	@Query("SELECT DISTINCT ar.user FROM Authority ar WHERE ar.role.id IN('DIRE','STAF')")
 	List<Users> getAdministrators();
 
+
 	@Query("SELECT u FROM Users u WHERE u.username =?1 and u.password=?2")
 	Users getAccount(String username, String password);
 

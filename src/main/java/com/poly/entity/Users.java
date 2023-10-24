@@ -36,13 +36,11 @@ public class Users implements Serializable{
     @Column(name = "Token")
     String token;
 
-    @Column(name = "created_at")
-    long createdAt;
-
-    @Column(name = "updated_at")
-    long updatedAt;
-
     @JsonIgnore
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	List<Authority> authorities;
+    
+    @JsonIgnore
+	@OneToMany(mappedBy = "UserId")
+	List<Bookings> BookingId;
 }

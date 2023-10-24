@@ -7,11 +7,11 @@ import com.poly.entity.HotelTypes;
 public interface HotelTypesService {
 	List<HotelTypes> findAll();
 
-	HotelTypes findById(String id);
+	HotelTypes findById(Integer id);
 
 	HotelTypes create(HotelTypes hoteltypes);
 
 	HotelTypes update(HotelTypes hoteltypes);
 
-	void delete(String id);
+	void delete(Integer id);
 }

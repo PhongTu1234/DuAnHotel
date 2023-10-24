@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import com.poly.entity.Users;
 
 public interface UserService {
-	Users findById(String username);
+	Users findById(String cmt);
 
 	List<Users> findAll();
 
@@ -17,7 +17,7 @@ public interface UserService {
 
 	Users update(Users account);
 
-	void delete(String username);
+	void delete(String cmt);
 
 	void loginFromOAuth2(OAuth2AuthenticationToken oauth2);
 

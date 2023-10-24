@@ -28,8 +28,8 @@ public class HotelRestController {
 		return hotelService.findAll();
 	}
 
-	@GetMapping("{htid}")
-	public Hotels getOne(@PathVariable("htid") Integer htid) {
+	@GetMapping("{id}")
+	public Hotels getOne(@PathVariable("id") Integer htid) {
 		return hotelService.findById(htid);
 	}
 
@@ -38,13 +38,13 @@ public class HotelRestController {
 		return hotelService.create(hotel);
 	}
 
-	@PutMapping("{htid}")
-	public Hotels update(@PathVariable("htid") Integer htid, @RequestBody Hotels hotel) {
+	@PutMapping("{id}")
+	public Hotels update(@PathVariable("id") Integer htid, @RequestBody Hotels hotel) {
 		return hotelService.update(hotel);
 	}
 
-	@DeleteMapping("{htid}")
-	public void delete(@PathVariable("htid") Integer htid) {
+	@DeleteMapping("{id}")
+	public void delete(@PathVariable("id") Integer htid) {
 		hotelService.delete(htid);
 	}
 }

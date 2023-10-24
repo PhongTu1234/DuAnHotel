@@ -21,12 +21,6 @@ public class HotelTypes implements Serializable{
     @Column(name = "hotel_level")
     Float hotelLevel;
 
-    @Column(name = "created_at")
-    Long createdAt;
-
-    @Column(name = "updated_at")
-    Long updatedAt;
-    
     @JsonIgnore
 	@OneToMany(mappedBy = "ht_id")
 	List<Hotels> hoteltypes;

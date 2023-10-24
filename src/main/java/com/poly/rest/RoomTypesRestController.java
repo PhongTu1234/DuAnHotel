@@ -30,7 +30,7 @@ public class RoomTypesRestController {
 	}
 
 	@GetMapping("{id}")
-	public RoomTypes getOne(@PathVariable("id") String id) {
+	public RoomTypes getOne(@PathVariable("id") Integer id) {
 		return RoomTypesService.findById(id);
 	}
 
@@ -45,7 +45,7 @@ public class RoomTypesRestController {
 	}
 
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable("id") String id) {
+	public void delete(@PathVariable("id") Integer id) {
 		RoomTypesService.delete(id);
 	}
 }

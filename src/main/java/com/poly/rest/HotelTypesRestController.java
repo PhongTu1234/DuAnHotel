@@ -30,7 +30,7 @@ public class HotelTypesRestController {
 	}
 
 	@GetMapping("{id}")
-	public HotelTypes getOne(@PathVariable("id") String id) {
+	public HotelTypes getOne(@PathVariable("id") Integer id) {
 		return HotelTypesService.findById(id);
 	}
 
@@ -45,7 +45,7 @@ public class HotelTypesRestController {
 	}
 
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable("id") String id) {
+	public void delete(@PathVariable("id") Integer id) {
 		HotelTypesService.delete(id);
 	}
 }

@@ -21,7 +21,7 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 	}
 
 	@Override
-	public RoomTypes findById(String id) {
+	public RoomTypes findById(Integer id) {
 		return rtdao.findById(id).get();
 	}
 
@@ -35,7 +35,7 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 	}
 
 	@Override
-	public void delete(String id) {
+	public void delete(Integer id) {
 		rtdao.deleteById(id);
 	}
 

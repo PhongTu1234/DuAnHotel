@@ -1,7 +1,7 @@
 app.controller("authority-ctrl", function ($scope, $http, $location) {
     var url = "/rest/roles";
     var url1 = "/rest/authorities";
-    var url2 = "/rest/accounts?admin=false";
+    var url2 = "/rest/users?admin=false";
     var url3 = "/rest/authorities?admin=false";
     $scope.roles = [];
     $scope.admins = [];
@@ -33,7 +33,7 @@ app.controller("authority-ctrl", function ($scope, $http, $location) {
 
     $scope.authority_of = function (acc, role) {
         if ($scope.authorities) {
-            return $scope.authorities.find(ur => ur.account.username == acc.username && ur.role.id == role.id);
+            return $scope.authorities.find(ur => ur.user.cmt == acc.cmt && ur.role.id == role.id);
         }
     }
 
@@ -43,7 +43,7 @@ app.controller("authority-ctrl", function ($scope, $http, $location) {
             $scope.revoke_authority(authority); //da cap quyen => thu hoi quyen(xoa)
         }
         else {
-            authority = { account: acc, role: role };
+            authority = { user: acc, role: role };
             $scope.grant_authority(authority); //chua duoc cap quyen => cap quyen(them moi)
         }
     }
