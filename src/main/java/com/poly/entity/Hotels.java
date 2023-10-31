@@ -29,13 +29,13 @@ public class Hotels implements Serializable {
 	Integer id;
 
 	@Column(name = "hotel_name")
-	String hotelName;
+	String name;
 
 	@Column(name = "address")
 	String address;
 
 	@Column(name = "phone_number")
-	String phoneNumber;
+	String phone;
 
 	@Column(name = "Email_hotel")
 	String email;
@@ -49,17 +49,17 @@ public class Hotels implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "hotel_type_id")
-	HotelTypes ht_id;
+	HotelTypes HotelTypes;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "Hotel")
-	List<Rooms> room;
+	@OneToMany(mappedBy = "Hotels")
+	List<Rooms> Rooms;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "hotelId")
-	List<Images_Hotel> ImgHotelId;
+	@OneToMany(mappedBy = "Hotels")
+	List<Images_Hotel> Images_Hotel;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "hId")
-	List<Bookings> Booking;
+	@OneToMany(mappedBy = "Hotels")
+	List<Booking_Room> Booking_Room;
 }

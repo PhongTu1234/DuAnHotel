@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,15 +23,15 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "Rooms", uniqueConstraints = { @UniqueConstraint(columnNames = { "hotel_id" }) })
+@Table(name = "Rooms")
 public class Rooms implements Serializable {
 
 	@Id
     @Column(name = "room_id")
-    Integer roomId;
+    Integer id;
 
-    @Column(name = "room_number", length = 10)
-    String roomNumber;
+    @Column(name = "roomname")
+    String name;
     
     @Column(name = "price", precision = 10, scale = 2) 
     BigDecimal price;
@@ -40,22 +41,28 @@ public class Rooms implements Serializable {
 
     @Column(name = "description", columnDefinition = "TEXT")
     String description;
-
-    @Column(name = "image_id")
-    Integer imageId;
-
-    @Column(name = "service_id", length = 50)
-    String serviceId;
-
+    
     @ManyToOne
 	@JoinColumn(name = "room_type_id")
-	RoomTypes rt_id;
+	RoomTypes RoomTypes;
     
     @ManyToOne
 	@JoinColumn(name = "hotel_id")
-	Hotels Hotel;
+	Hotels Hotels;
     
     @JsonIgnore
-	@OneToMany(mappedBy = "RoomId")
+	@OneToMany(mappedBy = "Rooms")
 	List<Service_Rooms> Service_Room;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "Rooms")
+	List<Images_Room> Images_Room;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "Rooms")
+	List<Feedback> Feedback;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "Rooms")
+	List<Booking_Room> Booking_Room;
 }

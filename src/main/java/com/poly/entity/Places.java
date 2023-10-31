@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,10 +22,10 @@ public class Places implements Serializable {
 
     @Id
     @Column(name = "place_id")
-    Integer placeid;
+    Integer id;
 
     @Column(name = "place_name")
-    String placename;
+    String name;
 
     @JsonIgnore
 	@OneToMany(mappedBy = "Place")

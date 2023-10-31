@@ -26,8 +26,11 @@ public class Bookings implements Serializable {
 
     @Id
     @Column(name = "booking_id")
-    Integer BookingId;
+    Integer id;
 
+    @Column(name = "payment_status")
+    Boolean Status;
+    
     @Column(name = "booking_date")
     Timestamp BookingDate;
     
@@ -36,22 +39,12 @@ public class Bookings implements Serializable {
     
     @Column(name = "checkout_date")
     Timestamp CheckoutDate;
-    
-    @Column(name = "payment_status")
-    Boolean PaymentStatus;
-    
-    @Column(name = "total_price", precision = 10, scale = 2) 
-    BigDecimal TotalPrice;
 
     @ManyToOne
-	@JoinColumn(name = "hotel_id")
-	Hotels hId;
-    
-    @ManyToOne
 	@JoinColumn(name = "payment_id")
-	Payment payId;
+	Payment Payment;
     
     @ManyToOne
-	@JoinColumn(name = "CMT")
-	Users UserId;
+	@JoinColumn(name = "cmt")
+	Users Users;
 }

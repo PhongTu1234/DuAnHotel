@@ -1,6 +1,8 @@
 package com.poly.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -25,15 +27,22 @@ import lombok.Data;
 public class Booking_Room implements Serializable {
 
     @Id
-    @Column(name = "bookingRoom_id")
-    Integer BRId;
+    @Column(name = "bookingroom_id")
+    Integer id;
+    
+    @Column(name = "Count")
+    Integer count;
 
     @ManyToOne
 	@JoinColumn(name = "booking_id")
-	Bookings bId;
+	Bookings Bookings;
     
     @ManyToOne
 	@OneToMany(mappedBy = "room_id")
-	Rooms r_id;
+	Rooms Rooms;
+    
+    @ManyToOne
+	@OneToMany(mappedBy = "hotel_id")
+	Hotels Hotels;
     
 }

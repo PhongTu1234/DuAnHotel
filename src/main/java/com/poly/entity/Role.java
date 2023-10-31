@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,13 +21,13 @@ import lombok.Data;
 public class Role implements Serializable {
 
 	@Id
-	@Column(name = "Id")
+	@Column(name = "role_id")
 	String id;
 	
 	@Column(name = "Name")
 	String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "role")
-	List<Authority> authorities;
+	@OneToMany(mappedBy = "Role")
+	List<Authority> Authority;
 }

@@ -25,19 +25,19 @@ import lombok.Data;
 public class Feedback implements Serializable {
 
     @Id
-    @Column(name = "feedBack_id")
-    Integer BRId;
+    @Column(name = "feed_back_id")
+    Integer id;
 
     @Column(name = "description")
 	String Des;
     
     @ManyToOne
-	@OneToMany(mappedBy = "room_id", fetch = FetchType.EAGER)
-	Rooms r_id;
+    @JoinColumn(name = "room_id")
+	Rooms Rooms;
     
     @ManyToOne
-	@OneToMany(mappedBy = "phone_number", fetch = FetchType.EAGER)
-	Users PhoneNumber;
+    @JoinColumn(name = "cmt")
+	Users Users;
     
     
 }

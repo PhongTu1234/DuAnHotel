@@ -22,13 +22,13 @@ public class Service_Rooms implements Serializable {
 
 	@Id
 	@Column(name = "ServiceRooms_Id")
-	Integer ServiceRoomsId;
+	Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "room_id")
-	Rooms RoomId;
+	Rooms Rooms;
 	
 	@ManyToOne
 	@JoinColumn(name = "service_id")
-	Services ServiceId;
+	Services Services;
 }

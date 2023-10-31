@@ -26,9 +26,9 @@ public class Images_Hotel implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "hotel_id")
-	Hotels hotelId;
+	Hotels Hotels;
 	
 	@ManyToOne
 	@JoinColumn(name = "image_id")
-	Images imtId;
+	Images Images;
 }

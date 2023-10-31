@@ -46,18 +46,18 @@ public class AuthController {
 	}
 
 	@RequestMapping("/auth/login/form")
-	public String logInForm(Model model, @ModelAttribute("user") Users users) {
+	public String logInForm(Model model, @ModelAttribute("Users") Users users) {
 		return "auth/login_register";
 	}
 
 	@RequestMapping("/auth/login/success")
-	public String logInSuccess(Model model, @ModelAttribute("user") Users users) {
+	public String logInSuccess(Model model, @ModelAttribute("Users") Users users) {
 		model.addAttribute("message", "Logged in successfully");
 		return "redirect:/index";
 	}
 
 	@RequestMapping("/auth/login/error")
-	public String logInError(Model model, @Validated @ModelAttribute("user") Users users, Errors errors) {
+	public String logInError(Model model, @Validated @ModelAttribute("Users") Users users, Errors errors) {
 		if (errors.hasErrors()) {
 			model.addAttribute("message", "Wrong login information!");
 			return "auth/login_register";
@@ -66,13 +66,13 @@ public class AuthController {
 	}
 
 	@RequestMapping("/auth/unauthoried")
-	public String unauthoried(Model model, @ModelAttribute("user") Users users) {
+	public String unauthoried(Model model, @ModelAttribute("Users") Users users) {
 		model.addAttribute("message", "You don't have access!");
 		return "auth/login_register";
 	}
 
 	@RequestMapping("/auth/logout/success")
-	public String logOutSuccess(Model model, @ModelAttribute("user") Users users) {
+	public String logOutSuccess(Model model, @ModelAttribute("Users") Users users) {
 		model.addAttribute("message", "You are logged out!");
 		return "auth/login_register";
 	}
@@ -86,12 +86,12 @@ public class AuthController {
 
 	@GetMapping("/auth/register")
 	public String signUpForm(Model model) {
-		model.addAttribute("user", new Users());
+		model.addAttribute("Users", new Users());
 		return "auth/login_register";
 	}
 
 	@PostMapping("/auth/register")
-	public String signUpSuccess(Model model, @Validated @ModelAttribute("user") Users account, Errors error,
+	public String signUpSuccess(Model model, @Validated @ModelAttribute("Users") Users account, Errors error,
 			HttpServletResponse response) {
 		if (error.hasErrors()) {
 			model.addAttribute("message", "Please correct the error below!");

@@ -16,13 +16,13 @@ import lombok.Data;
 public class HotelTypes implements Serializable{
 	@Id
     @Column(name = "hotel_type_id")
-    Integer hotel_type_id;
+    Integer id;
 
     @Column(name = "hotel_level")
-    Float hotelLevel;
+    Float Level;
 
     @JsonIgnore
-	@OneToMany(mappedBy = "ht_id")
-	List<Hotels> hoteltypes;
+	@OneToMany(mappedBy = "HotelTypes")
+	List<Hotels> Hotels;
     
 }

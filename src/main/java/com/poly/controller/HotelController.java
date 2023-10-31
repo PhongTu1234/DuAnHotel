@@ -28,14 +28,14 @@ public class HotelController {
 	@RequestMapping("/hotel/all")
 	public String Level(Model model) {
 		List<Hotels> item = hService.findAll();
-		model.addAttribute("item", item);
+		model.addAttribute("items", item);
 		return "shop";
 	}
 	
 	@RequestMapping("/hotel/0to1")
 	public String Level1(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel0to1();
-		model.addAttribute("item", item);
+		model.addAttribute("items", item);
 		return "shop";
 	}
 	

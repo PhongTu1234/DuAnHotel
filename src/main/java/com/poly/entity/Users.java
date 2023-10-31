@@ -37,10 +37,14 @@ public class Users implements Serializable{
     String token;
 
     @JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	List<Authority> authorities;
+	@OneToMany(mappedBy = "Users", fetch = FetchType.EAGER)
+	List<Authority> Authority;
     
     @JsonIgnore
-	@OneToMany(mappedBy = "UserId")
-	List<Bookings> BookingId;
+	@OneToMany(mappedBy = "Users")
+	List<Bookings> Bookings;
+    
+    @JsonIgnore
+	@OneToMany(mappedBy = "Users")
+	List<Feedback> Feedback;
 }

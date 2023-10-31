@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,16 +24,16 @@ public class Services implements Serializable {
 
     @Id
     @Column(name = "service_id")
-    Integer ServiceId;
+    Integer id;
 
     @Column(name = "service_name")
-    String ServiceName;
+    String name;
 
     @ManyToOne
 	@JoinColumn(name = "image_id")
-	Images img_id;
+	Images Images;
     
     @JsonIgnore
-	@OneToMany(mappedBy = "ServiceId")
-	List<Service_Rooms> Service_Room;
+	@OneToMany(mappedBy = "Services")
+	List<Service_Rooms> Service_Rooms;
 }

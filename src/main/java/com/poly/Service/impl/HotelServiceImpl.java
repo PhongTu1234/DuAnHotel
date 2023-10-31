@@ -78,4 +78,9 @@ public class HotelServiceImpl implements HotelService {
 		return hdao.findHotelByHotelLevel5();
 	}
 
+	@Override
+	public List<Hotels> findCountId() {
+		return null;
+	}
+
 }

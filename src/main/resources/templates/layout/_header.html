@@ -76,16 +76,16 @@
 										</th:block>
 										<th:block th:if="${#request.remoteUser}">
 											<li th:if="${#request.isUserInRole('Dire') or #request.isUserInRole('STAF')}">
-												<a th:href="@{/admin}">Adminstrator</a>
+												<a class="dropdown-item" th:href="@{/admin}">Adminstrator</a>
 											</li>
 											<li>
-												<a th:href="@{/order/list}">Your Order</a>
+												<a class="dropdown-item" th:href="@{/order/list}">Your Order</a>
 											</li>
 											<li>
-												<a th:href="@{/auth/change-password}">Change Password</a>
+												<a class="dropdown-item" th:href="@{/auth/change-password}">Change Password</a>
 											</li>
 											<li>
-												<a th:href="@{/auth/logout}">Logout</a>
+												<a class="dropdown-item" th:href="@{/auth/logout}">Logout</a>
 											</li>
 										</th:block>
 									</ul>
@@ -125,7 +125,7 @@
 										<li><span class="title">Hotel Style</span>
 											<ul>
 												<li th:each="ht:${ht}"><a
-													th:href="@{|/index?htid=${ht.hotel_type_id}|}">[[${ht.hotelLevel}]]</a></li>
+													th:href="@{|/index?htid=${ht.id}|}">[[${ht.Level}]]</a></li>
 											</ul></li>
 										<li><span class="title">Hotel Types</span>
 											<ul>
@@ -140,7 +140,7 @@
 										<li><span class="title">Room Style</span>
 											<ul>
 												<li th:each="rt:${rt}"><a
-													th:href="@{|/index?htid=${rt.room_type_id}|}">[[${rt.room_type_name}]]</a></li>
+													th:href="@{|/index?htid=${rt.id}|}">[[${rt.name}]]</a></li>
 											</ul></li>
 										<li><span class="title">Product Related</span>
 											<ul>
@@ -153,7 +153,7 @@
 												<li><a href="checkout.html">Checkout</a></li>
 											</ul></li>
 									</ul></li>
-								<li class="drop-holder"><a href="blog">Blog</a>
+								<li class="drop-holder"><a th:href="@{/blog}">Blog</a>
 									<ul class="drop-menu">
 										<li><a href="blog-listview.html">Blog List View</a></li>
 										<li><a href="blog-detail.html">Blog Detail</a></li>

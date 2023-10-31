@@ -19,7 +19,7 @@ public class Blogs implements Serializable {
 
     @Id
     @Column(name = "id")
-    Integer blogId;
+    Integer id;
 
     @Column(name = "title")
     String Title;

@@ -17,18 +17,18 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "Authorities", uniqueConstraints = { @UniqueConstraint(columnNames = { "Cmt", "Roleid" }) })
+@Table(name = "Authorities", uniqueConstraints = { @UniqueConstraint(columnNames = { "cmt", "role_id" }) })
 public class Authority implements Serializable {
 
 	@Id
 	@Column(name = "Id")
-	private Integer id;
+	Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name = "cmt")
-	private Users user;
+	Users Users;
 	
 	@ManyToOne
-	@JoinColumn(name = "Roleid")
-	private Role role;
+	@JoinColumn(name = "role_id")
+	Role Role;
 }

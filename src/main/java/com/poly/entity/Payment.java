@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,19 +26,19 @@ public class Payment implements Serializable {
 
     @Id
     @Column(name = "payment_id")
-    Integer PaymentId;
+    Integer id;
 
     @Column(name = "payment_date")
-    Timestamp payment_date;
+    Timestamp date;
     
     @Column(name = "total_amount", precision = 10, scale = 2) 
-    BigDecimal TotalAmount;
+    BigDecimal Total;
     
     @Column(name = "payment_method")
-    String PaymentMethod;
+    String Method;
     
     @JsonIgnore
-	@OneToMany(mappedBy = "payId")
-	List<Bookings> BookingId;
+	@OneToMany(mappedBy = "Payment")
+	List<Bookings> Bookings;
     
 }

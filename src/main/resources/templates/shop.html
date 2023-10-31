@@ -45,15 +45,15 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a th:href="@{/HotelType_1}">
                                                     <i class="fa fa-chevron-right"></i>
-                                                    Bansai <span>(12)</span>
+                                                    1 <span>x</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a th:href="@{/HotelType_2}">
                                                     <i class="fa fa-chevron-right"></i>
-                                                    House Plants <span>(22)</span>
+                                                    2 <span>x</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -198,7 +198,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="grid-view" role="tabpanel" aria-labelledby="grid-view-tab">
                                     <div class="product-grid-view row g-y-20">
-                                        <div class="col-md-4 col-sm-6" th:each="p:${item}">
+                                        <div class="col-md-4 col-sm-6" th:each="a:${items}">
                                             <div class="product-item">
                                                 <div class="product-img">
                                                     <a href="single-product-variable.html">
@@ -226,7 +226,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <a class="product-name" th:href="@{|/hotel/room/${p.hotel_id}|}">[[(${p.hotelName})]]</a>
+                                                    <a class="product-name" th:href="@{|/hotel/room/${a.id}|}">[[(${a.name})]]</a>
                                                     <div class="price-box pb-1">
                                                         <span class="new-price">$23.45</span>
                                                     </div>

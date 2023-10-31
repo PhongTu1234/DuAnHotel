@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.poly.entity.Users;
 
 public interface UserDAO extends JpaRepository<Users, String> {
-	@Query("SELECT DISTINCT ar.user FROM Authority ar WHERE ar.role.id IN('DIRE','STAF')")
+	@Query("SELECT DISTINCT ar.Users FROM Authority ar WHERE ar.Role.id IN('DIRE','STAF')")
 	List<Users> getAdministrators();
 
 

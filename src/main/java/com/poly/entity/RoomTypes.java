@@ -17,13 +17,13 @@ import lombok.Data;
 public class RoomTypes implements Serializable{
 	@Id
     @Column(name = "room_type_id")
-    Integer room_type_id;
+    Integer id;
 
     @Column(name = "room_type_name")
-    String room_type_name;
+    String name;
 
     @JsonIgnore
-	@OneToMany(mappedBy = "rt_id")
-	List<Rooms> roomtypes;
+	@OneToMany(mappedBy = "RoomTypes")
+	List<Rooms> Rooms;
     
 }

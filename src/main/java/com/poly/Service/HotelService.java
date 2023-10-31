@@ -30,5 +30,7 @@ public interface HotelService {
 	List<Hotels> findHotelByHotelLevel4to5();
 	
 	List<Hotels> findHotelByHotelLevel5();
+	
+	List<Hotels> findCountId();
 
 }
