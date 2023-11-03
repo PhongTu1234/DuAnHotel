@@ -37,7 +37,7 @@ CREATE TABLE [Services] (
 --Loại khách sạn
 CREATE TABLE HOTELTYPES (
     hotel_type_id INT PRIMARY KEY NOT NULL,				--ID duy nhất cho loại khách sạn
-	hotel_level Float NOT NULL,							--Mức độ khách sạn
+	hotel_level VARCHAR(5) NOT NULL,							--Mức độ khách sạn
 );
 go
 
@@ -265,12 +265,12 @@ insert into RoomTypes values (1, 'Single room'),
 							 (10, 'Smoking room'),
 							 (11, 'Non-smoking room');
 
-insert into HOTELTYPES values 	(1, 0.0),
-	  							(2, 1.0),
-								(3, 2.0),
-								(4, 3.0),
-								(5, 4.0),
-								(6, 5.0);
+insert into HOTELTYPES values 	(1, '0.0'),
+	  							(2, '1.0'),
+								(3, '2.0'),
+								(4, '3.0'),
+								(5, '4.0'),
+								(6, '5.0');
 
 INSERT INTO Authorities VALUES	(1, '081456789370', N'DIRE'),
 								(21, '081456789370', N'STAF'),

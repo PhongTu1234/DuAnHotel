@@ -195,6 +195,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div>[[(${count})]]</div>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="grid-view" role="tabpanel" aria-labelledby="grid-view-tab">
                                     <div class="product-grid-view row g-y-20">
@@ -849,11 +850,15 @@
                             <div class="pagination-area">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                     	<li class="page-item">
+                                            <a class="page-link" th:href="@{|/hotel/last/${last}|}" aria-label="Last"><i class="fa-solid fa-backward-fast"></i></a>
+                                        </li>
+                                        <!-- <div>[[(${start})]]</div>-->
+                                        <li class="page-item"><a class="page-link" th:href="@{|/hotel/last/${last}|}">[[(${last})]]</a></li>
+                                        <li class="page-item active"><div class="page-link">[[(${start})]]</div></li>
+                                        <li class="page-item"><a class="page-link" th:href="@{|/hotel/next/${next}|}">[[(${next})]]</a></li>
                                         <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">&raquo;</a>
+                                            <a class="page-link" th:href="@{|/hotel/next/${next}|}" aria-label="Next"><i class="fa-solid fa-forward-fast"></i></a>
                                         </li>
                                     </ul>
                                 </nav>
