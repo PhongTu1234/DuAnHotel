@@ -23,10 +23,19 @@ public class HomeController {
 	
 	@RequestMapping({"/", "/index"})
     public String index(Model model) {
-		List<Rooms> room = rtservice.findAll();
-		model.addAttribute("items", room);
+//		List<Rooms> room = rtservice.findAll();
+		List<Rooms> rooms = rtservice.findByRoom1to8();
+//		model.addAttribute("items", room);
+		model.addAttribute("items", rooms);
 		return "index";
 	}
+	
+//	@RequestMapping({"/roomtop8"})
+//    public String roomTop8(Model model) {
+//		List<Rooms> room = rtservice.findByRoom1to8();
+//		model.addAttribute("items", room);
+//		return "index";
+//	}
 	
 	@RequestMapping({ "/admin", "/admin/index" })
 	public String admin(Model model) {

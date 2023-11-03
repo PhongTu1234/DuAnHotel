@@ -48,4 +48,10 @@ public class RoomServiceImpl implements RoomService {
 		return rdao.findByHotelId(hid);
 	}
 
+	@Override
+	public List<Rooms> findByRoom1to8() {
+		return rdao.findByRoom1to8();
+	}
+	
+
 }

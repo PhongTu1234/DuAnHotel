@@ -83,4 +83,9 @@ public class HotelServiceImpl implements HotelService {
 		return null;
 	}
 
+	@Override
+	public List<Hotels> findPage(Integer page) {
+		return hdao.findPage(page);
+	}
+
 }

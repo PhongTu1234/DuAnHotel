@@ -18,5 +18,7 @@ public interface RoomService {
 	void delete(Integer id);
 	
 	List<Rooms> findByHotelId(Integer hid);
+	
+	List<Rooms> findByRoom1to8();
 
 }
