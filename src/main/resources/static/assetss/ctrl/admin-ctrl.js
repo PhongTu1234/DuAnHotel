@@ -2,10 +2,10 @@ app = angular.module("admin-app", ["ngRoute"]);
 
 app.config(function ($routeProvider) {
     $routeProvider
-    	.when("/account", {
-            templateUrl: "/admin/Users/index.html",
-            controller: "account-ctrl"
-        })
+    	.when("/dash", {
+		    templateUrl: "/admin/dashboard",
+		    controller: "account-ctrl"
+		})
         .when("/authority", {
             templateUrl: "/admin/Authority/index.html",
             controller: "authority-ctrl"

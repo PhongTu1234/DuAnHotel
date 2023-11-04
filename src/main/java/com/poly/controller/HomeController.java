@@ -45,8 +45,9 @@ public class HomeController {
 		model.addAttribute("items", count);
 		model.addAttribute("a", hotels);
 		model.addAttribute("b", a);
-		return "redirect:/admin/index.html";
+		return "/admin/dashboard";
 	}
+	
 	
 	@RequestMapping("shop")
 	public String shop() {

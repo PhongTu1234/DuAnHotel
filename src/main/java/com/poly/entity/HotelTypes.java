@@ -19,7 +19,7 @@ public class HotelTypes implements Serializable{
     Integer id;
 
     @Column(name = "hotel_level")
-    Float Level;
+    Integer Level;
 
     @JsonIgnore
 	@OneToMany(mappedBy = "HotelTypes")

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
 </head>
 
-<body class="fixed-left" ng-app="admin-app">
+<body class="fixed-left">
     <div id="preloader">
         <div id="status">
             <div class="spinner"></div>
@@ -22,7 +21,7 @@
         <div th:replace="/admin/_sidebar.html"></div>
         <div class="content-page">
             <div class="content">
-                <div ng-include="'/admin/_topbar.html'"></div>
+                <div th:replace="'/admin/_topbar.html'"></div>
                 <div class="ng-view"></div>
 
             </div>
@@ -69,6 +68,8 @@
     <script src="/assetss/ctrl/roomtype-ctrl.js"></script>
     <script src="/assetss/ctrl/service-ctrl.js"></script>
     <script src="/assetss/ctrl/serviceroom-ctrl.js"></script>
+    
+    <script src="assets/js/main.js"></script>
     
 </body>
 

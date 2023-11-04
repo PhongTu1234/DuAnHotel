@@ -1,35 +1,111 @@
-<div class="page-content-wrapper">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="page-title-box">
-					<div class="btn-group float-right">
-						<ol class="breadcrumb hide-phone p-0 m-0">
-							<li class="breadcrumb-item">
-								<a href="#">Julie</a>
-							</li>
-							<li class="breadcrumb-item active">Hotels</li>
-						</ol>
-					</div>
-					<h4 class="page-title">Hotels</h4>
-				</div>
-			</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<title>Julie - Admin Dashboard</title>
+<link rel="shortcut icon" href="/assetss/img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
+</head>
+
+<body class="fixed-left">
+	<div id="preloader">
+		<div id="status">
+			<div class="spinner"></div>
 		</div>
-		<nav>
-			<div class="nav nav-tabs" id="nav-tab" role="tablist">
-				<a href="javascript:(0);" class="nav-link" data-toggle="tab" data-target="#edit" type="button"
-					role="tab" aria-selected="false">EDITION</a>
-				<a href="javascript:(0);" class="nav-link active" data-toggle="tab" data-target="#list" type="button"
-					role="tab" aria-selected="true">LISTS</a>
-			</div>
-		</nav>
-		<div class="tab-content" id="nav-tabContent">
-			<div class="tab-pane fade" id="edit" role="tabpanel">
-				<div ng-include="'/admin/Hotel/_form.html'"></div>
-			</div>
-			<div class="tab-pane fade show active" id="list" role="tabpanel">
-				<div ng-include="'/admin/Hotel/_table.html'"></div>
+	</div>
+	<div id="wrapper">
+
+		<!--  <div ng-include="'/admin/_sidebar.html'"></div>-->
+		<div th:replace="/admin/_sidebar.html"></div>
+		<div class="content-page">
+			<div class="content">
+				<div th:replace="'/admin/_topbar.html'"></div>
+				<div class="page-content-wrapper">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="page-title-box">
+									<div class="btn-group float-right">
+										<ol class="breadcrumb hide-phone p-0 m-0">
+											<li class="breadcrumb-item"><a href="#">Julie</a></li>
+											<li class="breadcrumb-item active">Hotels</li>
+										</ol>
+									</div>
+									<h4 class="page-title">Hotels</h4>
+								</div>
+							</div>
+						</div>
+						<nav>
+							<div class="nav nav-tabs" id="nav-tab" role="tablist">
+								<a href="javascript:(0);" class="nav-link" data-toggle="tab"
+									data-target="#edit" type="button" role="tab"
+									aria-selected="false">EDITION</a> <a href="javascript:(0);"
+									class="nav-link active" data-toggle="tab" data-target="#list"
+									type="button" role="tab" aria-selected="true">LISTS</a>
+							</div>
+						</nav>
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane fade" id="edit" role="tabpanel">
+								<div ng-include="'/admin/Hotel/_form.html'"></div>
+							</div>
+							<div class="tab-pane fade show active" id="list" role="tabpanel">
+								<div ng-include="'/admin/Hotel/_table.html'"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<footer class="footer">
+					Copyright © 2022 <b>Julie</b>. All rights reserved.
+				</footer>
 			</div>
 		</div>
 	</div>
-</div>
+
+
+	<script src="/assetss/js/jquery.min.js"></script>
+	<script src="/assetss/js/popper.min.js"></script>
+	<script src="/assetss/js/bootstrap.min.js"></script>
+	<script src="/assetss/js/modernizr.min.js"></script>
+	<script src="/assetss/js/detect.js"></script>
+	<script src="/assetss/js/fastclick.js"></script>
+	<script src="/assetss/js/jquery.slimscroll.js"></script>
+	<script src="/assetss/js/jquery.blockUI.js"></script>
+	<script src="/assetss/js/waves.js"></script>
+	<script src="/assetss/js/jquery.nicescroll.js"></script>
+	<script src="/assetss/js/jquery.scrollTo.min.js"></script>
+	<script src="/assetss/js/sweetalert2.all.min.js"></script>
+	<script src="/assetss/js/datatables.min.js"></script>
+	<script src="/assetss/js/pdfmake.min.js"></script>
+	<script src="/assetss/js/vfs_fonts.js"></script>
+	<script src="/assetss/js/app.js"></script>
+	<script src="/assetss/js/angular.min.js"></script>
+	<script src="/assetss/js/angular-route.min.js"></script>
+	<script src="/assetss/ctrl/account-ctrl.js"></script>
+	<script src="/assetss/ctrl/admin-ctrl.js"></script>
+	<script src="/assetss/ctrl/authority-ctrl.js"></script>
+	<script src="/assetss/ctrl/blog-ctrl.js"></script>
+	<script src="/assetss/ctrl/booking-ctrl.js"></script>
+	<script src="/assetss/ctrl/bookingroom-ctrl.js"></script>
+	<script src="/assetss/ctrl/feedback-ctrl.js"></script>
+	<script src="/assetss/ctrl/hotel-ctrl.js"></script>
+	<script src="/assetss/ctrl/hoteltype-ctrl.js"></script>
+	<script src="/assetss/ctrl/images-ctrl.js"></script>
+	<script src="/assetss/ctrl/imageshotel-ctrl.js"></script>
+	<script src="/assetss/ctrl/imagesroom-ctrl.js"></script>
+	<script src="/assetss/ctrl/payment-ctrl.js"></script>
+	<script src="/assetss/ctrl/place-ctrl.js"></script>
+	<script src="/assetss/ctrl/roles-ctrl.js"></script>
+	<script src="/assetss/ctrl/room-ctrl.js"></script>
+	<script src="/assetss/ctrl/roomtype-ctrl.js"></script>
+	<script src="/assetss/ctrl/service-ctrl.js"></script>
+	<script src="/assetss/ctrl/serviceroom-ctrl.js"></script>
+
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
