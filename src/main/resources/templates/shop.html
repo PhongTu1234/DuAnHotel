@@ -232,12 +232,43 @@
                                                         <span class="new-price">$23.45</span>
                                                     </div>
                                                     <div class="rating-box">
-                                                        <ul>
+                                                    	<ul th:if="${a.Level == 1}">
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                        </ul>
+                                                        <ul th:if="${a.Level == 2}">
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                        </ul>
+                                                        <ul th:if="${a.Level == 3}">
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                        </ul>
+                                                        <ul th:if="${a.Level == 4}">
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa-solid fa-star" style="color: #e6e6e6;"></i></li>
+                                                        </ul>
+                                                        <ul th:if="${a.Level == 5}">
                                                             <li><i class="fa fa-star"></i></li>
                                                             <li><i class="fa fa-star"></i></li>
                                                             <li><i class="fa fa-star"></i></li>
                                                             <li><i class="fa fa-star"></i></li>
                                                             <li><i class="fa fa-star"></i></li>
+                                                        </ul>
+                                                        <ul th:if="${a.Level == 0}">
+                                                            <li>Chưa được xếp hạng</li>
                                                         </ul>
                                                     </div>
                                                 </div>
