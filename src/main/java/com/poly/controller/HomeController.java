@@ -27,6 +27,10 @@ public class HomeController {
 		List<Rooms> rooms = rtservice.findByRoom1to8();
 //		model.addAttribute("items", room);
 		model.addAttribute("items", rooms);
+		
+		List<Hotels> hotel = htservice.findAll();
+		int countHotel = hotel.size();
+		model.addAttribute("countHotel", countHotel);
 		return "index";
 	}
 	

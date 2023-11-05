@@ -45,48 +45,13 @@ public class HotelController {
         //double a = count - SOLuongTrongTrang * start;
 //        double b = (endRounded - 1) * 15;
 		model.addAttribute("count", endRounded);
-		String Start = null;
-		for (Hotels hotel : item) {
-	        Integer hotelTypes = hotel.getLevel();
-	        switch (hotelTypes) {
-			case 1:
-				Start = "<li><i class=\"fa fa-star\"></i></li>";
-				break;
-			case 2:
-				Start = "<li><i class=\"fa fa-star\"></i></li> "
-							 + "<li><i class=\\\"fa fa-star\\\"></i></li>";
-				break;
-			case 3:
-				Start = "<li><i class=\"fa fa-star\"></i></li> "
-							 + "<li><i class=\"fa fa-star\"></i></li>"
-							 + "<li><i class=\"fa fa-star\"></i></li>";
-				break;
-			case 4:
-				Start = "<li><i class=\"fa fa-star\"></i></li> "
-							 + "<li><i class=\"fa fa-star\"></i></li>"
-							 + "<li><i class=\"fa fa-star\"></i></li>"
-							 + "<li><i class=\"fa fa-star\"></i></li>";
-				break;
-			case 5:
-				Start = "<li><i class=\"fa fa-star\"></i></li> "
-							 + "<li><i class=\"fa fa-star\"></i></li>"
-							 + "<li><i class=\"fa fa-star\"></i></li>"
-							 + "<li><i class=\"fa fa-star\"></i></li>"
-							 + "<li><i class=\"fa fa-star\"></i></li>";
-				break;
-			default:
-				break;
-			}
-	    }
-		Start = "This is a <b>sample</b>";
-        String htmlString = StringEscapeUtils.escapeHtml4(Start);
-
+		
 		List<Hotels> items = hService.findPage((start-1) * SOLuongTrongTrang);
+		
 		model.addAttribute("items", items);
 		model.addAttribute("last", last);
 		model.addAttribute("start", start);
 		model.addAttribute("next", next);
-		model.addAttribute("Start", htmlString);
 		return "shop";
 	}
 	
@@ -130,8 +95,6 @@ public class HotelController {
 		return "shop";
 	}
 	
-	
-	
 	@RequestMapping("/hotel/0to1")
 	public String Level1(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel0to1();
@@ -159,7 +122,7 @@ public class HotelController {
 		model.addAttribute("items", item);
 		return "shop";
 	}
-	
+
 	@RequestMapping("/hotel/4to5")
 	public String Level5(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel4to5();
@@ -173,6 +136,7 @@ public class HotelController {
 		model.addAttribute("items", item);
 		return "shop";
 	}
+	
 //	@RequestMapping("/hotel/0to1")
 //	public String Level1(Model model) {
 //		String startLV = "1";
@@ -181,4 +145,5 @@ public class HotelController {
 //		model.addAttribute("item", item);
 //		return "shop";
 //	}
+	
 }
