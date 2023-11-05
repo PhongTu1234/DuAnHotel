@@ -5,9 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,14 +39,17 @@ public class Hotels implements Serializable {
 
 	@Column(name = "description", columnDefinition = "TEXT")
 	String description;
+	
+	@Column(name = "hotel_level")
+	Integer Level;
 
 	@ManyToOne
 	@JoinColumn(name = "place_id")
 	Places Place;
 
-	@ManyToOne
-	@JoinColumn(name = "hotel_type_id")
-	HotelTypes HotelTypes;
+//	@ManyToOne
+//	@JoinColumn(name = "hotel_type_id")
+//	HotelTypes HotelTypes;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "Hotels")

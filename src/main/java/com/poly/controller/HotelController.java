@@ -106,35 +106,35 @@ public class HotelController {
 	@RequestMapping("/hotel/1to2")
 	public String Level2(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel1to2();
-		model.addAttribute("item", item);
+		model.addAttribute("items", item);
 		return "shop";
 	}
 	
 	@RequestMapping("/hotel/2to3")
 	public String Level3(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel2to3();
-		model.addAttribute("item", item);
+		model.addAttribute("items", item);
 		return "shop";
 	}
 	
 	@RequestMapping("/hotel/3to4")
 	public String Level4(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel3to4();
-		model.addAttribute("item", item);
+		model.addAttribute("items", item);
 		return "shop";
 	}
 	
 	@RequestMapping("/hotel/4to5")
 	public String Level5(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel4to5();
-		model.addAttribute("item", item);
+		model.addAttribute("items", item);
 		return "shop";
 	}
 	
 	@RequestMapping("/hotel/5")
 	public String LevelMax(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel5();
-		model.addAttribute("item", item);
+		model.addAttribute("items", item);
 		return "shop";
 	}
 //	@RequestMapping("/hotel/0to1")

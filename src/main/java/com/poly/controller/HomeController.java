@@ -41,10 +41,7 @@ public class HomeController {
 	public String admin(Model model) {
 		List<Hotels> hotels = htservice.findAll();
 		int count = hotels.size();
-		String a = "aaaaaaaaaaas";
 		model.addAttribute("items", count);
-		model.addAttribute("a", hotels);
-		model.addAttribute("b", a);
 		return "/admin/dashboard";
 	}
 	
@@ -53,11 +50,7 @@ public class HomeController {
 	public String shop() {
 		return "shop";
 	}
-	
-//	@RequestMapping("blog")
-//	public String blog() {
-//		return "blog";
-//	}
+
 	
 	@RequestMapping("cart")
 	public String cart() {

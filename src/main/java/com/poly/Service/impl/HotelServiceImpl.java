@@ -26,7 +26,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<Hotels> findByHotelTypesId(String cid) {
-		return hdao.findByHotelTypesId(cid);
+		return null;
 	}
 
 	public Hotels create(Hotels Hotels) {

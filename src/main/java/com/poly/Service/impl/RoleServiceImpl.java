@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.RoleDAO;
-import com.poly.entity.HotelTypes;
 import com.poly.entity.Role;
 import com.poly.Service.RoleService;
 

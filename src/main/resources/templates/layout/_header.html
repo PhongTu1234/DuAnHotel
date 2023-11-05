@@ -124,9 +124,10 @@
 									<ul class="drop-menu megamenu">
 										<li><span class="title">Hotel Style</span>
 											<ul>
-												<li th:each="ht:${ht}"><a
-													th:href="@{|/index?htid=${ht.id}|}">[[${ht.Level}]]</a></li>
-											</ul></li>
+												<li th:each="h:${h}"><a
+													th:href="@{|/index?htid=${h.Level}|}">[[${h.Level}]]</a></li>
+											</ul>
+										</li>
 										<li><span class="title">Hotel Types</span>
 											<ul>
 												<li><a th:href="@{/hotel/all}">all</a></li>
