@@ -1025,7 +1025,7 @@
 
 								<div class="button-wrap">
 									<a class="btn btn-custom-size btn-pronia-primary"
-										href="shop.html">Shop Now</a>
+										th:href="@{|/place/hotel/${top1.id}|}">Shop Now</a>
 								</div>
 							</div>
 						</div>
@@ -1041,7 +1041,7 @@
 								<span class="collection">[[(${countTop2})]] Khách sạn</span>
 								<div class="button-wrap">
 									<a class="btn btn-custom-size lg-size btn-pronia-primary"
-										href="shop.html">Shop Now</a>
+										th:href="@{|/place/hotel/${top2.id}|}">Shop Now</a>
 								</div>
 							</div>
 						</div>
@@ -1058,7 +1058,7 @@
 								
 								<div class="button-wrap">
 									<a class="btn btn-custom-size lg-size btn-pronia-primary"
-										th:href="@{/hotel/NhaTrang}">Shop Now</a>
+										th:href="@{|/place/hotel/${top3.id}|}">Shop Now</a>
 								</div>
 							</div>
 						</div>
@@ -1076,7 +1076,7 @@
 								<span class="collection">[[(${countTop4})]] Khách Sạn</span>
 								<div class="button-wrap">
 									<a class="btn btn-custom-size lg-size btn-pronia-primary"
-										href="shop.html">Shop Now</a>
+										th:href="@{|/place/hotel/${top4.id}|}">Shop Now</a>
 								</div>
 							</div>
 						</div>
@@ -1101,11 +1101,9 @@
 							<div class="swiper-wrapper">
 								<div class="swiper-slide product-item" th:each="HotelLevel5:${HotelLevel5}">
 									<div class="product-img">
-										<a href="shop.html"> <img class="primary-img"
-											src="assets/images/product/medium-size/1-9-270x300.jpg"
-											alt="Product Images"> <img class="secondary-img"
-											src="assets/images/product/medium-size/1-10-270x300.jpg"
-											alt="Product Images">
+										<a href="shop.html"> 
+											<img class="primary-img" src="assets/images/product/medium-size/1-9-270x300.jpg" alt="Product Images">
+											<img class="secondary-img" src="assets/images/product/medium-size/1-10-270x300.jpg" alt="Product Images">
 										</a>
 										<div class="product-add-action">
 											<ul>
