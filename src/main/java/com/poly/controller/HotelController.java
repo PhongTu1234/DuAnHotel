@@ -24,7 +24,7 @@ public class HotelController {
 	public String detail(Model model, @PathVariable("id") Integer id) {
 		Hotels item = hService.findById(id);
 		model.addAttribute("item", item);
-		return "product/	";
+		return "product/single-product-variable";
 	}
 	
 	@RequestMapping("/hotel/all")
