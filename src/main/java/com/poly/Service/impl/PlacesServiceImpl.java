@@ -39,4 +39,28 @@ public class PlacesServiceImpl implements PlacesService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public Places findPlaceWithMostHotels() {
+		// TODO Auto-generated method stub
+		return htdao.findPlaceWithMostHotels();
+	}
+
+	@Override
+	public Places findPlaceWithMostHotelsTop2() {
+		// TODO Auto-generated method stub
+		return htdao.findPlaceWithMostHotelsTop2();
+	}
+
+	@Override
+	public Places findPlaceWithMostHotelsTop3() {
+		// TODO Auto-generated method stub
+		return htdao.findPlaceWithMostHotelsTop3();
+	}
+
+	@Override
+	public Places findPlaceWithMostHotelsTop4() {
+		// TODO Auto-generated method stub
+		return htdao.findPlaceWithMostHotelsTop4();
+	}
+
 }

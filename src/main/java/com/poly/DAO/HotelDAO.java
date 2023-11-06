@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.poly.entity.Hotels;
 
 public interface HotelDAO extends JpaRepository<Hotels, Integer> {
-//	@Query("SELECT p FROM Hotels p WHERE p.HotelTypes.id=?1")
-//	List<Hotels> findByHotelTypesId(String htid);
+	@Query("SELECT p FROM Hotels p WHERE p.Place.id= ?1")
+	List<Hotels> findByPlaceId(Integer id);
 	
 	@Query("SELECT h FROM Hotels h WHERE h.Level IN (0,1)")
 	List<Hotels> findHotelByHotelLevel0to1();
@@ -38,4 +38,7 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 //	@Query("select count(h.id) from Hotels h")
 //	Integer findCountId();
 	
+//    @Query(value = "SELECT TOP 1 * " +
+//            "FROM Hotels ", nativeQuery = true)
+//    List<Hotels> findHotelsInLocationWithMostHotels();
 }

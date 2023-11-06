@@ -88,4 +88,10 @@ public class HotelServiceImpl implements HotelService {
 		return hdao.findPage(page);
 	}
 
+	@Override
+	public List<Hotels> findByPlaceId(Integer Place) {
+		return hdao.findByPlaceId(Place);
+	}
+	
+
 }

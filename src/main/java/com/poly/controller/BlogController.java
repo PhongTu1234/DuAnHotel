@@ -8,8 +8,12 @@ public class BlogController {
 
 	@RequestMapping("blog")
 	public String blog() {
-		return "admin/Blog/index";
+		return "blog-listview";
 	}
 	
+	@RequestMapping("/blog/detail")
+	public String detail() {
+		return "blog-detail";
+	}
 	
 }

@@ -47,6 +47,7 @@ public class HotelController {
 		model.addAttribute("count", endRounded);
 		
 		List<Hotels> items = hService.findPage((start-1) * SOLuongTrongTrang);
+		
 		model.addAttribute("items", items);
 		model.addAttribute("last", last);
 		model.addAttribute("start", start);
@@ -94,8 +95,6 @@ public class HotelController {
 		return "shop";
 	}
 	
-	
-	
 	@RequestMapping("/hotel/0to1")
 	public String Level1(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel0to1();
@@ -123,7 +122,7 @@ public class HotelController {
 		model.addAttribute("items", item);
 		return "shop";
 	}
-	
+
 	@RequestMapping("/hotel/4to5")
 	public String Level5(Model model) {
 		List<Hotels> item = hService.findHotelByHotelLevel4to5();
@@ -137,6 +136,7 @@ public class HotelController {
 		model.addAttribute("items", item);
 		return "shop";
 	}
+	
 //	@RequestMapping("/hotel/0to1")
 //	public String Level1(Model model) {
 //		String startLV = "1";
@@ -145,4 +145,6 @@ public class HotelController {
 //		model.addAttribute("item", item);
 //		return "shop";
 //	}
+
+	
 }
