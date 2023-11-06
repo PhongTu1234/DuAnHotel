@@ -1129,10 +1129,14 @@
 										</div>
 									</div>
 									<div class="product-content">
-										<a class="product-name" href="shop.html">[[(${HotelLevel5.name})]]</a>
-										<div class="price-box pb-1">
-											<span class="new-price">$23.45</span>
+										<div class="price-box">
+											<span class="new-price" style="font-size: 18px;">
+												<a th:href="@{|/place/hotel/${HotelLevel5.Place.id}|}">
+													[[(${HotelLevel5.Place.name})]]
+												</a>
+											</span>
 										</div>
+										<a class="product-name pb-1" style="font-size: 25px;" href="shop.html">[[(${HotelLevel5.name})]]</a>
 										<div class="rating-box">
 											<ul>
 												<li><i class="fa fa-star"></i></li>
