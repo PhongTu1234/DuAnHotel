@@ -39,9 +39,5 @@ public class Images implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "Images")
-	List<Services> Service;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "Images")
 	List<Images_Room> Images_Room;
 }

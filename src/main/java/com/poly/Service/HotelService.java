@@ -19,7 +19,7 @@ public interface HotelService {
 	
 	//List<Hotels> findByHotelTypeHotelLevelBetween(String startLevel, String endLevel);
 	
-	List<Hotels> findHotelByHotelLevel0to1();
+	List<Hotels> findHotelByHotelLevelstarttoend(Integer start, Integer end, Integer placeId);
 	
 	List<Hotels> findHotelByHotelLevel1to2();
 	
@@ -37,5 +37,5 @@ public interface HotelService {
 	
 	List<Hotels> findByPlaceId(Integer Place);
 	
-
+	List<Hotels> findHotelByPlaceidAndStart(Integer start, Integer placeId, Integer Page);
 }

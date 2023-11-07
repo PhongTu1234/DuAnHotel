@@ -28,10 +28,6 @@ public class Services implements Serializable {
 
     @Column(name = "service_name")
     String name;
-
-    @ManyToOne
-	@JoinColumn(name = "image_id")
-	Images Images;
     
     @JsonIgnore
 	@OneToMany(mappedBy = "Services")

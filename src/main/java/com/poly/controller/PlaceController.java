@@ -24,5 +24,12 @@ public class PlaceController {
 		return "shop";
 	}
 	
+	@RequestMapping("/place={id}/hotel/start={Level}&&page={page}")
+	public String findHotelByPlaceidAndStart(Model model,  @PathVariable("id") Integer id, @PathVariable("Level") Integer Level, @PathVariable("page") Integer page) {
+		List<Hotels> items = hService.findHotelByPlaceidAndStart(Level, id, (page-1)*15);
+		model.addAttribute("items", items);
+		return "shop";
+	}
+	
 	
 }

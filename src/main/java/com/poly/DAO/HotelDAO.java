@@ -11,8 +11,8 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query("SELECT p FROM Hotels p WHERE p.Place.id= ?1")
 	List<Hotels> findByPlaceId(Integer id);
 	
-	@Query("SELECT h FROM Hotels h WHERE h.Level IN (0,1)")
-	List<Hotels> findHotelByHotelLevel0to1();
+	@Query("SELECT h FROM Hotels h WHERE h.Level between ?1 and ?2 AND h.Place.id=?3")
+	List<Hotels> findHotelByHotelLevelstarttoend(Integer start, Integer end, Integer placeId);
 
 	@Query("SELECT h FROM Hotels h WHERE h.Level IN (1,2)")
 	List<Hotels> findHotelByHotelLevel1to2();
@@ -34,6 +34,9 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query(value = "SELECT * FROM Hotels h  order by h.hotel_id OFFSET ?1 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
 	List<Hotels> findPage(Integer page);
 	
+	@Query(value = "select * from Hotels where hotels.hotel_level = ?1  and Hotels.place_id = ?2"
+			+ "						order by hotels.hotel_id OFFSET ?3 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
+	List<Hotels> findHotelByPlaceidAndStart(Integer start, Integer placeId, Integer Page);
 	
 //	@Query("select count(h.id) from Hotels h")
 //	Integer findCountId();
