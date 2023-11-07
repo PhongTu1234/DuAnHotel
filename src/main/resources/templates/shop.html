@@ -92,14 +92,26 @@
 												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
 												style="color: #e6e6e6; font-size: 20px;"></i> <span>([[(${countHotelLevel4})]])</span>
 										</a></li>
-										<li><a th:href="@{/HotelType_2}"> <i
-												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
-												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
-												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
-												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
-												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
-												style="font-size: 20px;"></i> <span>([[(${countHotelLevel5})]])</span>
-										</a></li>
+										<li th:if="${place_id == null}">
+											<a th:href="@{/HotelType_2}" > 
+												<i class="fa fa-chevron-right"></i>
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<span>([[(${countHotelLevel5})]])</span>
+											</a>
+											<a th:href="@{/HotelType_2}" > 
+												<i class="fa fa-chevron-right"></i>
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<span>([[(${countHotelLevel5})]])</span>
+											</a>
+										</li>
 									</ul>
 								</div>
 
