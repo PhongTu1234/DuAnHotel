@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.Service.HotelService;
+import com.poly.Service.RoomService;
+import com.poly.Service.RoomTypesService;
+import com.poly.Service.ServiceService;
 import com.poly.entity.Hotels;
+import com.poly.entity.RoomTypes;
+import com.poly.entity.Services;
 
 
 @Controller
@@ -19,6 +24,12 @@ public class HotelController {
 	
 	@Autowired
 	HotelService hService;
+	
+	@Autowired
+	RoomTypesService rtService;
+	
+	@Autowired
+	ServiceService svService;
 
 	@RequestMapping("/hotel/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
@@ -29,6 +40,14 @@ public class HotelController {
 	
 	@RequestMapping("/hotel/all")
 	public String Level(Model model) {
+		List<RoomTypes> roomtype = rtService.findAll();
+		List<Hotels> hoteltype = hService.findAll();
+		List<Services> services= svService.findAll();
+		//model.addAttribute("roomtype", roomtype);
+		//int counta = roomtype.size();
+		model.addAttribute("roomtype", roomtype);
+		model.addAttribute("hoteltype", hoteltype);
+		model.addAttribute("services", services);
 		List<Hotels> item = hService.findAll();
 //		int count = 109;
 		int start = 1;
