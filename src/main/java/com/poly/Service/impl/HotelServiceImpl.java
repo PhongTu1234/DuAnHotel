@@ -48,25 +48,29 @@ public class HotelServiceImpl implements HotelService {
 //		return hdao.findByHotelTypeHotelLevelBetween(endLevel, endLevel);
 //	}
 
-
 	@Override
-	public List<Hotels> findHotelByHotelLevel1to2() {
-		return hdao.findHotelByHotelLevel1to2();
+	public List<Hotels> findHotelByHotelLevel0() {
+		return hdao.findHotelByHotelLevel0();
 	}
 
 	@Override
-	public List<Hotels> findHotelByHotelLevel2to3() {
-		return hdao.findHotelByHotelLevel2to3();
+	public List<Hotels> findHotelByHotelLevel1() {
+		return hdao.findHotelByHotelLevel1();
 	}
 
 	@Override
-	public List<Hotels> findHotelByHotelLevel3to4() {
-		return hdao.findHotelByHotelLevel3to4();
+	public List<Hotels> findHotelByHotelLevel2() {
+		return hdao.findHotelByHotelLevel2();
 	}
 
 	@Override
-	public List<Hotels> findHotelByHotelLevel4to5() {
-		return hdao.findHotelByHotelLevel4to5();
+	public List<Hotels> findHotelByHotelLevel3() {
+		return hdao.findHotelByHotelLevel3();
+	}
+
+	@Override
+	public List<Hotels> findHotelByHotelLevel4() {
+		return hdao.findHotelByHotelLevel4();
 	}
 
 	@Override
@@ -87,6 +91,11 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Hotels> findByPlaceId(Integer Place) {
 		return hdao.findByPlaceId(Place);
+	}
+	
+	@Override
+	public List<Hotels> findHotelByPlaceid(Integer id, Integer page) {
+		return hdao.findHotelByPlaceid(id, page);
 	}
 
 	@Override

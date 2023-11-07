@@ -14,17 +14,20 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query("SELECT h FROM Hotels h WHERE h.Level between ?1 and ?2 AND h.Place.id=?3")
 	List<Hotels> findHotelByHotelLevelstarttoend(Integer start, Integer end, Integer placeId);
 
-	@Query("SELECT h FROM Hotels h WHERE h.Level IN (1,2)")
-	List<Hotels> findHotelByHotelLevel1to2();
+	@Query("SELECT h FROM Hotels h WHERE h.Level = 0")
+	List<Hotels> findHotelByHotelLevel0();
 	
-	@Query("SELECT h FROM Hotels h WHERE h.Level IN (2,3)")
-	List<Hotels> findHotelByHotelLevel2to3();
+	@Query("SELECT h FROM Hotels h WHERE h.Level = 1")
+	List<Hotels> findHotelByHotelLevel1();
 	
-	@Query("SELECT h FROM Hotels h WHERE h.Level IN (3,4)")
-	List<Hotels> findHotelByHotelLevel3to4();
+	@Query("SELECT h FROM Hotels h WHERE h.Level = 2")
+	List<Hotels> findHotelByHotelLevel2();
 	
-	@Query("SELECT h FROM Hotels h WHERE h.Level IN (4,5)")
-	List<Hotels> findHotelByHotelLevel4to5();
+	@Query("SELECT h FROM Hotels h WHERE h.Level = 3")
+	List<Hotels> findHotelByHotelLevel3();
+	
+	@Query("SELECT h FROM Hotels h WHERE h.Level = 4")
+	List<Hotels> findHotelByHotelLevel4();
 	
 	@Query("SELECT h FROM Hotels h WHERE h.Level = 5")
 	List<Hotels> findHotelByHotelLevel5();
@@ -33,6 +36,10 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 //	@Query(value = "SELECT * FROM Hotels h WHERE h.hotel_id > ?1  order by h.hotel_id OFFSET 0 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
 	@Query(value = "SELECT * FROM Hotels h  order by h.hotel_id OFFSET ?1 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
 	List<Hotels> findPage(Integer page);
+	
+	@Query(value =  "select * from Hotels where Hotels.place_id = ?1"
+			+ "						order by hotels.hotel_id OFFSET ?2 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
+	List<Hotels> findHotelByPlaceid(Integer id, Integer page);
 	
 	@Query(value = "select * from Hotels where hotels.hotel_level = ?1  and Hotels.place_id = ?2"
 			+ "						order by hotels.hotel_id OFFSET ?3 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)

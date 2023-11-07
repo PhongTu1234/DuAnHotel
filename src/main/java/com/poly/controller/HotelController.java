@@ -51,7 +51,27 @@ public class HotelController {
 		model.addAttribute("hoteltype", hoteltype);
 		model.addAttribute("services", services);
 		List<Hotels> item = hService.findAll();
-		double count = item.size();
+		int count = item.size();
+		model.addAttribute("counthotel", count);
+		
+		List<Hotels> HotelLevel0 = hService.findHotelByHotelLevel0();
+		model.addAttribute("countHotelLevel0", HotelLevel0.size());
+		
+		List<Hotels> HotelLevel1 = hService.findHotelByHotelLevel1();
+		model.addAttribute("countHotelLevel1", HotelLevel1.size());
+		
+		List<Hotels> HotelLevel2 = hService.findHotelByHotelLevel2();
+		model.addAttribute("countHotelLevel2", HotelLevel2.size());
+		
+		List<Hotels> HotelLevel3 = hService.findHotelByHotelLevel3();
+		model.addAttribute("countHotelLevel3", HotelLevel3.size());
+		
+		List<Hotels> HotelLevel4 = hService.findHotelByHotelLevel4();
+		model.addAttribute("countHotelLevel4", HotelLevel4.size());
+		
+		List<Hotels> HotelLevel5 = hService.findHotelByHotelLevel5();
+		model.addAttribute("countHotelLevel5", HotelLevel5.size());
+		
 		int start = 1;
 		int last = start - 1;
 		int next = start + 1;
@@ -67,13 +87,45 @@ public class HotelController {
 		return "shop";
 	}
 	
-	@RequestMapping("/hotel/last/{last}")
+	@RequestMapping("/hotel/lpage={last}")
 	public String Last(Model model, @PathVariable("last") String last) {
+		
+		List<RoomTypes> roomtype = rtService.findAll();
+		List<Hotels> hoteltype = hService.findAll();
+		List<Services> services= svService.findAll();
+		//model.addAttribute("roomtype", roomtype);
+		//int counta = roomtype.size();
+		model.addAttribute("roomtype", roomtype);
+		model.addAttribute("hoteltype", hoteltype);
+		model.addAttribute("services", services);
+		List<Hotels> item = hService.findAll();
+		int count = item.size();
+		model.addAttribute("counthotel", count);
+		
+		List<Hotels> HotelLevel0 = hService.findHotelByHotelLevel0();
+		model.addAttribute("countHotelLevel0", HotelLevel0.size());
+		
+		List<Hotels> HotelLevel1 = hService.findHotelByHotelLevel1();
+		model.addAttribute("countHotelLevel1", HotelLevel1.size());
+		
+		List<Hotels> HotelLevel2 = hService.findHotelByHotelLevel2();
+		model.addAttribute("countHotelLevel2", HotelLevel2.size());
+		
+		List<Hotels> HotelLevel3 = hService.findHotelByHotelLevel3();
+		model.addAttribute("countHotelLevel3", HotelLevel3.size());
+		
+		List<Hotels> HotelLevel4 = hService.findHotelByHotelLevel4();
+		model.addAttribute("countHotelLevel4", HotelLevel4.size());
+		
+		List<Hotels> HotelLevel5 = hService.findHotelByHotelLevel5();
+		model.addAttribute("countHotelLevel5", HotelLevel5.size());
+		
 		int start = Integer.parseInt(last);
 		if(start==1) {
 			List<Hotels> items= hService.findPage((start-1) * 15);
 			model.addAttribute("items", items);
 			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
 		}else {
 			List<Hotels> items= hService.findPage((start) * 15);
 			model.addAttribute("items", items);
@@ -84,17 +136,47 @@ public class HotelController {
 		return "shop";
 	}
 	
-	@RequestMapping("/hotel/next/{next}")
+	@RequestMapping("/hotel/npage={next}")
 	public String Next(Model model, @PathVariable("next") String next) {
-		int start = Integer.parseInt(next);
+		
+		List<RoomTypes> roomtype = rtService.findAll();
+		List<Hotels> hoteltype = hService.findAll();
+		List<Services> services= svService.findAll();
+		//model.addAttribute("roomtype", roomtype);
+		//int counta = roomtype.size();
+		model.addAttribute("roomtype", roomtype);
+		model.addAttribute("hoteltype", hoteltype);
+		model.addAttribute("services", services);
 		List<Hotels> item = hService.findAll();
-		double count = item.size();
+		int count = item.size();
+		model.addAttribute("counthotel", count);
+		
+		List<Hotels> HotelLevel0 = hService.findHotelByHotelLevel0();
+		model.addAttribute("countHotelLevel0", HotelLevel0.size());
+		
+		List<Hotels> HotelLevel1 = hService.findHotelByHotelLevel1();
+		model.addAttribute("countHotelLevel1", HotelLevel1.size());
+		
+		List<Hotels> HotelLevel2 = hService.findHotelByHotelLevel2();
+		model.addAttribute("countHotelLevel2", HotelLevel2.size());
+		
+		List<Hotels> HotelLevel3 = hService.findHotelByHotelLevel3();
+		model.addAttribute("countHotelLevel3", HotelLevel3.size());
+		
+		List<Hotels> HotelLevel4 = hService.findHotelByHotelLevel4();
+		model.addAttribute("countHotelLevel4", HotelLevel4.size());
+		
+		List<Hotels> HotelLevel5 = hService.findHotelByHotelLevel5();
+		model.addAttribute("countHotelLevel5", HotelLevel5.size());
+		
+		int start = Integer.parseInt(next);
 		double end = count / 15;
 		double endRounded = Math.ceil(end) ;
 		
 		if(endRounded < start) {
 			List<Hotels> items= hService.findPage((start-2) * 15);
 			model.addAttribute("items", items);
+			model.addAttribute("last", start - 1);
 			model.addAttribute("start", start);
 		}else {
 			
@@ -125,7 +207,7 @@ public class HotelController {
 		int last = start - 1;
 		int next = start + 1;
 		int SOLuongTrongTrang = 15;
-		List<Hotels> item = hService.findHotelByHotelLevel1to2();
+		List<Hotels> item = hService.findHotelByHotelLevel1();
 		model.addAttribute("items", item);
 		return "shop";
 	}
@@ -136,7 +218,7 @@ public class HotelController {
 		int last = start - 1;
 		int next = start + 1;
 		int SOLuongTrongTrang = 15;
-		List<Hotels> item = hService.findHotelByHotelLevel2to3();
+		List<Hotels> item = hService.findHotelByHotelLevel2();
 		model.addAttribute("items", item);
 		return "shop";
 	}
@@ -147,7 +229,7 @@ public class HotelController {
 		int last = start - 1;
 		int next = start + 1;
 		int SOLuongTrongTrang = 15;
-		List<Hotels> item = hService.findHotelByHotelLevel3to4();
+		List<Hotels> item = hService.findHotelByHotelLevel3();
 		model.addAttribute("items", item);
 		return "shop";
 	}
@@ -158,7 +240,7 @@ public class HotelController {
 		int last = start - 1;
 		int next = start + 1;
 		int SOLuongTrongTrang = 15;
-		List<Hotels> item = hService.findHotelByHotelLevel4to5();
+		List<Hotels> item = hService.findHotelByHotelLevel4();
 		model.addAttribute("items", item);
 		return "shop";
 	}
