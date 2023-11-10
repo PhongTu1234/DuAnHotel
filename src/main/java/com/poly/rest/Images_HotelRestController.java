@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entity.Images_Hotel;
 import com.poly.Service.Images_HotelService;
+import com.poly.entity.Images_Hotel;
 
 @CrossOrigin("*")
 @RestController

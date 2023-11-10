@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.BlogsDAO;
-import com.poly.entity.Blogs;
 import com.poly.Service.BlogsService;
+import com.poly.entity.Blogs;
 
 @Service
 public class BlogsServiceImpl implements BlogsService {
@@ -25,6 +25,7 @@ public class BlogsServiceImpl implements BlogsService {
 		return htdao.findById(id).get();
 	}
 
+	@Override
 	public Blogs create(Blogs Blogs) {
 		return htdao.save(Blogs);
 	}

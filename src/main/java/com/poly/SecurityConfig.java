@@ -71,6 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	/* Phân quyền sử dụng */
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Tắt thuật tấn công giả mạo
 		http.csrf().disable();

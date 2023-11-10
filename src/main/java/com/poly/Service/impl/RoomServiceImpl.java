@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.RoomDAO;
-import com.poly.entity.Rooms;
 import com.poly.Service.RoomService;
+import com.poly.entity.Rooms;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -29,6 +29,7 @@ public class RoomServiceImpl implements RoomService {
 		return rdao.findByRoomTypesId(cid);
 	}
 
+	@Override
 	public Rooms create(Rooms Rooms) {
 		return rdao.save(Rooms);
 	}
@@ -52,6 +53,5 @@ public class RoomServiceImpl implements RoomService {
 	public List<Rooms> findByRoom1to8() {
 		return rdao.findByRoom1to8();
 	}
-	
 
 }

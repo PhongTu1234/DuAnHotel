@@ -97,7 +97,7 @@ public class AuthController {
 			model.addAttribute("message", "Please correct the error below!");
 			return "auth/login_register";
 		}
-		//account.setPhoto("user.png");
+		// account.setPhoto("user.png");
 		account.setToken("token");
 		accountService.create(account);
 		model.addAttribute("message", "New account registration successful!");
@@ -117,7 +117,7 @@ public class AuthController {
 			String token = RandomString.make(50);
 			accountService.updateToken(token, email);
 			String resetLink = getSiteURL(request) + "/auth/reset-password?token=" + token;
-			//mailer.sendEmail(email, resetLink);
+			// mailer.sendEmail(email, resetLink);
 			model.addAttribute("message", "We have sent a reset password link to your email. "
 					+ "If you don't see the email, check your spam folder.");
 		} catch (MessagingException e) {

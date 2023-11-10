@@ -25,6 +25,7 @@ public class Booking_RoomServiceImpl implements Booking_RoomService {
 		return htdao.findById(id).get();
 	}
 
+	@Override
 	public Booking_Room create(Booking_Room Booking_Room) {
 		return htdao.save(Booking_Room);
 	}

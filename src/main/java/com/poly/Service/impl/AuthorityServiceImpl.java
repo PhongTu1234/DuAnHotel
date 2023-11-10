@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poly.DAO.UserDAO;
 import com.poly.DAO.AuthorityDAO;
-import com.poly.entity.Users;
-import com.poly.entity.Authority;
+import com.poly.DAO.UserDAO;
 import com.poly.Service.AuthorityService;
+import com.poly.entity.Authority;
+import com.poly.entity.Users;
 
 @Service
 public class AuthorityServiceImpl implements AuthorityService {

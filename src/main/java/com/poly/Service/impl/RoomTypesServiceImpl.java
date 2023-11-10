@@ -25,6 +25,7 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 		return rtdao.findById(id).get();
 	}
 
+	@Override
 	public RoomTypes create(RoomTypes HotelTypes) {
 		return rtdao.save(HotelTypes);
 	}

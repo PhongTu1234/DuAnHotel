@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.HotelDAO;
-import com.poly.entity.Hotels;
 import com.poly.Service.HotelService;
+import com.poly.entity.Hotels;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -29,6 +29,7 @@ public class HotelServiceImpl implements HotelService {
 		return null;
 	}
 
+	@Override
 	public Hotels create(Hotels Hotels) {
 		return hdao.save(Hotels);
 	}
@@ -42,7 +43,7 @@ public class HotelServiceImpl implements HotelService {
 	public void delete(Integer id) {
 		hdao.deleteById(id);
 	}
-	
+
 //	@Override
 //	public List<Hotels> findByHotelTypeHotelLevelBetween(String startLevel, String endLevel) {
 //		return hdao.findByHotelTypeHotelLevelBetween(endLevel, endLevel);
@@ -92,7 +93,7 @@ public class HotelServiceImpl implements HotelService {
 	public List<Hotels> findByPlaceId(Integer Place) {
 		return hdao.findByPlaceId(Place);
 	}
-	
+
 	@Override
 	public List<Hotels> findHotelByPlaceid(Integer id, Integer page) {
 		return hdao.findHotelByPlaceid(id, page);
@@ -107,6 +108,5 @@ public class HotelServiceImpl implements HotelService {
 	public List<Hotels> findHotelByPlaceidAndStart(Integer start, Integer placeId, Integer Page) {
 		return hdao.findHotelByPlaceidAndStart(start, placeId, Page);
 	}
-	
 
 }
