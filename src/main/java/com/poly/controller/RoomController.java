@@ -22,4 +22,14 @@ public class RoomController {
 		model.addAttribute("item", item);
 		return "Room_shop";
 	}
+	
+	@RequestMapping("/hotel/room/wishlist")
+	public String  wishlist(Model model) {
+		return "/wishlist";
+	}
+	
+	@RequestMapping("/hotel/room/compare")
+	public String  compare(Model model) {
+		return "/compare";
+	}
 }

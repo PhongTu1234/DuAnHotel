@@ -92,10 +92,7 @@ public class HomeController {
 	}
 
 	
-	@RequestMapping("cart")
-	public String cart() {
-		return "cart";
-	}
+	
 	
 	@RequestMapping("about")
 	public String about() {
