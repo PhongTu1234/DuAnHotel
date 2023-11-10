@@ -16,7 +16,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	HotelService hotelService;
-	
+
 	@Autowired
 	RoomTypesService roomtypesService;
 
@@ -27,5 +27,4 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		request.setAttribute("rt", roomtypesService.findAll());
 	}
 
-	
 }

@@ -6,7 +6,7 @@ import com.poly.entity.Role;
 
 public interface RoleService {
 	public List<Role> findAll();
-	
+
 	Role findById(Integer id);
 
 	Role create(Role hoteltypes);

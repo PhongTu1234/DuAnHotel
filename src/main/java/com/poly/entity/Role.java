@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +22,7 @@ public class Role implements Serializable {
 	@Id
 	@Column(name = "role_id")
 	String id;
-	
+
 	@Column(name = "Name")
 	String name;
 

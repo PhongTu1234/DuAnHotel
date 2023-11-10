@@ -25,6 +25,7 @@ public class Service_RoomServiceImpl implements Service_RoomService {
 		return htdao.findById(id).get();
 	}
 
+	@Override
 	public Service_Rooms create(Service_Rooms Service_Rooms) {
 		return htdao.save(Service_Rooms);
 	}

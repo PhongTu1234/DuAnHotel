@@ -15,6 +15,4 @@ public class UsersController {
 		return "auth/my-account";
 	}
 	
-	
-	
 }

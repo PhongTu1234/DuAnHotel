@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entity.RoomTypes;
 import com.poly.Service.RoomTypesService;
+import com.poly.entity.RoomTypes;
 
 @CrossOrigin("*")
 @RestController

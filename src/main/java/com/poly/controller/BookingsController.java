@@ -15,5 +15,5 @@ public class BookingsController {
 	public String checkout() {
 		return "/order/checkout";
 	}
-	
+
 }

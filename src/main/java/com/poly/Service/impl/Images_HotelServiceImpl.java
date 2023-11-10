@@ -25,6 +25,7 @@ public class Images_HotelServiceImpl implements Images_HotelService {
 		return htdao.findById(id).get();
 	}
 
+	@Override
 	public Images_Hotel create(Images_Hotel Images_Hotel) {
 		return htdao.save(Images_Hotel);
 	}

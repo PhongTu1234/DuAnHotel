@@ -5,10 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,18 +19,18 @@ import lombok.Data;
 @Table(name = "Services")
 public class Services implements Serializable {
 
-    @Id
-    @Column(name = "service_id")
-    Integer id;
+	@Id
+	@Column(name = "service_id")
+	Integer id;
 
-    @Column(name = "service_name")
-    String name;
+	@Column(name = "service_name")
+	String name;
 
 //    @ManyToOne
 //	@JoinColumn(name = "image_id")
 //	Images Images;
-    
-    @JsonIgnore
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "Services")
 	List<Service_Rooms> Service_Rooms;
 }

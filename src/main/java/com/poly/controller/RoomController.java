@@ -15,7 +15,7 @@ import com.poly.entity.Rooms;
 public class RoomController {
 	@Autowired
 	RoomService rservice;
-	
+
 	@RequestMapping("/hotel/room/{hotel_id}")
 	public String detail(Model model, @PathVariable("hotel_id") String id) {
 		List<Rooms> item = rservice.findByHotelId(Integer.parseInt(id));

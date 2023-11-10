@@ -25,6 +25,7 @@ public class Images_RoomServiceImpl implements Images_RoomService {
 		return htdao.findById(id).get();
 	}
 
+	@Override
 	public Images_Room create(Images_Room Images_Room) {
 		return htdao.save(Images_Room);
 	}
