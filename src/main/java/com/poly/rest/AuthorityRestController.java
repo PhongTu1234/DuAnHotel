@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entity.Authority;
 import com.poly.Service.AuthorityService;
+import com.poly.entity.Authority;
 
 @CrossOrigin("*")
 @RestController

@@ -39,7 +39,7 @@ public class Hotels implements Serializable {
 
 	@Column(name = "description", columnDefinition = "TEXT")
 	String description;
-	
+
 	@Column(name = "hotel_level")
 	Integer Level;
 

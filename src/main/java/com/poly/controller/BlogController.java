@@ -10,10 +10,10 @@ public class BlogController {
 	public String blog() {
 		return "blog-listview";
 	}
-	
+
 	@RequestMapping("/blog/detail")
 	public String detail() {
 		return "blog-detail";
 	}
-	
+
 }

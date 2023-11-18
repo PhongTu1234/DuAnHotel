@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.RoleDAO;
-import com.poly.entity.Role;
 import com.poly.Service.RoleService;
+import com.poly.entity.Role;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 	@Autowired
 	RoleDAO dao;
 
+	@Override
 	public List<Role> findAll() {
 		return dao.findAll();
 	}
@@ -23,6 +24,7 @@ public class RoleServiceImpl implements RoleService {
 		return dao.findById(id).get();
 	}
 
+	@Override
 	public Role create(Role HotelTypes) {
 		return dao.save(HotelTypes);
 	}
