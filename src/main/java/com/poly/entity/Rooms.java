@@ -27,18 +27,30 @@ public class Rooms implements Serializable {
 	Integer id;
 
 	@Column(name = "roomname")
-	String name;
+    String name;
+    
+    @Column(name = "price", precision = 10, scale = 2) 
+    BigDecimal price;
+    
+    @Column(name = "status", length = 50)
+    String status;
 
-	@Column(name = "price", precision = 10, scale = 2)
-	BigDecimal price;
+//    @Column(name = "soluongphong")
+//    Integer soluongphong;
+//    
+//    @Column(name = "soluongcheckin")
+//    Integer soluongcheckin;
+//    
+//    @Column(name = "soluongtrong")
+//    Integer soluongtrong;
+//    
+//    @Column(name = "soluongdangthue")
+//    Integer soluongdangthue;
 
-	@Column(name = "status", length = 50)
-	String status;
-
-	@Column(name = "description", columnDefinition = "TEXT")
-	String description;
-
-	@ManyToOne
+    @Column(name = "description", columnDefinition = "TEXT")
+    String description;
+    
+    @ManyToOne
 	@JoinColumn(name = "room_type_id")
 	RoomTypes RoomTypes;
 

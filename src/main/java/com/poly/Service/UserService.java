@@ -28,4 +28,8 @@ public interface UserService {
 	void updatePassword(Users entity, String newPassword);
 
 	void changePassword(Users entity, String newPassword);
+	
+	void updatePass(String id, String password);
+	
+	List<Users> getAdministrators(String role);
 }
