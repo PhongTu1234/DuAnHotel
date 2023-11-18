@@ -1,4 +1,4 @@
-<div class="row mx-0 bg-white" ng-if="items">
+<div class="row mx-0 bg-white" >
 	<div class="col-12 py-3">
 		<table class="table table-collapse table-bordered">
 			<thead>
@@ -9,23 +9,23 @@
 					<th>password</th>
 					<th>phoneNumber</th>
 					<th>Photo</th>
-					<th>#</th>
+					<th>Edit/Delete</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="item in pager.items">
-					<td class="align-center">{{item.cmt}}</td>
-					<td class="align-center">{{item.username}}</td>
-					<td class="align-center">{{item.email}}</td>
-					<td class="align-center">{{item.password}}</td>
-					<td class="align-center">{{item.phoneNumber}}</td>
-					<td class="align-center">{{item.photo}}</td>
+				<tr th:each="item:${users}">
+					<td class="align-center">[[(${item.cmt})]]</td>
+					<td class="align-center">[[(${item.username})]]</td>
+					<td class="align-center">[[(${item.email})]]</td>
+					<td class="align-center">[[(${item.password})]]</td>
+					<td class="align-center">[[(${item.phoneNumber})]]</td>
+					<td class="align-center" style="width: 10px;">[[(${item.token})]]</td>
 					<td class="align-center">
 						<div class="btn-group btn-group-xs">
-							<button ng-click="edit(item)" class="btn btn-icon">
+							<button th:href="@{|/update/${cmt}|}" class="btn btn-icon">
 								<i class="fa fa-xs fa-pen"></i>
 							</button>
-							<button ng-click="delete(item)" class="btn btn-danger">
+							<button th:href="@{|/update/${cmt}|}" class="btn btn-danger">
 								<i class="fa fa-xs fa-times"></i>
 							</button>
 						</div>
