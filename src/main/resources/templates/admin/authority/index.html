@@ -31,50 +31,72 @@
 									<div class="btn-group float-right">
 										<ol class="breadcrumb hide-phone p-0 m-0">
 											<li class="breadcrumb-item"><a href="#">Julie</a></li>
-											<li class="breadcrumb-item active">Authorities</li>
+											<li class="breadcrumb-item active">Users</li>
 										</ol>
 									</div>
-									<h4 class="page-title">Authorities</h4>
+									<h4 class="page-title">Users</h4>
 								</div>
 							</div>
 						</div>
-						<table class="table table-collapse table-bordered bg-white mb-0">
-							<thead class="bg-info">
-								<tr>
-									<th>Fullname</th>
-									<th ng-repeat="role in roles" class="text-center">{{role.name}}</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="acc in pager.admins">
-									<td class="align-center">{{acc.username}}</td>
-									<th ng-repeat="role in roles" class="align-center text-center">
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input"
-												id="authority" ng-checked="authority_of(acc,role)"
-												ng-click="authority_changed(acc,role)"> <label
-												class="custom-control-label" for="authority"></label>
-										</div>
-									</th>
-								</tr>
-							</tbody>
-						</table>
-						<div class="card-footer text-center">
+						<nav>
+							<div class="nav nav-tabs">
+								 <a th:href="@{/auth/form}" class="nav-link"
+									type="button">EDITION</a> 
+									<a href="javascript:(0);"
+									class="nav-link active" data-toggle="tab" data-target="#list"
+									type="button" role="tab" aria-selected="true">LISTS</a>
+							</div>
+						</nav>
+						<div class="row mx-0 bg-white">
+							<div class="col-12 py-3">
+								<table class="table table-collapse table-bordered">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>cmt</th>
+											<th>roleId</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item:${auth}">
+											<td class="align-center">[[(${item.id})]]</td>
+											<td class="align-center">[[(${item.Users})]]</td>
+											<td class="align-center">[[(${item.Role})]]</td>
+											<td class="align-center">
+												<div class="btn-group btn-group-xs">
+													<button class="btn btn-icon">
+														<a th:href="@{|/auth/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
+														</a>
+														
+													</button>
+													<button class="btn btn-danger">
+														<a th:href="@{/auth/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
+														</a>
+													</button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card-header text-center">
 							<button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-step-backward"></i>
+								<i class="fas fa-arrow-to-left"></i>
 							</button>
 							<button ng-click="pager.prev()" class="btn btn-primary">
-								<i class="fas fa-chevron-left"></i>
+								<i class="fas fa-arrow-left"></i>
 							</button>
 							<button class="btn btn-success">{{pager.page + 1}} of
-								{{pager.count}}</button>
+								{{pager.count?pager.count:'1'}}</button>
 							<button ng-click="pager.next()" class="btn btn-primary">
-								<i class="fas fa-chevron-right"></i>
+								<i class="fas fa-arrow-right"></i>
 							</button>
 							<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-step-forward"></i>
+								<i class="fas fa-arrow-to-right"></i>
 							</button>
 						</div>
+						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
 
@@ -84,7 +106,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<script src="/assetss/js/jquery.min.js"></script>
 	<script src="/assetss/js/popper.min.js"></script>
@@ -125,7 +146,6 @@
 	<script src="/assetss/ctrl/serviceroom-ctrl.js"></script>
 
 	<script src="assets/js/main.js"></script>
-
 </body>
 
 </html>
