@@ -111,12 +111,13 @@ CREATE TABLE Roles(
 go
 -- Bảng Người dùng
 CREATE TABLE Users (
-    username NVARCHAR(50) NOT NULL,				-- Tên người dùng
-    email VARCHAR(100) NOT NULL,                -- Địa chỉ email của người dùng
+    username NVARCHAR(50),				-- Tên người dùng
+    email VARCHAR(100),                -- Địa chỉ email của người dùng
 	cmt VARCHAR(20) PRIMARY KEY NOT NULL,		-- Chứng minh thư của người dùng
-    [password] VARCHAR(100) NOT NULL,			-- Mật khẩu (được lưu dưới dạng mã hóa)
-    phone_number VARCHAR(20) NOT NULL,          -- Số điện thoại của người dùng
+    [password] VARCHAR(100),			-- Mật khẩu (được lưu dưới dạng mã hóa)
+    phone_number VARCHAR(20),          -- Số điện thoại của người dùng
 	Token nvarchar(50),	
+	Changedpass bit,
 );
 
 CREATE TABLE Authorities(
@@ -226,26 +227,26 @@ insert into [Services] values (1, N'Wifi-Free'),
 							  (9, N'Bãi đậu xe'),
 							  (10, N'Dịch vụ bảo quản hành lí');
 
-insert into Users values(N'Nguyễn Hoàng Tuấn', 'nguyenhoang.tuan2407@gmail.com', '081456789370','123', '0234567890', N'token'),
-						(N'Vũ Văn Minh Hoàng', 'hoangvvm123@gmail.com', '081456789375', '123', '0934567890', N'token'),
-						(N'Nguyễn Ngọc Minh Trang', 'trangnnm123@gmail.com', '012456789375', '123', '0345678901', N'token'),
-						(N'Nguyễn Thị Ngọc Ánh', 'anhntn123@gmail.com', '083456789375', '123', '0456789012', N'token'),
-						(N'Lê Thị Ngọc Ngà', 'ngaltn123@gmail.com', '084456789375', '123', '0567890123', N'token'),
-						(N'Nguyễn Hoàng Sang', 'sangnh123@gmail.com', '085456789375', '123', '0678901234', N'token'),
-						(N'Huỳnh Thị Phương Trinh', 'trinhhtp123@gmail.com', '086456789375', '123', '0789012345', N'token'),
-						(N'Đặng Nam Bình', 'binhdn123@gmail.com', '087456789375', '123', '0890123456', N'token'),
-						(N'Lương Ngọc Kim Ngân', 'nganlnk123@gmail.com', '088456789375', '123', '0901234567', N'token'),
-						(N'Nguyễn Hoàng Duy', 'duynh123@gmail.com', '089456789375', '123', '0912345678', N'token'),
-						(N'Nguyễn Quang Linh', 'linhnq123@gmail.com', '082156789375', '123', '0823456789', N'token'),
-						(N'Nguyễn Long Vỹ', 'vynl123@gmail.com', '082436789375','123', '0734567890', N'token'),
-						(N'Trần Bảo Ngân', 'ngantb123@gmail.com', '082446789375', '123', '0345678901', N'token'),
-						(N'Nguyễn Hữu Hậu', 'haunh123@gmail.com', '032456789375', '123', '0346789012', N'token'),
-						(N'Nguyễn Minh Nhựt', 'nhutnm123@gmail.com', '082466789375', '123', '0567890123', N'token'),
-						(N'Nguyễn Nam Thuận', 'thuannn123@gmail.com', '082476789375', '123', '0578901234', N'token'),
-						(N'Nguyễn Quang Vinh', 'vinhnq123@gmail.com', '082486789375', '123', '0679012345', N'token'),
-						(N'Lưu Vĩnh Quyền', 'quyenlv123@gmail.com', '082496789375', '123', '0789013456', N'token'),
-						(N'Nguyễn Thái Phong', 'phongnt123@gmail.com', '082451789375', '123', '0890234567', N'token'),
-						(N'Hồ Hoàng Khắc Dũng', 'dunghhk123@gmail.com', '082452789375', '123', '0901234678', N'token');
+insert into Users values(N'Nguyễn Hoàng Tuấn', 'nguyenhoang.tuan2407@gmail.com', '081456789370','123', '0234567890', N'token',1),
+						(N'Vũ Văn Minh Hoàng', 'hoangvvm123@gmail.com', '081456789375', '123', '0934567890', N'token',1),
+						(N'Nguyễn Ngọc Minh Trang', 'trangnnm123@gmail.com', '012456789375', '123', '0345678901', N'token',1),
+						(N'Nguyễn Thị Ngọc Ánh', 'anhntn123@gmail.com', '083456789375', '123', '0456789012', N'token',1),
+						(N'Lê Thị Ngọc Ngà', 'ngaltn123@gmail.com', '084456789375', '123', '0567890123', N'token',1),
+						(N'Nguyễn Hoàng Sang', 'sangnh123@gmail.com', '085456789375', '123', '0678901234', N'token',1),
+						(N'Huỳnh Thị Phương Trinh', 'trinhhtp123@gmail.com', '086456789375', '123', '0789012345', N'token',1),
+						(N'Đặng Nam Bình', 'binhdn123@gmail.com', '087456789375', '123', '0890123456', N'token',1),
+						(N'Lương Ngọc Kim Ngân', 'nganlnk123@gmail.com', '088456789375', '123', '0901234567', N'token',1),
+						(N'Nguyễn Hoàng Duy', 'duynh123@gmail.com', '089456789375', '123', '0912345678', N'token',1),
+						(N'Nguyễn Quang Linh', 'linhnq123@gmail.com', '082156789375', '123', '0823456789', N'token',1),
+						(N'Nguyễn Long Vỹ', 'vynl123@gmail.com', '082436789375','123', '0734567890', N'token',1),
+						(N'Trần Bảo Ngân', 'ngantb123@gmail.com', '082446789375', '123', '0345678901', N'token',1),
+						(N'Nguyễn Hữu Hậu', 'haunh123@gmail.com', '032456789375', '123', '0346789012', N'token',1),
+						(N'Nguyễn Minh Nhựt', 'nhutnm123@gmail.com', '082466789375', '123', '0567890123', N'token',1),
+						(N'Nguyễn Nam Thuận', 'thuannn123@gmail.com', '082476789375', '123', '0578901234', N'token',1),
+						(N'Nguyễn Quang Vinh', 'vinhnq123@gmail.com', '082486789375', '123', '0679012345', N'token',1),
+						(N'Lưu Vĩnh Quyền', 'quyenlv123@gmail.com', '082496789375', '123', '0789013456', N'token',1),
+						(N'Nguyễn Thái Phong', 'phongnt123@gmail.com', '082451789375', '123', '0890234567', N'token',1),
+						(N'Hồ Hoàng Khắc Dũng', 'dunghhk123@gmail.com', '082452789375', '123', '0901234678', N'token',1);
 
 insert into RoomTypes values (1, 'Single room'),
 							 (2, 'Twin room'),

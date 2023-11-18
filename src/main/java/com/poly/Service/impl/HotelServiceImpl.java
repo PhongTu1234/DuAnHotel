@@ -49,34 +49,34 @@ public class HotelServiceImpl implements HotelService {
 //	}
 
 	@Override
-	public List<Hotels> findHotelByHotelLevel0() {
-		return hdao.findHotelByHotelLevel0();
+	public List<Hotels> findHotelByHotelLevel(Integer level) {
+		return hdao.findHotelByHotelLevel(level);
 	}
 
-	@Override
-	public List<Hotels> findHotelByHotelLevel1() {
-		return hdao.findHotelByHotelLevel1();
-	}
-
-	@Override
-	public List<Hotels> findHotelByHotelLevel2() {
-		return hdao.findHotelByHotelLevel2();
-	}
-
-	@Override
-	public List<Hotels> findHotelByHotelLevel3() {
-		return hdao.findHotelByHotelLevel3();
-	}
-
-	@Override
-	public List<Hotels> findHotelByHotelLevel4() {
-		return hdao.findHotelByHotelLevel4();
-	}
-
-	@Override
-	public List<Hotels> findHotelByHotelLevel5() {
-		return hdao.findHotelByHotelLevel5();
-	}
+//	@Override
+//	public List<Hotels> findHotelByHotelLevel1() {
+//		return hdao.findHotelByHotelLevel1();
+//	}
+//
+//	@Override
+//	public List<Hotels> findHotelByHotelLevel2() {
+//		return hdao.findHotelByHotelLevel2();
+//	}
+//
+//	@Override
+//	public List<Hotels> findHotelByHotelLevel3() {
+//		return hdao.findHotelByHotelLevel3();
+//	}
+//
+//	@Override
+//	public List<Hotels> findHotelByHotelLevel4() {
+//		return hdao.findHotelByHotelLevel4();
+//	}
+//
+//	@Override
+//	public List<Hotels> findHotelByHotelLevel5() {
+//		return hdao.findHotelByHotelLevel5();
+//	}
 
 	@Override
 	public List<Hotels> findCountId() {
@@ -99,6 +99,11 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
+	public List<Hotels> findHotelByLevel(Integer level, Integer page) {
+		return hdao.findHotelByLevel(level, page);
+	}
+	
+	@Override
 	public List<Hotels> findHotelByHotelLevelstarttoend(Integer start, Integer end, Integer placeId) {
 		return hdao.findHotelByHotelLevelstarttoend(start, end, placeId);
 	}
@@ -106,6 +111,11 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Hotels> findHotelByPlaceidAndStart(Integer start, Integer placeId, Integer Page) {
 		return hdao.findHotelByPlaceidAndStart(start, placeId, Page);
+	}
+
+	@Override
+	public List<Hotels> findHotelByService(Integer service, Integer page) {
+		return hdao.findHotelByService(service, page);
 	}
 	
 

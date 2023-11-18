@@ -14,23 +14,23 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query("SELECT h FROM Hotels h WHERE h.Level between ?1 and ?2 AND h.Place.id=?3")
 	List<Hotels> findHotelByHotelLevelstarttoend(Integer start, Integer end, Integer placeId);
 
-	@Query("SELECT h FROM Hotels h WHERE h.Level = 0")
-	List<Hotels> findHotelByHotelLevel0();
-	
-	@Query("SELECT h FROM Hotels h WHERE h.Level = 1")
-	List<Hotels> findHotelByHotelLevel1();
-	
-	@Query("SELECT h FROM Hotels h WHERE h.Level = 2")
-	List<Hotels> findHotelByHotelLevel2();
-	
-	@Query("SELECT h FROM Hotels h WHERE h.Level = 3")
-	List<Hotels> findHotelByHotelLevel3();
-	
-	@Query("SELECT h FROM Hotels h WHERE h.Level = 4")
-	List<Hotels> findHotelByHotelLevel4();
-	
-	@Query("SELECT h FROM Hotels h WHERE h.Level = 5")
-	List<Hotels> findHotelByHotelLevel5();
+	@Query("SELECT h FROM Hotels h WHERE h.Level = ?1")
+	List<Hotels> findHotelByHotelLevel(Integer level);
+//	
+//	@Query("SELECT h FROM Hotels h WHERE h.Level = 1")
+//	List<Hotels> findHotelByHotelLevel1();
+//	
+//	@Query("SELECT h FROM Hotels h WHERE h.Level = 2")
+//	List<Hotels> findHotelByHotelLevel2();
+//	
+//	@Query("SELECT h FROM Hotels h WHERE h.Level = 3")
+//	List<Hotels> findHotelByHotelLevel3();
+//	
+//	@Query("SELECT h FROM Hotels h WHERE h.Level = 4")
+//	List<Hotels> findHotelByHotelLevel4();
+//	
+//	@Query("SELECT h FROM Hotels h WHERE h.Level = 5")
+//	List<Hotels> findHotelByHotelLevel5();
 	
 	
 //	@Query(value = "SELECT * FROM Hotels h WHERE h.hotel_id > ?1  order by h.hotel_id OFFSET 0 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
@@ -40,6 +40,21 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query(value =  "select * from Hotels where Hotels.place_id = ?1"
 			+ "						order by hotels.hotel_id OFFSET ?2 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
 	List<Hotels> findHotelByPlaceid(Integer id, Integer page);
+	
+	@Query(value =  "select * from Hotels where hotels.hotel_level = ?1"
+			+ "						order by hotels.hotel_id OFFSET ?2 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
+	List<Hotels> findHotelByLevel(Integer level, Integer page);
+	
+	@Query(value =  "SELECT DISTINCT h.* "
+			+ "FROM Hotels h "
+			+ "JOIN Rooms r ON h.hotel_id = r.hotel_id "
+			+ "JOIN ServiceRooms sr ON r.room_id = sr.room_id "
+			+ "JOIN [Services] s ON sr.service_id = s.service_id "
+			+ "WHERE s.service_id = 2 "
+			+ "order by hotels.hotel_id OFFSET ?2 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
+	List<Hotels> findHotelByService(Integer service, Integer page);
+	
+	
 	
 	@Query(value = "select * from Hotels where hotels.hotel_level = ?1  and Hotels.place_id = ?2"
 			+ "						order by hotels.hotel_id OFFSET ?3 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)

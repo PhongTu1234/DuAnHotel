@@ -21,17 +21,17 @@ public interface HotelService {
 	
 	List<Hotels> findHotelByHotelLevelstarttoend(Integer start, Integer end, Integer placeId);
 	
-	List<Hotels> findHotelByHotelLevel0();
+	List<Hotels> findHotelByHotelLevel(Integer level);
 	
-	List<Hotels> findHotelByHotelLevel1();
-	
-	List<Hotels> findHotelByHotelLevel2();
-	
-	List<Hotels> findHotelByHotelLevel3();
-	
-	List<Hotels> findHotelByHotelLevel4();
-	
-	List<Hotels> findHotelByHotelLevel5();
+//	List<Hotels> findHotelByHotelLevel1();
+//	
+//	List<Hotels> findHotelByHotelLevel2();
+//	
+//	List<Hotels> findHotelByHotelLevel3();
+//	
+//	List<Hotels> findHotelByHotelLevel4();
+//	
+//	List<Hotels> findHotelByHotelLevel5();
 	
 	List<Hotels> findCountId();
 	
@@ -40,6 +40,10 @@ public interface HotelService {
 	List<Hotels> findByPlaceId(Integer Place);
 	
 	List<Hotels> findHotelByPlaceid(Integer id, Integer page);
+	
+	List<Hotels> findHotelByLevel(Integer level, Integer page);
+	
+	List<Hotels> findHotelByService(Integer service, Integer page);
 	
 	List<Hotels> findHotelByPlaceidAndStart(Integer start, Integer placeId, Integer Page);
 }

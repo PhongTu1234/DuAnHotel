@@ -65,7 +65,7 @@ public class HomeController {
 		model.addAttribute("countTop4", countTop4);
 
 		
-		List<Hotels> HotelLevel5 = htservice.findHotelByHotelLevel5();
+		List<Hotels> HotelLevel5 = htservice.findHotelByHotelLevel(5);
 		model.addAttribute("HotelLevel5", HotelLevel5);
 		return "index";
 	}

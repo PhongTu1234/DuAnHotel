@@ -17,28 +17,41 @@ import lombok.Data;
 public class Users implements Serializable{
     @Id
     @Column(name = "cmt")
-    @NotBlank(message = "Không được để trống")
+    @NotBlank(message = "cmt")
     String cmt;
 
     @Column(name = "username")
     String username;
 
     @Column(name = "email", length = 100)
+    @NotBlank(message = "email")
     String email;
 
     @Column(name = "password")
-    @NotBlank(message = "Không được để trống")
+    @NotBlank(message = "password")
     String password;
 
     @Column(name = "phone_number", length = 20)
+    @NotBlank(message = "phone_number")
     String phoneNumber;
     
     @Column(name = "Token")
     String token;
+    
+    @Column(name = "Changedpass")
+    Boolean Changedpass;
 
+//    public Boolean isChangedpass() {
+//        return Changedpass;
+//    }
+//    
+//    public void setChangedpass(Boolean changedpass) {
+//        this.Changedpass = changedpass;
+//    }
+    
     @JsonIgnore
-	@OneToMany(mappedBy = "Users", fetch = FetchType.EAGER)
-	List<Authority> Authority;
+	@OneToMany(mappedBy = "Users",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	List<Authority> authorities;
     
     @JsonIgnore
 	@OneToMany(mappedBy = "Users")

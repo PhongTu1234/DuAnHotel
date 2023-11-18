@@ -94,4 +94,15 @@ public class UserServiceImpl implements UserService {
 		entity.setPassword(newPassword);
 		adao.save(entity);
 	}
+
+	@Override
+	public void updatePass(String password, String id) {
+		adao.updatePasswordAndChangedPassById(password, id);
+	}
+
+	@Override
+	public List<Users> getAdministrators(String role) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

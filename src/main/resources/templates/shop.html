@@ -37,7 +37,78 @@
 							<div class="widgets-area">
 								<div class="widgets-item pt-0">
 									<h2 class="widgets-title mb-4">Hoteltypes</h2>
-									<ul class="widgets-category">
+									<!-- All -->
+									<ul class="widgets-category" th:if="${place_id == null}">
+										<li><a th:href="@{/hotel/all}"><i class="fa fa-chevron-right"></i>
+												All <span>([[(${counthotel})]])</span> </a></li>
+										<li><a th:href="@{/HotelType_2}"> <i
+												class="fa fa-chevron-right"> <i class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i>
+											</i> <span>([[(${countHotelLevel0})]])</span>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${5}|}"> <i
+												class="fa fa-chevron-right"> <i class="fa-solid fa-star"
+													style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i>
+											</i> <span>([[(${countHotelLevel1})]])</span>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${2}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <span>([[(${countHotelLevel2})]])</span>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${3}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <span>([[(${countHotelLevel3})]])</span>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${4}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <span>([[(${countHotelLevel4})]])</span>
+										</a></li>
+										<li>
+											<!-- <a th:href="@{|/hotel/HotelType=${5}/page=${1}|}" >  -->
+											<a th:href="@{|/hotel/HotelType=${5}|}" > 
+												<i class="fa fa-chevron-right"></i>
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<span>([[(${countHotelLevel5})]])</span>
+											</a>
+										</li>
+									</ul>
+									
+									<!-- Place -->
+									<ul class="widgets-category" th:if="${place_id != null}">
 										<li><a href="#"><i class="fa fa-chevron-right"></i>
 												All <span>([[(${counthotel})]])</span> </a></li>
 										<li><a th:href="@{/HotelType_2}"> <i
@@ -80,8 +151,7 @@
 												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
 												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
 												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
-												style="color: #e6e6e6; font-size: 20px;"></i> <i
-												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i class="fa-solid fa-star"
 												style="color: #e6e6e6; font-size: 20px;"></i> <span>([[(${countHotelLevel3})]])</span>
 										</a></li>
 										<li><a th:href="@{/HotelType_2}"> <i
@@ -92,17 +162,7 @@
 												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
 												style="color: #e6e6e6; font-size: 20px;"></i> <span>([[(${countHotelLevel4})]])</span>
 										</a></li>
-										<li th:if="${place_id == null}">
-											<a th:href="@{/HotelType_2}" > 
-												<i class="fa fa-chevron-right"></i>
-												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
-												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
-												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
-												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
-												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
-												<span>([[(${countHotelLevel5})]])</span>
-											</a>
-											<a th:href="@{/HotelType_2}" > 
+										<li><a th:href="@{|/hotel/HotelType=${5}/place=${place_id}|}" > 
 												<i class="fa fa-chevron-right"></i>
 												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
 												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
@@ -126,7 +186,7 @@
 									<ul class="widgets-category widgets-color"
 										th:each="services:${services}">
 
-										<li><a href="#"> <i class="fa fa-chevron-right"></i>
+										<li><a th:href="@{|/hotel/Service=${services.id}|}"> <i class="fa fa-chevron-right"></i>
 												[[(${services.name})]] <span>(12)</span>
 										</a></li>
 
@@ -996,8 +1056,10 @@
 							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
 									<li class="page-item">
+									
+										<!-- Shop All -->
 										<ul class="pagination justify-content-center"
-											th:if="${place_id == null}">
+											th:if="${place_id == null and level == null and last != null}">
 											<li class="page-item"><a class="page-link"
 												th:href="@{|/hotel/lpage=${last}|}" aria-label="Last"><i
 													class="fa-solid fa-backward-fast"></i></a></li>
@@ -1006,34 +1068,157 @@
 												th:href="@{|/hotel/lpage=${last}|}">[[(${last})]]</a></li>
 										</ul>
 										<ul class="pagination justify-content-center"
-											th:if="${place_id != null}">
+											th:if="${place_id == null and level == null and last == null}" disabled>
+											<!--<li class="page-item"><a class="page-link"
+												aria-label="Last"><i
+													class="fa-solid fa-backward-fast"></i></a></li> -->
+											<!-- <div>[[(${start})]]</div>-->
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/lpage=${last}|}">[[(${last})]]</a></li> -->
+										</ul>
+										
+										<!-- Shop By Place -->
+										<ul class="pagination justify-content-center"
+											th:if="${place_id != null and level == null and last != null}">
 											<li class="page-item"><a class="page-link"
 												th:href="@{|/hotel/place=${place_id}/lpage=${last}|}"
 												aria-label="Last"><i class="fa-solid fa-backward-fast"></i></a></li>
 											<li class="page-item"><a class="page-link"
 												th:href="@{|/hotel/place=${place_id}/lpage=${last}|}">[[(${last})]]</a></li>
 										</ul>
-
-									</li>
-									<li class="page-item active"><div class="page-link">[[(${start})]]</div></li>
-									<li class="page-item">
 										<ul class="pagination justify-content-center"
-											th:if="${place_id == null}">
+											th:if="${place_id != null and last == null}" disabled>
+											<!--<li class="page-item"><a class="page-link"
+												aria-label="Last"><i
+													class="fa-solid fa-backward-fast"></i></a></li>-->
+											<!-- <div>[[(${start})]]</div>-->
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/lpage=${last}|}">[[(${last})]]</a></li> -->
+										</ul>
+										
+										<!-- Shop By Level -->
+										<ul class="pagination justify-content-center"
+											th:if="${place_id == null and level != null and last != null}">
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}/npage=${last}|}"
+												aria-label="Last"><i class="fa-solid fa-backward-fast"></i></a></li>
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}/npage=${last}|}">[[(${last})]]</a></li>
+										</ul>
+										<ul class="pagination justify-content-center"
+											th:if="${place_id == null and level != null and last == null}" disabled>
+											<!-- <li class="page-item"><a class="page-link"
+												aria-label="Last"><i
+													class="fa-solid fa-backward-fast"></i></a></li> -->
+											<!-- <div>[[(${start})]]</div>-->
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/lpage=${last}|}">[[(${last})]]</a></li> -->
+										</ul>
+										
+										<!-- Shop By Level and Place -->
+										<ul class="pagination justify-content-center"
+											th:if="${place_id != null and level != null and last != null}">
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}%place=${place_id}/npage=${last}|}"
+												aria-label="Last"><i class="fa-solid fa-backward-fast"></i></a></li>
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}%place=${place_id}/npage=${last}|}">[[(${last})]]</a></li>
+										</ul>
+										<ul class="pagination justify-content-center"
+											th:if="${place_id != null and level != null and last == null}" disabled>
+											<!-- <li class="page-item"><a class="page-link"
+												aria-label="Last"><i
+													class="fa-solid fa-backward-fast"></i></a></li> -->
+											<!-- <div>[[(${start})]]</div>-->
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/lpage=${last}|}">[[(${last})]]</a></li> -->
+										</ul>
+										
+										<!-- Shop By Service -->
+										<ul class="pagination justify-content-center"
+											th:if="${place_id == null and level == null and service != null and last != null}">
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/RoomType=${level}/npage=${last}|}"
+												aria-label="Last"><i class="fa-solid fa-backward-fast"></i></a></li>
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}/npage=${last}|}">[[(${last})]]</a></li>
+										</ul>
+										<ul class="pagination justify-content-center"
+											th:if="${level != null and last == null}" disabled>
+											<!-- <li class="page-item"><a class="page-link"
+												aria-label="Last"><i
+													class="fa-solid fa-backward-fast"></i></a></li> -->
+											<!-- <div>[[(${start})]]</div>-->
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/lpage=${last}|}">[[(${last})]]</a></li> -->
+										</ul>
+									</li>
+									
+									<li class="page-item active"><div class="page-link">[[(${start})]]</div></li>
+									
+									<li class="page-item">
+										<!-- Shop All -->
+										<ul class="pagination justify-content-center" th:if="${place_id == null and level == null and next != null}">
 											<li class="page-item"><a class="page-link"
 												th:href="@{|/hotel/npage=${next}|}">[[(${next})]]</a></li>
 											<li class="page-item"><a class="page-link"
 												th:href="@{|/hotel/npage=${next}|}" aria-label="Next"><i
 													class="fa-solid fa-forward-fast"></i></a></li>
 										</ul>
-										<ul class="pagination justify-content-center"
-											th:if="${place_id != null}">
+										<ul class="pagination justify-content-center" th:if="${place_id == null and level == null and next == null}" disabled>
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/npage=${next}|}">[[(${next})]]</a></li> -->
+											 <!--<li class="page-item"><a class="page-link"
+												aria-label="Next"><i
+													class="fa-solid fa-forward-fast"></i></a></li>-->
+										</ul>
+										
+										<!-- Shop By level -->
+										<ul class="pagination justify-content-center" th:if="${place_id != null and level == null and next != null}">
 											<li class="page-item"><a class="page-link"
-												th:href="@{|/hotel/place=${place_id}/lpage=${next}|}">[[(${next})]]</a></li>
+												th:href="@{|/hotel/place=${place_id}/npage=${next}|}">[[(${next})]]</a></li>
 											<li class="page-item"><a class="page-link"
-												th:href="@{|/hotel/place=${place_id}/lpage=${next}|}"
+												th:href="@{|/hotel/place=${place_id}/npage=${next}|}"
 												aria-label="Next"><i class="fa-solid fa-forward-fast"></i></a></li>											
 										</ul>
-
+										<ul class="pagination justify-content-center" th:if="${place_id != null and level == null and next == null}" disabled>
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/place=${place_id}/npage=${next}|}">[[(${next})]]</a></li> -->
+											 <!-- <li class="page-item"><a class="page-link"
+												aria-label="Next"><i
+													class="fa-solid fa-forward-fast"></i></a></li> -->
+										</ul>
+										
+										<!-- Shop By Place -->
+										<ul class="pagination justify-content-center" th:if="${level != null and place_id == null and next != null}">
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}/npage=${next}|}">[[(${next})]]</a></li>
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}/npage=${next}|}"
+												aria-label="Next"><i class="fa-solid fa-forward-fast"></i></a></li>											
+										</ul>
+										<ul class="pagination justify-content-center" th:if="${place_id != null and level == null and next == null}" disabled>
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/place=${place_id}/npage=${next}|}">[[(${next})]]</a></li> -->
+											 <!-- <li class="page-item"><a class="page-link"
+												aria-label="Next"><i
+													class="fa-solid fa-forward-fast"></i></a></li> -->
+										</ul>
+										<!-- Shop By Level and Place -->
+										<ul class="pagination justify-content-center" th:if="${place_id != null and level != null and next != null}">
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}/npage=${next}|}">[[(${next})]]</a></li>
+											<li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/HotelType=${level}/npage=${next}|}"
+												aria-label="Next"><i class="fa-solid fa-forward-fast"></i></a></li>											
+										</ul>
+										<ul class="pagination justify-content-center" th:if="${place_id != null and level != null and next == null}" disabled>
+											<!-- <li class="page-item"><a class="page-link"
+												th:href="@{|/hotel/place=${place_id}/npage=${next}|}">[[(${next})]]</a></li> -->
+											 <!-- <li class="page-item"><a class="page-link"
+												aria-label="Next"><i
+													class="fa-solid fa-forward-fast"></i></a></li> -->
+										</ul>
 									</li>
 
 								</ul>

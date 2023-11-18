@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
 	}
+	
+	
 
 	/* Quản lý dữ liệu người sử dụng */
 	@Override
@@ -56,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			try {
 				Users user = accountService.findById(username);
 				String password = pe.encode(user.getPassword()); // Mã hóa mật khấu
-				String[] roles = user.getAuthority().stream().map(er -> er.getRole().getId())
+				String[] roles = user.getAuthorities().stream().map(er -> er.getRole().getId())
 						.collect(Collectors.toList()).toArray(new String[0]);
 				Map<String, Object> authentication = new HashMap<>();
 				authentication.put("Users", user);

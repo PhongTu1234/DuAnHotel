@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+
+        <!-- Begin Main Content Area -->
+        <main class="main-content">
+            <div class="breadcrumb-area breadcrumb-height" data-bg-image="assets/images/breadcrumb/bg/1-1-1919x388.jpg">
+                <div class="container h-100">
+                    <div class="row h-100">
+                        <div class="col-lg-12">
+                            <div class="breadcrumb-item">
+                                <h2 class="breadcrumb-heading">Login & Register Page</h2>
+                                <ul>
+                                    <li>
+                                        <a href="index.html">Home</a>
+                                    </li>
+                                    <li>Login | Register</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-register-area section-space-y-axis-100">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-lg-6 pt-5 pt-lg-0">
+                            <form th:object="${Users}" th:action="@{/auth/register}" method="post">
+                                <div class="login-form">
+                                    <h4 class="login-title" >Register</h4>
+                                    
+                                    
+                                    <div class="row">
+	                                    <div class="col-12" th:if="${message}">
+											<div class="alert alert-warning p-2">
+												<i class="text-danger" th:text="${message}">[[(${message})]]</i>
+												<i th:if="${login}"><a th:href="@{/auth/login/form}">Sign in</a></i>
+											</div>
+										</div>
+										
+                                        <div class="col-md-6 col-12">
+                                            <label>CCCD:</label>
+                                            <input th:field="*{cmt}" type="text" placeholder="First Name">
+                                            <small th:errors="*{cmt}" style="color: red"></small>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <label>Phone number:</label>
+                                            <input th:field="*{phoneNumber}" type="text" placeholder="Last Name">
+                                            <small th:errors="*{phoneNumber}" style="color: red"></small>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>Email Address*</label>
+                                            <input th:field="*{email}" type="email" placeholder="Email Address">
+                                            <small th:errors="*{email}" style="color: red"></small>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>Password</label>
+                                            <input type="password" name="password" id="password" th:field="*{password}" 
+                                            	th:value="${Users.password != null}?${Users.password}:'yourDefaultValue'" style="display: none;" />
+                                            <small th:errors="*{password}" style="color: red"></small>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <button class="btn btn-custom-size lg-size btn-pronia-primary" type="submit">Register</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Main Content Area End Here -->
+</body>
+
+</html>
