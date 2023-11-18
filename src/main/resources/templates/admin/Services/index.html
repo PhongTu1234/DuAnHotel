@@ -31,30 +31,79 @@
 									<div class="btn-group float-right">
 										<ol class="breadcrumb hide-phone p-0 m-0">
 											<li class="breadcrumb-item"><a href="#">Julie</a></li>
-											<li class="breadcrumb-item active">Services</li>
+											<li class="breadcrumb-item active">Users</li>
 										</ol>
 									</div>
-									<h4 class="page-title">Services</h4>
+									<h4 class="page-title">Users</h4>
 								</div>
 							</div>
 						</div>
 						<nav>
-							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a href="javascript:(0);" class="nav-link" data-toggle="tab"
-									data-target="#edit" type="button" role="tab"
-									aria-selected="false">EDITION</a> <a href="javascript:(0);"
+							<div class="nav nav-tabs">
+								 <a th:href="@{/users/form}" class="nav-link"
+									type="button">EDITION</a> 
+									<a href="javascript:(0);"
 									class="nav-link active" data-toggle="tab" data-target="#list"
 									type="button" role="tab" aria-selected="true">LISTS</a>
 							</div>
 						</nav>
-						<div class="tab-content" id="nav-tabContent">
-							<div class="tab-pane fade" id="edit" role="tabpanel">
-								<div ng-include="'/admin/Services/_form.html'"></div>
-							</div>
-							<div class="tab-pane fade show active" id="list" role="tabpanel">
-								<div ng-include="'/admin/Services/_table.html'"></div>
+						<div class="row mx-0 bg-white">
+							<div class="col-12 py-3">
+								<table class="table table-collapse table-bordered">
+									<thead>
+										<tr>
+											<th>CMT</th>
+											<th>Username</th>
+											<th>email</th>
+											<th>password</th>
+											<th>phoneNumber</th>
+											<th>Photo</th>
+											<th>Edit/Delete</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item:${users}">
+											<td class="align-center">[[(${item.cmt})]]</td>
+											<td class="align-center">[[(${item.username})]]</td>
+											<td class="align-center">[[(${item.email})]]</td>
+											<td class="align-center">[[(${item.password})]]</td>
+											<td class="align-center">[[(${item.phoneNumber})]]</td>
+											<td class="align-center" style="width: 10px;">[[(${item.token})]]</td>
+											<td class="align-center">
+												<div class="btn-group btn-group-xs">
+													<button class="btn btn-icon">
+														<a th:href="@{|/users/${item.cmt}|}"><i class="fa fa-xs fa-pen"></i>
+														</a>
+														
+													</button>
+													<button class="btn btn-danger">
+														<a th:href="@{/users/delete/{cmt}(cmt=${item.cmt})}"><i class="fa fa-xs fa-times"></i>
+														</a>
+													</button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
+						<div class="card-header text-center">
+							<button ng-click="pager.first()" class="btn btn-danger">
+								<i class="fas fa-arrow-to-left"></i>
+							</button>
+							<button ng-click="pager.prev()" class="btn btn-primary">
+								<i class="fas fa-arrow-left"></i>
+							</button>
+							<button class="btn btn-success">{{pager.page + 1}} of
+								{{pager.count?pager.count:'1'}}</button>
+							<button ng-click="pager.next()" class="btn btn-primary">
+								<i class="fas fa-arrow-right"></i>
+							</button>
+							<button ng-click="pager.last()" class="btn btn-danger">
+								<i class="fas fa-arrow-to-right"></i>
+							</button>
+						</div>
+						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
 
@@ -64,7 +113,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<script src="/assetss/js/jquery.min.js"></script>
 	<script src="/assetss/js/popper.min.js"></script>
@@ -105,7 +153,6 @@
 	<script src="/assetss/ctrl/serviceroom-ctrl.js"></script>
 
 	<script src="assets/js/main.js"></script>
-
 </body>
 
 </html>
