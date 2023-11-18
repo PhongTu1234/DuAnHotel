@@ -39,53 +39,94 @@
 							</div>
 						</div>
 						<nav>
-							<div class="nav nav-tabs">
-								 <a th:href="@{/users/form}" class="nav-link"
-									type="button">EDITION</a> 
-									<a href="javascript:(0);"
-									class="nav-link active" data-toggle="tab" data-target="#list"
-									type="button" role="tab" aria-selected="true">LISTS</a>
+							<div class="nav nav-tabs" id="nav-tab" role="tablist">
+								<a class="nav-link active" data-toggle="tab" type="button"
+									role="tab" aria-selected="false">EDITION</a> <a
+									th:href="@{/users/index}" class="nav-link" type="button">LISTS</a>
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
-							<div class="col-12 py-3">
-								<table class="table table-collapse table-bordered">
-									<thead>
-										<tr>
-											<th>CMT</th>
-											<th>Username</th>
-											<th>email</th>
-											<th>password</th>
-											<th>phoneNumber</th>
-											<th>Photo</th>
-											<th>Edit/Delete</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="item:${users}">
-											<td class="align-center">[[(${item.cmt})]]</td>
-											<td class="align-center">[[(${item.username})]]</td>
-											<td class="align-center">[[(${item.email})]]</td>
-											<td class="align-center">[[(${item.password})]]</td>
-											<td class="align-center">[[(${item.phoneNumber})]]</td>
-											<td class="align-center" style="width: 10px;">[[(${item.token})]]</td>
-											<td class="align-center">
-												<div class="btn-group btn-group-xs">
-													<button class="btn btn-icon">
-														<a th:href="@{|/users/${item.cmt}|}"><i class="fa fa-xs fa-pen"></i>
-														</a>
-														
-													</button>
-													<button class="btn btn-danger">
-														<a th:href="@{/users/delete/{cmt}(cmt=${item.cmt})}"><i class="fa fa-xs fa-times"></i>
-														</a>
-													</button>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+							<div class="col-md-4 text-center">
+								<span ng-if="form.image == null"> <img
+									ng-src="{{'/assets/images/cloud-upload.jpg'}}"
+									style="width: 80%; margin-top: 5rem">
+								</span> <span ng-if="form.image != null"> <img
+									ng-src="{{'/assets/images/'+form.image}}"
+									style="width: 80%; margin-top: 5rem">
+								</span>
 							</div>
+							<div class="col-md-8">
+								<form th:action="@{/users/update}" method="post"
+									th:object="${user}" class="form p-3">
+									<div class="form-group row">
+										<label for="cmt" class="form-label">CMT</label> <input
+											type="text" class="form-control" id="cmt" th:field="*{cmt}"
+											placeholder="Enter CMT">
+									</div>
+									<div class="form-group row">
+										<label for="password" class="form-label">Password</label> <input
+											type="text" class="form-control" id="password"
+											th:field="*{password}" placeholder="Enter password">
+									</div>
+									<div class="form-group row">
+										<label for="username" class="form-label">Fullname</label> <input
+											type="text" class="form-control" id="username"
+											th:field="*{username}" placeholder="Enter fullname">
+									</div>
+									<div class="form-group row">
+										<label for="email" class="form-label">Email</label> <input
+											type="text" class="form-control" id="email"
+											th:field="*{email}" placeholder="Enter email">
+									</div>
+									<div class="form-group row">
+										<label for="phoneNumber" class="form-label">phoneNumber</label> <input
+											type="text" class="form-control" id="phoneNumber"
+											th:field="*{phoneNumber}" placeholder="Enter email">
+									</div>
+									<div class="form-group row">
+										<label for="image" class="form-label">Photo</label>
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" id="image"
+												onchange="angular.element(this).scope().imageChanged(this.files)">
+											<label class="custom-file-label">Choose file</label>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<button type="submit" class="btn btn-primary"
+											th:utext="${user.cmt} ? 'Update' : 'Create'">
+											<i class="fas fa-save"></i> Submit
+										</button>
+										<a th:href="@{/users}" class="btn btn-secondary"> <i
+											class="fas fa-redo"></i> Reset
+										</a> <span th:if="${user.cmt}"> <a
+											th:href="@{/users/delete/{cmt}(cmt=${user.cmt})}"
+											class="btn btn-danger"> <i class="fas fa-trash"></i>
+												Delete
+										</a>
+										</span>
+									</div>
+								</form>
+
+
+							</div>
+						</div>
+						<div class="card-header text-center">
+							<button type="button" class="btn btn-primary"
+								onclick="createForm()">
+								<i class="fas fa-plus"></i> Create
+							</button>
+							<button type="submit" class="btn btn-success">
+								<i class="far fa-save"></i> Update
+							</button>
+							<button type="button" class="btn btn-danger"
+								onclick="deleteForm()">
+								<i class="fas fa-trash"></i> Delete
+							</button>
+							<button type="button" class="btn btn-secondary"
+								onclick="resetForm()">
+								<i class="fas fa-redo"></i> Reset
+							</button>
 						</div>
 						<div class="card-header text-center">
 							<button ng-click="pager.first()" class="btn btn-danger">
@@ -153,6 +194,22 @@
 	<script src="/assetss/ctrl/serviceroom-ctrl.js"></script>
 
 	<script src="assets/js/main.js"></script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		function createForm() {
+			window.location.href = '/users/create';
+		}
+
+		function deleteForm() {
+			var cmt = document.getElementById("cmt").value;
+			window.location.href = '/users/delete/' + cmt;
+		}
+
+		function resetForm() {
+			window.location.href = '/users/form';
+		}
+		/*]]>*/
+	</script>
 </body>
 
 </html>

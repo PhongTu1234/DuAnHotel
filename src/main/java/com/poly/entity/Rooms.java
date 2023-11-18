@@ -6,15 +6,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,10 +23,10 @@ import lombok.Data;
 public class Rooms implements Serializable {
 
 	@Id
-    @Column(name = "room_id")
-    Integer id;
+	@Column(name = "room_id")
+	Integer id;
 
-    @Column(name = "roomname")
+	@Column(name = "roomname")
     String name;
     
     @Column(name = "price", precision = 10, scale = 2) 
@@ -57,23 +53,23 @@ public class Rooms implements Serializable {
     @ManyToOne
 	@JoinColumn(name = "room_type_id")
 	RoomTypes RoomTypes;
-    
-    @ManyToOne
+
+	@ManyToOne
 	@JoinColumn(name = "hotel_id")
 	Hotels Hotels;
-    
-    @JsonIgnore
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "Rooms")
 	List<Service_Rooms> Service_Room;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "Rooms")
 	List<Images_Room> Images_Room;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "Rooms")
 	List<Feedback> Feedback;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "Rooms")
 	List<Booking_Room> Booking_Room;

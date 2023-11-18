@@ -7,10 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,21 +21,21 @@ import lombok.Data;
 @Table(name = "Payments")
 public class Payment implements Serializable {
 
-    @Id
-    @Column(name = "payment_id")
-    Integer id;
+	@Id
+	@Column(name = "payment_id")
+	Integer id;
 
-    @Column(name = "payment_date")
-    Timestamp date;
-    
-    @Column(name = "total_amount", precision = 10, scale = 2) 
-    BigDecimal Total;
-    
-    @Column(name = "payment_method")
-    String Method;
-    
-    @JsonIgnore
+	@Column(name = "payment_date")
+	Timestamp date;
+
+	@Column(name = "total_amount", precision = 10, scale = 2)
+	BigDecimal Total;
+
+	@Column(name = "payment_method")
+	String Method;
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "Payment")
 	List<Bookings> Bookings;
-    
+
 }

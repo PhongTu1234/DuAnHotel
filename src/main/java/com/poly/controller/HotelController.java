@@ -1,9 +1,7 @@
 package com.poly.controller;
 
 import java.util.List;
-import java.lang.Math;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.Service.HotelService;
-import com.poly.Service.RoomService;
-
 import com.poly.Service.RoomTypesService;
 import com.poly.Service.ServiceService;
 import com.poly.entity.Hotels;
@@ -407,18 +403,10 @@ public class HotelController {
 		List<Hotels> HotelLevel5 = hService.findHotelByHotelLevel(5);
 		model.addAttribute("countHotelLevel5", HotelLevel5.size());
 
-		int start = 1;
-		int last = start - 1;
-		int next = start + 1;
 		int SOLuongTrongTrang = 15;
 		double end = count / SOLuongTrongTrang;
 		double endRounded = Math.ceil(end);
 		// model.addAttribute("count", endRounded);
-		List<Hotels> items = hService.findHotelByPlaceid(id, (start - 1) * SOLuongTrongTrang);
-		model.addAttribute("items", items);
-		model.addAttribute("last", last);
-		model.addAttribute("start", start);
-		model.addAttribute("next", next);
 //		List<Hotels> items = hService.findByPlaceId(id);
 //		model.addAttribute("items", items);
 		return "shop";
@@ -775,136 +763,5 @@ public class HotelController {
 		return "shop";
 	}
 
-	@RequestMapping("/hotel/HotelType={level}/RoomType={id}/lpage={last}")
-	public String LevelAndRoomTypeLast(Model model, @PathVariable("level") String hotellevel,
-			@PathVariable("last") String last, @PathVariable("id") String RoomType) {
-		int level = Integer.parseInt(hotellevel);
-		int RoomTypeId = Integer.parseInt(RoomType);
-		model.addAttribute("level", level);
-		List<RoomTypes> roomtype = rtService.findAll();
-		List<Hotels> hoteltype = hService.findAll();
-		List<Services> services = svService.findAll();
-		// model.addAttribute("roomtype", roomtype);
-		// int counta = roomtype.size();
-		model.addAttribute("roomtype", roomtype);
-		model.addAttribute("hoteltype", hoteltype);
-		model.addAttribute("services", services);
-		List<Hotels> item = hService.findAll();
-		int count = item.size();
-		model.addAttribute("counthotel", count);
-
-		List<Hotels> HotelLevel0 = hService.findHotelByHotelLevel(0);
-		model.addAttribute("countHotelLevel0", HotelLevel0.size());
-
-		List<Hotels> HotelLevel1 = hService.findHotelByHotelLevel(1);
-		model.addAttribute("countHotelLevel1", HotelLevel1.size());
-
-		List<Hotels> HotelLevel2 = hService.findHotelByHotelLevel(2);
-		model.addAttribute("countHotelLevel2", HotelLevel2.size());
-
-		List<Hotels> HotelLevel3 = hService.findHotelByHotelLevel(3);
-		model.addAttribute("countHotelLevel3", HotelLevel3.size());
-
-		List<Hotels> HotelLevel4 = hService.findHotelByHotelLevel(4);
-		model.addAttribute("countHotelLevel4", HotelLevel4.size());
-
-		List<Hotels> HotelLevel5 = hService.findHotelByHotelLevel(5);
-		model.addAttribute("countHotelLevel5", HotelLevel5.size());
-
-		int start = Integer.parseInt(last);
-		if (start == 1) {
-			List<Hotels> items = hService.findHotelByLevel(level, (start - 1) * 15);
-			model.addAttribute("items", items);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		} else {
-			List<Hotels> items = hService.findHotelByLevel(level, (start) * 15);
-			model.addAttribute("items", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		return "shop";
-	}
-
-	@RequestMapping("/hotel/HotelType={level}/RoomType={id}/npage={next}")
-	public String LevelAndRoomTypeNext(Model model, @PathVariable("level") String hotellevel,
-			@PathVariable("next") String next, @PathVariable("id") String RoomType) {
-		int level = Integer.parseInt(hotellevel);
-		int RoomTypeId = Integer.parseInt(RoomType);
-		model.addAttribute("level", level);
-
-		List<RoomTypes> roomtype = rtService.findAll();
-		model.addAttribute("roomtype", roomtype);
-
-		List<Hotels> hoteltype = hService.findAll();
-		model.addAttribute("hoteltype", hoteltype);
-
-		List<Services> services = svService.findAll();
-		model.addAttribute("services", services);
-
-		List<Hotels> item = hService.findAll();
-		int count = item.size();
-		model.addAttribute("counthotel", count);
-
-		List<Hotels> HotelLevel0 = hService.findHotelByHotelLevel(0);
-		model.addAttribute("countHotelLevel0", HotelLevel0.size());
-
-		List<Hotels> HotelLevel1 = hService.findHotelByHotelLevel(1);
-		model.addAttribute("countHotelLevel1", HotelLevel1.size());
-
-		List<Hotels> HotelLevel2 = hService.findHotelByHotelLevel(2);
-		model.addAttribute("countHotelLevel2", HotelLevel2.size());
-
-		List<Hotels> HotelLevel3 = hService.findHotelByHotelLevel(3);
-		model.addAttribute("countHotelLevel3", HotelLevel3.size());
-
-		List<Hotels> HotelLevel4 = hService.findHotelByHotelLevel(4);
-		model.addAttribute("countHotelLevel4", HotelLevel4.size());
-
-		List<Hotels> HotelLevel5 = hService.findHotelByHotelLevel(5);
-		model.addAttribute("countHotelLevel5", HotelLevel5.size());
-
-		int countHotel = 0;
-		if (level == 0) {
-			countHotel = HotelLevel0.size();
-		} else {
-
-			if (level == 1) {
-				countHotel = HotelLevel1.size();
-			} else {
-				if (level == 2) {
-					countHotel = HotelLevel2.size();
-				} else {
-					if (level == 3) {
-						countHotel = HotelLevel3.size();
-					} else {
-						if (level == 4) {
-							countHotel = HotelLevel4.size();
-						} else {
-							countHotel = HotelLevel5.size();
-						}
-
-					}
-				}
-			}
-		}
-		int start = Integer.parseInt(next);
-		double end = countHotel / 15;
-		double endRounded = Math.ceil(end);
-
-		if (endRounded < start) {
-			List<Hotels> items = hService.findHotelByLevel(level, (start - 2) * 15);
-			model.addAttribute("items", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-		} else {
-			List<Hotels> items = hService.findHotelByLevel(level, (start - 1) * 15);
-			model.addAttribute("items", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		return "shop";
-	}
+	
 }

@@ -14,12 +14,12 @@ public interface PlacesService {
 	Places update(Places Places);
 
 	void delete(Integer id);
-	
+
 	Places findPlaceWithMostHotels();
-	
+
 	Places findPlaceWithMostHotelsTop2();
-	
+
 	Places findPlaceWithMostHotelsTop3();
-	
+
 	Places findPlaceWithMostHotelsTop4();
 }

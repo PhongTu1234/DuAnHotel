@@ -17,23 +17,23 @@ import lombok.Data;
 @Table(name = "Blogs")
 public class Blogs implements Serializable {
 
-    @Id
-    @Column(name = "id")
-    Integer id;
+	@Id
+	@Column(name = "id")
+	Integer id;
 
-    @Column(name = "title")
-    String Title;
-    
-    @Column(name = "content")
-    String content;
-    
-    @Column(name = "short_description")
-    String ShoDes;
-    
-    @Column(name = "author")
-    String Author;
-    
-    @ManyToOne
+	@Column(name = "title")
+	String Title;
+
+	@Column(name = "content")
+	String content;
+
+	@Column(name = "short_description")
+	String ShoDes;
+
+	@Column(name = "author")
+	String Author;
+
+	@ManyToOne
 	@JoinColumn(name = "image_id")
 	Images Images;
 }

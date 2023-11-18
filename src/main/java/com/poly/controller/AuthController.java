@@ -206,6 +206,7 @@ public class AuthController {
         return "auth/register";
     }
 
+
     @PostMapping("/auth/register")
     public String signUpSuccess(Model model, @Validated @ModelAttribute("Users") Users account, Errors error,
                                 HttpServletResponse response) throws Exception {
@@ -252,6 +253,7 @@ public class AuthController {
 			String token = RandomString.make(50);
 			accountService.updateToken(token, email);
 			String resetLink = getSiteURL(request) + "/auth/reset-password?token=" + token;
+			// mailer.sendEmail(email, resetLink);
 			mailer.sendEmail(email, resetLink);
 			model.addAttribute("message", "We have sent a reset password link to your email. "
 					+ "If you don't see the email, check your spam folder.");

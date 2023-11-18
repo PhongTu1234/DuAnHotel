@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,14 +19,14 @@ import lombok.Data;
 @Table(name = "Place")
 public class Places implements Serializable {
 
-    @Id
-    @Column(name = "place_id")
-    Integer id;
+	@Id
+	@Column(name = "place_id")
+	Integer id;
 
-    @Column(name = "place_name")
-    String name;
+	@Column(name = "place_name")
+	String name;
 
-    @JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "Place")
 	List<Hotels> Hotel;
 }
