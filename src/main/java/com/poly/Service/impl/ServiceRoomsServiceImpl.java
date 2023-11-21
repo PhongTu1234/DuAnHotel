@@ -5,33 +5,33 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poly.DAO.Service_RoomDAO;
-import com.poly.Service.Service_RoomService;
-import com.poly.entity.Service_Rooms;
+import com.poly.DAO.ServiceRoomsDAO;
+import com.poly.Service.ServiceRoomsService;
+import com.poly.entity.ServiceRooms;
 
 @Service
-public class Service_RoomServiceImpl implements Service_RoomService {
+public class ServiceRoomsServiceImpl implements ServiceRoomsService {
 
 	@Autowired
-	Service_RoomDAO htdao;
+	ServiceRoomsDAO htdao;
 
 	@Override
-	public List<Service_Rooms> findAll() {
+	public List<ServiceRooms> findAll() {
 		return htdao.findAll();
 	}
 
 	@Override
-	public Service_Rooms findById(Integer id) {
+	public ServiceRooms findById(Integer id) {
 		return htdao.findById(id).get();
 	}
 
 	@Override
-	public Service_Rooms create(Service_Rooms Service_Rooms) {
+	public ServiceRooms create(ServiceRooms Service_Rooms) {
 		return htdao.save(Service_Rooms);
 	}
 
 	@Override
-	public Service_Rooms update(Service_Rooms Service_Rooms) {
+	public ServiceRooms update(ServiceRooms Service_Rooms) {
 		return htdao.save(Service_Rooms);
 	}
 

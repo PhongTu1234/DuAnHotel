@@ -5,17 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.HotelService;
+import com.poly.Service.RoleService;
 import com.poly.Service.RoomTypesService;
 import com.poly.Service.ServiceService;
 import com.poly.entity.Hotels;
+import com.poly.entity.Role;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Services;
 
 @Controller
+@RequestMapping("/hotels")
 public class HotelController {
 
 	@Autowired
@@ -764,4 +771,65 @@ public class HotelController {
 	}
 
 	
+	//xu ly admin
+	 	@GetMapping("/form")
+	 	public String formHotel(Model model) {
+	 		model.addAttribute("hotels", new Hotels());
+	 		return "admin/Hotel/form";
+	 	}
+
+	 	@GetMapping("/index")
+	    public String showHotelsIndex(Model model) {
+	 		model.addAttribute("hotels", hService.findAll());
+	        return "admin/Hotel/index";
+	    }
+	 
+//	    @GetMapping
+//	    public String listPlaces(Model model) {
+//	        model.addAttribute("places", placeService.findAll());
+//	        return "";
+//	    }
+
+	    @GetMapping("/{id}")
+	    public String viewHotel(@PathVariable("id") Integer id, Model model) {
+	    	Hotels hotels = hService.findById(id);
+	        model.addAttribute("hotels", hotels);
+	        return "admin/Hotel/form";
+	    }
+
+	    @PostMapping("/create")
+	    public String createHotel(@ModelAttribute Hotels hotels) {
+	    	hService.create(hotels);
+	        return "redirect:/hotels/form";
+	    }
+
+//	    @PostMapping("/update")
+//	    public ModelAndView updateUser(@Validated @ModelAttribute("user") Users user) {
+//	        userService.update(user);
+//	        return new ModelAndView("redirect:/users/index");
+//	    }
+	//
+//	    @GetMapping("/delete/{cmt}")
+//	    public ModelAndView deleteUser(@PathVariable String cmt) {
+//	        userService.delete(cmt);
+//	        return new ModelAndView("redirect:/users/index");
+//	    }
+	    
+	    @PostMapping("/update")
+	    public ModelAndView updateHotel(@ModelAttribute Hotels hotels) {
+	        if (hotels.getId() != null) {
+	            // Nếu có ID, thực hiện cập nhật
+	        	hService.update(hotels);
+	        } else {
+	            // Nếu không có ID, thực hiện thêm mới
+	        	hService.create(hotels);
+	        }
+	        return new ModelAndView("redirect:/hotels/index");
+	    }
+
+	    @GetMapping("/delete/{id}")
+	    public ModelAndView deleteHotel(@PathVariable("id") Integer id) {
+	    	hService.delete(id);
+	        return new ModelAndView("redirect:/hotels/index");
+	    }
 }

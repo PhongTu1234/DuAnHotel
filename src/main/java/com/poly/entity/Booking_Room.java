@@ -15,7 +15,7 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "BookingRoom")
+@Table(name = "Booking_room")
 public class Booking_Room implements Serializable {
 
 	@Id
@@ -30,11 +30,11 @@ public class Booking_Room implements Serializable {
 	Bookings Bookings;
 
 	@ManyToOne
-	@OneToMany(mappedBy = "room_id")
+	@JoinColumn(name = "room_id")
 	Rooms Rooms;
 
 	@ManyToOne
-	@OneToMany(mappedBy = "hotel_id")
+	@JoinColumn(name = "hotel_id")
 	Hotels Hotels;
 
 }

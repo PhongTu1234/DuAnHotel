@@ -24,11 +24,8 @@ public class Blogs implements Serializable {
 	@Column(name = "title")
 	String Title;
 
-	@Column(name = "content")
-	String content;
-
-	@Column(name = "short_description")
-	String ShoDes;
+	@Column(name = "description")
+	String Description;
 
 	@Column(name = "author")
 	String Author;

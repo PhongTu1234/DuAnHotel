@@ -15,11 +15,11 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "ServiceRooms", uniqueConstraints = { @UniqueConstraint(columnNames = { "room_id", "service_id" }) })
-public class Service_Rooms implements Serializable {
+@Table(name = "service_rooms", uniqueConstraints = { @UniqueConstraint(columnNames = { "room_id", "service_id" }) })
+public class ServiceRooms implements Serializable {
 
 	@Id
-	@Column(name = "ServiceRooms_Id")
+	@Column(name = "id")
 	Integer id;
 
 	@ManyToOne

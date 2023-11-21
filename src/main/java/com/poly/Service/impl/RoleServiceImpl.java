@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Role findById(Integer id) {
+	public Role findById(String id) {
 		return dao.findById(id).get();
 	}
 
@@ -35,7 +35,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(String id) {
 		dao.deleteById(id);
 	}
 

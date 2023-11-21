@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ư <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
@@ -17,6 +17,7 @@
 		</div>
 	</div>
 	<div id="wrapper">
+
 
 		<!--  <div ng-include="'/admin/_sidebar.html'"></div>-->
 		<div th:replace="/admin/_sidebar.html"></div>
@@ -39,22 +40,82 @@
 							</div>
 						</div>
 						<nav>
-							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a href="javascript:(0);" class="nav-link" data-toggle="tab"
-									data-target="#edit" type="button" role="tab"
-									aria-selected="false">EDITION</a> <a href="javascript:(0);"
+							<div class="nav nav-tabs">
+								 	<a th:href="@{/rooms/form}" class="nav-link"
+									type="button">EDITION</a> 
+									<a href="javascript:(0);"
 									class="nav-link active" data-toggle="tab" data-target="#list"
-									type="button" role="tab" aria-selected="true">LISTS</a>
+									type="button" role="tab" aria-selected="true">LIST ROOM</a>
+									<a th:href="@{/roomtypes/index}" class="nav-link"
+									type="button">LIST ROOMTYPE</a>
 							</div>
 						</nav>
-						<div class="tab-content" id="nav-tabContent">
-							<div class="tab-pane fade" id="edit" role="tabpanel">
-								<div ng-include="'/admin/Rooms/_form.html'"></div>
-							</div>
-							<div class="tab-pane fade show active" id="list" role="tabpanel">
-								<div ng-include="'/admin/Rooms/_table.html'"></div>
+						<div class="row mx-0 bg-white">
+							<div class="col-12 py-3">
+								<table class="table table-collapse table-bordered">
+									<thead>
+										<tr>
+											<th>roomId</th>
+											<th>HotelID</th>
+											<th>RoomtypeID</th>
+											<th>roomName</th>
+											<th>roomRating</th>
+											<th>roomPrice</th>
+											<th>SoLuongPhong</th>
+											<th>SoLuongChoCheckin</th>
+											<th>SoLuongTrong</th>
+											<th>SoLuongDangThue</th>
+											<th>description</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item:${rooms}">
+											<td class="align-center">[[(${item.id})]]</td>
+											<td class="align-center">[[(${item.Hotels.name})]]</td>
+											<td class="align-center">[[(${item.RoomTypes.name})]]</td>
+											<td class="align-center">[[(${item.name})]]</td>
+											<td class="align-center">[[(${item.rate})]]</td>
+											<td class="align-center">[[(${item.price})]]</td>
+											<td class="align-center">[[(${item.soluongphong})]]</td>
+											<td class="align-center">[[(${item.soluongchocheckin})]]</td>
+											<td class="align-center">[[(${item.soluongtrong})]]</td>
+											<td class="align-center">[[(${item.soluongdangthue})]]</td>
+											<td class="align-center">[[(${item.description})]]</td>
+											<td class="align-center">
+												<div class="btn-group btn-group-xs">
+													<button class="btn btn-icon">
+														<a th:href="@{|/rooms/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
+														</a>
+														
+													</button>
+													<button class="btn btn-danger">
+														<a th:href="@{/rooms/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
+														</a>
+													</button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
+						<div class="card-header text-center">
+							<button ng-click="pager.first()" class="btn btn-danger">
+								<i class="fas fa-arrow-to-left"></i>
+							</button>
+							<button ng-click="pager.prev()" class="btn btn-primary">
+								<i class="fas fa-arrow-left"></i>
+							</button>
+							<button class="btn btn-success">{{pager.page + 1}} of
+								{{pager.count?pager.count:'1'}}</button>
+							<button ng-click="pager.next()" class="btn btn-primary">
+								<i class="fas fa-arrow-right"></i>
+							</button>
+							<button ng-click="pager.last()" class="btn btn-danger">
+								<i class="fas fa-arrow-to-right"></i>
+							</button>
+						</div>
+						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
 
@@ -64,7 +125,7 @@
 			</div>
 		</div>
 	</div>
-
+        
 
 	<script src="/assetss/js/jquery.min.js"></script>
 	<script src="/assetss/js/popper.min.js"></script>
@@ -84,28 +145,8 @@
 	<script src="/assetss/js/app.js"></script>
 	<script src="/assetss/js/angular.min.js"></script>
 	<script src="/assetss/js/angular-route.min.js"></script>
-	<script src="/assetss/ctrl/account-ctrl.js"></script>
-	<script src="/assetss/ctrl/admin-ctrl.js"></script>
-	<script src="/assetss/ctrl/authority-ctrl.js"></script>
-	<script src="/assetss/ctrl/blog-ctrl.js"></script>
-	<script src="/assetss/ctrl/booking-ctrl.js"></script>
-	<script src="/assetss/ctrl/bookingroom-ctrl.js"></script>
-	<script src="/assetss/ctrl/feedback-ctrl.js"></script>
-	<script src="/assetss/ctrl/hotel-ctrl.js"></script>
-	<script src="/assetss/ctrl/hoteltype-ctrl.js"></script>
-	<script src="/assetss/ctrl/images-ctrl.js"></script>
-	<script src="/assetss/ctrl/imageshotel-ctrl.js"></script>
-	<script src="/assetss/ctrl/imagesroom-ctrl.js"></script>
-	<script src="/assetss/ctrl/payment-ctrl.js"></script>
-	<script src="/assetss/ctrl/place-ctrl.js"></script>
-	<script src="/assetss/ctrl/roles-ctrl.js"></script>
-	<script src="/assetss/ctrl/room-ctrl.js"></script>
-	<script src="/assetss/ctrl/roomtype-ctrl.js"></script>
-	<script src="/assetss/ctrl/service-ctrl.js"></script>
-	<script src="/assetss/ctrl/serviceroom-ctrl.js"></script>
 
 	<script src="assets/js/main.js"></script>
-
 </body>
 
 </html>

@@ -18,13 +18,13 @@
 	</div>
 	<div id="wrapper">
 
+
 		<!--  <div ng-include="'/admin/_sidebar.html'"></div>-->
 		<div th:replace="/admin/_sidebar.html"></div>
 		<div class="content-page">
 			<div class="content">
 				<div th:replace="'/admin/_topbar.html'"></div>
-				<div class="page-content-wrapper"
-					xmlns:th="http://www.thymeleaf.org">
+				<div class="page-content-wrapper">
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-sm-12">
@@ -32,31 +32,76 @@
 									<div class="btn-group float-right">
 										<ol class="breadcrumb hide-phone p-0 m-0">
 											<li class="breadcrumb-item"><a href="#">Julie</a></li>
-											<li class="breadcrumb-item active">Blog</li>
+											<li class="breadcrumb-item active">Blogs</li>
 										</ol>
 									</div>
-									<h4 class="page-title">Blog</h4>
+									<h4 class="page-title">Blogs</h4>
 								</div>
 							</div>
 						</div>
 						<nav>
-							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a href="javascript:(0);" class="nav-link" data-toggle="tab"
-									data-target="#edit" type="button" role="tab"
-									aria-selected="false">EDITION</a> <a href="javascript:(0);"
+							<div class="nav nav-tabs">
+								 <a th:href="@{/blogs/form}" class="nav-link"
+									type="button">EDITION</a> 
+									<a href="javascript:(0);"
 									class="nav-link active" data-toggle="tab" data-target="#list"
 									type="button" role="tab" aria-selected="true">LISTS</a>
 							</div>
 						</nav>
-						<div class="tab-content" id="nav-tabContent">
-							<div class="tab-pane fade" id="edit" role="tabpanel">
-								<div th:replace="/admin/Blog/_form.html"></div>
-								<!--  <div ng-include="'/admin/Blog/_form.html'"></div>-->
-							</div>
-							<div class="tab-pane fade show active" id="list" role="tabpanel">
-								<div ng-include="'/admin/Blog/_table.html'"></div>
+						<div class="row mx-0 bg-white">
+							<div class="col-12 py-3">
+								<table class="table table-collapse table-bordered">
+									<thead>
+										<tr>
+											<th>blogId</th>
+											<th>blogTitle</th>
+											<th>blogDescription</th>
+											<th>blogAuthor</th>
+											<th>blogImageName</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item:${blogs}">
+											<td class="align-center">[[(${item.id})]]</td>
+											<td class="align-center">[[(${item.Title})]]</td>
+											<td class="align-center">[[(${item.Description})]]</td>
+											<td class="align-center">[[(${item.Author})]]</td>
+											<td class="align-center">[[(${item.Images.name})]]</td>
+											<td class="align-center">
+												<div class="btn-group btn-group-xs">
+													<button class="btn btn-icon">
+														<a th:href="@{|/blogs/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
+														</a>
+														
+													</button>
+													<button class="btn btn-danger">
+														<a th:href="@{/blogs/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
+														</a>
+													</button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
+						<div class="card-header text-center">
+							<button ng-click="pager.first()" class="btn btn-danger">
+								<i class="fas fa-arrow-to-left"></i>
+							</button>
+							<button ng-click="pager.prev()" class="btn btn-primary">
+								<i class="fas fa-arrow-left"></i>
+							</button>
+							<button class="btn btn-success">{{pager.page + 1}} of
+								{{pager.count?pager.count:'1'}}</button>
+							<button ng-click="pager.next()" class="btn btn-primary">
+								<i class="fas fa-arrow-right"></i>
+							</button>
+							<button ng-click="pager.last()" class="btn btn-danger">
+								<i class="fas fa-arrow-to-right"></i>
+							</button>
+						</div>
+						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
 
@@ -66,7 +111,7 @@
 			</div>
 		</div>
 	</div>
-
+        
 
 	<script src="/assetss/js/jquery.min.js"></script>
 	<script src="/assetss/js/popper.min.js"></script>
@@ -86,28 +131,8 @@
 	<script src="/assetss/js/app.js"></script>
 	<script src="/assetss/js/angular.min.js"></script>
 	<script src="/assetss/js/angular-route.min.js"></script>
-	<script src="/assetss/ctrl/account-ctrl.js"></script>
-	<script src="/assetss/ctrl/admin-ctrl.js"></script>
-	<script src="/assetss/ctrl/authority-ctrl.js"></script>
-	<script src="/assetss/ctrl/blog-ctrl.js"></script>
-	<script src="/assetss/ctrl/booking-ctrl.js"></script>
-	<script src="/assetss/ctrl/bookingroom-ctrl.js"></script>
-	<script src="/assetss/ctrl/feedback-ctrl.js"></script>
-	<script src="/assetss/ctrl/hotel-ctrl.js"></script>
-	<script src="/assetss/ctrl/hoteltype-ctrl.js"></script>
-	<script src="/assetss/ctrl/images-ctrl.js"></script>
-	<script src="/assetss/ctrl/imageshotel-ctrl.js"></script>
-	<script src="/assetss/ctrl/imagesroom-ctrl.js"></script>
-	<script src="/assetss/ctrl/payment-ctrl.js"></script>
-	<script src="/assetss/ctrl/place-ctrl.js"></script>
-	<script src="/assetss/ctrl/roles-ctrl.js"></script>
-	<script src="/assetss/ctrl/room-ctrl.js"></script>
-	<script src="/assetss/ctrl/roomtype-ctrl.js"></script>
-	<script src="/assetss/ctrl/service-ctrl.js"></script>
-	<script src="/assetss/ctrl/serviceroom-ctrl.js"></script>
 
 	<script src="assets/js/main.js"></script>
-
 </body>
 
 </html>

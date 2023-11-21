@@ -32,5 +32,5 @@ public class Services implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "Services")
-	List<Service_Rooms> Service_Rooms;
+	List<ServiceRooms> Service_Rooms;
 }

@@ -45,16 +45,16 @@ CREATE TABLE Hotels (
 	Email_hotel varchar(50),				-- Email của khách sạn
     [description] nvarchar(MAX),            -- Mô tả về khách sạn
 	place_id INT,							-- Địa điểm thuê khách sạn
-	hotel_level INT NOT NULL,							--Mức độ khách sạn
-	FOREIGN KEY (place_id) REFERENCES Place(place_id),
+	hotel_level INT NOT NULL,				--Mức độ khách sạn
+	FOREIGN KEY (place_id) REFERENCES Place(place_id) ON DELETE CASCADE,
 );
 go
 create table img_hotel(
 	hotel_img_id INT PRIMARY KEY,			-- ID duy nhất cho Hình khách sạn
 	hotel_id INT,							-- ID duy nhất cho khách sạn
 	image_id INT,							-- ID hình cho phòng
-	FOREIGN KEY (image_id) REFERENCES Images(image_id),
-	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id)
+	FOREIGN KEY (image_id) REFERENCES Images(image_id) ON DELETE CASCADE,
+	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id) ON DELETE CASCADE
 );
 go
 -- Bảng Loại Phòng
@@ -69,29 +69,33 @@ CREATE TABLE Rooms (
     room_id INT PRIMARY KEY,                -- ID duy nhất cho phòng
     hotel_id INT NOT NULL,                  -- Khóa ngoại liên kết với bảng Khách sạn
     room_type_id INT,                       -- Khóa ngoại liên kết với bảng Loại Phòng
-    roomname VARCHAR(10),                -- Số phòng
+    roomname VARCHAR(50),					-- Số phòng
 	rating FLOAT,							-- Điểm đánh giá của phòng
 	price DECIMAL(10, 2),					-- Giá tiền của loại phòng
-    status nvarchar(50),                    -- Trạng thái phòng (đã đặt, trống)
+	soluongphong int,
+	soluongchoCheckin int,
+	soluongtrong int,
+	soluongdangthue int,
+    --status nvarchar(50),                    -- Trạng thái phòng (đã đặt, trống)
     description TEXT,                       -- Mô tả về phòng
-    FOREIGN KEY (room_type_id) REFERENCES RoomTypes(room_type_id),
-	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id),
+    FOREIGN KEY (room_type_id) REFERENCES RoomTypes(room_type_id) ON DELETE CASCADE,
+	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id) ON DELETE CASCADE,
 );
 go
-CREATE TABLE ServiceRooms(
-	ServiceRooms_Id int PRIMARY KEY NOT NULL,
+CREATE TABLE service_rooms(
+	id int PRIMARY KEY NOT NULL,
 	room_id INT NOT NULL,
 	service_id INT NOT NULL,
-	FOREIGN KEY (room_id) REFERENCES Rooms(room_id),
-	FOREIGN KEY (service_id) REFERENCES [Services](service_id)
+	FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE,
+	FOREIGN KEY (service_id) REFERENCES [Services](service_id) ON DELETE CASCADE
 );
 go
 create table img_Rooms(
 	room_img_id INT PRIMARY KEY,			-- ID duy nhất cho Hình khách sạn
 	room_id INT,							-- ID duy nhất cho khách sạn
 	image_id INT,							-- ID hình cho phòng
-	FOREIGN KEY (image_id) REFERENCES Images(image_id),
-	FOREIGN KEY (room_id) REFERENCES Rooms(room_id)
+	FOREIGN KEY (image_id) REFERENCES Images(image_id) ON DELETE CASCADE,
+	FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE
 );
 go
 -- Bảng Thanh toán
@@ -124,8 +128,8 @@ CREATE TABLE Authorities(
 	Id int PRIMARY KEY NOT NULL,
 	cmt varchar(20) NOT NULL,
 	role_id nvarchar(10) NOT NULL,
-	FOREIGN KEY (role_id) REFERENCES Roles(role_id),
-	FOREIGN KEY (Cmt) REFERENCES Users(cmt)
+	FOREIGN KEY (role_id) REFERENCES Roles(role_id) ON DELETE CASCADE,
+	FOREIGN KEY (Cmt) REFERENCES Users(cmt) ON DELETE CASCADE
 );
 go
 
@@ -135,8 +139,8 @@ CREATE TABLE Feedback (
     description nvarchar(255),               -- Mô tả về đánh giá
 	room_id INT,
 	cmt VARCHAR(20),
-	FOREIGN KEY (room_id) REFERENCES Rooms(room_id),
-	FOREIGN KEY (cmt) REFERENCES Users(cmt)
+	FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE,
+	FOREIGN KEY (cmt) REFERENCES Users(cmt) ON DELETE CASCADE
 );
 go
 
@@ -149,8 +153,8 @@ CREATE TABLE Bookings (
     checkout_date DATE,                     -- Ngày trả phòng
     payment_status bit,                     -- Trạng thái thanh toán
 	payment_id INT,						    -- ID duy nhất cho thanh toán
-    FOREIGN KEY (cmt) REFERENCES Users(cmt),
-	FOREIGN KEY (payment_id) REFERENCES Payments(payment_id),
+    FOREIGN KEY (cmt) REFERENCES Users(cmt) ON DELETE CASCADE,
+	FOREIGN KEY (payment_id) REFERENCES Payments(payment_id) ON DELETE CASCADE,
 	
 );
 go
@@ -158,14 +162,14 @@ go
 
 --Bảng Hóa đơn
 CREATE TABLE Booking_room (	
-	bookingRoom_id INT primary key,
-	booking_id INT,							-- ID duy nhất cho đặt phòng
+	bookingroom_id INT primary key,
+	booking_id INT,							-- ID duy nhất cho đặt phòng 
 	room_id INT,			                -- ID duy nhất cho phòng	
 	[Count] INT,							-- Số lượng phòng
 	hotel_id INT,							--ID của khách sạn
-    FOREIGN KEY (room_id) REFERENCES Rooms(room_id),
-	FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id),
-	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id)
+    FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE,
+	FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id) ON DELETE CASCADE,
+	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id) 
 );
 go
 
@@ -173,11 +177,10 @@ go
 CREATE TABLE blogs (
     id INT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    short_description VARCHAR(255) NOT NULL,
+	description VARCHAR(255) NOT NULL,
     author VARCHAR(100),
 	image_id INT NOT NULL,
-	FOREIGN KEY (image_id) REFERENCES Images(image_id)
+	FOREIGN KEY (image_id) REFERENCES Images(image_id) ON DELETE CASCADE
 );
 
 
@@ -225,7 +228,9 @@ insert into [Services] values (1, N'Wifi-Free'),
 							  (7, N'Quầy phụ vụ đồ ăn'),
 							  (8, N'Dịch vụ dọn phòng'),
 							  (9, N'Bãi đậu xe'),
-							  (10, N'Dịch vụ bảo quản hành lí');
+							  (10, N'Dịch vụ bảo quản hành lí'),
+							  (11, N'Phòng hút thuốc'),
+							  (12, N'Phòng không hút thuốc');
 
 insert into Users values(N'Nguyễn Hoàng Tuấn', 'nguyenhoang.tuan2407@gmail.com', '081456789370','123', '0234567890', N'token',1),
 						(N'Vũ Văn Minh Hoàng', 'hoangvvm123@gmail.com', '081456789375', '123', '0934567890', N'token',1),
@@ -463,3 +468,7 @@ INSERT INTO img_hotel VALUES(757,253,757),
 							(790,264,790),
 							(791,264,791),
 							(792,264,792);
+
+
+
+

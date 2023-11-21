@@ -28,24 +28,27 @@ public class Rooms implements Serializable {
 
 	@Column(name = "roomname")
     String name;
+	
+	@Column(name = "rating")
+    String rate;
     
     @Column(name = "price", precision = 10, scale = 2) 
     BigDecimal price;
     
-    @Column(name = "status", length = 50)
-    String status;
+//    @Column(name = "status", length = 50)
+//    String status;
 
-//    @Column(name = "soluongphong")
-//    Integer soluongphong;
-//    
-//    @Column(name = "soluongcheckin")
-//    Integer soluongcheckin;
-//    
-//    @Column(name = "soluongtrong")
-//    Integer soluongtrong;
-//    
-//    @Column(name = "soluongdangthue")
-//    Integer soluongdangthue;
+    @Column(name = "soluongphong")
+    Integer soluongphong;
+    
+    @Column(name = "soluongchocheckin")
+    Integer soluongchocheckin;
+    
+    @Column(name = "soluongtrong")
+    Integer soluongtrong;
+    
+    @Column(name = "soluongdangthue")
+    Integer soluongdangthue;
 
     @Column(name = "description", columnDefinition = "TEXT")
     String description;
@@ -60,7 +63,7 @@ public class Rooms implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "Rooms")
-	List<Service_Rooms> Service_Room;
+	List<ServiceRooms> Service_Room;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "Rooms")

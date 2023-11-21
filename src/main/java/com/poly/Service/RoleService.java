@@ -7,11 +7,11 @@ import com.poly.entity.Role;
 public interface RoleService {
 	public List<Role> findAll();
 
-	Role findById(Integer id);
+	Role findById(String id);
 
 	Role create(Role hoteltypes);
 
 	Role update(Role hoteltypes);
 
-	void delete(Integer id);
+	void delete(String id);
 }

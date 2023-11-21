@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.Service.Service_RoomService;
-import com.poly.entity.Service_Rooms;
+import com.poly.Service.ServiceRoomsService;
+import com.poly.entity.ServiceRooms;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/rest/Service_Room")
-public class Service_RoomRestController {
+public class ServiceRoomsRestController {
 
 	@Autowired
-	Service_RoomService HotelTypesService;
+	ServiceRoomsService HotelTypesService;
 
 	@GetMapping
-	public List<Service_Rooms> getAll() {
+	public List<ServiceRooms> getAll() {
 		return HotelTypesService.findAll();
 	}
 
 	@GetMapping("{id}")
-	public Service_Rooms getOne(@PathVariable("id") Integer id) {
+	public ServiceRooms getOne(@PathVariable("id") Integer id) {
 		return HotelTypesService.findById(id);
 	}
 
 	@PostMapping
-	public Service_Rooms create(@RequestBody Service_Rooms Service_Room) {
+	public ServiceRooms create(@RequestBody ServiceRooms Service_Room) {
 		return HotelTypesService.create(Service_Room);
 	}
 
 	@PutMapping("{id}")
-	public Service_Rooms update(@PathVariable("id") String id, @RequestBody Service_Rooms Service_Room) {
+	public ServiceRooms update(@PathVariable("id") String id, @RequestBody ServiceRooms Service_Room) {
 		return HotelTypesService.update(Service_Room);
 	}
 

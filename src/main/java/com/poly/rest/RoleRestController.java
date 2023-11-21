@@ -30,7 +30,7 @@ public class RoleRestController {
 	}
 
 	@GetMapping("{id}")
-	public Role getOne(@PathVariable("id") Integer id) {
+	public Role getOne(@PathVariable("id") String id) {
 		return roleService.findById(id);
 	}
 
@@ -45,7 +45,7 @@ public class RoleRestController {
 	}
 
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") String id) {
 		roleService.delete(id);
 	}
 
