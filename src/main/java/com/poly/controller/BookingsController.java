@@ -7,32 +7,44 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.BookingsService;
-import com.poly.Service.FeedbackService;
 import com.poly.entity.Bookings;
-import com.poly.entity.Feedback;
+
+import com.poly.Service.Booking_RoomService;
 
 @Controller
-@RequestMapping("/bookings")
 public class BookingsController {
 
 	@Autowired
     private BookingsService bookingService;
+	
+	@Autowired
+	HttpServletRequest request;
+	
+	@Autowired
+	Booking_RoomService brService;
 	
 	@RequestMapping("/hotel/room/order/cart")
 	public String cart() {
 		return "/order/cart";
 	}
 	
-	@RequestMapping("/hotel/room/order/cart/checkout")
-	public String checkout() {
-		return "/order/checkout";
-	}
+//	@RequestMapping("/hotel/room/order/cart/checkout")
+//	public String checkout() {
+//		return "/order/checkout";
+//	}
 
-	
+	@RequestMapping("/cart/checkout")
+	public String checkout() {
+		if (!(request.isUserInRole("DIRE") || request.isUserInRole("STAF") || request.isUserInRole("CUST"))) {
+			return "redirect:/auth/login/form";
+		}
+		return "cart/checkout";
+	}	
 	
 	//xu ly admin
 	 	@GetMapping("/form")
@@ -96,4 +108,10 @@ public class BookingsController {
 	        return new ModelAndView("redirect:/bookings/index");
 	    }
 	
+	@RequestMapping("/order/list")
+	public String list(Model model, HttpServletRequest request) {
+		String username = request.getRemoteUser();
+		model.addAttribute("orders", brService.getBookingDetailsForUser(username));
+		return "order/cart";
+	}
 }

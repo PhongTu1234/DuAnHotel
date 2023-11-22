@@ -75,8 +75,7 @@
 											th:utext="${roomtypes.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/roomtypes}" class="btn btn-secondary"> <i
-											class="fas fa-redo"></i> Reset
+										<a th:href="@{/roomtypes}" class="btn btn-secondary"> <iclass="fas fa-redo"></i> Reset
 										</a> <span th:if="${roomtypes.id}"> <a
 											th:href="@{/roomtypes/delete/{id}(id=${roomtypes.id})}"
 											class="btn btn-danger"> <i class="fas fa-trash"></i>

@@ -14,4 +14,6 @@ public interface Booking_RoomService {
 	Booking_Room update(Booking_Room Booking_Room);
 
 	void delete(Integer id);
+	
+	List<Booking_Room> getBookingDetailsForUser(String user);
 }

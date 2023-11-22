@@ -41,8 +41,8 @@ public class Rooms implements Serializable {
     @Column(name = "soluongphong")
     Integer soluongphong;
     
-    @Column(name = "soluongchocheckin")
-    Integer soluongchocheckin;
+    @Column(name = "soluongcheckin")
+    Integer soluongcheckin;
     
     @Column(name = "soluongtrong")
     Integer soluongtrong;

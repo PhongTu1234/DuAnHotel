@@ -63,11 +63,12 @@
 											<td class="align-center">[[(${item.name})]]</td>
 											<td class="align-center">
 												<div class="btn-group btn-group-xs">
+													
+													<a th:href="@{|/roomtypes/${item.id}|}">
 													<button class="btn btn-icon">
-														<a th:href="@{|/roomtypes/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
-														</a>
-														
+														<i class="fa fa-xs fa-pen"></i>														
 													</button>
+														</a>
 													<button class="btn btn-danger">
 														<a th:href="@{/roomtypes/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
 														</a>
@@ -80,20 +81,23 @@
 							</div>
 						</div>
 						<div class="card-header text-center">
-							<button ng-click="pager.first()" class="btn btn-danger">
+							<!--  <button ng-click="pager.first()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-left"></i>
+							</button>-->
+							<button  class="btn btn-primary" th:if="${last != null}">
+							<a th:href="@{|/roomtypes/lpage=${last}|}"><i class="fas fa-arrow-left"></i></a>
 							</button>
-							<button ng-click="pager.prev()" class="btn btn-primary">
-								<i class="fas fa-arrow-left"></i>
+							<button class="btn btn-success">[[(${start})]] of
+								[[(${endRounded})]]</button>
+							<div th:if="${next == null}">
+								
+							</div>
+							<button class="btn btn-primary" th:if="${next != null}">
+								<a th:href="@{|/roomtypes/npage=${next}|}"><i class="fas fa-arrow-right"></i></a>
 							</button>
-							<button class="btn btn-success">{{pager.page + 1}} of
-								{{pager.count?pager.count:'1'}}</button>
-							<button ng-click="pager.next()" class="btn btn-primary">
-								<i class="fas fa-arrow-right"></i>
-							</button>
-							<button ng-click="pager.last()" class="btn btn-danger">
+							<!--<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
-							</button>
+							</button>-->
 						</div>
 						<script src="/assetss/js/init.js"></script>
 					</div>

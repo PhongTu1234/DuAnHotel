@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-lg-6 pt-5 pt-lg-0">
                             <div class="single-product-content">
-                                <h2 class="title">American Marigold</h2>
+                                <h2 class="title">[[(${room.name})]]</h2>
                                 <div class="price-box">
                                     <span class="new-price">$23.45</span>
                                 </div>
@@ -117,10 +117,7 @@
                                         <option value="small">Small Size With Poot</option>
                                     </select>
                                 </div>
-                                <p class="short-desc">Lorem ipsum dolor sit amet, consectetur adipisic elit, sed do eiusmod
-                                    tempo incid ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostru
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                    in reprehenderit in voluptate</p>
+                                <p class="short-desc" th:utext="${room.description}"></p>
                                 <ul class="quantity-with-btn">
                                     <li class="quantity">
                                         <div class="cart-plus-minus">
@@ -128,7 +125,7 @@
                                         </div>
                                     </li>
                                     <li class="add-to-cart">
-                                        <a class="btn btn-custom-size lg-size btn-pronia-primary" href="cart.html">Add to
+                                        <a class="btn btn-custom-size lg-size btn-pronia-primary" th:href="@{/hotel/room/order/cart}">Add to
                                             cart</a>
                                     </li>
                                     <li class="wishlist-btn-wrap">

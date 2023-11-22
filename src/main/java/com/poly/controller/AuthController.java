@@ -130,16 +130,13 @@ public class AuthController {
 
 	@RequestMapping("/auth/login/success")
     public String logInSuccess(Model model, @ModelAttribute("Users") Users user, Principal Principal ) {
-        // Lấy giá trị username trực tiếp từ request
         String username = Principal.getName();
 
-        // Kiểm tra trạng thái Changedpass
         Users loggedInUser = accountService.findById(username);
 
         if (!loggedInUser.getChangedpass()) {
             return "redirect:/auth/changedpass";
         } else {
-            // Nếu Changedpass = true, chuyển hướng tới trang chính
             model.addAttribute("message", "Logged in successfully");
             return "redirect:/index";
         }
@@ -147,7 +144,6 @@ public class AuthController {
 	
 	@RequestMapping("/auth/changedpass")
     public String changedPass(Model model) {
-        // Add các logic xử lý cho trang đổi mật khẩu nếu cần
         return "auth/changedpass";
     }
 
@@ -156,29 +152,21 @@ public class AuthController {
                                    @RequestParam("confirmPassword") String confirmPassword,
                                    Principal principal,
                                    Model model) {
-        // Thêm logic kiểm tra mật khẩu và xử lý đổi mật khẩu ở đây
         if (password.equals(confirmPassword)) {
-            // Lấy thông tin người dùng hiện tại
             String username = principal.getName();
 
-            // Lấy người dùng từ cơ sở dữ liệu
             Users user = accountService.findById(username);
 
-            // Mã hóa mật khẩu mới
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String hashedPassword = passwordEncoder.encode(password);
 
-            // Cập nhật mật khẩu mới cho người dùng
             user.setPassword(hashedPassword);
             user.setChangedpass(true);
 
-            // Lưu thông tin người dùng đã cập nhật vào cơ sở dữ liệu
             accountService.updatePassword(user, password);
 
-            // Chuyển hướng sau khi đổi mật khẩu thành công
             return "redirect:/index";
         } else {
-            // Trường hợp mật khẩu không khớp
             model.addAttribute("error", "Password and Confirm Password do not match.");
             return "auth/changedpass";
         }
@@ -228,8 +216,7 @@ public class AuthController {
             return "auth/register";
         }
 
-        // Set additional fields like cmt, phoneNumber, and email
-    	account.setPassword("1111111"); // Use a stronger password generation method
+    	account.setPassword("1111111");
     	account.setToken("token");
         account.setChangedpass(false);
         
@@ -237,9 +224,8 @@ public class AuthController {
 
         model.addAttribute("message", "New account registration successful!");
 
-        // Send the password to the registered email
         try {
-            String generatedPassword = RandomString.make(8); // Generate a random password
+            String generatedPassword = RandomString.make(8);
             account.setPassword(generatedPassword);
             accountService.updatePassword(account, generatedPassword);
 
