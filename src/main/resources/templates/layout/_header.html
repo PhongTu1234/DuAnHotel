@@ -124,20 +124,72 @@
 									</ul> -->
 								</li><li class="megamenu-holder"><a th:href=@{/hotel/all}>Shop</a>
 									<ul class="drop-menu megamenu">
-										<li><span class="title">Hotel Style</span>
-											<ul>
-												<li th:each="h:${h}"><a
-													th:href="@{|/index?htid=${h.Level}|}">[[${h.Level}]]</a></li>
-											</ul></li>
+										
 										<li><span class="title">Hotel Types</span>
 											<ul>
-												<li><a th:href="@{/hotel/all}">all</a></li>
-												<li><a th:href="@{/hotel/0to1}">0-1</a></li>
-												<li><a th:href="@{/hotel/1to2}">1-2</a></li>
-												<li><a th:href="@{/hotel/2to3}">2-3</a></li>
-												<li><a th:href="@{/hotel/3to4}">3-4</a></li>
-												<li><a th:href="@{/hotel/4to5}">4-5</a></li>
-												<li><a th:href="@{/hotel/5}">5</a></li>
+												<li><a th:href="@{/HotelType_2}"> <i
+												class="fa fa-chevron-right"> <i class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i>
+											</i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${5}|}"> <i
+												class="fa fa-chevron-right"> <i class="fa-solid fa-star"
+													style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i>
+											</i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${2}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${3}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${4}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i>
+										</a></li>
+										<li>
+											<!-- <a th:href="@{|/hotel/HotelType=${5}/page=${1}|}" >  -->
+											<a th:href="@{|/hotel/HotelType=${5}|}" > 
+												<i class="fa fa-chevron-right"></i>
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+											</a>
+										</li>
 											</ul>
 										</li>
 										<li><span class="title">Room Style</span>

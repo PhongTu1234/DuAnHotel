@@ -16,7 +16,6 @@ import com.poly.entity.Images;
 import com.poly.entity.Places;
 
 @Controller
-@RequestMapping("/images")
 public class ImageController {
 	
 	@Autowired

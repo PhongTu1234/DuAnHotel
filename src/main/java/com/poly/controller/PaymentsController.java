@@ -16,7 +16,6 @@ import com.poly.entity.Payment;
 import com.poly.entity.Role;
 
 @Controller
-@RequestMapping("/payments")
 public class PaymentsController {
 	@Autowired
     private PaymentService paymentsService;

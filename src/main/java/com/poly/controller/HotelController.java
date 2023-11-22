@@ -22,7 +22,6 @@ import com.poly.entity.Rooms;
 import com.poly.entity.Services;
 
 @Controller
-@RequestMapping("/hotels")
 public class HotelController {
 
 	@Autowired

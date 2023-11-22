@@ -16,7 +16,6 @@ import com.poly.entity.Blogs;
 import com.poly.entity.Images;
 
 @Controller
-@RequestMapping("/blogs")
 public class BlogController {
 
 	@Autowired

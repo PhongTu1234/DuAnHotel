@@ -16,7 +16,6 @@ import com.poly.entity.Images;
 import com.poly.entity.Role;
 
 @Controller
-@RequestMapping("/roles")
 public class RolesController {
 	
 	@Autowired

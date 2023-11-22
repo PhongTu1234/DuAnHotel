@@ -16,7 +16,6 @@ import com.poly.entity.Booking_Room;
 import com.poly.entity.Bookings;
 
 @Controller
-@RequestMapping("/bookingrooms")
 public class BookingRoomController {
 	
 	@Autowired

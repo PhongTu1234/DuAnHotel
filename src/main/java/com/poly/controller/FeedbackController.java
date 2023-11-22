@@ -16,7 +16,6 @@ import com.poly.entity.Feedback;
 import com.poly.entity.Images;
 
 @Controller
-@RequestMapping("/feedbacks")
 public class FeedbackController {
 	
 	@Autowired

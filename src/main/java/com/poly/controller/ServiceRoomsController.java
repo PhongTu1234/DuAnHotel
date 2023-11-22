@@ -16,14 +16,13 @@ import com.poly.entity.Places;
 import com.poly.entity.ServiceRooms;
 
 @Controller
-@RequestMapping("/serviceRooms")
 public class ServiceRoomsController {
 	
 	@Autowired
     private ServiceRoomsService sv_rService;
 	
 	//xu ly admin
-	@GetMapping("/form")
+	@GetMapping("/serviceRooms/form")
  	public String formServiceRoom(Model model) {
  		model.addAttribute("serviceRooms", new ServiceRooms());
  		return "admin/ServiceRoom/form";

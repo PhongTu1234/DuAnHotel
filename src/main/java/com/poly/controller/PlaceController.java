@@ -24,7 +24,6 @@ import com.poly.entity.Services;
 import com.poly.entity.Users;
 
 @Controller
-@RequestMapping("/places")
 public class PlaceController {
 
 	@Autowired
