@@ -69,13 +69,17 @@ CREATE TABLE Rooms (
     room_id INT PRIMARY KEY,                -- ID duy nhất cho phòng
     hotel_id INT NOT NULL,                  -- Khóa ngoại liên kết với bảng Khách sạn
     room_type_id INT,                       -- Khóa ngoại liên kết với bảng Loại Phòng
-    roomname VARCHAR(10),                -- Số phòng
+    roomname VARCHAR(50),					-- Số phòng
 	rating FLOAT,							-- Điểm đánh giá của phòng
 	price DECIMAL(10, 2),					-- Giá tiền của loại phòng
-    status nvarchar(50),                    -- Trạng thái phòng (đã đặt, trống)
+	soluongphong int,
+	soluongcheckin int,
+	soluongtrong int,
+	soluongdangthue int,
+    --status nvarchar(50),                    -- Trạng thái phòng (đã đặt, trống)
     description TEXT,                       -- Mô tả về phòng
-    FOREIGN KEY (room_type_id) REFERENCES RoomTypes(room_type_id),
-	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id),
+    FOREIGN KEY (room_type_id) REFERENCES RoomTypes(room_type_id) ON DELETE CASCADE,
+	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id) ON DELETE CASCADE,
 );
 go
 CREATE TABLE ServiceRooms(
@@ -144,10 +148,10 @@ go
 CREATE TABLE Bookings (
     booking_id INT PRIMARY KEY,             -- ID duy nhất cho đặt phòng
     cmt VARCHAR(20),                            -- Khóa ngoại liên kết với bảng Người dùng
+	payment_status bit,                     -- Trạng thái thanh toán
 	booking_date DATE,                      -- Ngày đặt phòng
     checkin_date DATE,                      -- Ngày nhận phòng
     checkout_date DATE,                     -- Ngày trả phòng
-    payment_status bit,                     -- Trạng thái thanh toán
 	payment_id INT,						    -- ID duy nhất cho thanh toán
     FOREIGN KEY (cmt) REFERENCES Users(cmt),
 	FOREIGN KEY (payment_id) REFERENCES Payments(payment_id),
@@ -161,8 +165,9 @@ CREATE TABLE Booking_room (
 	bookingRoom_id INT primary key,
 	booking_id INT,							-- ID duy nhất cho đặt phòng
 	room_id INT,			                -- ID duy nhất cho phòng	
-	[Count] INT,							-- Số lượng phòng
+	
 	hotel_id INT,							--ID của khách sạn
+	[Count] INT,							-- Số lượng phòng
     FOREIGN KEY (room_id) REFERENCES Rooms(room_id),
 	FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id),
 	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id)
@@ -463,3 +468,46 @@ INSERT INTO img_hotel VALUES(757,253,757),
 							(790,264,790),
 							(791,264,791),
 							(792,264,792);
+insert into Payments values
+(61, '2023/11/09',458.5,N'Thanh toán chuyển khoản'),
+(62, '2023/11/05',234.5,N'Thanh toán chuyển khoản'),
+(63, '2023/10/20',4036,N'Thanh toán chuyển khoản'),
+(64,null,679,N'Chưa thanh toán'),
+(65,null,2800.5,N'Thanh toán tiền mặt'),
+(66, '2023/11/20',3536,N'Thanh toán chuyển khoản'),
+(67, '2023/12/03',4435,N'Thanh toán chuyển khoản'),
+(68,null,1437,N'Thanh toán tiền mặt'),
+(69,null,889,N'Chưa thanh toán'),
+(70,null,214.5,N'Thanh toán tiền mặt'),
+(71, '2023/11/09',1738,N'Thanh toán chuyển khoản'),
+(72, '2023/11/05',3677.6,N'Thanh toán chuyển khoản'),
+(73,null,1578,N'Chưa thanh toán'),
+(74,null,1399,N'Thanh toán tiền mặt'),
+(75, '2023/11/11',3396,N'Thanh toán chuyển khoản'),
+(76, '2023/11/20',1039,N'Thanh toán chuyển khoản'),
+(77,null,2407,N'Chưa thanh toán'),
+(78,null,1918.5,N'Thanh toán tiền mặt'),
+(79, '2023/10/09',2167,N'Thanh toán chuyển khoản'),
+(80, '2023/12/09',2112.5,N'Thanh toán chuyển khoản');
+
+insert into Bookings values 
+(61, '089456789375',1, '2023/11/09', '2023/11/11', '2023/11/12',61),
+(62, '089456789375',1, '2023/11/05', '2023/11/08', '2023/11/10',62),
+(63, '089456789375',1, '2023/11/11', '2023/11/15', '2023/11/17',63),
+(64, '089456789375',0, '2023/12/01', '2023/12/05', '2023/12/07',64),
+(65, '089456789375',0, '2023/12/20', '2023/12/31', '2024/01/03',65),
+(66, '082436789375',1, '2023/11/20', '2023/11/24', '2023/11/26',66),
+(67, '082436789375',1, '2023/12/03', '2023/12/10', '2023/12/12',67),
+(68, '082436789375',0, '2024/01/19', '2024/01/21', '2024/01/24',68),
+(69, '082436789375',0, '2023/12/09', '2023/12/11', '2023/12/13',69),
+(70, '082436789375',0, '2023/12/09', '2023/12/11', '2023/12/12',70),
+(71, '032456789375',1, '2023/11/09', '2023/11/11', '2023/11/12',71),
+(72, '032456789375',1, '2023/11/05', '2023/11/08', '2023/11/10',72),
+(73, '032456789375',0, '2023/11/30', '2023/12/01', '2023/12/03',73),
+(74, '032456789375',0, '2023/12/01', '2023/12/05', '2023/12/07',74),
+(75, '032456789375',1, '2023/11/11', '2023/11/15', '2023/11/17',75),
+(76, '082476789375',1, '2023/11/20', '2023/11/24', '2023/11/26',76),
+(77, '082476789375',0, '2024/01/03', '2024/01/10', '2024/01/12',77),
+(78, '082476789375',0, '2023/12/09', '2023/12/21', '2023/12/24',78),
+(79, '082476789375',1, '2023/10/09', '2023/10/11', '2023/10/13',79),
+(80, '082476789375',1, '2023/12/09', '2023/12/11', '2023/12/12',80)

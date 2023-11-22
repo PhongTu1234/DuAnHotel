@@ -39,6 +39,9 @@ public class Hotels implements Serializable {
 
 	@Column(name = "description", columnDefinition = "TEXT")
 	String description;
+	
+//	@Column(name = "a", columnDefinition = "TEXT")
+//	String a;
 
 	@Column(name = "hotel_level")
 	Integer Level;

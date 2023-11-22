@@ -28,14 +28,8 @@ public class HomeController {
 
 	@RequestMapping({ "/", "/index" })
 	public String index(Model model) {
-//		List<Rooms> room = rtservice.findAll();
 		List<Rooms> rooms = rtservice.findByRoom1to8();
-//		model.addAttribute("items", room);
 		model.addAttribute("items", rooms);
-
-		// List<Hotels> hotels = htservice.findByPlaceTop1();
-		// model.addAttribute("hotels", hotels);
-
 		Places top1 = placeservice.findPlaceWithMostHotels();
 		model.addAttribute("top1", top1);
 		int top1_id = top1.getId();
@@ -64,25 +58,18 @@ public class HomeController {
 		int countTop4 = HotelTop4.size();
 		model.addAttribute("countTop4", countTop4);
 
-		List<Hotels> HotelLevel5 = htservice.findHotelByHotelLevel5();
-		
+		List<Hotels> HotelLevel5 = htservice.findHotelByHotelLevel(5);
 		model.addAttribute("HotelLevel5", HotelLevel5);
 		return "index";
 	}
 
-//	@RequestMapping({"/roomtop8"})
-//    public String roomTop8(Model model) {
-//		List<Rooms> room = rtservice.findByRoom1to8();
-//		model.addAttribute("items", room);
-//		return "index";
-//	}
 
 	@RequestMapping({ "/admin", "/admin/index" })
 	public String admin(Model model) {
 		List<Hotels> hotels = htservice.findAll();
 		int count = hotels.size();
 		model.addAttribute("items", count);
-		return "/admin/dashboard";
+		return "admin/dashboard";
 	}
 
 	@RequestMapping("shop")

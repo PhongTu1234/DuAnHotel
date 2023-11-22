@@ -23,12 +23,10 @@ public interface UserDAO extends JpaRepository<Users, String> {
 
 	@Query("SELECT u FROM Users u WHERE u.token=?1")
 	public Users findByToken(String token);
-
 	
 	@Modifying
     @Query("UPDATE Users u SET u.password = :newPassword, u.Changedpass = true WHERE u.cmt = :userId")
     void updatePasswordAndChangedPassById(@Param("userId") String userId, @Param("newPassword") String newPassword);
 	
-//	@Query(value = "SELECT count(a.username) FROM Accounts a", nativeQuery = true)
-//	Integer countAllAccount();
+
 }

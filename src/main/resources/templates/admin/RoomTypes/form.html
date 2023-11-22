@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	content="width=device-width, initial-scale=1.0, roomtypes-scalable=0, minimal-ui">
 <title>Julie - Admin Dashboard</title>
 <link rel="shortcut icon" href="/assetss/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
@@ -31,18 +31,20 @@
 									<div class="btn-group float-right">
 										<ol class="breadcrumb hide-phone p-0 m-0">
 											<li class="breadcrumb-item"><a href="#">Julie</a></li>
-											<li class="breadcrumb-item active">Users</li>
+											<li class="breadcrumb-item active">Room Type</li>
 										</ol>
 									</div>
-									<h4 class="page-title">Users</h4>
+									<h4 class="page-title">Room Type</h4>
 								</div>
 							</div>
 						</div>
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-link active" data-toggle="tab" type="button"
-									role="tab" aria-selected="false">EDITION</a> <a
-									th:href="@{/users/index}" class="nav-link" type="button">LISTS</a>
+								<a href="javascript:(0);" class="nav-link" data-toggle="tab"
+									data-target="#edit" type="button" role="tab"
+									aria-selected="false">EDITION</a> <a href="javascript:(0);"
+									class="nav-link active" data-toggle="tab" data-target="#list"
+									type="button" role="tab" aria-selected="true">LISTS</a>
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
@@ -56,95 +58,49 @@
 								</span>
 							</div>
 							<div class="col-md-8">
-								<form th:action="@{/users/update}" method="post"
-									th:object="${user}" class="form p-3">
+								<form class="form p-3" th:action="@{/roomtypes/update}" method="post"
+									th:object="${roomtypes}">
 									<div class="form-group row">
-										<label for="cmt" class="form-label">CMT</label> <input
-											type="text" class="form-control" id="cmt" th:field="*{cmt}"
-											placeholder="Enter CMT">
+										<label class="form-label">ID Room Type</label> <input type="text"
+											class="form-control" id="id" th:field="*{id}"
+											placeholder="Enter roomtypesname">
 									</div>
 									<div class="form-group row">
-										<label for="password" class="form-label">Password</label> <input
-											type="text" class="form-control" id="password"
-											th:field="*{password}" placeholder="Enter password">
+										<label class="form-label">Room Type Names</label> <input
+											class="form-control" id="name" th:field="*{name}"
+											placeholder="Enter Name">
 									</div>
-									<div class="form-group row">
-										<label for="username" class="form-label">Fullname</label> <input
-											type="text" class="form-control" id="username"
-											th:field="*{username}" placeholder="Enter fullname">
-									</div>
-									<div class="form-group row">
-										<label for="email" class="form-label">Email</label> <input
-											type="text" class="form-control" id="email"
-											th:field="*{email}" placeholder="Enter email">
-									</div>
-									<div class="form-group row">
-										<label for="phoneNumber" class="form-label">phoneNumber</label> <input
-											type="text" class="form-control" id="phoneNumber"
-											th:field="*{phoneNumber}" placeholder="Enter email">
-									</div>
-									<div class="form-group row">
-										<label for="image" class="form-label">Photo</label>
-										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="image"
-												onchange="angular.element(this).scope().imageChanged(this.files)">
-											<label class="custom-file-label">Choose file</label>
-										</div>
-									</div>
-
 									<div class="form-group row">
 										<button type="submit" class="btn btn-primary"
-											th:utext="${user.cmt} ? 'Update' : 'Create'">
+											th:utext="${roomtypes.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/users}" class="btn btn-secondary"> <i
+										<a th:href="@{/roomtypes}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
-										</a> <span th:if="${user.cmt}"> <a
-											th:href="@{/users/delete/{cmt}(cmt=${user.cmt})}"
+										</a> <span th:if="${roomtypes.id}"> <a
+											th:href="@{/roomtypes/delete/{id}(id=${roomtypes.id})}"
 											class="btn btn-danger"> <i class="fas fa-trash"></i>
 												Delete
 										</a>
 										</span>
 									</div>
 								</form>
-
-
 							</div>
 						</div>
 						<div class="card-header text-center">
-							<button type="button" class="btn btn-primary"
-								onclick="createForm()">
+							<button ng-click="create()" class="btn btn-primary">
 								<i class="fas fa-plus"></i> Create
 							</button>
-							<button type="submit" class="btn btn-success">
+							<button ng-click="update()" class="btn btn-success">
 								<i class="far fa-save"></i> Update
 							</button>
-							<button type="button" class="btn btn-danger"
-								onclick="deleteForm()">
+							<button ng-click="delete(form)" class="btn btn-danger">
 								<i class="fas fa-trash"></i> Delete
 							</button>
-							<button type="button" class="btn btn-secondary"
-								onclick="resetForm()">
+							<button ng-click="reset()" class="btn btn-secondary">
 								<i class="fas fa-redo"></i> Reset
 							</button>
 						</div>
-						<div class="card-header text-center">
-							<button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-left"></i>
-							</button>
-							<button ng-click="pager.prev()" class="btn btn-primary">
-								<i class="fas fa-arrow-left"></i>
-							</button>
-							<button class="btn btn-success">{{pager.page + 1}} of
-								{{pager.count?pager.count:'1'}}</button>
-							<button ng-click="pager.next()" class="btn btn-primary">
-								<i class="fas fa-arrow-right"></i>
-							</button>
-							<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-right"></i>
-							</button>
-						</div>
-						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
 
@@ -153,6 +109,7 @@
 				</footer>
 			</div>
 		</div>
+
 	</div>
 
 	<script src="/assetss/js/jquery.min.js"></script>
@@ -175,19 +132,19 @@
 	<script src="/assetss/js/angular-route.min.js"></script>
 
 	<script src="assets/js/main.js"></script>
-	<script th:inline="javascript">
+<script th:inline="javascript">
 		/*<![CDATA[*/
 		function createForm() {
-			window.location.href = '/users/create';
+			window.location.href = '/roomtypes/create';
 		}
 
 		function deleteForm() {
-			var cmt = document.getElementById("cmt").value;
-			window.location.href = '/users/delete/' + cmt;
+			var id = document.getElementById("id").value;
+			window.location.href = '/roomtypes/delete/' + id;
 		}
 
 		function resetForm() {
-			window.location.href = '/users/form';
+			window.location.href = '/roomtypes/form';
 		}
 		/*]]>*/
 	</script>

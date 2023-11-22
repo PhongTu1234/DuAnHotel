@@ -32,20 +32,20 @@ public class Rooms implements Serializable {
     @Column(name = "price", precision = 10, scale = 2) 
     BigDecimal price;
     
-    @Column(name = "status", length = 50)
-    String status;
+//    @Column(name = "status", length = 50)
+//    String status;
 
-//    @Column(name = "soluongphong")
-//    Integer soluongphong;
-//    
-//    @Column(name = "soluongcheckin")
-//    Integer soluongcheckin;
-//    
-//    @Column(name = "soluongtrong")
-//    Integer soluongtrong;
-//    
-//    @Column(name = "soluongdangthue")
-//    Integer soluongdangthue;
+    @Column(name = "soluongphong")
+    Integer soluongphong;
+    
+    @Column(name = "soluongcheckin")
+    Integer soluongcheckin;
+    
+    @Column(name = "soluongtrong")
+    Integer soluongtrong;
+    
+    @Column(name = "soluongdangthue")
+    Integer soluongdangthue;
 
     @Column(name = "description", columnDefinition = "TEXT")
     String description;

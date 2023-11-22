@@ -40,4 +40,9 @@ public class Booking_RoomServiceImpl implements Booking_RoomService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public List<Booking_Room> getBookingDetailsForUser(String user) {
+		return htdao.getBookingDetailsForUser(user);
+	}
+
 }
