@@ -40,4 +40,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public List<Feedback> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return htdao.findPageAdmin(page, number);
+	}
+
 }

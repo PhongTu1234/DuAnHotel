@@ -40,4 +40,10 @@ public class BookingsServiceImpl implements BookingsService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public List<Bookings> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return htdao.findPageAdmin(page, number);
+	}
+
 }

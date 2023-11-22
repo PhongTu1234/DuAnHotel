@@ -14,4 +14,7 @@ public interface BlogsService {
 	Blogs update(Blogs Blogs);
 
 	void delete(Integer id);
+
+	List<Blogs> findPageAdmin(Integer page, Integer number);
+	
 }

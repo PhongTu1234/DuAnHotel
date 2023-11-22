@@ -14,4 +14,5 @@ public interface PaymentService {
 	Payment update(Payment Payment);
 
 	void delete(Integer id);
+	List<Payment> findPageAdmin(Integer page, Integer number);
 }

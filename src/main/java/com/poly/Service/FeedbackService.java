@@ -14,4 +14,7 @@ public interface FeedbackService {
 	Feedback update(Feedback Feedback);
 
 	void delete(Integer id);
+
+	List<Feedback> findPageAdmin(Integer page, Integer number);
+	
 }

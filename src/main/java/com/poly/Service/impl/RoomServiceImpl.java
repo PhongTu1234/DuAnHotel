@@ -54,4 +54,10 @@ public class RoomServiceImpl implements RoomService {
 		return rdao.findByRoom1to8();
 	}
 
+	@Override
+	public List<Rooms> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return rdao.findPageAdmin(page, number);
+	}
+
 }

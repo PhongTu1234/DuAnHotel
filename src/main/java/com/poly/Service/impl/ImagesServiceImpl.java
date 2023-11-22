@@ -40,4 +40,10 @@ public class ImagesServiceImpl implements ImagesService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public List<Images> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return htdao.findPageAdmin(page, number);
+	}
+
 }

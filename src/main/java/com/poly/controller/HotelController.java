@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.HotelService;
+import com.poly.Service.PlacesService;
 import com.poly.Service.RoleService;
 import com.poly.Service.RoomTypesService;
 import com.poly.Service.ServiceService;
@@ -20,9 +22,9 @@ import com.poly.entity.Hotels;
 import com.poly.entity.Role;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Services;
+import com.poly.entity.Users;
 
 @Controller
-@RequestMapping("/hotels")
 public class HotelController {
 
 	@Autowired
@@ -33,6 +35,9 @@ public class HotelController {
 
 	@Autowired
 	ServiceService svService;
+
+	@Autowired
+	PlacesService placeService;
 
 	@RequestMapping("/hotel/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
@@ -772,35 +777,132 @@ public class HotelController {
 
 	
 	//xu ly admin
-	 	@GetMapping("/form")
+	 	@GetMapping("/hotels/form")
 	 	public String formHotel(Model model) {
 	 		model.addAttribute("hotels", new Hotels());
 	 		return "admin/Hotel/form";
 	 	}
 
-	 	@GetMapping("/index")
+	 	@GetMapping("/hotels/index")
 	    public String showHotelsIndex(Model model) {
-	 		model.addAttribute("hotels", hService.findAll());
+			List<Hotels> hotel = hService.findAll();
+
+//	 		model.addAttribute("hotels", hService.findAll());
+	 		int SOLuongTrongTrang = 10;
+	 		int count = hotel.size();
+	 		int start = 1;
+	 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+			int endRounded = endRound;
+			if((endRound * SOLuongTrongTrang) < count ) {
+				endRounded = endRound + 1;
+			}
+			 
+			List<Hotels> hotels = hService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("hotels", hotels);
+			model.addAttribute("last", null);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+			model.addAttribute("endRounded",endRounded);
 	        return "admin/Hotel/index";
 	    }
 	 
+	 	@RequestMapping("/hotels/lpage={last}")
+		public String hotelAdminLast(Model model, @PathVariable("last") String plast) {
+			List<Hotels> hotels = hService.findAll();
+			int SOLuongTrongTrang = 10;
+//			 model.addAttribute("users", userService.findAll());
+			 int count = hotels.size();
+//				int last = start - 1;
+//				int next = start + 1;
+			// int SOLuongTrongTrang = 10;
+			 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+				int endRounded = endRound;
+				if((endRound * SOLuongTrongTrang) < count ) {
+					endRounded = endRound + 1;
+				}
+//					List<Users> users = userService.findAll();
+//					// model.addAttribute("roomtype", roomtype);
+//					// int counta = roomtype.size();
+//					model.addAttribute("users", users);
+
+			// model.addAttribute("count", count);
+
+			int start = Integer.parseInt(plast);
+			// int last = start - 1;
+			if (start == 1) {
+				List<Hotels> items = hService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("hotels", items);
+				model.addAttribute("last", null);
+				model.addAttribute("start", start);
+				model.addAttribute("next", start + 1);
+			} else {
+				List<Hotels> items = hService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("hotels", items);
+				model.addAttribute("last", start - 1);
+				model.addAttribute("start", start);
+				model.addAttribute("next", start + 1);
+			}
+			model.addAttribute("endRounded", endRounded);
+			return "admin/Hotel/index";
+		}
+
+		@RequestMapping("/hotels/npage={next}")
+		public String hotelAdminNext(Model model, @PathVariable("next") String pnext) {
+
+			List<Hotels> hotels = hService.findAll();
+			int SOLuongTrongTrang = 10;
+			int count = hotels.size();
+			int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+			int endRounded = endRound;
+			if((endRound * SOLuongTrongTrang) < count ) {
+				endRounded = endRound + 1;
+			}
+			
+			
+			int start = Integer.parseInt(pnext);
+			if (start == endRounded) {
+				List<Hotels> items = hService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("hotels", items);
+				model.addAttribute("last", start - 1);
+				model.addAttribute("start", start);
+				model.addAttribute("next", null);
+			} else {
+				List<Hotels> items = hService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("hotels", items);
+				model.addAttribute("last", start - 1);
+				model.addAttribute("start", start);
+				model.addAttribute("next", start + 1);
+				
+			}
+			model.addAttribute("endRounded", (int)endRounded);
+			return "admin/Hotel/index";
+		}
+	 	
+	 	
 //	    @GetMapping
 //	    public String listPlaces(Model model) {
 //	        model.addAttribute("places", placeService.findAll());
 //	        return "";
 //	    }
 
-	    @GetMapping("/{id}")
+	    @GetMapping("/hotels/{id}")
 	    public String viewHotel(@PathVariable("id") Integer id, Model model) {
 	    	Hotels hotels = hService.findById(id);
 	        model.addAttribute("hotels", hotels);
 	        return "admin/Hotel/form";
 	    }
 
-	    @PostMapping("/create")
+	    @PostMapping("/hotels/create")
 	    public String createHotel(@ModelAttribute Hotels hotels) {
-	    	hService.create(hotels);
-	        return "redirect:/hotels/form";
+	    	//if(place == null) {
+	    		return "redirect:/hotels/form";
+//	    	}else {
+//	    		
+//	    		return "redirect:/hotels/index";
+//	    	}
+	    	
+	    	
+	        
 	    }
 
 //	    @PostMapping("/update")
@@ -815,19 +917,27 @@ public class HotelController {
 //	        return new ModelAndView("redirect:/users/index");
 //	    }
 	    
-	    @PostMapping("/update")
-	    public ModelAndView updateHotel(@ModelAttribute Hotels hotels) {
-	        if (hotels.getId() != null) {
-	            // Nếu có ID, thực hiện cập nhật
-	        	hService.update(hotels);
-	        } else {
-	            // Nếu không có ID, thực hiện thêm mới
-	        	hService.create(hotels);
+	    @PostMapping("/hotels/update")
+	    public ModelAndView updateHotel(@ModelAttribute Hotels hotels, Model model) { 
+	    	String Place = hotels.getPlace().getName();
+	        if(placeService.findByPlaceName(Place) != null ) {
+	        	if (hotels.getId() != null) {
+		            // Nếu có ID, thực hiện cập nhật
+	        		hotels.setPlace(placeService.findByPlaceName(Place));
+		        	hService.update(hotels);
+		        } else {
+		        	hotels.setPlace(placeService.findByPlaceName(Place));
+		            // Nếu không có ID, thực hiện thêm mới
+		        	hService.create(hotels);
+		        }
+	        	return new ModelAndView("redirect:/hotels/index");
+	        }else {
+	        	model.addAttribute("message", "Địa điểm không tồn tại");
+	        	return new ModelAndView("admin/Hotel/form");
 	        }
-	        return new ModelAndView("redirect:/hotels/index");
 	    }
 
-	    @GetMapping("/delete/{id}")
+	    @GetMapping("/hotels/delete/{id}")
 	    public ModelAndView deleteHotel(@PathVariable("id") Integer id) {
 	    	hService.delete(id);
 	        return new ModelAndView("redirect:/hotels/index");

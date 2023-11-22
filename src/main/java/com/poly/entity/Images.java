@@ -21,10 +21,16 @@ public class Images implements Serializable {
 
 	@Id
 	@Column(name = "image_id")
-	Integer id;
+	Integer image_id;
 
 	@Column(name = "img_name")
 	String name;
+	
+	@Column(name = "id")
+	String id;
+	
+	@Column(name = "status")
+	String status;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "Images")

@@ -59,6 +59,11 @@
 							<div class="col-md-8">
 								<form th:action="@{/rooms/update}" method="post"
 									th:object="${rooms}" class="form p-3">
+									<div class="col-12" th:if="${message}">
+											<div class="alert alert-warning p-2">
+												<i class="text-danger" th:text="${message}"></i>
+											</div>
+									</div>
 									<div class="form-group row">
 										<label for="id" class="form-label">roomId</label> <input
 											type="text" class="form-control" id="id" th:field="*{id}"

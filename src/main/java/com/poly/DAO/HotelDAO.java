@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.poly.entity.Hotels;
+import com.poly.entity.RoomTypes;
 
 public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query("SELECT p FROM Hotels p WHERE p.Place.id= ?1")
@@ -18,21 +19,7 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 
 	@Query("SELECT h FROM Hotels h WHERE h.Level = ?1")
 	List<Hotels> findHotelByHotelLevel(Integer level);
-//	
-//	@Query("SELECT h FROM Hotels h WHERE h.Level = 1")
-//	List<Hotels> findHotelByHotelLevel1();
-//	
-//	@Query("SELECT h FROM Hotels h WHERE h.Level = 2")
-//	List<Hotels> findHotelByHotelLevel2();
-//	
-//	@Query("SELECT h FROM Hotels h WHERE h.Level = 3")
-//	List<Hotels> findHotelByHotelLevel3();
-//	
-//	@Query("SELECT h FROM Hotels h WHERE h.Level = 4")
-//	List<Hotels> findHotelByHotelLevel4();
-//	
-//	@Query("SELECT h FROM Hotels h WHERE h.Level = 5")
-//	List<Hotels> findHotelByHotelLevel5();
+	
 	
 	
 //	@Query(value = "SELECT * FROM Hotels h WHERE h.hotel_id > ?1  order by h.hotel_id OFFSET 0 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
@@ -68,4 +55,10 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 //    @Query(value = "SELECT TOP 1 * " +
 //            "FROM Hotels ", nativeQuery = true)
 //    List<Hotels> findHotelsInLocationWithMostHotels();
+	
+	@Query(value = "SELECT * FROM Hotels h  order by h.hotel_id OFFSET ?1 ROWS FETCH NEXT ?2 ROWS only", nativeQuery = true)
+	List<Hotels> findPageAdmin(Integer page, Integer number);
+	
+	@Query("SELECT p FROM Hotels p where p.name = ?1")
+	Hotels findByHotelName(String name);
 }

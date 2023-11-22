@@ -1,5 +1,7 @@
 package com.poly.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,41 +16,132 @@ import com.poly.Service.PlacesService;
 import com.poly.Service.ServiceRoomsService;
 import com.poly.entity.Places;
 import com.poly.entity.ServiceRooms;
+import com.poly.entity.Services;
 
 @Controller
-@RequestMapping("/serviceRooms")
 public class ServiceRoomsController {
 	
 	@Autowired
     private ServiceRoomsService sv_rService;
 	
 	//xu ly admin
-	@GetMapping("/form")
+	@GetMapping("/serviceRooms/form")
  	public String formServiceRoom(Model model) {
  		model.addAttribute("serviceRooms", new ServiceRooms());
  		return "admin/ServiceRoom/form";
  	}
 
- 	@GetMapping("/index")
+ 	@GetMapping("/serviceRooms/index")
     public String showServiceRoomsIndex(Model model) {
- 		model.addAttribute("serviceRooms", sv_rService.findAll());
+// 		model.addAttribute("serviceRooms", sv_rService.findAll());
+ 		List<ServiceRooms> serviceRoom = sv_rService.findAll();
+
+ 		int SOLuongTrongTrang = 10;
+ 		int count = serviceRoom.size();
+ 		int start = 1;
+ 		double end = count / SOLuongTrongTrang;
+ 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+		int endRounded = endRound;
+		if((endRound * SOLuongTrongTrang) < count ) {
+			endRounded = endRound + 1;
+		}
+		 
+		List<ServiceRooms> serviceRooms = sv_rService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+		model.addAttribute("serviceRooms", serviceRooms);
+		model.addAttribute("last",  null);
+		model.addAttribute("start", start);
+		model.addAttribute("next", start + 1);
+		model.addAttribute("endRounded",endRounded);
         return "admin/ServiceRoom/index";
     }
  
+ 	@RequestMapping("/serviceRooms/lpage={last}")
+	public String serviceRoomAdminLast(Model model, @PathVariable("last") String plast) {
+		List<ServiceRooms> serviceRooms = sv_rService.findAll();
+		int SOLuongTrongTrang = 10;
+//		 model.addAttribute("users", userService.findAll());
+		 int count = serviceRooms.size();
+//			int last = start - 1;
+//			int next = start + 1;
+		// int SOLuongTrongTrang = 10;
+		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+			int endRounded = endRound;
+			if((endRound * SOLuongTrongTrang) < count ) {
+				endRounded = endRound + 1;
+			}
+//				List<Users> users = userService.findAll();
+//				// model.addAttribute("roomtype", roomtype);
+//				// int counta = roomtype.size();
+//				model.addAttribute("users", users);
+
+		// model.addAttribute("count", count);
+
+		int start = Integer.parseInt(plast);
+		// int last = start - 1;
+		if (start == 1) {
+			List<ServiceRooms> items = sv_rService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("serviceRooms", items);
+			model.addAttribute("last", null);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+		} else {
+			List<ServiceRooms> items = sv_rService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("serviceRooms", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+		}
+		model.addAttribute("endRounded", endRounded);
+		return "admin/ServiceRoom/index";
+	}
+
+	@RequestMapping("/serviceRooms/npage={next}")
+	public String serviceRoomAdminNext(Model model, @PathVariable("next") String pnext) {
+
+		List<ServiceRooms> serviceRooms = sv_rService.findAll();
+		int SOLuongTrongTrang = 10;
+		int count = serviceRooms.size();
+		double end = count / SOLuongTrongTrang;
+		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+		int endRounded = endRound;
+		if((endRound * SOLuongTrongTrang) < count ) {
+			endRounded = endRound + 1;
+		}
+		
+		
+		int start = Integer.parseInt(pnext);
+		if (start == endRounded) {
+			List<ServiceRooms> items = sv_rService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("serviceRooms", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", null);
+		} else {
+			List<ServiceRooms> items = sv_rService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("serviceRooms", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+			
+		}
+		model.addAttribute("endRounded", (int)endRounded);
+		return "admin/ServiceRoom/index";
+	}
+ 	
 //    @GetMapping
 //    public String listPlaces(Model model) {
 //        model.addAttribute("places", placeService.findAll());
 //        return "";
 //    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/serviceRooms/{id}")
     public String viewServiceRoom(@PathVariable("id") Integer id, Model model) {
     	ServiceRooms serviceRooms = sv_rService.findById(id);
         model.addAttribute("serviceRooms", serviceRooms);
         return "admin/ServiceRoom/form";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/serviceRooms/create")
     public String createServiceRoom(@ModelAttribute ServiceRooms serviceRooms) {
     	sv_rService.create(serviceRooms);
         return "redirect:/serviceRooms/form";
@@ -66,7 +159,7 @@ public class ServiceRoomsController {
 //        return new ModelAndView("redirect:/users/index");
 //    }
     
-    @PostMapping("/update")
+    @PostMapping("/serviceRooms/update")
     public ModelAndView updateServiceRoom(@ModelAttribute ServiceRooms serviceRooms) {
         if (serviceRooms.getId() != null) {
             // Nếu có ID, thực hiện cập nhật
@@ -78,7 +171,7 @@ public class ServiceRoomsController {
         return new ModelAndView("redirect:/serviceRooms/index");
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/serviceRooms/delete/{id}")
     public ModelAndView deleteServiceRoom(@PathVariable("id") Integer id) {
     	sv_rService.delete(id);
         return new ModelAndView("redirect:/serviceRooms/index");

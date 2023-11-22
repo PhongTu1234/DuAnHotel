@@ -21,4 +21,5 @@ public interface RoomService {
 
 	List<Rooms> findByRoom1to8();
 
+	List<Rooms> findPageAdmin(Integer page, Integer number);
 }

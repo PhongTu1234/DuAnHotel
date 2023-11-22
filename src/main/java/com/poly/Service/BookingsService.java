@@ -14,4 +14,6 @@ public interface BookingsService {
 	Bookings update(Bookings Bookings);
 
 	void delete(Integer id);
+
+	List<Bookings> findPageAdmin(Integer page, Integer number);
 }

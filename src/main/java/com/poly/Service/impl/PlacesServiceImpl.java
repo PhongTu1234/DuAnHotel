@@ -64,4 +64,15 @@ public class PlacesServiceImpl implements PlacesService {
 		return htdao.findPlaceWithMostHotelsTop4();
 	}
 
+	@Override
+	public List<Places> findPageAdmin(Integer page, Integer number) {
+		return htdao.findPageAdmin(page, number);
+	}
+
+	@Override
+	public Places findByPlaceName(String name) {
+		// TODO Auto-generated method stub
+		return htdao.findByPlaceName(name);
+	}
+
 }

@@ -24,7 +24,6 @@ import com.poly.entity.Services;
 import com.poly.entity.Users;
 
 @Controller
-@RequestMapping("/places")
 public class PlaceController {
 
 	@Autowired
@@ -365,32 +364,122 @@ public class PlaceController {
 	
 	//xu ly admin
  	
- 	@GetMapping("/form")
+ 	@GetMapping("/places/form")
  	public String formPlace(Model model) {
  		model.addAttribute("places", new Places());
  		return "admin/Place/form";
  	}
 
- 	@GetMapping("/index")
+ 	@GetMapping("/places/index")
     public String showPlacesIndex(Model model) {
- 		model.addAttribute("places", placeService.findAll());
+// 		model.addAttribute("places", placeService.findAll());
+ 		List<Places> place = placeService.findAll();
+
+ 		int SOLuongTrongTrang = 10;
+ 		int count = place.size();
+ 		int start = 1;
+ 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+		int endRounded = endRound;
+		if((endRound * SOLuongTrongTrang) < count ) {
+			endRounded = endRound + 1;
+		}
+		 
+		List<Places> places = placeService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+		model.addAttribute("places", places);
+		model.addAttribute("last", null);
+		model.addAttribute("start", start);
+		model.addAttribute("next", start + 1);
+		model.addAttribute("endRounded",endRounded);
         return "admin/Place/index";
     }
  
+ 	@RequestMapping("/places/lpage={last}")
+	public String placeAdminLast(Model model, @PathVariable("last") String plast) {
+		List<Places> places = placeService.findAll();
+		int SOLuongTrongTrang = 10;
+//		 model.addAttribute("users", userService.findAll());
+		 int count = places.size();
+//			int last = start - 1;
+//			int next = start + 1;
+		// int SOLuongTrongTrang = 10;
+		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+			int endRounded = endRound;
+			if((endRound * SOLuongTrongTrang) < count ) {
+				endRounded = endRound + 1;
+			}
+//				List<Users> users = userService.findAll();
+//				// model.addAttribute("roomtype", roomtype);
+//				// int counta = roomtype.size();
+//				model.addAttribute("users", users);
+
+		// model.addAttribute("count", count);
+
+		int start = Integer.parseInt(plast);
+		// int last = start - 1;
+		if (start == 1) {
+			List<Places> items = placeService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("places", items);
+			model.addAttribute("last", null);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+		} else {
+			List<Places> items = placeService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("places", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+		}
+		model.addAttribute("endRounded", endRounded);
+		return "admin/Place/index";
+	}
+
+	@RequestMapping("/places/npage={next}")
+	public String placeAdminNext(Model model, @PathVariable("next") String pnext) {
+
+		List<Places> places = placeService.findAll();
+		int SOLuongTrongTrang = 10;
+		int count = places.size();
+		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+		int endRounded = endRound;
+		if((endRound * SOLuongTrongTrang) < count ) {
+			endRounded = endRound + 1;
+		}
+		
+		
+		int start = Integer.parseInt(pnext);
+		if (start == endRounded) {
+			List<Places> items = placeService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("places", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", null);
+		} else {
+			List<Places> items = placeService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("places", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+			
+		}
+		model.addAttribute("endRounded", (int)endRounded);
+		return "admin/Place/index";
+	}
+ 	
+ 	
 //    @GetMapping
 //    public String listPlaces(Model model) {
 //        model.addAttribute("places", placeService.findAll());
 //        return "";
 //    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/places/{id}")
     public String viewPlace(@PathVariable("id") Integer id, Model model) {
         Places place = placeService.findById(id);
         model.addAttribute("places", place);
         return "admin/Place/form";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/places/create")
     public String createPlace(@ModelAttribute Places places) {
     	placeService.create(places);
         return "redirect:/places/form";
@@ -408,7 +497,7 @@ public class PlaceController {
 //        return new ModelAndView("redirect:/users/index");
 //    }
     
-    @PostMapping("/update")
+    @PostMapping("/places/update")
     public ModelAndView updatePlace(@ModelAttribute Places place) {
         if (place.getId() != null) {
             // Nếu có ID, thực hiện cập nhật
@@ -420,7 +509,7 @@ public class PlaceController {
         return new ModelAndView("redirect:/places/index");
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/places/delete/{id}")
     public ModelAndView deletePlace(@PathVariable("id") Integer id) {
     	placeService.delete(id);
         return new ModelAndView("redirect:/places/index");

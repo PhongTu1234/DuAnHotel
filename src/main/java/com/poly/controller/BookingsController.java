@@ -1,5 +1,7 @@
 package com.poly.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,9 @@ import com.poly.Service.BookingsService;
 import com.poly.Service.FeedbackService;
 import com.poly.entity.Bookings;
 import com.poly.entity.Feedback;
+import com.poly.entity.Payment;
 
 @Controller
-@RequestMapping("/bookings")
 public class BookingsController {
 
 	@Autowired
@@ -35,32 +37,122 @@ public class BookingsController {
 	
 	
 	//xu ly admin
-	 	@GetMapping("/form")
+	 	@GetMapping("/bookings/form")
 	 	public String formBooking(Model model) {
 	 		model.addAttribute("bookings", new Bookings());
 	 		return "admin/Booking/form";
 	 	}
 
-	 	@GetMapping("/index")
+	 	@GetMapping("/bookings/index")
 	    public String showBookingsIndex(Model model) {
-	 		model.addAttribute("bookings", bookingService.findAll());
+//	 		model.addAttribute("bookings", bookingService.findAll());
+	 		List<Bookings> booking = bookingService.findAll();
+
+//	 		model.addAttribute("hotels", hService.findAll());
+	 		int SOLuongTrongTrang = 10;
+	 		int count = booking.size();
+	 		int start = 1;
+	 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+			int endRounded = endRound;
+			if((endRound * SOLuongTrongTrang) < count ) {
+				endRounded = endRound + 1;
+			}
+			 
+			List<Bookings> bookings = bookingService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("bookings", bookings);
+			model.addAttribute("last", null);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+			model.addAttribute("endRounded",endRounded);
 	        return "admin/Booking/index";
 	    }
 	 
+	 	@RequestMapping("/bookings/lpage={last}")
+		public String bookingAdminLast(Model model, @PathVariable("last") String plast) {
+			List<Bookings> bookings = bookingService.findAll();
+			int SOLuongTrongTrang = 10;
+//			 model.addAttribute("users", userService.findAll());
+			 int count = bookings.size();
+//				int last = start - 1;
+//				int next = start + 1;
+			// int SOLuongTrongTrang = 10;
+			 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+				int endRounded = endRound;
+				if((endRound * SOLuongTrongTrang) < count ) {
+					endRounded = endRound + 1;
+				}
+//					List<Users> users = userService.findAll();
+//					// model.addAttribute("roomtype", roomtype);
+//					// int counta = roomtype.size();
+//					model.addAttribute("users", users);
+
+			// model.addAttribute("count", count);
+
+			int start = Integer.parseInt(plast);
+			// int last = start - 1;
+			if (start == 1) {
+				List<Bookings> items = bookingService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("bookings", items);
+				model.addAttribute("last", null);
+				model.addAttribute("start", start);
+				model.addAttribute("next", start + 1);
+			} else {
+				List<Bookings> items = bookingService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("bookings", items);
+				model.addAttribute("last", start - 1);
+				model.addAttribute("start", start);
+				model.addAttribute("next", start + 1);
+			}
+			model.addAttribute("endRounded", endRounded);
+			return "admin/Booking/index";
+		}
+
+		@RequestMapping("/bookings/npage={next}")
+		public String bookingAdminNext(Model model, @PathVariable("next") String pnext) {
+
+			List<Bookings> bookings = bookingService.findAll();
+			int SOLuongTrongTrang = 10;
+			int count = bookings.size();
+			int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+			int endRounded = endRound;
+			if((endRound * SOLuongTrongTrang) < count ) {
+				endRounded = endRound + 1;
+			}
+			
+			int start = Integer.parseInt(pnext);
+			if (start == endRounded) {
+				List<Bookings> items = bookingService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("bookings", items);
+				model.addAttribute("last", start - 1);
+				model.addAttribute("start", start);
+				model.addAttribute("next", null);
+			} else {
+				List<Bookings> items = bookingService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
+				model.addAttribute("bookings", items);
+				model.addAttribute("last", start - 1);
+				model.addAttribute("start", start);
+				model.addAttribute("next", start + 1);
+				
+			}
+			model.addAttribute("endRounded", (int)endRounded);
+			return "admin/Booking/index";
+		}
+	 	
+	 	
 //	    @GetMapping
 //	    public String listPlaces(Model model) {
 //	        model.addAttribute("places", placeService.findAll());
 //	        return "";
 //	    }
 
-	    @GetMapping("/{id}")
+	    @GetMapping("/bookings/{id}")
 	    public String viewBooking(@PathVariable("id") Integer id, Model model) {
 	    	Bookings bookings = bookingService.findById(id);
 	        model.addAttribute("bookings", bookings);
 	        return "admin/Booking/form";
 	    }
 
-	    @PostMapping("/create")
+	    @PostMapping("/bookings/create")
 	    public String createBooking(@ModelAttribute Bookings bookings) {
 	    	bookingService.create(bookings);
 	        return "redirect:/bookings/form";
@@ -78,7 +170,7 @@ public class BookingsController {
 //	        return new ModelAndView("redirect:/users/index");
 //	    }
 	    
-	    @PostMapping("/update")
+	    @PostMapping("/bookings/update")
 	    public ModelAndView updateBooking(@ModelAttribute Bookings bookings) {
 	        if (bookings.getId() != null) {
 	            // Nếu có ID, thực hiện cập nhật
@@ -90,7 +182,7 @@ public class BookingsController {
 	        return new ModelAndView("redirect:/bookings/index");
 	    }
 
-	    @GetMapping("/delete/{id}")
+	    @GetMapping("/bookings/delete/{id}")
 	    public ModelAndView deleteBooking(@PathVariable("id") Integer id) {
 	    	bookingService.delete(id);
 	        return new ModelAndView("redirect:/bookings/index");

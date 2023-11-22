@@ -57,7 +57,7 @@
 							</div>
 							<div class="col-md-8">
 								<form th:action="@{/users/update}" method="post"
-									th:object="${user}" class="form p-3">
+									th:object="${users}" class="form p-3">
 									<div class="form-group row">
 										<label for="cmt" class="form-label">CMT</label> <input
 											type="text" class="form-control" id="cmt" th:field="*{cmt}"
@@ -94,12 +94,12 @@
 
 									<div class="form-group row">
 										<button type="submit" class="btn btn-primary"
-											th:utext="${user.cmt} ? 'Update' : 'Create'">
+											th:utext="${users.cmt} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
 										<a th:href="@{/users}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
-										</a> <span th:if="${user.cmt}"> <a
+										</a> <span th:if="${users.cmt}"> <a
 											th:href="@{/users/delete/{cmt}(cmt=${user.cmt})}"
 											class="btn btn-danger"> <i class="fas fa-trash"></i>
 												Delete
@@ -128,7 +128,7 @@
 								<i class="fas fa-redo"></i> Reset
 							</button>
 						</div>
-						<div class="card-header text-center">
+						<!--  <div class="card-header text-center">
 							<button ng-click="pager.first()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-left"></i>
 							</button>
@@ -143,7 +143,7 @@
 							<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
 							</button>
-						</div>
+						</div>-->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>

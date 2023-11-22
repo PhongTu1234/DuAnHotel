@@ -156,4 +156,16 @@ public class HotelServiceImpl implements HotelService {
 		return null;
 	}
 
+	@Override
+	public List<Hotels> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return hdao.findPageAdmin(page, number);
+	}
+
+	@Override
+	public Hotels findByHotelName(String name) {
+		// TODO Auto-generated method stub
+		return hdao.findByHotelName(name);
+	}
+
 }

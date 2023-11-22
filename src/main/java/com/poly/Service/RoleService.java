@@ -14,4 +14,7 @@ public interface RoleService {
 	Role update(Role hoteltypes);
 
 	void delete(String id);
+	
+	List<Role> findPageAdmin(Integer page, Integer number);
+
 }

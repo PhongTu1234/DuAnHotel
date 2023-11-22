@@ -40,4 +40,10 @@ public class ServiceRoomsServiceImpl implements ServiceRoomsService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public List<ServiceRooms> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return htdao.findPageAdmin(page, number);
+	}
+
 }

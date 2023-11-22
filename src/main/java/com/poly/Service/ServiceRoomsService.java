@@ -14,4 +14,7 @@ public interface ServiceRoomsService {
 	ServiceRooms update(ServiceRooms Service_Room);
 
 	void delete(Integer id);
+
+	List<ServiceRooms> findPageAdmin(Integer page, Integer number);
+	
 }

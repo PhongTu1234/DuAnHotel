@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
+import com.poly.entity.Hotels;
 import com.poly.entity.Users;
 
 public interface UserService {
@@ -32,4 +33,6 @@ public interface UserService {
 	void updatePass(String id, String password);
 	
 	List<Users> getAdministrators(String role);
+	
+	List<Users> findPage(Integer page, Integer number);
 }

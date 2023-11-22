@@ -14,4 +14,8 @@ public interface RoomTypesService {
 	RoomTypes update(RoomTypes Roomtypes);
 
 	void delete(Integer id);
+	
+	List<RoomTypes> findPageAdmin(Integer page, Integer number);
+
+	RoomTypes findByRoomtypeName(String name);
 }

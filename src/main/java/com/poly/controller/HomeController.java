@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.poly.Service.HotelService;
 import com.poly.Service.PlacesService;
 import com.poly.Service.RoomService;
+import com.poly.Service.UserService;
 import com.poly.entity.Hotels;
 import com.poly.entity.Places;
 import com.poly.entity.Rooms;
+import com.poly.entity.Users;
 
 @Controller
 public class HomeController {
 
+	@Autowired
+	UserService uservice;
+	
 	@Autowired
 	HotelService htservice;
 
@@ -85,6 +90,13 @@ public class HomeController {
 		return "/admin/dashboard";
 	}
 
+	@RequestMapping({"/admin/myaccount" })
+	public String myaccount(Model model) {
+		List<Users> users = uservice.findAll();
+		model.addAttribute("users", users);
+		return "/auth/my-account";
+	}
+	
 	@RequestMapping("shop")
 	public String shop() {
 		return "shop";

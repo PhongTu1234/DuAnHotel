@@ -3,6 +3,7 @@ package com.poly.Service;
 import java.util.List;
 
 import com.poly.entity.Hotels;
+import com.poly.entity.RoomTypes;
 
 public interface HotelService {
 	List<Hotels> findAll();
@@ -59,4 +60,8 @@ public interface HotelService {
 	List<Hotels> findHotelByService(Integer service, Integer page);
 	
 	List<Hotels> findHotelByPlaceidAndStart(Integer start, Integer placeId, Integer Page);
+	
+	List<Hotels> findPageAdmin(Integer page, Integer number);
+	
+	Hotels findByHotelName(String name);
 }

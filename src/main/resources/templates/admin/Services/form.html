@@ -31,10 +31,10 @@
 									<div class="btn-group float-right">
 										<ol class="breadcrumb hide-phone p-0 m-0">
 											<li class="breadcrumb-item"><a href="#">Julie</a></li>
-											<li class="breadcrumb-item active">Users</li>
+											<li class="breadcrumb-item active">Service</li>
 										</ol>
 									</div>
-									<h4 class="page-title">Users</h4>
+									<h4 class="page-title">Service</h4>
 								</div>
 							</div>
 						</div>
@@ -58,7 +58,7 @@
 							</div>
 							<div class="col-md-8">
 								<form th:action="@{/services/update}" method="post"
-									th:object="${sv}" class="form p-3">
+									th:object="${services}" class="form p-3">
 									<div class="form-group row">
 										<label for="id" class="form-label">serviceId</label> <input
 											type="text" class="form-control" id="id" th:field="*{id}"
@@ -72,13 +72,13 @@
 									
 									<div class="form-group row">
 										<button type="submit" class="btn btn-primary"
-											th:utext="${sv.id} ? 'Update' : 'Create'">
+											th:utext="${services.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
 										<a th:href="@{/services}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
-										</a> <span th:if="${sv.id}"> <a
-											th:href="@{/services/delete/{id}(id=${sv.id})}"
+										</a> <span th:if="${services.id}"> <a
+											th:href="@{/services/delete/{id}(id=${services.id})}"
 											class="btn btn-danger"> <i class="fas fa-trash"></i>
 												Delete
 										</a>

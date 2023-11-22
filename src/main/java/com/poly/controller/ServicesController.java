@@ -1,5 +1,7 @@
 package com.poly.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,43 +14,135 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.ServiceService;
 import com.poly.Service.UserService;
+import com.poly.entity.Places;
 import com.poly.entity.Services;
 import com.poly.entity.Users;
 
 @Controller
-@RequestMapping("/services")
 public class ServicesController {
 	@Autowired
     private ServiceService serviceService;
  	
- 	@GetMapping("/form")
+	
+	//xu ly admin
+ 	@GetMapping("/services/form")
  	public String formSevice(Model model) {
- 		model.addAttribute("sv", new Services());
+ 		model.addAttribute("services", new Services());
  		return "admin/Services/form";
  	}
 
- 	@GetMapping("/index")
+ 	@GetMapping("/services/index")
     public String showServicesIndex(Model model) {
- 		model.addAttribute("id", serviceService.findAll());
+// 		model.addAttribute("id", serviceService.findAll());
+ 		List<Services> service = serviceService.findAll();
+
+ 		Double SOLuongTrongTrang = 10.0;
+ 		int count = service.size();
+ 		int start = 1;
+ 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+		int endRounded = endRound;
+		if((endRound * SOLuongTrongTrang) < count ) {
+			endRounded = endRound + 1;
+		}
+		 
+		List<Services> services = serviceService.findPageAdmin((start - 1) * 10, 10);
+		model.addAttribute("services", services);
+		model.addAttribute("last", null);
+		model.addAttribute("start", start);
+		model.addAttribute("next", start + 1);
+		model.addAttribute("endRounded", endRounded);
         return "admin/Services/index";
     }
  
-    @GetMapping
-    public String listServices(Model model) {
-        model.addAttribute("sv", serviceService.findAll());
-        return "Roles/index";
-    }
+ 	@RequestMapping("/services/lpage={last}")
+	public String serviceAdminLast(Model model, @PathVariable("last") String plast) {
+		List<Services> services = serviceService.findAll();
+		int SOLuongTrongTrang = 10;
+//		 model.addAttribute("users", userService.findAll());
+		 int count = services.size();
+//			int last = start - 1;
+//			int next = start + 1;
+		// int SOLuongTrongTrang = 10;
+		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+			int endRounded = endRound;
+			if((endRound * SOLuongTrongTrang) < count ) {
+				endRounded = endRound + 1;
+			}
+//				List<Users> users = userService.findAll();
+//				// model.addAttribute("roomtype", roomtype);
+//				// int counta = roomtype.size();
+//				model.addAttribute("users", users);
 
-    @GetMapping("/{id}")
+		// model.addAttribute("count", count);
+
+		int start = Integer.parseInt(plast);
+		// int last = start - 1;
+		if (start == 1) {
+			List<Services> items = serviceService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("services", items);
+			model.addAttribute("last", null);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+		} else {
+			List<Services> items = serviceService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("services", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+		}
+		model.addAttribute("endRounded", endRounded);
+		return "admin/Services/index";
+	}
+
+	@RequestMapping("/services/npage={next}")
+	public String serviceAdminNext(Model model, @PathVariable("next") String pnext) {
+
+		List<Services> services = serviceService.findAll();
+		int SOLuongTrongTrang = 10;
+		int count = services.size();
+		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+		int endRounded = endRound;
+		if((endRound * SOLuongTrongTrang) < count ) {
+			endRounded = endRound + 1;
+		}
+		
+		
+		int start = Integer.parseInt(pnext);
+		if (start == endRounded) {
+			List<Services> items = serviceService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("services", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", null);
+		} else {
+			List<Services> items = serviceService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
+			model.addAttribute("services", items);
+			model.addAttribute("last", start - 1);
+			model.addAttribute("start", start);
+			model.addAttribute("next", start + 1);
+			
+		}
+		model.addAttribute("endRounded", (int)endRounded);
+		return "admin/Services/index";
+	}
+ 	
+ 	
+//    @GetMapping
+//    public String listServices(Model model) {
+//        model.addAttribute("sv", serviceService.findAll());
+//        return "Roles/index";
+//    }
+
+    @GetMapping("/services/{id}")
     public String viewServices(@PathVariable("id") Integer id, Model model) {
-    	Services sv = serviceService.findById(id);
-        model.addAttribute("sv", sv);
+    	Services services = serviceService.findById(id);
+        model.addAttribute("services", services);
         return "admin/Services/form";
     }
 
-    @PostMapping("/create")
-    public String createServices(@ModelAttribute Services sv) {
-    	serviceService.create(sv);
+    @PostMapping("/services/create")
+    public String createServices(@ModelAttribute Services services) {
+    	serviceService.create(services);
         return "redirect:/Services/form";
     }
 
@@ -64,19 +158,19 @@ public class ServicesController {
 //        return new ModelAndView("redirect:/users/index");
 //    }
     
-    @PostMapping("/update")
-    public ModelAndView updateService(@ModelAttribute Services sv) {
-        if (sv.getId() != null) {
+    @PostMapping("/services/update")
+    public ModelAndView updateService(@ModelAttribute Services services) {
+        if (services.getId() != null) {
             // Nếu có ID, thực hiện cập nhật
-        	serviceService.update(sv);
+        	serviceService.update(services);
         } else {
             // Nếu không có ID, thực hiện thêm mới
-        	serviceService.create(sv);
+        	serviceService.create(services);
         }
         return new ModelAndView("redirect:/services/index");
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/services/delete/{id}")
     public ModelAndView deleteService(@PathVariable("id") Integer id) {
     	serviceService.delete(id);
         return new ModelAndView("redirect:/services/index");

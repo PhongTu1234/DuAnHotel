@@ -40,4 +40,10 @@ public class ServicesServiceImpl implements ServiceService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public List<Services> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return htdao.findPageAdmin(page, number);
+	}
+
 }

@@ -40,4 +40,16 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 		rtdao.deleteById(id);
 	}
 
+	@Override
+	public List<RoomTypes> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return rtdao.findPageAdmin(page, number);
+	}
+
+	@Override
+	public RoomTypes findByRoomtypeName(String name) {
+		// TODO Auto-generated method stub
+		return rtdao.findByPlaceName(name);
+	}
+
 }

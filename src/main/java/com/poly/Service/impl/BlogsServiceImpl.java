@@ -40,4 +40,10 @@ public class BlogsServiceImpl implements BlogsService {
 		htdao.deleteById(id);
 	}
 
+	@Override
+	public List<Blogs> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return htdao.findPageAdmin(page, number);
+	}
+
 }

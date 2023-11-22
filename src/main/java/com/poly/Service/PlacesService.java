@@ -2,6 +2,7 @@ package com.poly.Service;
 
 import java.util.List;
 
+import com.poly.entity.Hotels;
 import com.poly.entity.Places;
 
 public interface PlacesService {
@@ -22,4 +23,8 @@ public interface PlacesService {
 	Places findPlaceWithMostHotelsTop3();
 
 	Places findPlaceWithMostHotelsTop4();
+	
+	List<Places> findPageAdmin(Integer page, Integer number);
+	
+	Places findByPlaceName(String name);
 }

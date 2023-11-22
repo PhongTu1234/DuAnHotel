@@ -15,4 +15,5 @@ public interface ServiceService {
 
 	void delete(Integer id);
 
+	List<Services> findPageAdmin(Integer page, Integer number);
 }

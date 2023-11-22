@@ -39,4 +39,10 @@ public class RoleServiceImpl implements RoleService {
 		dao.deleteById(id);
 	}
 
+	@Override
+	public List<Role> findPageAdmin(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return dao.findPageAdmin(page, number);
+	}
+
 }

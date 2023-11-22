@@ -23,4 +23,7 @@ public interface RoomDAO extends JpaRepository<Rooms, Integer> {
 
 	@Query("SELECT p FROM Rooms p WHERE p.id between 1513 and 1520")
 	List<Rooms> findByRoom1to8();
+	
+	@Query(value = "SELECT * FROM Rooms h  order by h.room_id OFFSET ?1 ROWS FETCH NEXT ?2 ROWS only", nativeQuery = true)
+	List<Rooms> findPageAdmin(Integer page, Integer number);
 }

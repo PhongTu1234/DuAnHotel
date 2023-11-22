@@ -14,4 +14,6 @@ public interface ImagesService {
 	Images update(Images Images);
 
 	void delete(Integer id);
+	
+	List<Images> findPageAdmin(Integer page, Integer number);
 }

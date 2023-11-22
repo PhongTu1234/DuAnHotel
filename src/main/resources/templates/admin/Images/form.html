@@ -60,7 +60,7 @@
 									th:object="${images}" class="form p-3">
 									<div class="form-group row">
 										<label for="id" class="form-label">imageId</label> <input
-											type="text" class="form-control" id="id" th:field="*{id}"
+											type="text" class="form-control" id="id" th:field="*{image_id}"
 											placeholder="Enter ID">
 									</div>
 									<div class="form-group row">
@@ -68,6 +68,17 @@
 											type="text" class="form-control" id="name"
 											th:field="*{name}" placeholder="Enter imageName">
 									</div>
+									<div class="form-group row">
+										<label for="id" class="form-label">IDRoomHotel</label> <input
+											type="text" class="form-control" id="idroomhotel" th:field="*{id}"
+											placeholder="Enter IDRoomHotel">
+									</div>
+									<div class="form-group row">
+										<label for="id" class="form-label">status</label> <input
+											type="text" class="form-control" id="trangthai" th:field="*{status}"
+											placeholder="Enter status">
+									</div>
+									
 
 									<div class="form-group row">
 										<button type="submit" class="btn btn-primary"

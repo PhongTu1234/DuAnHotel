@@ -105,4 +105,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Users> findPage(Integer page, Integer number) {
+		// TODO Auto-generated method stub
+		return adao.findPage(page, number);
+	}
 }
