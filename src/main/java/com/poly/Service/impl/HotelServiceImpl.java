@@ -153,7 +153,7 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Hotels> findHotelByHotelLevel5() {
 		// TODO Auto-generated method stub
-		return null;
+		return hdao.findHotelByHotelLevel(null);
 	}
 
 	@Override

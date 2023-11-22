@@ -24,7 +24,6 @@ public interface UserDAO extends JpaRepository<Users, String> {
 
 	@Query("SELECT u FROM Users u WHERE u.token=?1")
 	public Users findByToken(String token);
-
 	
 	@Modifying
     @Query("UPDATE Users u SET u.password = :newPassword, u.Changedpass = true WHERE u.cmt = :userId")
@@ -35,4 +34,5 @@ public interface UserDAO extends JpaRepository<Users, String> {
 	
 	@Query(value = "SELECT * FROM Users h  order by h.cmt OFFSET ?1 ROWS FETCH NEXT ?2 ROWS only", nativeQuery = true)
 	List<Users> findPage(Integer page, Integer number);
+
 }

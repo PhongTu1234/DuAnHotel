@@ -45,8 +45,6 @@ public class BookingRoomController {
 			endRounded = endRound + 1;
 		}
 		 
-		List<Booking_Room> bookingrooms = brService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-		model.addAttribute("bookingrooms", bookingrooms);
 		model.addAttribute("last", null);
 		model.addAttribute("start", start);
 		model.addAttribute("next", start + 1);
@@ -78,14 +76,10 @@ public class BookingRoomController {
 		int start = Integer.parseInt(plast);
 		// int last = start - 1;
 		if (start == 1) {
-			List<Booking_Room> items = brService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("bookingrooms", items);
 			model.addAttribute("last", null);
 			model.addAttribute("start", start);
 			model.addAttribute("next", start + 1);
 		} else {
-			List<Booking_Room> items = brService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("bookingrooms", items);
 			model.addAttribute("last", start - 1);
 			model.addAttribute("start", start);
 			model.addAttribute("next", start + 1);
@@ -109,14 +103,10 @@ public class BookingRoomController {
 		
 		int start = Integer.parseInt(pnext);
 		if (start == endRounded) {
-			List<Booking_Room> items = brService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("bookingrooms", items);
 			model.addAttribute("last", start - 1);
 			model.addAttribute("start", start);
 			model.addAttribute("next", null);
 		} else {
-			List<Booking_Room> items = brService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("bookingrooms", items);
 			model.addAttribute("last", start - 1);
 			model.addAttribute("start", start);
 			model.addAttribute("next", start + 1);

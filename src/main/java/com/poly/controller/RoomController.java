@@ -15,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.poly.Service.HotelService;
 import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
-import com.poly.entity.Hotels;
-import com.poly.entity.RoomTypes;
 import com.poly.entity.Rooms;
 
 @Controller
@@ -30,11 +28,12 @@ public class RoomController {
 	@Autowired
 	RoomTypesService rtService;
 
-	@RequestMapping("/hotel/room/{hotel_id}")
-	public String detail(Model model, @PathVariable("hotel_id") String id) {
-		List<Rooms> item = rservice.findByHotelId(Integer.parseInt(id));
-		model.addAttribute("item", item);
-		return "Room_shop";
+
+	@RequestMapping("/hotel/room/{id}")
+	public String detail(Model model, @PathVariable("id") Integer id) {
+		Rooms item = rservice.findById(id);
+		model.addAttribute("room", item);
+		return "product/single-product-variable";
 	}
 	
 	@RequestMapping("/hotel/room/wishlist")

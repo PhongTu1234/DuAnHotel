@@ -170,7 +170,7 @@ public class RoomTypesController {
     @PostMapping("/roomtypes/update")
     public ModelAndView updateRoomType(@ModelAttribute RoomTypes roomtypes) {
         if (roomtypes.getId() != null) {
-            // Nếu có ID, thực hiện cập nhật
+// Nếu có ID, thực hiện cập nhật
         	rtService.update(roomtypes);
         } else {
             // Nếu không có ID, thực hiện thêm mới
@@ -185,3 +185,4 @@ public class RoomTypesController {
         return new ModelAndView("redirect:/roomtypes/index");
     }
 }
+		

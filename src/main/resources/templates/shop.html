@@ -262,7 +262,7 @@
 									<div class="col-md-4 col-sm-6" th:each="a:${items}">
 										<div class="product-item">
 											<div class="product-img">
-												<a th:href="@{|/hotel/detail/{a.id}|}"> <img
+												<a th:href="@{|/hotel/detail/${a.id}|}"> <img
 													class="primary-img"
 													src="assets/images/product/medium-size/1-1-270x300.jpg"
 													alt="Product Images"> <img class="secondary-img"
@@ -294,7 +294,7 @@
 												</div>
 											</div>
 											<div class="product-content">
-												<a class="product-name" th:href="@{|/hotel/room/${a.id}|}">[[(${a.name})]]</a>
+												<a class="product-name" th:href="@{|/hotel/detail/${a.id}|}">[[(${a.name})]]</a>
 												<div class="price-box pb-1">
 													<span class="new-price">$23.45</span>
 												</div>

@@ -52,4 +52,5 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 		return rtdao.findByPlaceName(name);
 	}
 
+
 }

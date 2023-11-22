@@ -16,4 +16,6 @@ public interface Booking_RoomService {
 	void delete(Integer id);
 	
 	List<Booking_Room> findPageAdmin(Integer page, Integer number);
+
+	List<Booking_Room> getBookingDetailsForUser(String user);
 }

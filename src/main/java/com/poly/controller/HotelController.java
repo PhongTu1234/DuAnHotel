@@ -10,19 +10,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.HotelService;
 import com.poly.Service.PlacesService;
-import com.poly.Service.RoleService;
+import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
 import com.poly.Service.ServiceService;
 import com.poly.entity.Hotels;
-import com.poly.entity.Role;
 import com.poly.entity.RoomTypes;
+import com.poly.entity.Rooms;
 import com.poly.entity.Services;
-import com.poly.entity.Users;
 
 @Controller
 public class HotelController {
@@ -35,6 +33,27 @@ public class HotelController {
 
 	@Autowired
 	ServiceService svService;
+	
+	@Autowired
+	RoomService roomService;
+	
+	private void shop(Model model) {
+        List<RoomTypes> roomtype = rtService.findAll();
+        List<Hotels> hoteltype = hService.findAll();
+        List<Services> services = svService.findAll();
+        model.addAttribute("roomtype", roomtype);
+        model.addAttribute("hoteltype", hoteltype);
+        model.addAttribute("services", services);
+
+        List<Hotels> item = hService.findAll();
+        int count = item.size();
+        model.addAttribute("counthotel", count);
+
+        for (int i = 0; i <= 5; i++) {
+            List<Hotels> hotelLevel = hService.findHotelByHotelLevel(i);
+            model.addAttribute("countHotelLevel" + i, hotelLevel.size());
+        }
+    }
 
 	@Autowired
 	PlacesService placeService;
@@ -43,45 +62,19 @@ public class HotelController {
 	public String detail(Model model, @PathVariable("id") Integer id) {
 		Hotels item = hService.findById(id);
 		model.addAttribute("item", item);
-		return "product/single-product-variable";
+		
+		List<Rooms> room = roomService.findByHotelId(id);
+		model.addAttribute("room", room);
+		return "hotel-detail";
 	}
 
 	// Hotel
 	@RequestMapping("/hotel/all")
 	public String Hotel(Model model) {
-		List<RoomTypes> roomtype = rtService.findAll();
-		model.addAttribute("roomtype", roomtype);
-		List<Hotels> hoteltype = hService.findAll();
-		List<Services> services = svService.findAll();
-		// model.addAttribute("roomtype", roomtype);
-		// int counta = roomtype.size();
-
-		model.addAttribute("hoteltype", hoteltype);
-		model.addAttribute("services", services);
-		List<Hotels> item = hService.findAll();
-		int count = item.size();
-		model.addAttribute("counthotel", count);
-
-		List<Hotels> HotelLevel0 = hService.findHotelByHotelLevel(0);
-		model.addAttribute("countHotelLevel0", HotelLevel0.size());
-
-		List<Hotels> HotelLevel1 = hService.findHotelByHotelLevel(1);
-		model.addAttribute("countHotelLevel1", HotelLevel1.size());
-
-		List<Hotels> HotelLevel2 = hService.findHotelByHotelLevel(2);
-		model.addAttribute("countHotelLevel2", HotelLevel2.size());
-
-		List<Hotels> HotelLevel3 = hService.findHotelByHotelLevel(3);
-		model.addAttribute("countHotelLevel3", HotelLevel3.size());
-
-		List<Hotels> HotelLevel4 = hService.findHotelByHotelLevel(4);
-		model.addAttribute("countHotelLevel4", HotelLevel4.size());
-
-		List<Hotels> HotelLevel5 = hService.findHotelByHotelLevel(5);
-		model.addAttribute("countHotelLevel5", HotelLevel5.size());
-
+		shop(model);
 		int start = 1;
-		// int last = null;
+		List<Hotels> hotel = hService.findAll();
+		int count = hotel.size();
 		int next = start + 1;
 		int SOLuongTrongTrang = 15;
 		double end = count / SOLuongTrongTrang;
@@ -89,7 +82,6 @@ public class HotelController {
 		// model.addAttribute("count", endRounded);
 		List<Hotels> items = hService.findPage((start - 1) * SOLuongTrongTrang);
 		model.addAttribute("items", items);
-		// model.addAttribute("last", last);
 		model.addAttribute("start", start);
 		model.addAttribute("next", next);
 		return "shop";
@@ -151,8 +143,6 @@ public class HotelController {
 		List<RoomTypes> roomtype = rtService.findAll();
 		List<Hotels> hoteltype = hService.findAll();
 		List<Services> services = svService.findAll();
-		// model.addAttribute("roomtype", roomtype);
-		// int counta = roomtype.size();
 		model.addAttribute("roomtype", roomtype);
 		model.addAttribute("hoteltype", hoteltype);
 		model.addAttribute("services", services);

@@ -45,5 +45,9 @@ public class Booking_RoomServiceImpl implements Booking_RoomService {
 		// TODO Auto-generated method stub
 		return htdao.findPageAdmin(page, number);
 	}
+	
+	public List<Booking_Room> getBookingDetailsForUser(String user) {
+		return htdao.getBookingDetailsForUser(user);
+	}
 
 }
