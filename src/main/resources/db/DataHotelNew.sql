@@ -135,11 +135,8 @@ go
 CREATE TABLE Bookings (
     booking_id INT PRIMARY KEY,             -- ID duy nhất cho đặt phòng
     cmt VARCHAR(20),                            -- Khóa ngoại liên kết với bảng Người dùng
-<<<<<<< HEAD
+
 	 payment_status bit,                     -- Trạng thái thanh toán
-=======
-	payment_status bit,                     -- Trạng thái thanh toán
->>>>>>> 7786b644078ad599ec25e173f078dc5a6a5f625e
 	booking_date DATE,                      -- Ngày đặt phòng
     checkin_date DATE,                      -- Ngày nhận phòng
     checkout_date DATE,                     -- Ngày trả phòng

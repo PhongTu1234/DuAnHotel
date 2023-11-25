@@ -1,4 +1,4 @@
-package com.poly;
+package com.poly.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,18 +11,17 @@ import com.poly.interceptor.GlobalInterceptor;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
-	@Autowired
-	GlobalInterceptor globalInterceptor;
+    @Autowired
+    GlobalInterceptor globalInterceptor;
 
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**");
-	}
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(globalInterceptor).addPathPatterns("/**").excludePathPatterns("/rest/**", "/admin/**",
-				"/assets/**", "/assetss/**");
-	}
-
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(globalInterceptor).addPathPatterns("/**").excludePathPatterns("/rest/**", "/admin/**",
+                "/assets/**", "/assetss/**");
+    }
 }

@@ -1,30 +1,33 @@
 package com.poly.interceptor;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.poly.Service.HotelService;
-import com.poly.Service.RoomTypesService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class GlobalInterceptor implements HandlerInterceptor {
 
-	@Autowired
-	HotelService hotelService;
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // You can perform pre-processing here if needed
+        return true; // Continue processing the request
+    }
 
-	@Autowired
-	RoomTypesService roomtypesService;
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        // You can perform post-processing here if needed
 
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		request.setAttribute("h", hotelService.findAll());
-		request.setAttribute("rt", roomtypesService.findAll());
-	}
+        // If the modelAndView is null, it means the request did not match any @RequestMapping
+        // Redirect to the 404 page in this case
+        if (modelAndView == null && !response.isCommitted()) {
+            response.sendRedirect("/404");
+        }
+    }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        // You can perform actions after the request has been processed
+    }
 }

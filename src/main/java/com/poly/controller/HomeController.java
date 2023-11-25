@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.poly.Service.HotelService;
 import com.poly.Service.PlacesService;
 import com.poly.Service.RoomService;
+import com.poly.Service.RoomTypesService;
 import com.poly.Service.UserService;
 import com.poly.entity.Hotels;
 import com.poly.entity.Places;
+import com.poly.entity.RoomTypes;
 import com.poly.entity.Rooms;
 import com.poly.entity.Users;
 
@@ -27,6 +29,9 @@ public class HomeController {
 
 	@Autowired
 	RoomService rtservice;
+	
+	@Autowired
+	RoomTypesService rservice;
 
 	@Autowired
 	PlacesService placeservice;
@@ -65,6 +70,9 @@ public class HomeController {
 
 		List<Hotels> HotelLevel5 = htservice.findHotelByHotelLevel(5);
 		model.addAttribute("HotelLevel5", HotelLevel5);
+		
+		List<RoomTypes> roomtype = rservice.findAll();
+		model.addAttribute("rt", roomtype);
 		return "index";
 	}
 

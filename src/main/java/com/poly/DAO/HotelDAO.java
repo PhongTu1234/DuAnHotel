@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.poly.entity.Hotels;
 import com.poly.entity.RoomTypes;
@@ -55,4 +56,16 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	
 	@Query("SELECT p FROM Hotels p where p.name = ?1")
 	Hotels findByHotelName(String name);
+	
+//	@Query("SELECT h FROM Hotels h " +
+//           "LEFT JOIN Places p ON h.Place.id = p.id " +
+//           "LEFT JOIN ServiceRooms sr ON h.Rooms.id = sr.Rooms.id " +
+//           "LEFT JOIN Services s ON sr.Services.id = s.id " +
+//           "LEFT JOIN Rooms r ON h.Rooms.id = r.id " +
+//           "LEFT JOIN RoomTypes rt ON r.RoomTypes.id = rt.id " +
+//           "WHERE LOWER(Hotels.name) LIKE LOWER('%' || :keyword || '%') " +
+//           "   OR LOWER(Places.name) LIKE LOWER('%' || :keyword || '%') " +
+//           "   OR LOWER(Services.name) LIKE LOWER('%' || :keyword || '%') " +
+//           "   OR LOWER(RoomTypes.name) LIKE LOWER('%' || :keyword || '%')")
+//    List<Hotels> searchAllEntities(@Param("keyword") String keyword);
 }
