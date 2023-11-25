@@ -58,24 +58,24 @@
 							<div class="col-md-8">
 								<form th:action="@{/images/update}" method="post"
 									th:object="${images}" class="form p-3">
-									<div class="form-group row">
+									<!--  <div class="form-group row">
 										<label for="id" class="form-label">imageId</label> <input
 											type="text" class="form-control" id="id" th:field="*{image_id}"
 											placeholder="Enter ID">
-									</div>
+									</div>-->
 									<div class="form-group row">
 										<label for="name" class="form-label">imageName</label> <input
-											type="text" class="form-control" id="name"
+											type="image" class="form-control" id="name"
 											th:field="*{name}" placeholder="Enter imageName">
 									</div>
 									<div class="form-group row">
 										<label for="id" class="form-label">IDRoomHotel</label> <input
-											type="text" class="form-control" id="idroomhotel" th:field="*{id}"
+											type="text" class="form-control" id="id" th:field="*{id}"
 											placeholder="Enter IDRoomHotel">
 									</div>
 									<div class="form-group row">
-										<label for="id" class="form-label">status</label> <input
-											type="text" class="form-control" id="trangthai" th:field="*{status}"
+										<label for="status" class="form-label">status</label> <input
+											type="radio" class="form-control" id="trangthai" th:field="*{status}"
 											placeholder="Enter status">
 									</div>
 									

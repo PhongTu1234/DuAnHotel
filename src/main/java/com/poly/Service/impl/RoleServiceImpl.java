@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.RoleDAO;
@@ -43,6 +45,12 @@ public class RoleServiceImpl implements RoleService {
 	public List<Role> findPageAdmin(Integer page, Integer number) {
 		// TODO Auto-generated method stub
 		return dao.findPageAdmin(page, number);
+	}
+
+	@Override
+	public Page<Role> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return dao.findAll(page);
 	}
 
 }

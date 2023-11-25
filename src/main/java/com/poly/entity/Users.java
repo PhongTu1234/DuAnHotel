@@ -29,11 +29,7 @@ public class Users implements Serializable{
 
 	@Column(name = "username")
 	String username;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "Users", fetch = FetchType.EAGER)
-	List<Authority> Authority;
-
+	
     @Column(name = "email", length = 100)
     @NotBlank(message = "email")
     String email;

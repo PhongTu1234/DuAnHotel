@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.HotelService;
@@ -18,6 +22,7 @@ import com.poly.Service.RoomTypesService;
 import com.poly.Service.ServiceService;
 import com.poly.Service.UserService;
 import com.poly.entity.Hotels;
+import com.poly.entity.Payment;
 import com.poly.entity.Places;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Services;
@@ -371,25 +376,10 @@ public class PlaceController {
  	}
 
  	@GetMapping("/places/index")
-    public String showPlacesIndex(Model model) {
-// 		model.addAttribute("places", placeService.findAll());
- 		List<Places> place = placeService.findAll();
-
- 		int SOLuongTrongTrang = 10;
- 		int count = place.size();
- 		int start = 1;
- 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		 
-		List<Places> places = placeService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+    public String showPlacesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+		Pageable page = PageRequest.of(p, 10);
+		Page<Places> places = placeService.findAlla(page);
 		model.addAttribute("places", places);
-		model.addAttribute("last", null);
-		model.addAttribute("start", start);
-		model.addAttribute("next", start + 1);
-		model.addAttribute("endRounded",endRounded);
         return "admin/Place/index";
     }
  

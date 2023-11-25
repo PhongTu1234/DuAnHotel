@@ -2,6 +2,10 @@ package com.poly.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.poly.entity.Places;
 import com.poly.entity.Role;
 
 public interface RoleService {
@@ -17,4 +21,5 @@ public interface RoleService {
 	
 	List<Role> findPageAdmin(Integer page, Integer number);
 
+	Page<Role> findAlla(Pageable page);
 }

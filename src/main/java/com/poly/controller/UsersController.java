@@ -1,8 +1,13 @@
 package com.poly.controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.poly.Service.RoleService;
 import com.poly.Service.UserService;
+import com.poly.entity.Authority;
 import com.poly.entity.Hotels;
+import com.poly.entity.Role;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Services;
 import com.poly.entity.Users;
@@ -23,35 +31,50 @@ import com.poly.entity.Users;
 public class UsersController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 
 	private int SOLuongTrongTrang = 10;
 
-	@GetMapping("/users/form")
-	public String formUser(Model model) {
-		model.addAttribute("users", new Users());
-		return "admin/Users/form";
-	}
+	@GetMapping("users/form")
+    public String userForm(Model model) {
+        model.addAttribute("users", new Users());
+        model.addAttribute("roles", roleService.findAll());
+        return "admin/Users/form";
+    }
+
+    @GetMapping("users/{cmt}")
+    public String viewUser(@PathVariable("cmt") String cmt, Model model) {
+        Users user = userService.findById(cmt);
+        model.addAttribute("users", user);
+        model.addAttribute("roles", roleService.findAll());
+        return "admin/Users/form";
+    }
+
+//    private boolean hasRole(String roleId, List<Authority> authorities) {
+//        for (Authority authority : authorities) {
+//            if (authority.getRole().getId().equals(roleId)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+//    private boolean hasRole(String cmt, String roleId) {
+//        Users user = userService.findById(cmt);
+//        if (user != null && user.getAuthorities() != null) {
+//            return hasRole(roleId, user.getAuthorities());
+//        }
+//        return false;
+//    }
 
 	@GetMapping("/users/index")
-	public String showUsersIndex(Model model) {
-		 List<Users> user = userService.findAll();
-//		 model.addAttribute("users", userService.findAll());
-		 int count = user.size();
-		int start = 1;
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		List<Users> users = userService.findPage((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-		model.addAttribute("users", users);
-		model.addAttribute("last",  null);
-		model.addAttribute("start", start);
-		model.addAttribute("next", start + 1);
-		model.addAttribute("endRounded",endRounded);
+	public String showUsersIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+		Pageable page = PageRequest.of(p, 10);
+		Page<Users> user = userService.findAlla(page);
+		model.addAttribute("users", user);
+
 		return "admin/Users/index";
 	}
 
@@ -129,12 +152,7 @@ public class UsersController {
 //	        return "Roles/index";
 //	    }
 
-	@GetMapping("/users/{cmt}")
-	public String viewUser(@PathVariable("cmt") String cmt, Model model) {
-		Users user = userService.findById(cmt);
-		model.addAttribute("users", user);
-		return "admin/Users/form";
-	}
+	
 
 	@PostMapping("/users/create")
 	public String createUser(@ModelAttribute Users user) {

@@ -2,7 +2,11 @@ package com.poly.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.poly.entity.Payment;
+import com.poly.entity.Users;
 
 public interface PaymentService {
 	List<Payment> findAll();
@@ -15,4 +19,8 @@ public interface PaymentService {
 
 	void delete(Integer id);
 	List<Payment> findPageAdmin(Integer page, Integer number);
+
+	Payment findByPaymentName(Integer id);
+
+	Page<Payment> findAlla(Pageable page);
 }

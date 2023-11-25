@@ -58,29 +58,29 @@
 							<div class="col-md-8">
 								<form th:action="@{/bookingrooms/update}" method="post"
 									th:object="${bookingrooms}" class="form p-3">
-									<div class="form-group row">
+									<!--  <div class="form-group row">
 										<label for="id" class="form-label">bookingroomId</label> <input
 											type="text" class="form-control" id="id" th:field="*{id}"
 											placeholder="Enter ID">
-									</div>
+									</div>-->
 									<div class="form-group row">
-										<label for="name" class="form-label">bookingroomCount</label> <input
-											type="text" class="form-control" id="bookingroomCount"
+										<label for="count" class="form-label">bookingroomCount</label> <input
+											type="number" class="form-control" id="count"
 											th:field="*{count}" placeholder="Enter bookingroomCount">
 									</div>
 									<div class="form-group row">
-										<label for="name" class="form-label">bookingroomBokingID</label> <input
-											type="text" class="form-control" id="bookingroomBokingID"
+										<label for="Bookings.id" class="form-label">bookingroomBokingID</label> <input
+											type="text" class="form-control" id="Bookings.id"
 											th:field="*{Bookings.id}" placeholder="bookingroomBokingID">
 									</div>
 									<div class="form-group row">
-										<label for="name" class="form-label">bookingroomRoomName</label> <input
-											type="text" class="form-control" id="bookingroomRoomName"
+										<label for="Rooms.name" class="form-label">bookingroomRoomName</label> <input
+											type="text" class="form-control" id="Rooms.name"
 											th:field="*{Rooms.name}" placeholder="Enter bookingroomRoomName">
 									</div>
 									<div class="form-group row">
-										<label for="name" class="form-label">bookingroomHotelName</label> <input
-											type="text" class="form-control" id="bookingroomHotelName"
+										<label for="Hotels.name" class="form-label">bookingroomHotelName</label> <input
+											type="text" class="form-control" id="Hotels.name"
 											th:field="*{Hotels.name}" placeholder="Enter bookingroomHotelName">
 									</div>
 									

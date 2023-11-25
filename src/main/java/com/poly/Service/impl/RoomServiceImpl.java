@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.RoomDAO;
@@ -57,7 +59,19 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public List<Rooms> findPageAdmin(Integer page, Integer number) {
 		// TODO Auto-generated method stub
-		return rdao.findPageAdmin(page, number);
+		return null;
+	}
+
+	@Override
+	public Rooms findByRoomName(String name) {
+		// TODO Auto-generated method stub
+		return rdao.findByRoomName(name);
+	}
+
+	@Override
+	public Page<Rooms> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return rdao.findAll(page);
 	}
 
 }

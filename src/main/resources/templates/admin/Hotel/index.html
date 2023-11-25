@@ -93,26 +93,26 @@
 								</table>
 							</div>
 						</div>
-						<div class="card-header text-center">
-							<!--  <button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-left"></i>
-							</button>-->
-							<button  class="btn btn-primary" th:if="${last != null}">
-								<a th:href="@{|/hotels/lpage=${last}|}"><i class="fas fa-arrow-left"></i></a>
-							</button>
-							<button class="btn btn-success">[[(${start})]] of
-								[[(${endRounded})]]</button>
-							<div th:if="${next == null}">
-								
-							</div>
-							<button class="btn btn-primary" th:if="${next != null}">
-								<a th:href="@{|/hotels/npage=${next}|}"><i class="fas fa-arrow-right"></i></a>
-							</button>
-							<!--<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-right"></i>
-							</button>-->
+						<div class="card-header text-center"
+							th:if="${hotels.totalPages > 1}">
+							<a th:href="@{/hotels/index(p=${hotels.number - 1})}"
+								th:if="${hotels.hasPrevious()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-left"></i>
+								</button>
+							</a> <a
+								th:each="pageNumber : ${#numbers.sequence(0, hotels.totalPages - 1)}"
+								th:href="@{/hotels/index(p=${pageNumber})}"
+								th:class="${pageNumber == hotels.number ? 'btn btn-success active' : 'btn btn-success'}">
+								<span th:text="${pageNumber + 1}"></span>
+							</a> <a th:href="@{/hotels/index(p=${hotels.number + 1})}"
+								th:if="${hotels.hasNext()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-right"></i>
+								</button>
+							</a>
 						</div>
-						<script src="/assetss/js/init.js"></script>
+						<!--  <script src="/assetss/js/init.js"></script>-->
 					</div>
 				</div>
 

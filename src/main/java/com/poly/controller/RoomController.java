@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.HotelService;
 import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
+import com.poly.entity.Places;
 import com.poly.entity.Rooms;
 
 @Controller
@@ -55,26 +60,10 @@ public class RoomController {
  	}
 
  	@GetMapping("/rooms/index")
-    public String showRoomsIndex(Model model) {
-// 		model.addAttribute("rooms", rservice.findAll());
- 		List<Rooms> room = rservice.findAll();
-
-// 		model.addAttribute("hotels", hService.findAll());
- 		int SOLuongTrongTrang = 10;
- 		int count = room.size();
- 		int start = 1;
- 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		 
-		List<Rooms> rooms = rservice.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+    public String showRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+		Pageable page = PageRequest.of(p, 10);
+		Page<Rooms> rooms = rservice.findAlla(page);
 		model.addAttribute("rooms", rooms);
-		model.addAttribute("last", null);
-		model.addAttribute("start", start);
-		model.addAttribute("next", start + 1);
-		model.addAttribute("endRounded",endRounded);
         return "admin/Rooms/index";
     }
  
@@ -200,9 +189,28 @@ public class RoomController {
 	        }
         	return new ModelAndView("redirect:/rooms/index");
         }else {
-        	model.addAttribute("message", "Hotel không tồn tại");
+        	model.addAttribute("message", "Hotel hoặc loại phòng không có!");
         	return new ModelAndView("admin/Rooms/form");
         }
+//    	
+//    	if(rtService.findByRoomtypeName(Roomtypes) != null ) {
+//        	if (rooms.getId() != null) {
+//	            // Nếu có ID, thực hiện cập nhật
+//        		rooms.setRoomTypes(rtService.findByRoomtypeName(Roomtypes));
+//        		rservice.update(rooms);
+//	        } else {
+//	        	rooms.setRoomTypes(rtService.findByRoomtypeName(Roomtypes));
+//	            // Nếu không có ID, thực hiện thêm mới
+//	        	rservice.create(rooms);
+//	        }
+//        	return new ModelAndView("redirect:/hotels/index");
+//        }else {
+//        	model.addAttribute("message", "Khách sạn không tồn tại");
+//        	return new ModelAndView("admin/Hotel/form");
+//        }
+    
+    	
+    	
     }
 
     @GetMapping("/rooms/delete/{id}")

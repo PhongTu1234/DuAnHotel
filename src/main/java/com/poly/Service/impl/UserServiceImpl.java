@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +35,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Users> findAll() {
 		return adao.findAll();
+	}
+	
+	@Override
+	public Page<Users> findAlla(Pageable page) {
+		return adao.findAll(page);
 	}
 
 	@Override
@@ -109,6 +116,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Users> findPage(Integer page, Integer number) {
 		// TODO Auto-generated method stub
-		return adao.findPage(page, number);
+		return null;
+	}
+
+	@Override
+	public Users findByUserName(String name) {
+		// TODO Auto-generated method stub
+		return adao.findByUserName(name);
 	}
 }

@@ -15,7 +15,7 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "Authorities", uniqueConstraints = { @UniqueConstraint(columnNames = { "cmt", "role_id" }) })
+@Table(name = "Authorities")
 public class Authority implements Serializable {
 
 	@Id

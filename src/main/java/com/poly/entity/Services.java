@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,11 +18,13 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
+
 @Table(name = "Services")
 public class Services implements Serializable {
 
 	@Id
-	@Column(name = "service_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "service_id" )
 	Integer id;
 
 	@Column(name = "service_name")

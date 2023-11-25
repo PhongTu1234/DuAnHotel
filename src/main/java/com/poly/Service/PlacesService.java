@@ -2,7 +2,11 @@ package com.poly.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.poly.entity.Hotels;
+import com.poly.entity.Payment;
 import com.poly.entity.Places;
 
 public interface PlacesService {
@@ -27,4 +31,6 @@ public interface PlacesService {
 	List<Places> findPageAdmin(Integer page, Integer number);
 	
 	Places findByPlaceName(String name);
+	
+	Page<Places> findAlla(Pageable page);
 }

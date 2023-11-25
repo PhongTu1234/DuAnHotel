@@ -59,24 +59,24 @@
 							<div class="col-md-8">
 								<form th:action="@{/payments/update}" method="post"
 									th:object="${payments}" class="form p-3">
-									<div class="form-group row">
+									<!--  <div class="form-group row">
 										<label for="id" class="form-label">paymentId</label> <input
 											type="text" class="form-control" id="id" th:field="*{id}"
 											placeholder="Enter ID">
+									</div>-->
+									<div class="form-group row">
+										<label for="date" class="form-label">Payment Date</label>
+										<input style="display:none;" type="date" class="form-control" id="date" th:field="*{date}" placeholder="Enter paymentDate">
+										<input class="form-control" type="date" th:field="*{paymentDateStr}" th:value="${#temporals.format(payments.date, 'yyyy-MM-dd')}"/>
 									</div>
 									<div class="form-group row">
-										<label for="name" class="form-label">paymentDate</label> <input
-											type="text" class="form-control" id="paymentDate"
-											th:field="*{date}" placeholder="Enter paymentDate">
-									</div>
-									<div class="form-group row">
-										<label for="name" class="form-label">totalAmount</label> <input
-											type="text" class="form-control" id="totalAmount"
+										<label for="Total" class="form-label">totalAmount</label> <input
+											type="text" class="form-control" id="Total"
 											th:field="*{Total}" placeholder="Enter totalAmount">
 									</div>
 									<div class="form-group row">
-										<label for="name" class="form-label">paymentMethod</label> <input
-											type="text" class="form-control" id="paymentMethod"
+										<label for="Method" class="form-label">paymentMethod</label> <input
+											type="radio" class="form-control" id="Method"
 											th:field="*{Method}" placeholder="Enter paymentMethod">
 									</div>
 

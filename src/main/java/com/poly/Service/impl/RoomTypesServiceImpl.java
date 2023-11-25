@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.RoomTypesDAO;
@@ -49,7 +51,13 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 	@Override
 	public RoomTypes findByRoomtypeName(String name) {
 		// TODO Auto-generated method stub
-		return rtdao.findByPlaceName(name);
+		return rtdao.findByRoomtypeName(name);
+	}
+
+	@Override
+	public Page<RoomTypes> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return rtdao.findAll(page);
 	}
 
 

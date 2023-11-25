@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.HotelService;
@@ -21,6 +25,7 @@ import com.poly.entity.Hotels;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Rooms;
 import com.poly.entity.Services;
+import com.poly.entity.Users;
 
 @Controller
 public class HotelController {
@@ -774,97 +779,10 @@ public class HotelController {
 	 	}
 
 	 	@GetMapping("/hotels/index")
-	    public String showHotelsIndex(Model model) {
-			List<Hotels> hotel = hService.findAll();
-
-//	 		model.addAttribute("hotels", hService.findAll());
-	 		int SOLuongTrongTrang = 10;
-	 		int count = hotel.size();
-	 		int start = 1;
-	 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			 
-			List<Hotels> hotels = hService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+	    public String showHotelsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+	 		Pageable page = PageRequest.of(p, 10);
+			Page<Hotels> hotels = hService.findAlla(page);
 			model.addAttribute("hotels", hotels);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			model.addAttribute("endRounded",endRounded);
-	        return "admin/Hotel/index";
-	    }
-	 
-	 	@RequestMapping("/hotels/lpage={last}")
-		public String hotelAdminLast(Model model, @PathVariable("last") String plast) {
-			List<Hotels> hotels = hService.findAll();
-			int SOLuongTrongTrang = 10;
-//			 model.addAttribute("users", userService.findAll());
-			 int count = hotels.size();
-//				int last = start - 1;
-//				int next = start + 1;
-			// int SOLuongTrongTrang = 10;
-			 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-				int endRounded = endRound;
-				if((endRound * SOLuongTrongTrang) < count ) {
-					endRounded = endRound + 1;
-				}
-//					List<Users> users = userService.findAll();
-//					// model.addAttribute("roomtype", roomtype);
-//					// int counta = roomtype.size();
-//					model.addAttribute("users", users);
-
-			// model.addAttribute("count", count);
-
-			int start = Integer.parseInt(plast);
-			// int last = start - 1;
-			if (start == 1) {
-				List<Hotels> items = hService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("hotels", items);
-				model.addAttribute("last", null);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			} else {
-				List<Hotels> items = hService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("hotels", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			}
-			model.addAttribute("endRounded", endRounded);
-			return "admin/Hotel/index";
-		}
-
-		@RequestMapping("/hotels/npage={next}")
-		public String hotelAdminNext(Model model, @PathVariable("next") String pnext) {
-
-			List<Hotels> hotels = hService.findAll();
-			int SOLuongTrongTrang = 10;
-			int count = hotels.size();
-			int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			
-			
-			int start = Integer.parseInt(pnext);
-			if (start == endRounded) {
-				List<Hotels> items = hService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("hotels", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", null);
-			} else {
-				List<Hotels> items = hService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("hotels", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-				
-			}
-			model.addAttribute("endRounded", (int)endRounded);
 			return "admin/Hotel/index";
 		}
 	 	

@@ -1,8 +1,12 @@
 package com.poly.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.PaymentService;
 import com.poly.Service.RoleService;
+import com.poly.entity.Feedback;
 import com.poly.entity.Images;
 import com.poly.entity.Payment;
 import com.poly.entity.Role;
@@ -31,26 +37,11 @@ public class PaymentsController {
 	 	}
 
 	 	@GetMapping("/payments/index")
-	    public String showPaymentsIndex(Model model) {
-//	 		model.addAttribute("payments", paymentsService.findAll());
-	 		List<Payment> payment = paymentsService.findAll();
-
-//	 		model.addAttribute("hotels", hService.findAll());
-	 		int SOLuongTrongTrang = 10;
-	 		int count = payment.size();
-	 		int start = 1;
-	 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			 
-			List<Payment> payments = paymentsService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+	    public String showPaymentsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+			Pageable page = PageRequest.of(p, 10);
+			Page<Payment> payments = paymentsService.findAlla(page);
 			model.addAttribute("payments", payments);
-			model.addAttribute("last",  null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			model.addAttribute("endRounded",endRounded);
+
 	        return "admin/Payment/index";
 	    }
 	 
@@ -159,6 +150,8 @@ public class PaymentsController {
 	    
 	    @PostMapping("/payments/update")
 	    public ModelAndView updatePayment(@ModelAttribute Payment payments) {
+	    	payments.setDate(LocalDate.parse(payments.getPaymentDateStr()));
+	    	
 	        if (payments.getId() != null) {
 	            // Nếu có ID, thực hiện cập nhật
 	        	paymentsService.update(payments);

@@ -1102,8 +1102,8 @@
 								<div class="swiper-slide product-item" th:each="HotelLevel5:${HotelLevel5}">
 									<div class="product-img">
 										<a href="shop.html"> 
-											<img class="primary-img" src="assets/images/product/medium-size/1-9-270x300.jpg" alt="Product Images">
-											<img class="secondary-img" src="assets/images/product/medium-size/1-10-270x300.jpg" alt="Product Images">
+											<img class="primary-img" th:src="@{/assetss/img/Hotel{id}_2.png(id=${HotelLevel5.id})}" alt="Product Images" style="height: 200px" >
+											<!--  <img class="secondary-img" src="assets/images/product/medium-size/1-10-270x300.jpg" alt="Product Images">-->
 										</a>
 										<div class="product-add-action">
 											<ul>

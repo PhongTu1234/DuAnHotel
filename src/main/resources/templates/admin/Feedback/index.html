@@ -41,7 +41,7 @@
 						</div>
 						<nav>
 							<div class="nav nav-tabs">
-								 <a th:href="@{/feedbacks/form}" class="nav-link"
+								 <a th:href="@{/feedback/form}" class="nav-link"
 									type="button">EDITION</a> 
 									<a href="javascript:(0);"
 									class="nav-link active" data-toggle="tab" data-target="#list"
@@ -60,7 +60,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="item:${feedbacks}">
+										<tr th:each="item:${feedback}">
 											<td class="align-center">[[(${item.id})]]</td>
 											<td class="align-center">[[(${item.Des})]]</td>
 											<td class="align-center">[[(${item.Rooms.name})]]</td>
@@ -68,12 +68,12 @@
 											<td class="align-center">
 												<div class="btn-group btn-group-xs">
 													<button class="btn btn-icon">
-														<a th:href="@{|/feedbacks/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
+														<a th:href="@{|/feedback/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
 														</a>
 														
 													</button>
 													<button class="btn btn-danger">
-														<a th:href="@{/feedbacks/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
+														<a th:href="@{/feedback/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
 														</a>
 													</button>
 												</div>
@@ -83,26 +83,26 @@
 								</table>
 							</div>
 						</div>
-						<div class="card-header text-center">
-							<!--  <button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-left"></i>
-							</button>-->
-							<button  class="btn btn-primary" th:if="${last != null}">
-								<a th:href="@{|/feedbacks/lpage=${last}|}"><i class="fas fa-arrow-left"></i></a>
-							</button>
-							<button class="btn btn-success">[[(${start})]] of
-								[[(${endRounded})]]</button>
-							<div th:if="${next == null}">
-								
-							</div>
-							<button class="btn btn-primary" th:if="${next != null}">
-								<a th:href="@{|/feedbacks/npage=${next}|}"><i class="fas fa-arrow-right"></i></a>
-							</button>
-							<!--<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-right"></i>
-							</button>-->
+						<div class="card-header text-center"
+							th:if="${feedback.totalPages > 1}">
+							<a th:href="@{/feedback/index(p=${feedback.number - 1})}"
+								th:if="${feedback.hasPrevious()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-left"></i>
+								</button>
+							</a> <a
+								th:each="pageNumber : ${#numbers.sequence(0, feedback.totalPages - 1)}"
+								th:href="@{/feedback/index(p=${pageNumber})}"
+								th:class="${pageNumber == feedback.number ? 'btn btn-success active' : 'btn btn-success'}">
+								<span th:text="${pageNumber + 1}"></span>
+							</a> <a th:href="@{/feedback/index(p=${feedback.number + 1})}"
+								th:if="${feedback.hasNext()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-right"></i>
+								</button>
+							</a>
 						</div>
-						<script src="/assetss/js/init.js"></script>
+						<!--  <script src="/assetss/js/init.js"></script>-->
 					</div>
 				</div>
 

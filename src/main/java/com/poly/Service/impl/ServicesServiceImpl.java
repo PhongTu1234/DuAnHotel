@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.ServiceDAO;
@@ -44,6 +46,18 @@ public class ServicesServiceImpl implements ServiceService {
 	public List<Services> findPageAdmin(Integer page, Integer number) {
 		// TODO Auto-generated method stub
 		return htdao.findPageAdmin(page, number);
+	}
+
+	@Override
+	public Services findByServiceName(String name) {
+		// TODO Auto-generated method stub
+		return htdao.findByServiceName(name);
+	}
+
+	@Override
+	public Page<Services> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return htdao.findAll(page);
 	}
 
 }

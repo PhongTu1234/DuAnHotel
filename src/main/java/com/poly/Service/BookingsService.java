@@ -2,6 +2,10 @@ package com.poly.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.poly.entity.Blogs;
 import com.poly.entity.Bookings;
 
 public interface BookingsService {
@@ -16,4 +20,7 @@ public interface BookingsService {
 	void delete(Integer id);
 
 	List<Bookings> findPageAdmin(Integer page, Integer number);
+	
+	Page<Bookings> findAlla(Pageable page);
+
 }

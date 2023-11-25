@@ -1,8 +1,13 @@
 package com.poly.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +16,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import org.springframework.format.annotation.DateTimeFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 import com.poly.Service.BookingsService;
+import com.poly.Service.PaymentService;
+import com.poly.Service.UserService;
 import com.poly.entity.Bookings;
+import com.poly.entity.Payment;
+import com.poly.entity.Users;
 
 import com.poly.Service.Booking_RoomService;
 
@@ -29,6 +45,12 @@ public class BookingsController {
 	
 	@Autowired
 	Booking_RoomService brService;
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	PaymentService paymentService;
 	
 	@RequestMapping("/hotel/room/order/cart")
 	public String cart() {
@@ -56,27 +78,11 @@ public class BookingsController {
 	 	}
 
 	 	@GetMapping("/bookings/index")
-	    public String showBookingsIndex(Model model) {
-//	 		model.addAttribute("bookings", bookingService.findAll());
-	 		List<Bookings> booking = bookingService.findAll();
-
-//	 		model.addAttribute("hotels", hService.findAll());
-	 		int SOLuongTrongTrang = 10;
-	 		int count = booking.size();
-	 		int start = 1;
-	 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			 
-			List<Bookings> bookings = bookingService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+	    public String showBookingsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+	 		Pageable page = PageRequest.of(p, 10);
+			Page<Bookings> bookings = bookingService.findAlla(page);
 			model.addAttribute("bookings", bookings);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			model.addAttribute("endRounded",endRounded);
-	        return "admin/Booking/index";
+			return "admin/Booking/index";
 	    }
 	 
 	 	@RequestMapping("/bookings/lpage={last}")
@@ -183,15 +189,44 @@ public class BookingsController {
 //	    }
 	    
 	    @PostMapping("/bookings/update")
-	    public ModelAndView updateBooking(@ModelAttribute Bookings bookings) {
-	        if (bookings.getId() != null) {
-	            // Nếu có ID, thực hiện cập nhật
-	        	bookingService.update(bookings);
-	        } else {
-	            // Nếu không có ID, thực hiện thêm mới
-	        	bookingService.create(bookings);
-	        }
-	        return new ModelAndView("redirect:/bookings/index");
+	    public ModelAndView updateBooking(@ModelAttribute Bookings bookings, Model model) {
+	    	int Payment = bookings.getPayment().getId();
+	    	String Users= bookings.getUsers().getCmt();
+//	    	try {
+	            // Parse String dates from the form into Timestamp
+	    		bookings.setBookingDate(LocalDate.parse(bookings.getBookingDateStr()));
+	            bookings.setCheckinDate(LocalDate.parse(bookings.getCheckinDateStr()));
+	            bookings.setCheckoutDate(LocalDate.parse(bookings.getCheckoutDateStr()));
+	            
+	            Payment payment  = paymentService.findByPaymentName(Payment);
+	            Users user = userService.findByUserName(Users);
+	            
+	            if(payment != null &&  user != null) {
+		        	if (bookings.getId() != null) {
+			            // Nếu có ID, thực hiện cập nhật
+		        		bookings.setPayment(paymentService.findByPaymentName(Payment));
+		        		bookings.setUsers(userService.findByUserName(Users));
+		        		bookingService.update(bookings);
+			        } else {
+			        	bookings.setPayment(paymentService.findByPaymentName(Payment));
+			        	bookings.setUsers(userService.findByUserName(Users));
+			            // Nếu không có ID, thực hiện thêm mới
+			        	bookingService.create(bookings);
+			        }
+		        	return new ModelAndView ("redirect:/bookings/index");
+		        }else {
+		        	model.addAttribute("message", "thanh toan hoặc user không tồn tại!");
+		        	return new ModelAndView ("admin/Booking/form");
+		        }
+//	        } catch (ParseException e) {
+//	            e.printStackTrace();
+//	            return null;
+//	            // Handle the exception as needed
+//	        }
+	    	 
+    		
+
+	        
 	    }
 
 	    @GetMapping("/bookings/delete/{id}")

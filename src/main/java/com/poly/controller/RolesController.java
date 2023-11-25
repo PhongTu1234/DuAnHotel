@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.ImagesService;
 import com.poly.Service.RoleService;
 import com.poly.entity.Blogs;
 import com.poly.entity.Images;
+import com.poly.entity.Places;
 import com.poly.entity.Role;
 
 @Controller
@@ -32,26 +37,10 @@ public class RolesController {
 	 	}
 
 	 	@GetMapping("/roles/index")
-	    public String showRolesIndex(Model model) {
-//	 		model.addAttribute("roles", rolesService.findAll());
-	 		List<Role> role = rolesService.findAll();
-
-//	 		model.addAttribute("hotels", hService.findAll());
-	 		int SOLuongTrongTrang = 10;
-	 		int count = role.size();
-	 		int start = 1;
-	 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			 
-			List<Role> roles = rolesService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+	    public String showRolesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+			Pageable page = PageRequest.of(p, 10);
+			Page<Role> roles = rolesService.findAlla(page);
 			model.addAttribute("roles", roles);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			model.addAttribute("endRounded",endRounded);
 	 		return "admin/Roles/index";
 	    }
 	 

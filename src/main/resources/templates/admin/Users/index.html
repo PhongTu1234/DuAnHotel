@@ -17,10 +17,6 @@
 		</div>
 	</div>
 	<div id="wrapper">
-<<<<<<< HEAD
-
-=======
->>>>>>> HOANG
 
 		<!--  <div ng-include="'/admin/_sidebar.html'"></div>-->
 		<div th:replace="/admin/_sidebar.html"></div>
@@ -44,11 +40,10 @@
 						</div>
 						<nav>
 							<div class="nav nav-tabs">
-								 <a th:href="@{/users/form}" class="nav-link"
-									type="button">EDITION</a> 
-									<a href="javascript:(0);"
-									class="nav-link active" data-toggle="tab" data-target="#list"
-									type="button" role="tab" aria-selected="true">LISTS</a>
+								<a th:href="@{/users/form}" class="nav-link" type="button">EDITION</a>
+								<a href="javascript:(0);" class="nav-link active"
+									data-toggle="tab" data-target="#list" type="button" role="tab"
+									aria-selected="true">LISTS</a>
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
@@ -76,13 +71,13 @@
 											<td class="align-center">
 												<div class="btn-group btn-group-xs">
 													<button class="btn btn-icon">
-														<a th:href="@{|/users/${item.cmt}|}"><i class="fa fa-xs fa-pen"></i>
-														</a>
-														
+														<a th:href="@{|/users/${item.cmt}|}"><i
+															class="fa fa-xs fa-pen"></i> </a>
+
 													</button>
 													<button class="btn btn-danger">
-														<a th:href="@{/users/delete/{cmt}(cmt=${item.cmt})}"><i class="fa fa-xs fa-times"></i>
-														</a>
+														<a th:href="@{/users/delete/{cmt}(cmt=${item.cmt})}"><i
+															class="fa fa-xs fa-times"></i> </a>
 													</button>
 												</div>
 											</td>
@@ -91,21 +86,25 @@
 								</table>
 							</div>
 						</div>
-						<div class="card-header text-center">
-							<button  class="btn btn-primary" th:if="${last != null}">
-								<a th:href="@{|/users/lpage=${last}|}"><i class="fas fa-arrow-left"></i></a>
-							</button>
-							<button class="btn btn-success">[[(${start})]] of
-								[[(${endRounded})]]</button>
-							<div th:if="${next == null}">
-								
-							</div>
-							<button class="btn btn-primary" th:if="${next != null}">
-								<a th:href="@{|/users/npage=${next}|}"><i class="fas fa-arrow-right"></i></a>
-							</button>
-							
+						<div class="card-header text-center"
+							th:if="${users.totalPages > 1}">
+							<a th:href="@{/users/index(p=${users.number - 1})}"
+								th:if="${users.hasPrevious()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-left"></i>
+								</button>
+							</a> <a
+								th:each="pageNumber : ${#numbers.sequence(0, users.totalPages - 1)}"
+								th:href="@{/users/index(p=${pageNumber})}"
+								th:class="${pageNumber == users.number ? 'btn btn-success active' : 'btn btn-success'}">
+								<span th:text="${pageNumber + 1}"></span>
+							</a> <a th:href="@{/users/index(p=${users.number + 1})}"
+								th:if="${users.hasNext()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-right"></i>
+								</button>
+							</a>
 						</div>
-						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
 
@@ -115,10 +114,6 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-        
-=======
->>>>>>> HOANG
 
 	<script src="/assetss/js/jquery.min.js"></script>
 	<script src="/assetss/js/popper.min.js"></script>

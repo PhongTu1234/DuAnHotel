@@ -2,7 +2,11 @@ package com.poly.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.poly.entity.Booking_Room;
+import com.poly.entity.Bookings;
 
 public interface Booking_RoomService {
 	List<Booking_Room> findAll();
@@ -18,4 +22,6 @@ public interface Booking_RoomService {
 	List<Booking_Room> findPageAdmin(Integer page, Integer number);
 
 	List<Booking_Room> getBookingDetailsForUser(String user);
+	
+	Page<Booking_Room> findAlla(Pageable page);
 }

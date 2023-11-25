@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.Booking_RoomService;
 import com.poly.Service.BookingsService;
+import com.poly.entity.Blogs;
 import com.poly.entity.Booking_Room;
 import com.poly.entity.Bookings;
 
@@ -31,24 +36,11 @@ public class BookingRoomController {
  	}
 
  	@GetMapping("/bookingrooms/index")
-    public String showBookingRoomsIndex(Model model) {
-// 		model.addAttribute("bookingrooms", brService.findAll());
- 		List<Booking_Room> bookingroom = brService.findAll();
-
-// 		model.addAttribute("hotels", hService.findAll());
- 		int SOLuongTrongTrang = 10;
- 		int count = bookingroom.size();
- 		int start = 1;
- 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		 
-		model.addAttribute("last", null);
-		model.addAttribute("start", start);
-		model.addAttribute("next", start + 1);
-		model.addAttribute("endRounded",endRounded);
+    public String showBookingRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+ 		Pageable page = PageRequest.of(p, 10);
+		Page<Booking_Room> bookingrooms = brService.findAlla(page);
+		model.addAttribute("bookingrooms", bookingrooms);
+		
         return "admin/BookingRoom/index";
     }
  

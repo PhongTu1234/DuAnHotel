@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.Booking_RoomDAO;
@@ -48,6 +50,12 @@ public class Booking_RoomServiceImpl implements Booking_RoomService {
 	
 	public List<Booking_Room> getBookingDetailsForUser(String user) {
 		return htdao.getBookingDetailsForUser(user);
+	}
+
+	@Override
+	public Page<Booking_Room> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return htdao.findAll(page);
 	}
 
 }

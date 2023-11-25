@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.HotelDAO;
@@ -86,7 +88,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<Hotels> findPage(Integer page) {
-		return hdao.findPage(page);
+		return null;
 	}
 
 	@Override
@@ -96,7 +98,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<Hotels> findHotelByPlaceid(Integer id, Integer page) {
-		return hdao.findHotelByPlaceid(id, page);
+		return null;
 	}
 
 	@Override
@@ -159,13 +161,19 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Hotels> findPageAdmin(Integer page, Integer number) {
 		// TODO Auto-generated method stub
-		return hdao.findPageAdmin(page, number);
+		return null;
 	}
 
 	@Override
 	public Hotels findByHotelName(String name) {
 		// TODO Auto-generated method stub
 		return hdao.findByHotelName(name);
+	}
+
+	@Override
+	public Page<Hotels> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return hdao.findAll(page);
 	}
 
 }

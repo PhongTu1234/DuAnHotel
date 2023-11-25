@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.PlacesService;
@@ -17,6 +21,7 @@ import com.poly.Service.RoomTypesService;
 import com.poly.entity.Hotels;
 import com.poly.entity.Places;
 import com.poly.entity.RoomTypes;
+import com.poly.entity.Rooms;
 
 @Controller
 public class RoomTypesController {
@@ -29,39 +34,15 @@ public class RoomTypesController {
  	@GetMapping("/roomtypes/form")
  	public String formRoomType(Model model) {
  		model.addAttribute("roomtypes", new RoomTypes());
- 		return "admin/RoomType/form";
+ 		return "admin/RoomTypes/form";
  	}
 
  	@GetMapping("/roomtypes/index")
-    public String showRoomTypesIndex(Model model) {
-// 		model.addAttribute("roomtypes", rtService.findAll());
- 		List<RoomTypes> roomtype = rtService.findAll();
-
-// 		model.addAttribute("hotels", hService.findAll());
-		 int count = roomtype.size();
-		int start = 1;
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		
-		
-		List<RoomTypes> roomtypes = rtService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+    public String showRoomTypesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+		Pageable page = PageRequest.of(p, 10);
+		Page<RoomTypes> roomtypes = rtService.findAlla(page);
 		model.addAttribute("roomtypes", roomtypes);
-		model.addAttribute("last", null);
-		model.addAttribute("start", start);
-		if( endRounded > 1 ) {
-			model.addAttribute("next", start + 1);
-		}else {
-			model.addAttribute("next", null);
-		}
-		
-		model.addAttribute("endRounded",endRounded);
-        return "admin/RoomType/index";
+        return "admin/RoomTypes/index";
     }
  
  	@RequestMapping("/roomtypes/lpage={last}")
@@ -146,7 +127,7 @@ public class RoomTypesController {
     public String viewRoomType(@PathVariable("id") Integer id, Model model) {
         RoomTypes roomtypes = rtService.findById(id);
         model.addAttribute("roomtypes", roomtypes);
-        return "admin/RoomType/form";
+        return "admin/RoomTypes/form";
     }
 
     @PostMapping("/roomtypes/create")

@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.BlogsService;
 import com.poly.Service.ImagesService;
 import com.poly.entity.Blogs;
 import com.poly.entity.Booking_Room;
+import com.poly.entity.Hotels;
 import com.poly.entity.Images;
 
 @Controller
@@ -23,6 +28,9 @@ public class BlogController {
 
 	@Autowired
     private BlogsService blogsService;
+	
+	@Autowired
+    private ImagesService imagesService;
 	
 	
 	@RequestMapping("blog")
@@ -44,66 +52,10 @@ public class BlogController {
  	}
 
  	@GetMapping("/blogs/index")
-    public String showBlogsIndex(Model model) {
-// 		model.addAttribute("blogs", blogsService.findAll());
- 		List<Blogs> blog = blogsService.findAll();
-
-// 		model.addAttribute("hotels", hService.findAll());
- 		int SOLuongTrongTrang = 10;
- 		int count = blog.size();
- 		int start = 1;
- 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		 
-		List<Blogs> blogs = blogsService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+    public String showBlogsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+ 		Pageable page = PageRequest.of(p, 10);
+		Page<Blogs> blogs = blogsService.findAlla(page);
 		model.addAttribute("blogs", blogs);
-		model.addAttribute("last", null);
-		model.addAttribute("start", start);
-		model.addAttribute("next", start + 1);
-		model.addAttribute("endRounded",endRounded);
-        return "admin/Blog/index";
-    }
- 
- 	@RequestMapping("/blogs/lpage={last}")
-	public String blogAdminLast(Model model, @PathVariable("last") String plast) {
-		List<Blogs> blogs = blogsService.findAll();
-		int SOLuongTrongTrang = 10;
-//		 model.addAttribute("users", userService.findAll());
-		 int count = blogs.size();
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-//				List<Users> users = userService.findAll();
-//				// model.addAttribute("roomtype", roomtype);
-//				// int counta = roomtype.size();
-//				model.addAttribute("users", users);
-
-		// model.addAttribute("count", count);
-
-		int start = Integer.parseInt(plast);
-		// int last = start - 1;
-		if (start == 1) {
-			List<Blogs> items = blogsService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("blogs", items);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		} else {
-			List<Blogs> items = blogsService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("blogs", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		model.addAttribute("endRounded", endRounded);
 		return "admin/Blog/index";
 	}
 
@@ -172,15 +124,32 @@ public class BlogController {
 //    }
     
     @PostMapping("/blogs/update")
-    public ModelAndView updateBlog(@ModelAttribute Blogs blogs) {
-        if (blogs.getId() != null) {
-            // Nếu có ID, thực hiện cập nhật
-        	blogsService.update(blogs);
-        } else {
-            // Nếu không có ID, thực hiện thêm mới
-        	blogsService.create(blogs);
+    public ModelAndView updateBlog(@ModelAttribute Blogs blogs, Model model) {
+//        if (blogs.getId() != null) {
+//            // Nếu có ID, thực hiện cập nhật
+//        	blogsService.update(blogs);
+//        } else {
+//            // Nếu không có ID, thực hiện thêm mới
+//        	blogsService.create(blogs);
+//        }
+//        return new ModelAndView("redirect:/blogs/index");
+    	
+    	String Image = blogs.getImages().getName();
+        if(imagesService.findByImageName(Image) != null ) {
+        	if (blogs.getId() != null) {
+	            // Nếu có ID, thực hiện cập nhật
+        		blogs.setImages(imagesService.findByImageName(Image));
+	        	blogsService.update(blogs);
+	        } else {
+	        	blogs.setImages(imagesService.findByImageName(Image));
+	            // Nếu không có ID, thực hiện thêm mới
+	        	blogsService.create(blogs);
+	        }
+        	return new ModelAndView("redirect:/blogs/index");
+        }else {
+        	model.addAttribute("message", "Hình ảnh không tồn tại");
+        	return new ModelAndView("admin/Blog/form");
         }
-        return new ModelAndView("redirect:/blogs/index");
     }
 
     @GetMapping("/blogs/delete/{id}")

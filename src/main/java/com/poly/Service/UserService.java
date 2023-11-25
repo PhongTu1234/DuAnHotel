@@ -2,14 +2,17 @@ package com.poly.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
-import com.poly.entity.Hotels;
 import com.poly.entity.Users;
 
 public interface UserService {
 	Users findById(String cmt);
 
+	Page<Users> findAlla(Pageable page);
+	
 	List<Users> findAll();
 
 	List<Users> getAdministrators();
@@ -35,4 +38,7 @@ public interface UserService {
 	List<Users> getAdministrators(String role);
 	
 	List<Users> findPage(Integer page, Integer number);
+	
+	Users findByUserName(String name);
+
 }

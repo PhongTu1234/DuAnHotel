@@ -77,7 +77,7 @@
 											<td class="align-center">[[(${item.rate})]]</td>
 											<td class="align-center">[[(${item.price})]]</td>
 											<td class="align-center">[[(${item.soluongphong})]]</td>
-											<td class="align-center">[[(${item.soluongchocheckin})]]</td>
+											<td class="align-center">[[(${item.soluongcheckin})]]</td>
 											<td class="align-center">[[(${item.soluongtrong})]]</td>
 											<td class="align-center">[[(${item.soluongdangthue})]]</td>
 											<td class="align-center">[[(${item.description})]]</td>
@@ -99,26 +99,26 @@
 								</table>
 							</div>
 						</div>
-						<div class="card-header text-center">
-							<!--  <button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-left"></i>
-							</button>-->
-							<button  class="btn btn-primary" th:if="${last != null}">
-								<a th:href="@{|/rooms/lpage=${last}|}"><i class="fas fa-arrow-left"></i></a>
-							</button>
-							<button class="btn btn-success">[[(${start})]] of
-								[[(${endRounded})]]</button>
-							<div th:if="${next == null}">
-								
-							</div>
-							<button class="btn btn-primary" th:if="${next != null}">
-								<a th:href="@{|/rooms/npage=${next}|}"><i class="fas fa-arrow-right"></i></a>
-							</button>
-							<!--<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-right"></i>
-							</button>-->
+						<div class="card-header text-center"
+							th:if="${rooms.totalPages > 1}">
+							<a th:href="@{/rooms/index(p=${rooms.number - 1})}"
+								th:if="${rooms.hasPrevious()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-left"></i>
+								</button>
+							</a> <a
+								th:each="pageNumber : ${#numbers.sequence(0, rooms.totalPages - 1)}"
+								th:href="@{/rooms/index(p=${pageNumber})}"
+								th:class="${pageNumber == rooms.number ? 'btn btn-success active' : 'btn btn-success'}">
+								<span th:text="${pageNumber + 1}"></span>
+							</a> <a th:href="@{/rooms/index(p=${rooms.number + 1})}"
+								th:if="${rooms.hasNext()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-right"></i>
+								</button>
+							</a>
 						</div>
-						<script src="/assetss/js/init.js"></script>
+						<!--  <script src="/assetss/js/init.js"></script>-->
 					</div>
 				</div>
 

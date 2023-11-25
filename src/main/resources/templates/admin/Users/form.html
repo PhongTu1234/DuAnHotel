@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -60,8 +61,8 @@
 									th:object="${users}" class="form p-3">
 									<div class="form-group row">
 										<label for="cmt" class="form-label">CMT</label> <input
-											type="text" class="form-control" id="cmt" th:field="*{cmt}"
-											placeholder="Enter CMT">
+											type="number" class="form-control" id="cmt" th:field="*{cmt}"
+											placeholder="Enter CMT" pattern="^(0[1-9][0-9]{10})$">
 									</div>
 									<div class="form-group row">
 										<label for="password" class="form-label">Password</label> <input
@@ -75,32 +76,50 @@
 									</div>
 									<div class="form-group row">
 										<label for="email" class="form-label">Email</label> <input
-											type="text" class="form-control" id="email"
+											type="email" class="form-control" id="email"
 											th:field="*{email}" placeholder="Enter email">
 									</div>
 									<div class="form-group row">
-										<label for="phoneNumber" class="form-label">phoneNumber</label> <input
-											type="text" class="form-control" id="phoneNumber"
-											th:field="*{phoneNumber}" placeholder="Enter email">
+										<label for="phoneNumber" class="form-label">phoneNumber</label>
+										<input type="number" class="form-control" id="phoneNumber"
+											th:field="*{phoneNumber}" placeholder="Enter email" pattern="^(0[3-9][0-9]{8})$">
 									</div>
-									<div class="form-group row">
-										<label for="image" class="form-label">Photo</label>
-										<div class="custom-file">
-											<input type="file" class="custom-file-input" id="image"
-												onchange="angular.element(this).scope().imageChanged(this.files)">
-											<label class="custom-file-label">Choose file</label>
+									<!--  <div class="form-group row">
+												<label for="phoneNumber" class="form-label">Role</label> <input
+													type="text" class="form-control" id="phoneNumber"
+													th:field="*{phoneNumber}" placeholder="Enter email">
+											</div>
+											<div class="form-group row">
+												<label for="image" class="form-label">Photo</label>
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" id="image"
+														onchange="angular.element(this).scope().imageChanged(this.files)">
+													<label class="custom-file-label">Choose file</label>
+												</div>
+											</div>-->
+
+									<!--  <div class="form-group row">
+										<label class="form-label">Role</label>
+										<div class="form-check form-check-inline"
+											th:each="role : ${roles}">
+											<input class="form-check-input" type="radio"
+												th:id="${'role_' + role.role_id}" th:name="roles"
+												th:value="${role.role_id}"
+												th:checked="${hasRole(users.cmt, role.role_id)}"> <label
+												class="form-check-label" th:for="${'role_' + role.id}"
+												th:text="${role.name}"></label>
 										</div>
-									</div>
+									</div>-->
 
 									<div class="form-group row">
 										<button type="submit" class="btn btn-primary"
-											th:utext="${users.cmt} ? 'Update' : 'Create'">
+											th:utext="${users.cmt} != null ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
 										<a th:href="@{/users}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${users.cmt}"> <a
-											th:href="@{/users/delete/{cmt}(cmt=${user.cmt})}"
+											th:href="@{/users/delete/{cmt}(cmt=${users.cmt})}"
 											class="btn btn-danger"> <i class="fas fa-trash"></i>
 												Delete
 										</a>
@@ -129,21 +148,21 @@
 							</button>
 						</div>
 						<!--  <div class="card-header text-center">
-							<button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-left"></i>
-							</button>
-							<button ng-click="pager.prev()" class="btn btn-primary">
-								<i class="fas fa-arrow-left"></i>
-							</button>
-							<button class="btn btn-success">{{pager.page + 1}} of
-								{{pager.count?pager.count:'1'}}</button>
-							<button ng-click="pager.next()" class="btn btn-primary">
-								<i class="fas fa-arrow-right"></i>
-							</button>
-							<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-right"></i>
-							</button>
-						</div>-->
+									<button ng-click="pager.first()" class="btn btn-danger">
+										<i class="fas fa-arrow-to-left"></i>
+									</button>
+									<button ng-click="pager.prev()" class="btn btn-primary">
+										<i class="fas fa-arrow-left"></i>
+									</button>
+									<button class="btn btn-success">{{pager.page + 1}} of
+										{{pager.count?pager.count:'1'}}</button>
+									<button ng-click="pager.next()" class="btn btn-primary">
+										<i class="fas fa-arrow-right"></i>
+									</button>
+									<button ng-click="pager.last()" class="btn btn-danger">
+										<i class="fas fa-arrow-to-right"></i>
+									</button>
+								</div>-->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
@@ -176,21 +195,21 @@
 
 	<script src="assets/js/main.js"></script>
 	<script th:inline="javascript">
-		/*<![CDATA[*/
-		function createForm() {
-			window.location.href = '/users/create';
-		}
-
-		function deleteForm() {
-			var cmt = document.getElementById("cmt").value;
-			window.location.href = '/users/delete/' + cmt;
-		}
-
-		function resetForm() {
-			window.location.href = '/users/form';
-		}
-		/*]]>*/
-	</script>
+				/*<![CDATA[*/
+				function createForm() {
+					window.location.href = '/users/create';
+				}
+		
+				function deleteForm() {
+					var cmt = document.getElementById("cmt").value;
+					window.location.href = '/users/delete/' + cmt;
+				}
+		
+				function resetForm() {
+					window.location.href = '/users/form';
+				}
+				/*]]>*/
+			</script>
 </body>
 
 </html>

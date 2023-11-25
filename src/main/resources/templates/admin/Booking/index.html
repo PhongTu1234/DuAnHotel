@@ -1,4 +1,4 @@
-ư <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
@@ -71,7 +71,7 @@
 											<td class="align-center">[[(${item.BookingDate})]]</td>
 											<td class="align-center">[[(${item.CheckinDate})]]</td>
 											<td class="align-center">[[(${item.CheckoutDate})]]</td>
-											<td class="align-center">[[(${item.Payment.Total})]]</td>
+											<td class="align-center">[[(${item.Payment.id})]]</td>
 											<td class="align-center">[[(${item.Users.cmt})]]</td>
 											<td class="align-center">
 												<div class="btn-group btn-group-xs">
@@ -91,26 +91,26 @@
 								</table>
 							</div>
 						</div>
-						<div class="card-header text-center">
-							<!--  <button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-left"></i>
-							</button>-->
-							<button  class="btn btn-primary" th:if="${last != null}">
-								<a th:href="@{|/bookings/lpage=${last}|}"><i class="fas fa-arrow-left"></i></a>
-							</button>
-							<button class="btn btn-success">[[(${start})]] of
-								[[(${endRounded})]]</button>
-							<div th:if="${next == null}">
-								
-							</div>
-							<button class="btn btn-primary" th:if="${next != null}">
-								<a th:href="@{|/bookings/npage=${next}|}"><i class="fas fa-arrow-right"></i></a>
-							</button>
-							<!--<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-right"></i>
-							</button>-->
+						<div class="card-header text-center"
+							th:if="${bookings.totalPages > 1}">
+							<a th:href="@{/bookings/index(p=${bookings.number - 1})}"
+								th:if="${bookings.hasPrevious()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-left"></i>
+								</button>
+							</a> <a
+								th:each="pageNumber : ${#numbers.sequence(0, bookings.totalPages - 1)}"
+								th:href="@{/bookings/index(p=${pageNumber})}"
+								th:class="${pageNumber == bookings.number ? 'btn btn-success active' : 'btn btn-success'}">
+								<span th:text="${pageNumber + 1}"></span>
+							</a> <a th:href="@{/bookings/index(p=${bookings.number + 1})}"
+								th:if="${bookings.hasNext()}">
+								<button class="btn btn-primary">
+									<i class="fas fa-arrow-right"></i>
+								</button>
+							</a>
 						</div>
-						<script src="/assetss/js/init.js"></script>
+						<!--  <script src="/assetss/js/init.js"></script>-->
 					</div>
 				</div>
 

@@ -3,6 +3,8 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.PlacesDAO;
@@ -73,6 +75,12 @@ public class PlacesServiceImpl implements PlacesService {
 	public Places findByPlaceName(String name) {
 		// TODO Auto-generated method stub
 		return htdao.findByPlaceName(name);
+	}
+
+	@Override
+	public Page<Places> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return htdao.findAll(page);
 	}
 
 }

@@ -59,19 +59,24 @@
 							<div class="col-md-8">
 								<form th:action="@{/serviceRooms/update}" method="post"
 									th:object="${serviceRooms}" class="form p-3">
-									<div class="form-group row">
+									<div class="col-12" th:if="${message}">
+											<div class="alert alert-warning p-2">
+												<i class="text-danger" th:text="${message}"></i>
+											</div>
+									</div>
+									<!--  <div class="form-group row">
 										<label for="id" class="form-label">serviceRoomId</label> <input
 											type="text" class="form-control" id="id" th:field="*{id}"
 											placeholder="Enter ID">
+									</div>-->
+									<div class="form-group row">
+										<label for="Rooms.name" class="form-label">RoomName</label> <input
+											type="text" class="form-control" id="Rooms.name"
+											th:field="*{Rooms.name}" placeholder="Enter RoomName">
 									</div>
 									<div class="form-group row">
-										<label for="name" class="form-label">serviceRoomName</label> <input
-											type="text" class="form-control" id="serviceRoomName"
-											th:field="*{Rooms.name}" placeholder="Enter serviceRoomName">
-									</div>
-									<div class="form-group row">
-										<label for="name" class="form-label">serviceName</label> <input
-											type="text" class="form-control" id="serviceId"
+										<label for="Services.name" class="form-label">serviceName</label> <input
+											type="text" class="form-control" id="Services.name"
 											th:field="*{Services.name}" placeholder="Enter serviceName">
 									</div>
 

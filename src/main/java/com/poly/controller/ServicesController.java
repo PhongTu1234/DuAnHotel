@@ -3,6 +3,9 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.ServiceService;
@@ -32,25 +36,10 @@ public class ServicesController {
  	}
 
  	@GetMapping("/services/index")
-    public String showServicesIndex(Model model) {
-// 		model.addAttribute("id", serviceService.findAll());
- 		List<Services> service = serviceService.findAll();
-
- 		Double SOLuongTrongTrang = 10.0;
- 		int count = service.size();
- 		int start = 1;
- 		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		 
-		List<Services> services = serviceService.findPageAdmin((start - 1) * 10, 10);
+    public String showServicesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+		Pageable page = PageRequest.of(p, 10);
+		Page<Services> services = serviceService.findAlla(page);
 		model.addAttribute("services", services);
-		model.addAttribute("last", null);
-		model.addAttribute("start", start);
-		model.addAttribute("next", start + 1);
-		model.addAttribute("endRounded", endRounded);
         return "admin/Services/index";
     }
  

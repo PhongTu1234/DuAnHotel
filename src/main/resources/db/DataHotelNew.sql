@@ -1,4 +1,4 @@
-﻿	IF DB_ID('DataHotel_new') IS NOT NULL
+﻿IF DB_ID('DataHotel_new') IS NOT NULL
 BEGIN
     USE master;
     ALTER DATABASE DataHotel_new SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
@@ -11,18 +11,18 @@ go
 
 --Bảng địa điểm
 CREATE TABLE Place (
-    place_id INT PRIMARY KEY,			--ID duy nhất cho địa điểm thuê
+    place_id INT IDENTITY(1,1) PRIMARY KEY,			--ID duy nhất cho địa điểm thuê
 	place_name NVARCHAR(100),			-- Tên địa điểm thuê
 );
 go
 
 --Bảng Banner
 CREATE TABLE Images (
-    image_id INT PRIMARY KEY,           -- ID duy nhất cho hình
+    image_id INT IDENTITY(1,1) PRIMARY KEY,           -- ID duy nhất cho hình
 	img_name nvarchar(20),				-- Tên hình (vd: hình 1_1.png, 1_2.png,...)
 	id INT,								-- Tên hình sẽ viết theo cấu trúc (hotel_id)_(số thứ tự).png
 	status bit							-- Vd Hotels có hotel_id = 1 và có 4 hình thì tên hình sẽ là 1_1.png, 1_2.png, 1_3.png, 1_4.png
-										--    Hotels có hotel_id = 2 và có 3 hình thì tên hình sẽ là 2_1.png, 2_2.png, 2_3.png
+										-- Hotels có hotel_id = 2 và có 3 hình thì tên hình sẽ là 2_1.png, 2_2.png, 2_3.png
 										-- Tất cả các hình phải tải về dưới dạng .png và lưu vào folder
 										-- Lúc giao thì sẽ giao folder, trong folder có file value và tất cả file hình
 );
@@ -30,7 +30,7 @@ go
 
 --Bảng dịch vụ
 CREATE TABLE [Services] (
-	service_id INT PRIMARY KEY,		--ID duy nhất cho dịch vụ
+	service_id INT IDENTITY(1,1) PRIMARY KEY,		--ID duy nhất cho dịch vụ
 	service_name nvarchar(50),		--Tên dịch vụ
 );
 
@@ -38,7 +38,7 @@ go
 
 -- Bảng Khách sạn
 CREATE TABLE Hotels (
-    hotel_id INT PRIMARY KEY,               -- ID duy nhất cho khách sạn
+    hotel_id INT IDENTITY(1,1) PRIMARY KEY,               -- ID duy nhất cho khách sạn
     hotel_name NVARCHAR(100) NOT NULL,      -- Tên khách sạn
     [address] NVARCHAR(200),                -- Địa chỉ của khách sạn
     phone_number VARCHAR(20),               -- Số điện thoại liên hệ của khách sạn
@@ -52,23 +52,21 @@ go
 
 -- Bảng Loại Phòng
 CREATE TABLE RoomTypes (
-    room_type_id INT PRIMARY KEY,           -- ID duy nhất cho loại phòng
+    room_type_id INT IDENTITY(1,1) PRIMARY KEY,           -- ID duy nhất cho loại phòng
     room_type_name NVARCHAR(50) NOT NULL,   -- Tên loại phòng (ví dụ: Standard, Deluxe, Suite)
 );
 go
 
 -- Bảng Phòng
 CREATE TABLE Rooms (
-    room_id INT PRIMARY KEY,                -- ID duy nhất cho phòng
+    room_id INT IDENTITY(1,1) PRIMARY KEY,                -- ID duy nhất cho phòng
     hotel_id INT NOT NULL,                  -- Khóa ngoại liên kết với bảng Khách sạn
     room_type_id INT,                       -- Khóa ngoại liên kết với bảng Loại Phòng
     roomname VARCHAR(50),					-- Số phòng
 	rating FLOAT,							-- Điểm đánh giá của phòng
 	price DECIMAL(10, 2),					-- Giá tiền của loại phòng
 	soluongphong int,
-
-	soluongcheckin int,
-
+	soluongchocheckin int,
 	soluongtrong int,
 	soluongdangthue int,
     --status nvarchar(50),                    -- Trạng thái phòng (đã đặt, trống)
@@ -78,7 +76,7 @@ CREATE TABLE Rooms (
 );
 go
 CREATE TABLE service_rooms(
-	id int PRIMARY KEY NOT NULL,
+	id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	room_id INT NOT NULL,
 	service_id INT NOT NULL,
 	FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE,
@@ -87,7 +85,7 @@ CREATE TABLE service_rooms(
 go
 -- Bảng Thanh toán
 CREATE TABLE Payments (
-    payment_id INT PRIMARY KEY,			    -- ID duy nhất cho thanh toán
+    payment_id INT IDENTITY(1,1) PRIMARY KEY,			    -- ID duy nhất cho thanh toán
     payment_date DATE,                      -- Ngày thanh toán
     total_amount DECIMAL(10, 2),			-- Tổng tiền thanh toán
     payment_method NVARCHAR(50),            -- Phương thức thanh toán
@@ -109,10 +107,11 @@ CREATE TABLE Users (
     phone_number VARCHAR(20),          -- Số điện thoại của người dùng
 	Token nvarchar(50),	
 	Changedpass bit,
+
 );
 
 CREATE TABLE Authorities(
-	Id int PRIMARY KEY NOT NULL,
+	Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	cmt varchar(20) NOT NULL,
 	role_id nvarchar(10) NOT NULL,
 	FOREIGN KEY (role_id) REFERENCES Roles(role_id) ON DELETE CASCADE,
@@ -122,7 +121,7 @@ go
 
 --Bảng feedback
 CREATE TABLE Feedback (
-    feed_back_id INT PRIMARY KEY,			 -- ID duy nhất cho đánh giá
+    feed_back_id INT IDENTITY(1,1) PRIMARY KEY,			 -- ID duy nhất cho đánh giá
     description nvarchar(255),               -- Mô tả về đánh giá
 	room_id INT,
 	cmt VARCHAR(20),
@@ -133,13 +132,9 @@ go
 
 -- Bảng Đặt phòng
 CREATE TABLE Bookings (
-    booking_id INT PRIMARY KEY,             -- ID duy nhất cho đặt phòng
-    cmt VARCHAR(20),                            -- Khóa ngoại liên kết với bảng Người dùng
-<<<<<<< HEAD
+    booking_id INT IDENTITY(1,1) PRIMARY KEY,             -- ID duy nhất cho đặt phòng
+    cmt VARCHAR(20),                        -- Khóa ngoại liên kết với bảng Người dùng
 	 payment_status bit,                     -- Trạng thái thanh toán
-=======
-	payment_status bit,                     -- Trạng thái thanh toán
->>>>>>> 7786b644078ad599ec25e173f078dc5a6a5f625e
 	booking_date DATE,                      -- Ngày đặt phòng
     checkin_date DATE,                      -- Ngày nhận phòng
     checkout_date DATE,                     -- Ngày trả phòng
@@ -153,7 +148,7 @@ go
 
 --Bảng Hóa đơn
 CREATE TABLE Booking_room (	
-	bookingroom_id INT primary key,
+	bookingroom_id INT IDENTITY(1,1) primary key,
 	booking_id INT,							-- ID duy nhất cho đặt phòng 
 	room_id INT,			                -- ID duy nhất cho phòng	
 	[Count] INT,							-- Số lượng phòng
@@ -161,14 +156,12 @@ CREATE TABLE Booking_room (
     FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE,
 	FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id) ON DELETE CASCADE,
 	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id) 
-	
-
 );
 go
 
 -- Tạo bảng blog
 CREATE TABLE blogs (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
 	description VARCHAR(255) NOT NULL,
     author VARCHAR(100),
@@ -212,18 +205,18 @@ insert into Place values 	 (1, N'Đà Lạt'),
 							 (29, N'Bình Phước'),
 							 (30, N'Vĩnh Long');
 
-insert into [Services] values (1, N'Wifi-Free'),
-							  (2, N'Bảo vệ 24h'),
-							  (3, N'Dịch vụ giặt ủi'),
-							  (4, N'Quầy Bar'),
-							  (5, N'Spa'),
-							  (6, N'Tiệm cà phê'),
-							  (7, N'Quầy phụ vụ đồ ăn'),
-							  (8, N'Dịch vụ dọn phòng'),
-							  (9, N'Bãi đậu xe'),
-							  (10, N'Dịch vụ bảo quản hành lí'),
-							  (11, N'Phòng hút thuốc'),
-							  (12, N'Phòng không hút thuốc');
+insert into [Services] values ( N'Wifi-Free'),
+( N'Bảo vệ 24h'),
+( N'Dịch vụ giặt ủi'),
+( N'Quầy Bar'),
+( N'Spa'),
+( N'Tiệm cà phê'),
+( N'Quầy phục vụ đồ ăn'),
+( N'Dịch vụ dọn phòng'),
+( N'Bãi đậu xe'),
+( N'Dịch vụ bảo quản hành lí'),
+( N'Phòng hút thuốc'),
+(N'Phòng không hút thuốc');
 
 insert into Users values(N'Nguyễn Hoàng Tuấn', 'nguyenhoang.tuan2407@gmail.com', '081456789370','123', '0234567890', N'token',1),
 						(N'Vũ Văn Minh Hoàng', 'hoangvvm123@gmail.com', '081456789375', '123', '0934567890', N'token',1),
@@ -256,27 +249,16 @@ insert into RoomTypes values (1, 'Single room'),
 							 (8, 'Handicapped room'),
 							 (9, 'Suite');
 
-INSERT INTO Authorities VALUES	(1, '081456789370', N'DIRE'),
-								(21, '081456789370', N'STAF'),
-								(2, '081456789375', N'DIRE'),
-								(3, '012456789375', N'DIRE'),
-								(4, '083456789375', N'STAF'),
-								(5, '084456789375', N'STAF'),
-								(6, '085456789375', N'CUST'),
-								(7, '086456789375', N'CUST'),
-								(8, '087456789375', N'CUST'),
-								(9, '088456789375', N'CUST'),
-								(10, '089456789375', N'CUST'),
-								(11, '082156789375', N'CUST'),
-								(12, '082436789375', N'CUST'),
-								(13, '082446789375', N'CUST'),
-								(14, '032456789375', N'CUST'),
-								(15, '082466789375', N'CUST'),
-								(16, '082476789375', N'CUST'),
-								(17, '082486789375', N'CUST'),
-								(18, '082496789375', N'CUST'),
-								(19, '082451789375', N'CUST'),
-								(20, '082452789375', N'CUST');
+INSERT INTO Authorities VALUES	( '081456789370', N'DIRE'),
+								( '081456789370', N'STAF'),
+								( '081456789375', N'DIRE'),
+								( '012456789375', N'DIRE'),
+								( '083456789375', N'STAF'),
+								( '084456789375', N'STAF'),
+								( '085456789375', N'CUST'),
+								('086456789375', N'CUST'),
+								( '087456789375', N'CUST'),
+								( '088456789375', N'CUST');
 
 insert into Hotels values (253,N'HANZ Premium MaiVy Hotel', N' 150 Street 30/4, Xã Hiệp Tân, Hòa Thành, Tỉnh Tây Ninh', '0908360915', 'HANZpremiummaivyhotel@gmail.com', N'<h2>Giới thiệu HANZ Premium MaiVy Hotel</h2><br><h3>Vị trí</h3><br> HANZ Premium MaiVy Hotel Tay Ninh là một khách sạn nằm trong khu vực an ninh, toạ lạc tại Xã Hiệp Tân. Không chỉ sở hữu vị trí đắc địa, HANZ Premium MaiVy Hotel Tay Ninh còn là một trong những khách sạn nằm cách Dong Pan Crossroads chưa đầy 28,91 km và Trade Center and Leisure Na Ca chưa đầy 2,8 km. <h3>Thông tin về HANZ Premium MaiVy Hotel Tay Ninh</h3><br>Quầy tiếp tân 24 giờ luôn sẵn sàng phục vụ quý khách từ thủ tục nhận phòng đến trả phòng hay bất kỳ yêu cầu nào. Nếu cần giúp đỡ xin hãy liên hệ đội ngũ tiếp tân, chúng tôi luôn sẵn sàng hỗ trợ quý khách. HANZ Premium MaiVy Hotel Tay Ninh là lựa chọn sáng suốt dành cho những du khách ghé thăm Xã Hiệp Tân.',22,0),
 (254, N'Ngọc An Hotel', N' Số 18 Đường Trường Hoà, ấp Trường Cửu, Xã Trường Hòa, Thị Xã Hòa Thành, Tỉnh Tây Ninh, Xã Trường Hòa, Hòa Thành, Tỉnh Tây Ninh', '0899795710', 'ngocanhotel@gmail.com', N' <h2>Giới thiệu Ngọc An Hotel</h2><br><h3>Vị trí</h3><br> Lưu trú tại Ngoc An Hotel là một lựa chọn đúng đắn khi quý khách đến thăm Xã Trường Hòa. khách sạn này rất dễ tìm bởi vị trí đắc địa, nằm gần với nhiều tiện ích công cộng. <h3>Thông tin về Ngoc An Hotel</h3><br>Không chỉ sở hữu vị trí giúp quý khách dễ dàng ghé thăm những địa điểm lý thú trong chuyến hành trình, Ngoc An Hotel cũng sẽ mang đến cho quý khách trải nghiệm lưu trú mỹ mãn. Ngoc An Hotel là đề xuất hàng đầu dành cho những tín đồ du lịch "bụi" mong muốn được nghỉ tại một khách sạn vừa thoải mái lại hợp túi tiền. Dành cho những du khách muốn du lịch thoải mái cùng ngân sách tiết kiệm, Ngoc An Hotel sẽ là lựa chọn lưu trú hoàn hảo, nơi cung cấp các tiện nghi chất lượng và dịch vụ tuyệt vời. Từ sự kiện doanh nghiệp đến họp mặt công ty, Ngoc An Hotel cung cấp đầy đủ các dịch vụ và tiện nghi đáp ứng mọi nhu cầu của quý khách và đồng nghiệp. Hãy tận hưởng thời gian vui vẻ cùng cả gia đình với hàng loạt tiện nghi giải trí tại Ngoc An Hotel, một khách sạn tuyệt vời phù hợp cho mọi kỳ nghỉ bên người thân. Khách sạn này là lựa chọn hoàn hảo cho các kỳ nghỉ mát lãng mạn hay tuần trăng mật của các cặp đôi. Quý khách hãy tận hưởng những đêm đáng nhớ nhất cùng người thương của mình tại Ngoc An Hotel Nếu dự định có một kỳ nghỉ dài, thì Ngoc An Hotel chính là lựa chọn dành cho quý khách. Với đầy đủ tiện nghi với chất lượng dịch vụ tuyệt vời, Ngoc An Hotel sẽ khiến quý khách cảm thấy thoải mái như đang ở nhà vậy. Du lịch một mình cũng không hề kém phần thú vị và Ngoc An Hotel là nơi thích hợp dành riêng cho những ai đề cao sự riêng tư trong kỳ lưu trú. Ngoc An Hotel là lựa chọn đúng đắn cho những ai đang tìm kiếm các khách sạn hợp với túi tiền tại Xã Trường Hòa. Quầy tiếp tân 24 giờ luôn sẵn sàng phục vụ quý khách từ thủ tục nhận phòng đến trả phòng hay bất kỳ yêu cầu nào. Nếu cần giúp đỡ xin hãy liên hệ đội ngũ tiếp tân, chúng tôi luôn sẵn sàng hỗ trợ quý khách. Sóng WiFi phủ khắp các khu vực chung của khách sạn cho phép quý khách luôn kết nối với gia đình và bè bạn. Lưu trú tại Ngoc An Hotel chắc chắn sẽ làm quý khách hài lòng bởi sự đón tiếp nhiệt thành và mức giá dễ chịu của khách sạn.',22,0),
@@ -712,7 +694,6 @@ INSERT INTO Images VALUES
 (1079,N'Hotel360_2.png',360,0),
 (1080,N'Hotel360_3.png',360,0)
 
-<<<<<<< HEAD
 
 
 insert into Payments values
@@ -757,49 +738,26 @@ insert into Bookings values
 (77, '082476789375',0, '2024/01/03', '2024/01/10', '2024/01/12',77),
 (78, '082476789375',0, '2023/12/09', '2023/12/21', '2023/12/24',78),
 (79, '082476789375',1, '2023/10/09', '2023/10/11', '2023/10/13',79),
-=======
-insert into Payments values
-(61, '2023/11/09',458.5,N'Thanh toán chuyển khoản'),
-(62, '2023/11/05',234.5,N'Thanh toán chuyển khoản'),
-(63, '2023/10/20',4036,N'Thanh toán chuyển khoản'),
-(64,null,679,N'Chưa thanh toán'),
-(65,null,2800.5,N'Thanh toán tiền mặt'),
-(66, '2023/11/20',3536,N'Thanh toán chuyển khoản'),
-(67, '2023/12/03',4435,N'Thanh toán chuyển khoản'),
-(68,null,1437,N'Thanh toán tiền mặt'),
-(69,null,889,N'Chưa thanh toán'),
-(70,null,214.5,N'Thanh toán tiền mặt'),
-(71, '2023/11/09',1738,N'Thanh toán chuyển khoản'),
-(72, '2023/11/05',3677.6,N'Thanh toán chuyển khoản'),
-(73,null,1578,N'Chưa thanh toán'),
-(74,null,1399,N'Thanh toán tiền mặt'),
-(75, '2023/11/11',3396,N'Thanh toán chuyển khoản'),
-(76, '2023/11/20',1039,N'Thanh toán chuyển khoản'),
-(77,null,2407,N'Chưa thanh toán'),
-(78,null,1918.5,N'Thanh toán tiền mặt'),
-(79, '2023/10/09',2167,N'Thanh toán chuyển khoản'),
-(80, '2023/12/09',2112.5,N'Thanh toán chuyển khoản');
+(80, '082476789375',1, '2023/12/09', '2023/12/11', '2023/12/12',80);
 
-insert into Bookings values 
-(61, '089456789375',1, '2023/11/09', '2023/11/11', '2023/11/12',61),
-(62, '089456789375',1, '2023/11/05', '2023/11/08', '2023/11/10',62),
-(63, '089456789375',1, '2023/11/11', '2023/11/15', '2023/11/17',63),
-(64, '089456789375',0, '2023/12/01', '2023/12/05', '2023/12/07',64),
-(65, '089456789375',0, '2023/12/20', '2023/12/31', '2024/01/03',65),
-(66, '082436789375',1, '2023/11/20', '2023/11/24', '2023/11/26',66),
-(67, '082436789375',1, '2023/12/03', '2023/12/10', '2023/12/12',67),
-(68, '082436789375',0, '2024/01/19', '2024/01/21', '2024/01/24',68),
-(69, '082436789375',0, '2023/12/09', '2023/12/11', '2023/12/13',69),
-(70, '082436789375',0, '2023/12/09', '2023/12/11', '2023/12/12',70),
-(71, '032456789375',1, '2023/11/09', '2023/11/11', '2023/11/12',71),
-(72, '032456789375',1, '2023/11/05', '2023/11/08', '2023/11/10',72),
-(73, '032456789375',0, '2023/11/30', '2023/12/01', '2023/12/03',73),
-(74, '032456789375',0, '2023/12/01', '2023/12/05', '2023/12/07',74),
-(75, '032456789375',1, '2023/11/11', '2023/11/15', '2023/11/17',75),
-(76, '082476789375',1, '2023/11/20', '2023/11/24', '2023/11/26',76),
-(77, '082476789375',0, '2024/01/03', '2024/01/10', '2024/01/12',77),
-(78, '082476789375',0, '2023/12/09', '2023/12/21', '2023/12/24',78),
-(79, '082476789375',1, '2023/10/09', '2023/10/11', '2023/10/13',79),
->>>>>>> 7786b644078ad599ec25e173f078dc5a6a5f625e
-(80, '082476789375',1, '2023/12/09', '2023/12/11', '2023/12/12',80)
+insert into Payments values ( '2023/11/09',458.5,N'Thanh toán chuyển khoản'),
+							( '2023/11/05',234.5,N'Thanh toán chuyển khoản'),
+							( '2023/10/20',4036,N'Thanh toán chuyển khoản'),
+							(null,679,N'Chưa thanh toán'),
+							(null,2800.5,N'Thanh toán tiền mặt'),
+							( '2023/11/20',3536,N'Thanh toán chuyển khoản'),
+							( '2023/12/03',4435,N'Thanh toán chuyển khoản'),
+							(null,1437,N'Thanh toán tiền mặt'),
+							(null,889,N'Chưa thanh toán'),
+							(null,214.5,N'Thanh toán tiền mặt'),
+							( '2023/11/09',1738,N'Thanh toán chuyển khoản'),
+							( '2023/11/05',3677.6,N'Thanh toán chuyển khoản'),
+							(null,1578,N'Chưa thanh toán'),
+							(null,1399,N'Thanh toán tiền mặt'),
+							( '2023/11/11',3396,N'Thanh toán chuyển khoản'),
+							( '2023/11/20',1039,N'Thanh toán chuyển khoản'),
+							(null,2407,N'Chưa thanh toán'),
+							(null,1918.5,N'Thanh toán tiền mặt'),
+							( '2023/10/09',2167,N'Thanh toán chuyển khoản'),
+							( '2023/12/09',2112.5,N'Thanh toán chuyển khoản');
 
