@@ -9,7 +9,7 @@ import com.poly.entity.Hotels;
 import com.poly.entity.ServiceRooms;
 
 public interface ServiceRoomsService {
-	List<ServiceRooms> findAll();
+	
 
 	ServiceRooms findById(Integer id);
 
@@ -21,7 +21,7 @@ public interface ServiceRoomsService {
 
 	List<ServiceRooms> findPageAdmin(Integer page, Integer number);
 	
-	Page<ServiceRooms> findAlla(Pageable page);
+	Page<ServiceRooms> findAll(Pageable page);
 
 	
 }

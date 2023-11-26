@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,73 +81,66 @@ public class UsersController {
 		return "admin/Users/index";
 	}
 
-	@RequestMapping("/users/lpage={last}")
-	public String UserLast(Model model, @PathVariable("last") String plast) {
-		List<Users> user = userService.findAll();
-//		 model.addAttribute("users", userService.findAll());
-		 int count = user.size();
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-//				List<Users> users = userService.findAll();
-//				// model.addAttribute("roomtype", roomtype);
-//				// int counta = roomtype.size();
-//				model.addAttribute("users", users);
+//	@RequestMapping("/users/lpage={last}")
+//	public String UserLast(Model model, @PathVariable("last") String plast) {
+//		List<Users> user = userService.findAll();
+////		 model.addAttribute("users", userService.findAll());
+//		 int count = user.size();
+////			int last = start - 1;
+////			int next = start + 1;
+//		// int SOLuongTrongTrang = 10;
+//		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+//			int endRounded = endRound;
+//			if((endRound * SOLuongTrongTrang) < count ) {
+//				endRounded = endRound + 1;
+//			}
+//
+//		int start = Integer.parseInt(plast);
+//		if (start == 1) {
+//			List<Users> items = userService.findPage((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("users", items);
+//			model.addAttribute("last", null);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", start + 1);
+//		} else {
+//			List<Users> items = userService.findPage((start) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("users", items);
+//			model.addAttribute("last", start - 1);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", start + 1);
+//		}
+//		model.addAttribute("endRounded", endRounded);
+//		return "admin/Users/index";
+//	}
 
-		// model.addAttribute("count", count);
-
-		int start = Integer.parseInt(plast);
-		// int last = start - 1;
-		if (start == 1) {
-			List<Users> items = userService.findPage((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		} else {
-			List<Users> items = userService.findPage((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		model.addAttribute("endRounded", endRounded);
-		return "admin/Users/index";
-	}
-
-	@RequestMapping("/users/npage={next}")
-	public String UserNext(Model model, @PathVariable("next") String pnext) {
-
-		List<Users> users = userService.findAll();
-		int count = users.size();
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		int start = Integer.parseInt(pnext);
-		if (start == endRounded) {
-			List<Users> items = userService.findPage((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", null);
-		} else {
-			List<Users> items = userService.findPage((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			
-		}
-		model.addAttribute("endRounded", endRounded);
-		return "admin/Users/index";
-	}
+//	@RequestMapping("/users/npage={next}")
+//	public String UserNext(Model model, @PathVariable("next") String pnext) {
+//
+//		List<Users> users = userService.findAll();
+//		int count = users.size();
+//		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+//		int endRounded = endRound;
+//		if((endRound * SOLuongTrongTrang) < count ) {
+//			endRounded = endRound + 1;
+//		}
+//		int start = Integer.parseInt(pnext);
+//		if (start == endRounded) {
+//			List<Users> items = userService.findPage((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("users", items);
+//			model.addAttribute("last", start - 1);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", null);
+//		} else {
+//			List<Users> items = userService.findPage((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("users", items);
+//			model.addAttribute("last", start - 1);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", start + 1);
+//			
+//		}
+//		model.addAttribute("endRounded", endRounded);
+//		return "admin/Users/index";
+//	}
 
 //	    @GetMapping
 //	    public String listUsers(Model model) {
@@ -171,9 +167,15 @@ public class UsersController {
 //	        userService.delete(cmt);
 //	        return new ModelAndView("redirect:/users/index");
 //	    }
-
+	
 	@PostMapping("/users/update")
-	public ModelAndView updateUser(@ModelAttribute Users user) {
+	public ModelAndView checkPersonInfo(@Valid @ModelAttribute Users user, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			user.setCmt(null);
+			return new ModelAndView("admin/Users/form");
+			
+		}
 		if (user.getCmt() != null) {
 			// Nếu có ID, thực hiện cập nhật
 			userService.update(user);
@@ -181,8 +183,21 @@ public class UsersController {
 			// Nếu không có ID, thực hiện thêm mới
 			userService.create(user);
 		}
+
 		return new ModelAndView("redirect:/users/index");
 	}
+
+//	@PostMapping("/users/update")
+//	public ModelAndView updateUser(@ModelAttribute Users user) {
+//		if (user.getCmt() != null) {
+//			// Nếu có ID, thực hiện cập nhật
+//			userService.update(user);
+//		} else {
+//			// Nếu không có ID, thực hiện thêm mới
+//			userService.create(user);
+//		}
+//		return new ModelAndView("redirect:/users/index");
+//	}
 
 	@GetMapping("/users/delete/{cmt}")
 	public ModelAndView deleteUser(@PathVariable("cmt") String cmt) {

@@ -67,7 +67,7 @@
 									<div class="form-group row">
 										<label for="name" class="form-label">serviceName</label> <input
 											type="text" class="form-control" id="name"
-											th:field="*{name}" placeholder="Enter serviceName">
+											th:field="*{name}" placeholder="Enter serviceName" required>
 									</div>
 									
 									<div class="form-group row">
@@ -75,7 +75,7 @@
 											th:utext="${services.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/services}" class="btn btn-secondary"> <i
+										<a th:href="@{/services/form}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${services.id}"> <a
 											th:href="@{/services/delete/{id}(id=${services.id})}"
@@ -89,7 +89,7 @@
 
 							</div>
 						</div>
-						<div class="card-header text-center">
+						<!--  <div class="card-header text-center">
 							<button type="button" class="btn btn-primary"
 								onclick="createForm()">
 								<i class="fas fa-plus"></i> Create
@@ -121,7 +121,7 @@
 							<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
 							</button>
-						</div>
+						</div>-->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>

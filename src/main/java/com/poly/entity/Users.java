@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,23 +25,24 @@ import lombok.Data;
 
 public class Users implements Serializable{
     @Id
+    @Pattern(regexp = "^0[1-9][0-9]{10}$", message = "CMT phai du 12 so")
     @Column(name = "cmt")
-    @NotBlank(message = "cmt")
     String cmt;
 
 	@Column(name = "username")
+	@NotBlank(message = "Không được bỏ trống")
 	String username;
 	
     @Column(name = "email", length = 100)
-    @NotBlank(message = "email")
+    @Pattern(regexp = "^[0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+[a-zA-Z]{2,9}$", message = "Email không đúng định dạng")
     String email;
 
     @Column(name = "password")
-    @NotBlank(message = "password")
+    @NotBlank(message = "không được bỏ trống")
     String password;
 
     @Column(name = "phone_number", length = 20)
-    @NotBlank(message = "phone_number")
+    @Pattern(regexp = "^0[3-9][0-9]{8}$", message = "SĐT phai du 10 so")
     String phoneNumber;
     
     @Column(name = "Token")

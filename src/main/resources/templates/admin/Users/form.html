@@ -62,27 +62,34 @@
 									<div class="form-group row">
 										<label for="cmt" class="form-label">CMT</label> <input
 											type="number" class="form-control" id="cmt" th:field="*{cmt}"
-											placeholder="Enter CMT" pattern="^(0[1-9][0-9]{10})$">
+											placeholder="Enter CMT" >
+										<td style= "color: red;" th:if="${#fields.hasErrors('cmt')}" th:errors="*{cmt}"></td>
+											
 									</div>
 									<div class="form-group row">
 										<label for="password" class="form-label">Password</label> <input
 											type="text" class="form-control" id="password"
 											th:field="*{password}" placeholder="Enter password">
+										<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+											
 									</div>
 									<div class="form-group row">
 										<label for="username" class="form-label">Fullname</label> <input
 											type="text" class="form-control" id="username"
 											th:field="*{username}" placeholder="Enter fullname">
+										<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
 									</div>
 									<div class="form-group row">
 										<label for="email" class="form-label">Email</label> <input
 											type="email" class="form-control" id="email"
 											th:field="*{email}" placeholder="Enter email">
+										<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
 									</div>
 									<div class="form-group row">
 										<label for="phoneNumber" class="form-label">phoneNumber</label>
 										<input type="number" class="form-control" id="phoneNumber"
-											th:field="*{phoneNumber}" placeholder="Enter email" pattern="^(0[3-9][0-9]{8})$">
+											th:field="*{phoneNumber}" placeholder="Enter phoneNumber">
+											<td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></td>
 									</div>
 									<!--  <div class="form-group row">
 												<label for="phoneNumber" class="form-label">Role</label> <input
@@ -116,7 +123,7 @@
 											th:utext="${users.cmt} != null ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/users}" class="btn btn-secondary"> <i
+										<a th:href="@{/users/form}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${users.cmt}"> <a
 											th:href="@{/users/delete/{cmt}(cmt=${users.cmt})}"
@@ -130,7 +137,7 @@
 
 							</div>
 						</div>
-						<div class="card-header text-center">
+						<!--  <div class="card-header text-center">
 							<button type="button" class="btn btn-primary"
 								onclick="createForm()">
 								<i class="fas fa-plus"></i> Create
@@ -146,7 +153,9 @@
 								onclick="resetForm()">
 								<i class="fas fa-redo"></i> Reset
 							</button>
-						</div>
+						</div>-->
+						
+						
 						<!--  <div class="card-header text-center">
 									<button ng-click="pager.first()" class="btn btn-danger">
 										<i class="fas fa-arrow-to-left"></i>

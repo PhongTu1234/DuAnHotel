@@ -124,7 +124,7 @@ public class BlogController {
 //    }
     
     @PostMapping("/blogs/update")
-    public ModelAndView updateBlog(@ModelAttribute Blogs blogs, Model model) {
+    public ModelAndView updateBlog(@ModelAttribute("blogs") Blogs blogs, Model model) {
 //        if (blogs.getId() != null) {
 //            // Nếu có ID, thực hiện cập nhật
 //        	blogsService.update(blogs);

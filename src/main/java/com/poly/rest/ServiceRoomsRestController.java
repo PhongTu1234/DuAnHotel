@@ -24,10 +24,6 @@ public class ServiceRoomsRestController {
 	@Autowired
 	ServiceRoomsService HotelTypesService;
 
-	@GetMapping
-	public List<ServiceRooms> getAll() {
-		return HotelTypesService.findAll();
-	}
 
 	@GetMapping("{id}")
 	public ServiceRooms getOne(@PathVariable("id") Integer id) {
