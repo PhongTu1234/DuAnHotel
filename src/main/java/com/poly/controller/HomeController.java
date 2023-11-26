@@ -3,6 +3,7 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,7 +88,7 @@ public class HomeController {
 
 	@RequestMapping({"/admin/myaccount" })
 	public String myaccount(Model model) {
-		List<Users> users = uservice.findAll();
+		Page<Users> users = uservice.findAll();
 		model.addAttribute("users", users);
 		return "/auth/my-account";
 	}

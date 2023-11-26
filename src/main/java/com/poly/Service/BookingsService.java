@@ -23,4 +23,5 @@ public interface BookingsService {
 	
 	Page<Bookings> findAlla(Pageable page);
 
+	Bookings findByBookingID(Integer id);
 }

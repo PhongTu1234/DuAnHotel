@@ -54,4 +54,10 @@ public class BookingsServiceImpl implements BookingsService {
 		return htdao.findAll(page);
 	}
 
+	@Override
+	public Bookings findByBookingID(Integer id) {
+		// TODO Auto-generated method stub
+		return htdao.findByBookingID(id);
+	}
+
 }

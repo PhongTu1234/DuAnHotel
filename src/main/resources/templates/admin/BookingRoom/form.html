@@ -58,6 +58,11 @@
 							<div class="col-md-8">
 								<form th:action="@{/bookingrooms/update}" method="post"
 									th:object="${bookingrooms}" class="form p-3">
+									<div class="col-12" th:if="${message}">
+										<div class="alert alert-warning p-2">
+											<i class="text-danger" th:text="${message}"></i>
+										</div>
+									</div>
 									<!--  <div class="form-group row">
 										<label for="id" class="form-label">bookingroomId</label> <input
 											type="text" class="form-control" id="id" th:field="*{id}"
@@ -66,22 +71,22 @@
 									<div class="form-group row">
 										<label for="count" class="form-label">bookingroomCount</label> <input
 											type="number" class="form-control" id="count"
-											th:field="*{count}" placeholder="Enter bookingroomCount">
+											th:field="*{count}" placeholder="Enter bookingroomCount" required>
 									</div>
 									<div class="form-group row">
 										<label for="Bookings.id" class="form-label">bookingroomBokingID</label> <input
 											type="text" class="form-control" id="Bookings.id"
-											th:field="*{Bookings.id}" placeholder="bookingroomBokingID">
+											th:field="*{Bookings.id}" placeholder="bookingroomBokingID" required>
 									</div>
 									<div class="form-group row">
 										<label for="Rooms.name" class="form-label">bookingroomRoomName</label> <input
 											type="text" class="form-control" id="Rooms.name"
-											th:field="*{Rooms.name}" placeholder="Enter bookingroomRoomName">
+											th:field="*{Rooms.name}" placeholder="Enter bookingroomRoomName" required>
 									</div>
 									<div class="form-group row">
 										<label for="Hotels.name" class="form-label">bookingroomHotelName</label> <input
 											type="text" class="form-control" id="Hotels.name"
-											th:field="*{Hotels.name}" placeholder="Enter bookingroomHotelName">
+											th:field="*{Hotels.name}" placeholder="Enter bookingroomHotelName" required>
 									</div>
 									
 
@@ -90,7 +95,7 @@
 											th:utext="${bookingrooms.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/bookingrooms}" class="btn btn-secondary"> <i
+										<a th:href="@{/bookingrooms/form}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${bookingrooms.id}"> <a
 											th:href="@{/bookingrooms/delete/{id}(id=${bookingrooms.id})}"
@@ -104,7 +109,7 @@
 
 							</div>
 						</div>
-						<div class="card-header text-center">
+						<!-- <div class="card-header text-center">
 							<button type="button" class="btn btn-primary"
 								onclick="createForm()">
 								<i class="fas fa-plus"></i> Create
@@ -136,7 +141,7 @@
 							<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
 							</button>
-						</div>
+						</div> -->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>

@@ -826,7 +826,7 @@ public class HotelController {
 //	    }
 	    
 	    @PostMapping("/hotels/update")
-	    public ModelAndView updateHotel(@ModelAttribute Hotels hotels, Model model) { 
+	    public ModelAndView updateHotel(@ModelAttribute("hotels") Hotels hotels, Model model) { 
 	    	String Place = hotels.getPlace().getName();
 	        if(placeService.findByPlaceName(Place) != null ) {
 	        	if (hotels.getId() != null) {

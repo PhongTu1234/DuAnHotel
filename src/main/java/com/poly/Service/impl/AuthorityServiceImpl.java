@@ -3,6 +3,7 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.AuthorityDAO;
@@ -26,7 +27,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 
 	@Override
 	public List<Authority> findAll() {
-		return dao.findAll();
+		return null;
 	}
 
 	@Override
