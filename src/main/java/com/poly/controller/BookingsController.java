@@ -117,7 +117,7 @@ public class BookingsController {
 //	    }
 	    
 	    @PostMapping("/bookings/update")
-	    public ModelAndView updateBooking(@ModelAttribute Bookings bookings, Model model) {
+	    public ModelAndView updateBooking(@ModelAttribute("bookings") Bookings bookings, Model model) {
 	    	int Payment = bookings.getPayment().getId();
 	    	String Users= bookings.getUsers().getCmt();
 //	    	try {

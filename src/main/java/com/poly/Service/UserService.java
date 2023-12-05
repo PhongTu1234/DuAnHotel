@@ -13,9 +13,9 @@ public interface UserService {
 
 	Page<Users> findAll(Pageable page);
 	
-	List<Users> findAll();
+	Page<Users> findAll();
 
-	List<Users> getAdministrators();
+	Page<Users> getAdministrators();
 
 	Users create(Users account);
 
@@ -35,9 +35,9 @@ public interface UserService {
 	
 	void updatePass(String id, String password);
 	
-	List<Users> getAdministrators(String role);
+	Page<Users> getAdministrators(String role);
 	
-	List<Users> findPage(Integer page, Integer number);
+	Page<Users> findPage(Integer page, Integer number);
 	
 	Users findByUserName(String name);
 

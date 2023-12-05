@@ -87,7 +87,7 @@ public class FeedbackController {
 //	    }
 	    
 	    @PostMapping("/feedback/update")
-	    public ModelAndView updateFeedback(@ModelAttribute Feedback feedback, Model model) {
+	    public ModelAndView updateFeedback(@ModelAttribute("feedback") Feedback feedback, Model model) {
 	    	String Rooms = feedback.getRooms().getName();
 	    	String Users= feedback.getUsers().getCmt();
 	        if(rService.findByRoomName(Rooms) != null && userService.findByUserName(Users) != null) {

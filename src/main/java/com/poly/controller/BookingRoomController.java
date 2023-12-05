@@ -18,15 +18,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.Booking_RoomService;
 import com.poly.Service.BookingsService;
+import com.poly.Service.HotelService;
+import com.poly.Service.RoomService;
 import com.poly.entity.Blogs;
 import com.poly.entity.Booking_Room;
 import com.poly.entity.Bookings;
+import com.poly.entity.Hotels;
+import com.poly.entity.Rooms;
 
 @Controller
 public class BookingRoomController {
 	
 	@Autowired
     private Booking_RoomService brService;
+	
+	@Autowired
+    private BookingsService bookingsService;
+	
+	@Autowired
+    private RoomService rService;
+	
+	@Autowired
+    private HotelService hService;
 	
 	//xu ly admin
  	@GetMapping("/bookingrooms/form")
@@ -70,15 +83,33 @@ public class BookingRoomController {
 //    }
     
     @PostMapping("/bookingrooms/update")
-    public ModelAndView updateBookingRoom(@ModelAttribute Booking_Room bookingrooms) {
-        if (bookingrooms.getId() != null) {
-            // Nếu có ID, thực hiện cập nhật
-        	brService.update(bookingrooms);
-        } else {
-            // Nếu không có ID, thực hiện thêm mới
-        	brService.create(bookingrooms);
+    public ModelAndView updateBookingRoom(@ModelAttribute("bookingrooms") Booking_Room bookingrooms, Model model) {
+    	String Rooms = bookingrooms.getRooms().getName();
+    	int Bookings= bookingrooms.getBookings().getId();
+    	String Hotels = bookingrooms.getHotels().getName();
+    	
+    	Rooms room= rService.findByRoomName(Rooms);
+    	Hotels hotel= hService.findByHotelName(Hotels);
+    	Bookings booking= bookingsService.findByBookingID(Bookings);
+        if( room != null &&  hotel != null &&  booking != null) {
+        	if (bookingrooms.getId() != null) {
+	            // Nếu có ID, thực hiện cập nhật
+        		bookingrooms.setRooms(rService.findByRoomName(Rooms));
+        		bookingrooms.setBookings(bookingsService.findByBookingID(Bookings));
+        		bookingrooms.setHotels(hService.findByHotelName(Hotels));
+        		brService.update(bookingrooms);
+	        } else {
+	        	bookingrooms.setRooms(rService.findByRoomName(Rooms));
+        		bookingrooms.setBookings(bookingsService.findByBookingID(Bookings));
+        		bookingrooms.setHotels(hService.findByHotelName(Hotels));
+	            // Nếu không có ID, thực hiện thêm mới
+	        	brService.create(bookingrooms);
+	        }
+        	return new ModelAndView("redirect:/bookingrooms/index");
+        }else {
+        	model.addAttribute("message", "khách sạn hoặc phòng hoặc booking không tồn tại!");
+        	return new ModelAndView("admin/BookingRoom/form");
         }
-        return new ModelAndView("redirect:/bookingrooms/index");
     }
 
     @GetMapping("/bookingrooms/delete/{id}")

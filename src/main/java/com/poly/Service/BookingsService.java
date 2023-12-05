@@ -21,4 +21,7 @@ public interface BookingsService {
 
 	List<Bookings> findPageAdmin(Integer page, Integer number);
 	
+	Page<Bookings> findAlla(Pageable page);
+
+	Bookings findByBookingID(Integer id);
 }

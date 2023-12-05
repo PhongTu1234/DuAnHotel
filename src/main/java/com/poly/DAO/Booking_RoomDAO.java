@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.poly.entity.Booking_Room;
 import com.poly.entity.Bookings;
+import com.poly.entity.Payment;
 
 public interface Booking_RoomDAO extends JpaRepository<Booking_Room, Integer> {
 	@Query(value = "SELECT * FROM Booking_room h  order by h.bookingroom_id OFFSET ?1 ROWS FETCH NEXT ?2 ROWS only", nativeQuery = true)
@@ -20,4 +21,5 @@ public interface Booking_RoomDAO extends JpaRepository<Booking_Room, Integer> {
      List<Booking_Room> getBookingDetailsForUser(String userCmt);
      
      Page<Booking_Room> findAll(Pageable page);
+     
 }

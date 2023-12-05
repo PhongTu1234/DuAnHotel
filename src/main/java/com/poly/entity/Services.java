@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,6 +29,7 @@ public class Services implements Serializable {
 	Integer id;
 
 	@Column(name = "service_name")
+	@NotBlank(message = "Không được bỏ trống")
 	String name;
 
 //    @ManyToOne

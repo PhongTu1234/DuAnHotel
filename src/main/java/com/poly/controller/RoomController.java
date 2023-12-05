@@ -99,7 +99,7 @@ public class RoomController {
 //    }
     
     @PostMapping("/rooms/update")
-    public ModelAndView updateRooms(@ModelAttribute Rooms rooms, Model model) {
+    public ModelAndView updateRooms(@ModelAttribute("rooms") Rooms rooms, Model model) {
     	String Hotels = rooms.getHotels().getName();
     	String Roomtypes= rooms.getRoomTypes().getName();
         if(hService.findByHotelName(Hotels) != null && rtService.findByRoomtypeName(Roomtypes) != null) {

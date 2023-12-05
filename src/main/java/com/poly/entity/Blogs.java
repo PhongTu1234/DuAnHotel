@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -25,12 +26,15 @@ public class Blogs implements Serializable {
 	Integer id;
 
 	@Column(name = "title")
+	@NotBlank(message = "không được bỏ trống")
 	String Title;
 
 	@Column(name = "description")
+	@NotBlank(message = "không được bỏ trống")
 	String Description;
 
 	@Column(name = "author")
+	@NotBlank(message = "không được bỏ trống")
 	String Author;
 	
 	@Column(name = "image_name")

@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Users> findAll() {
-		return adao.findAll();
+	public Page<Users> findAll() {
+		return null;
 	}
 	
 	@Override
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Users> getAdministrators() {
-		return adao.getAdministrators();
+	public Page<Users> getAdministrators() {
+		return null;
 	}
 
 	@Override
@@ -108,13 +108,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Users> getAdministrators(String role) {
+	public Page<Users> getAdministrators(String role) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Users> findPage(Integer page, Integer number) {
+	public Page<Users> findPage(Integer page, Integer number) {
 		// TODO Auto-generated method stub
 		return null;
 	}

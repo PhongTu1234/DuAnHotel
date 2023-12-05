@@ -28,12 +28,6 @@ public class AuthorityServiceImpl implements AuthorityService {
 	}
 
 	@Override
-	public Page<Authority> findAll(Pageable page) {
-		// TODO Auto-generated method stub
-		return dao.findAll(page);
-	}
-
-	@Override
 	public Authority create(Authority auth) {
 		return dao.save(auth);
 	}
@@ -41,6 +35,12 @@ public class AuthorityServiceImpl implements AuthorityService {
 	@Override
 	public void delete(Integer id) {
 		dao.deleteById(id);
+	}
+
+	@Override
+	public Page<Authority> findAll(Pageable page) {
+		// TODO Auto-generated method stub
+		return dao.findAll(page);
 	}
 
 }
