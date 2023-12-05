@@ -38,81 +38,11 @@ public class BookingRoomController {
  	@GetMapping("/bookingrooms/index")
     public String showBookingRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
  		Pageable page = PageRequest.of(p, 10);
-		Page<Booking_Room> bookingrooms = brService.findAlla(page);
+		Page<Booking_Room> bookingrooms = brService.findAll(page);
 		model.addAttribute("bookingrooms", bookingrooms);
 		
         return "admin/BookingRoom/index";
     }
- 
- 	@RequestMapping("/bookingrooms/lpage={last}")
-	public String bookingroomAdminLast(Model model, @PathVariable("last") String plast) {
-		List<Booking_Room> bookingrooms = brService.findAll();
-		int SOLuongTrongTrang = 10;
-//		 model.addAttribute("users", userService.findAll());
-		 int count = bookingrooms.size();
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-//				List<Users> users = userService.findAll();
-//				// model.addAttribute("roomtype", roomtype);
-//				// int counta = roomtype.size();
-//				model.addAttribute("users", users);
-
-		// model.addAttribute("count", count);
-
-		int start = Integer.parseInt(plast);
-		// int last = start - 1;
-		if (start == 1) {
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		} else {
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		model.addAttribute("endRounded", endRounded);
-		return "admin/BookingRoom/index";
-	}
-
-	@RequestMapping("/bookingrooms/npage={next}")
-	public String bookingroomAdminNext(Model model, @PathVariable("next") String pnext) {
-
-		List<Booking_Room> bookingrooms = brService.findAll();
-		int SOLuongTrongTrang = 10;
-		int count = bookingrooms.size();
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		
-		
-		int start = Integer.parseInt(pnext);
-		if (start == endRounded) {
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", null);
-		} else {
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			
-		}
-		model.addAttribute("endRounded", (int)endRounded);
-		return "admin/BookingRoom/index";
-	}
- 	
-//    @GetMapping
-//    public String listPlaces(Model model) {
-//        model.addAttribute("places", placeService.findAll());
-//        return "";
-//    }
 
     @GetMapping("/bookingrooms/{id}")
     public String viewBookingRoom(@PathVariable("id") Integer id, Model model) {

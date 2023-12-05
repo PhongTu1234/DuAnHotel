@@ -9,7 +9,6 @@ import com.poly.entity.Hotels;
 import com.poly.entity.Services;
 
 public interface ServiceService {
-	List<Services> findAll();
 
 	Services findById(Integer id);
 
@@ -23,6 +22,8 @@ public interface ServiceService {
 	
 	Services findByServiceName(String name);
 	
-	Page<Services> findAlla(Pageable page);
+	Page<Services> findAll(Pageable page);
+	
+	List<Services> findShop();
 
 }

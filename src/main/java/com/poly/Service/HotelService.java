@@ -10,8 +10,8 @@ import com.poly.entity.RoomTypes;
 import com.poly.entity.Users;
 
 public interface HotelService {
-	List<Hotels> findAll();
-
+	List<Hotels> countHotel();
+	
 	Hotels findById(Integer id);
 
 	List<Hotels> findByHotelTypesId(String cid);
@@ -69,5 +69,7 @@ public interface HotelService {
 	
 	Hotels findByHotelName(String name);
 	
-	Page<Hotels> findAlla(Pageable page);
+	Page<Hotels> findAll(Pageable page);
+
+
 }

@@ -54,43 +54,10 @@ public class BlogController {
  	@GetMapping("/blogs/index")
     public String showBlogsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
  		Pageable page = PageRequest.of(p, 10);
-		Page<Blogs> blogs = blogsService.findAlla(page);
+		Page<Blogs> blogs = blogsService.findAll(page);
 		model.addAttribute("blogs", blogs);
 		return "admin/Blog/index";
 	}
-
-	@RequestMapping("/blogs/npage={next}")
-	public String blogroomAdminNext(Model model, @PathVariable("next") String pnext) {
-
-		List<Blogs> blogs = blogsService.findAll();
-		int SOLuongTrongTrang = 10;
-		int count = blogs.size();
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		
-		
-		int start = Integer.parseInt(pnext);
-		if (start == endRounded) {
-			List<Blogs> items = blogsService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("blogs", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", null);
-		} else {
-			List<Blogs> items = blogsService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("blogs", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			
-		}
-		model.addAttribute("endRounded", (int)endRounded);
-		return "admin/Blog/index";
-	}
- 	
  	
 //    @GetMapping
 //    public String listPlaces(Model model) {
@@ -134,22 +101,22 @@ public class BlogController {
 //        }
 //        return new ModelAndView("redirect:/blogs/index");
     	
-    	String Image = blogs.getImages().getName();
-        if(imagesService.findByImageName(Image) != null ) {
+//    	String Image = blogs.getImages().getName();
+//        if(imagesService.findByImageName(Image) != null ) {
         	if (blogs.getId() != null) {
 	            // Nếu có ID, thực hiện cập nhật
-        		blogs.setImages(imagesService.findByImageName(Image));
+        		//blogs.setImages(imagesService.findByImageName(Image));
 	        	blogsService.update(blogs);
 	        } else {
-	        	blogs.setImages(imagesService.findByImageName(Image));
+	        	//blogs.setImages(imagesService.findByImageName(Image));
 	            // Nếu không có ID, thực hiện thêm mới
 	        	blogsService.create(blogs);
 	        }
         	return new ModelAndView("redirect:/blogs/index");
-        }else {
-        	model.addAttribute("message", "Hình ảnh không tồn tại");
-        	return new ModelAndView("admin/Blog/form");
-        }
+//        }else {
+//        	model.addAttribute("message", "Hình ảnh không tồn tại");
+//        	return new ModelAndView("admin/Blog/form");
+//        }
     }
 
     @GetMapping("/blogs/delete/{id}")

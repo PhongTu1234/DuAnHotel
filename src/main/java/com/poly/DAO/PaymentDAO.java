@@ -3,6 +3,7 @@ package com.poly.DAO;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,5 +18,5 @@ public interface PaymentDAO extends JpaRepository<Payment, Integer> {
 	@Query("SELECT p FROM Payment p where p.id = ?1")
 	Payment findByPaymentName(Integer id);
 	
-	Page<Payment> findAll(org.springframework.data.domain.Pageable page);
+	Page<Payment> findAll(Pageable page);
 }

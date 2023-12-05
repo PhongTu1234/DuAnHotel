@@ -17,10 +17,6 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Autowired
 	FeedbackDAO htdao;
 
-	@Override
-	public List<Feedback> findAll() {
-		return htdao.findAll();
-	}
 
 	@Override
 	public Feedback findById(Integer id) {
@@ -49,7 +45,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public Page<Feedback> findAlla(Pageable page) {
+	public Page<Feedback> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return htdao.findAll(page);
 	}

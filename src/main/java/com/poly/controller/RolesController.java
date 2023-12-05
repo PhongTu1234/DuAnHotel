@@ -39,83 +39,11 @@ public class RolesController {
 	 	@GetMapping("/roles/index")
 	    public String showRolesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 			Pageable page = PageRequest.of(p, 10);
-			Page<Role> roles = rolesService.findAlla(page);
+			Page<Role> roles = rolesService.findAll(page);
 			model.addAttribute("roles", roles);
 	 		return "admin/Roles/index";
 	    }
 	 
-	 	@RequestMapping("/roles/lpage={last}")
-		public String roleAdminLast(Model model, @PathVariable("last") String plast) {
-			List<Role> roles = rolesService.findAll();
-			int SOLuongTrongTrang = 10;
-//			 model.addAttribute("users", userService.findAll());
-			 int count = roles.size();
-//				int last = start - 1;
-//				int next = start + 1;
-			// int SOLuongTrongTrang = 10;
-			 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-				int endRounded = endRound;
-				if((endRound * SOLuongTrongTrang) < count ) {
-					endRounded = endRound + 1;
-				}
-//					List<Users> users = userService.findAll();
-//					// model.addAttribute("roomtype", roomtype);
-//					// int counta = roomtype.size();
-//					model.addAttribute("users", users);
-
-			// model.addAttribute("count", count);
-
-			int start = Integer.parseInt(plast);
-			// int last = start - 1;
-			if (start == 1) {
-				List<Role> items = rolesService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("roles", items);
-				model.addAttribute("last", null);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			} else {
-				List<Role> items = rolesService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("roles", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			}
-			model.addAttribute("endRounded", endRounded);
-			return "admin/Roles/index";
-		}
-
-		@RequestMapping("/roles/npage={next}")
-		public String roleAdminNext(Model model, @PathVariable("next") String pnext) {
-
-			List<Role> roles = rolesService.findAll();
-			int SOLuongTrongTrang = 10;
-			int count = roles.size();
-			int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			
-			
-			int start = Integer.parseInt(pnext);
-			if (start == endRounded) {
-				List<Role> items = rolesService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("roles", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", null);
-			} else {
-				List<Role> items = rolesService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("roles", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-				
-			}
-			model.addAttribute("endRounded", (int)endRounded);
-			return "admin/Roles/index";
-		}
-	 	
 //	    @GetMapping
 //	    public String listPlaces(Model model) {
 //	        model.addAttribute("places", placeService.findAll());

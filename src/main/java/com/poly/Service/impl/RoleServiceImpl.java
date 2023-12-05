@@ -16,10 +16,7 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	RoleDAO dao;
 
-	@Override
-	public List<Role> findAll() {
-		return dao.findAll();
-	}
+
 
 	@Override
 	public Role findById(String id) {
@@ -42,15 +39,15 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<Role> findPageAdmin(Integer page, Integer number) {
+	public Page<Role> findAll(Pageable page) {
 		// TODO Auto-generated method stub
-		return dao.findPageAdmin(page, number);
+		return dao.findAll(page);
 	}
 
 	@Override
-	public Page<Role> findAlla(Pageable page) {
+	public List<Role> findShop() {
 		// TODO Auto-generated method stub
-		return dao.findAll(page);
+		return dao.findShop();
 	}
 
 }

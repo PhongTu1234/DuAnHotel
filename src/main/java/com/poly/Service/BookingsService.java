@@ -9,8 +9,8 @@ import com.poly.entity.Blogs;
 import com.poly.entity.Bookings;
 
 public interface BookingsService {
-	List<Bookings> findAll();
-
+	Page<Bookings> findAll(Pageable page);
+	
 	Bookings findById(Integer id);
 
 	Bookings create(Bookings Bookings);
@@ -21,6 +21,4 @@ public interface BookingsService {
 
 	List<Bookings> findPageAdmin(Integer page, Integer number);
 	
-	Page<Bookings> findAlla(Pageable page);
-
 }

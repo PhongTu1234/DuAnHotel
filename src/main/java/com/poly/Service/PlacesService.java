@@ -10,7 +10,6 @@ import com.poly.entity.Payment;
 import com.poly.entity.Places;
 
 public interface PlacesService {
-	List<Places> findAll();
 
 	Places findById(Integer id);
 
@@ -32,5 +31,5 @@ public interface PlacesService {
 	
 	Places findByPlaceName(String name);
 	
-	Page<Places> findAlla(Pageable page);
+	Page<Places> findAll(Pageable page);
 }

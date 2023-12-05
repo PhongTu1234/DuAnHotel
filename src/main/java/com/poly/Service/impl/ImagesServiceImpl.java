@@ -17,10 +17,6 @@ public class ImagesServiceImpl implements ImagesService {
 	@Autowired
 	ImagesDAO htdao;
 
-	@Override
-	public List<Images> findAll() {
-		return htdao.findAll();
-	}
 
 	@Override
 	public Images findById(Integer id) {
@@ -55,7 +51,7 @@ public class ImagesServiceImpl implements ImagesService {
 	}
 
 	@Override
-	public Page<Images> findAlla(Pageable page) {
+	public Page<Images> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return htdao.findAll(page);
 	}

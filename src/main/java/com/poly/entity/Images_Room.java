@@ -14,18 +14,17 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "img_hotel")
+@Table(name = "img_room")
 public class Images_Room implements Serializable {
 
 	@Id
-	@Column(name = "hotel_img_id")
+	@Column(name = "img_room_id")
 	Integer id;
+	
+	@Column(name = "img_name")
+	String name;
 
 	@ManyToOne
 	@JoinColumn(name = "room_id")
 	Rooms Rooms;
-
-	@ManyToOne
-	@JoinColumn(name = "image_id")
-	Images Images;
 }

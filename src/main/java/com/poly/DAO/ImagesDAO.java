@@ -3,6 +3,7 @@ package com.poly.DAO;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,6 +18,6 @@ public interface ImagesDAO extends JpaRepository<Images, Integer> {
 	@Query("SELECT p FROM Services p where p.name = ?1")
 	Images findByImageName(String name);
 	
-	Page<Images> findAll(org.springframework.data.domain.Pageable page);
+	Page<Images> findAll(Pageable page);
 
 }

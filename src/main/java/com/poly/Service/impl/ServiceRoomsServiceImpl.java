@@ -18,11 +18,6 @@ public class ServiceRoomsServiceImpl implements ServiceRoomsService {
 	ServiceRoomsDAO htdao;
 
 	@Override
-	public List<ServiceRooms> findAll() {
-		return htdao.findAll();
-	}
-
-	@Override
 	public ServiceRooms findById(Integer id) {
 		return htdao.findById(id).get();
 	}
@@ -49,7 +44,7 @@ public class ServiceRoomsServiceImpl implements ServiceRoomsService {
 	}
 
 	@Override
-	public Page<ServiceRooms> findAlla(Pageable page) {
+	public Page<ServiceRooms> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return htdao.findAll(page);
 	}

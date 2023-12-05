@@ -109,11 +109,11 @@
                                 </div>
                                 <div class="tab-pane fade" id="account-details" role="tabpanel" aria-labelledby="account-details-tab">
                                     <div class="myaccount-details">
-                                        <form action="#" class="myaccount-form">
+                                        <form th:object="${user}" class="myaccount-form" method="post">
                                             <div class="myaccount-form-inner">
                                                 <div class="single-input single-input-half">
                                                     <label>First Name*</label>
-                                                    <input type="text">
+                                                    <input type="text" th:field="*{cmt}">
                                                 </div>
                                                 <div class="single-input single-input-half">
                                                     <label>Last Name*</label>
@@ -138,7 +138,7 @@
                                                     <input type="password">
                                                 </div>
                                                 <div class="single-input">
-                                                    <button class="btn btn-custom-size lg-size btn-pronia-primary" type="submit">
+                                                    <button class="btn btn-custom-size lg-size btn-pronia-primary" >
                                                         <span>SAVE CHANGES</span>
                                                     </button>
                                                 </div>

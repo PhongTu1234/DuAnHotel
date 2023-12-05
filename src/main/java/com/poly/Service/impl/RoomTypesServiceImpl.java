@@ -18,11 +18,6 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 	RoomTypesDAO rtdao;
 
 	@Override
-	public List<RoomTypes> findAll() {
-		return rtdao.findAll();
-	}
-
-	@Override
 	public RoomTypes findById(Integer id) {
 		return rtdao.findById(id).get();
 	}
@@ -55,9 +50,15 @@ public class RoomTypesServiceImpl implements RoomTypesService {
 	}
 
 	@Override
-	public Page<RoomTypes> findAlla(Pageable page) {
+	public Page<RoomTypes> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return rtdao.findAll(page);
+	}
+
+	@Override
+	public List<RoomTypes> findShop() {
+		// TODO Auto-generated method stub
+		return rtdao.findShop();
 	}
 
 

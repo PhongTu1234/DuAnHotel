@@ -15,18 +15,18 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "img_hotel", uniqueConstraints = { @UniqueConstraint(columnNames = { "hotel_id", "image_id" }) })
+@Table(name = "img_hotel")
 public class Images_Hotel implements Serializable {
 
 	@Id
-	@Column(name = "hotel_img_id")
+	@Column(name = "img_hotel_id")
 	Integer id;
+	
+	@Column(name = "img_name")
+	String name;
 
 	@ManyToOne
 	@JoinColumn(name = "hotel_id")
 	Hotels Hotels;
 
-	@ManyToOne
-	@JoinColumn(name = "image_id")
-	Images Images;
 }

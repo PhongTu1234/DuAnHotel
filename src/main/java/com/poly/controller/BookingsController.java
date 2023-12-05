@@ -80,82 +80,10 @@ public class BookingsController {
 	 	@GetMapping("/bookings/index")
 	    public String showBookingsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 	 		Pageable page = PageRequest.of(p, 10);
-			Page<Bookings> bookings = bookingService.findAlla(page);
+			Page<Bookings> bookings = bookingService.findAll(page);
 			model.addAttribute("bookings", bookings);
 			return "admin/Booking/index";
 	    }
-	 
-	 	@RequestMapping("/bookings/lpage={last}")
-		public String bookingAdminLast(Model model, @PathVariable("last") String plast) {
-			List<Bookings> bookings = bookingService.findAll();
-			int SOLuongTrongTrang = 10;
-//			 model.addAttribute("users", userService.findAll());
-			 int count = bookings.size();
-//				int last = start - 1;
-//				int next = start + 1;
-			// int SOLuongTrongTrang = 10;
-			 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-				int endRounded = endRound;
-				if((endRound * SOLuongTrongTrang) < count ) {
-					endRounded = endRound + 1;
-				}
-//					List<Users> users = userService.findAll();
-//					// model.addAttribute("roomtype", roomtype);
-//					// int counta = roomtype.size();
-//					model.addAttribute("users", users);
-
-			// model.addAttribute("count", count);
-
-			int start = Integer.parseInt(plast);
-			// int last = start - 1;
-			if (start == 1) {
-				List<Bookings> items = bookingService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("bookings", items);
-				model.addAttribute("last", null);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			} else {
-				List<Bookings> items = bookingService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("bookings", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			}
-			model.addAttribute("endRounded", endRounded);
-			return "admin/Booking/index";
-		}
-
-		@RequestMapping("/bookings/npage={next}")
-		public String bookingAdminNext(Model model, @PathVariable("next") String pnext) {
-
-			List<Bookings> bookings = bookingService.findAll();
-			int SOLuongTrongTrang = 10;
-			int count = bookings.size();
-			int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			
-			int start = Integer.parseInt(pnext);
-			if (start == endRounded) {
-				List<Bookings> items = bookingService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("bookings", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", null);
-			} else {
-				List<Bookings> items = bookingService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("bookings", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-				
-			}
-			model.addAttribute("endRounded", (int)endRounded);
-			return "admin/Booking/index";
-		}
-	 	
 	 	
 //	    @GetMapping
 //	    public String listPlaces(Model model) {

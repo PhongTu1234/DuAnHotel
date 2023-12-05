@@ -3,12 +3,15 @@ package com.poly.Service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DAO.AuthorityDAO;
 import com.poly.DAO.UserDAO;
 import com.poly.Service.AuthorityService;
 import com.poly.entity.Authority;
+import com.poly.entity.Hotels;
 import com.poly.entity.Users;
 
 @Service
@@ -25,8 +28,9 @@ public class AuthorityServiceImpl implements AuthorityService {
 	}
 
 	@Override
-	public List<Authority> findAll() {
-		return dao.findAll();
+	public Page<Authority> findAll(Pageable page) {
+		// TODO Auto-generated method stub
+		return dao.findAll(page);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.poly.DAO;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,5 +19,5 @@ public interface Booking_RoomDAO extends JpaRepository<Booking_Room, Integer> {
             "WHERE br.Bookings.Users.cmt = ?1 and br.Bookings.Status = 0")
      List<Booking_Room> getBookingDetailsForUser(String userCmt);
      
-     Page<Booking_Room> findAll(org.springframework.data.domain.Pageable page);
+     Page<Booking_Room> findAll(Pageable page);
 }

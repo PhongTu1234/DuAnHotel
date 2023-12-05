@@ -9,7 +9,6 @@ import com.poly.entity.Payment;
 import com.poly.entity.Users;
 
 public interface PaymentService {
-	List<Payment> findAll();
 
 	Payment findById(Integer id);
 
@@ -22,5 +21,5 @@ public interface PaymentService {
 
 	Payment findByPaymentName(Integer id);
 
-	Page<Payment> findAlla(Pageable page);
+	Page<Payment> findAll(Pageable page);
 }

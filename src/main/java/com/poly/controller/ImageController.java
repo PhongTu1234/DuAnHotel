@@ -39,45 +39,10 @@ public class ImageController {
 	 	@GetMapping("/images/index")
 	    public String showImagesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 	 		Pageable page = PageRequest.of(p, 10);
-			Page<Images> images = imagesService.findAlla(page);
+			Page<Images> images = imagesService.findAll(page);
 			model.addAttribute("images", images);
 			return "admin/Images/index";
 		}
-
-		@RequestMapping("/images/npage={next}")
-		public String imageAdminNext(Model model, @PathVariable("next") String pnext) {
-
-			List<Images> images = imagesService.findAll();
-			int SOLuongTrongTrang = 10;
-			int count = images.size();
-			double end = count / SOLuongTrongTrang;
-			double endRound = Math.ceil(end);
-			 int endRounded = (int) Math.round(endRound) +1;
-			 
-			
-			int start = Integer.parseInt(pnext);
-			if (start == endRounded) {
-				List<Images> items = imagesService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("images", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", null);
-			} else {
-				List<Images> items = imagesService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("images", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-				
-			}
-			model.addAttribute("endRounded", (int)endRounded);
-			return "admin/Images/index";
-		}
-//	    @GetMapping
-//	    public String listPlaces(Model model) {
-//	        model.addAttribute("places", placeService.findAll());
-//	        return "";
-//	    }
 
 	    @GetMapping("/images/{id}")
 	    public String viewImage(@PathVariable("id") Integer id, Model model) {

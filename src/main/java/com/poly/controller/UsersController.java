@@ -35,12 +35,10 @@ public class UsersController {
 	@Autowired
 	private RoleService roleService;
 
-	private int SOLuongTrongTrang = 10;
-
 	@GetMapping("users/form")
     public String userForm(Model model) {
         model.addAttribute("users", new Users());
-        model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("roles", roleService.findShop());
         return "admin/Users/form";
     }
 
@@ -48,7 +46,7 @@ public class UsersController {
     public String viewUser(@PathVariable("cmt") String cmt, Model model) {
         Users user = userService.findById(cmt);
         model.addAttribute("users", user);
-        model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("roles", roleService.findShop());
         return "admin/Users/form";
     }
 
@@ -72,80 +70,12 @@ public class UsersController {
 	@GetMapping("/users/index")
 	public String showUsersIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 		Pageable page = PageRequest.of(p, 10);
-		Page<Users> user = userService.findAlla(page);
+		Page<Users> user = userService.findAll(page);
 		model.addAttribute("users", user);
 
 		return "admin/Users/index";
 	}
-
-	@RequestMapping("/users/lpage={last}")
-	public String UserLast(Model model, @PathVariable("last") String plast) {
-		List<Users> user = userService.findAll();
-//		 model.addAttribute("users", userService.findAll());
-		 int count = user.size();
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-//				List<Users> users = userService.findAll();
-//				// model.addAttribute("roomtype", roomtype);
-//				// int counta = roomtype.size();
-//				model.addAttribute("users", users);
-
-		// model.addAttribute("count", count);
-
-		int start = Integer.parseInt(plast);
-		// int last = start - 1;
-		if (start == 1) {
-			List<Users> items = userService.findPage((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		} else {
-			List<Users> items = userService.findPage((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		model.addAttribute("endRounded", endRounded);
-		return "admin/Users/index";
-	}
-
-	@RequestMapping("/users/npage={next}")
-	public String UserNext(Model model, @PathVariable("next") String pnext) {
-
-		List<Users> users = userService.findAll();
-		int count = users.size();
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		int start = Integer.parseInt(pnext);
-		if (start == endRounded) {
-			List<Users> items = userService.findPage((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", null);
-		} else {
-			List<Users> items = userService.findPage((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("users", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			
-		}
-		model.addAttribute("endRounded", endRounded);
-		return "admin/Users/index";
-	}
-
+	
 //	    @GetMapping
 //	    public String listUsers(Model model) {
 //	        model.addAttribute("users", userService.findAll());

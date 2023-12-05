@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DAO.Booking_RoomDAO;
 import com.poly.Service.Booking_RoomService;
+import com.poly.entity.Blogs;
 import com.poly.entity.Booking_Room;
 
 @Service
@@ -17,10 +18,13 @@ public class Booking_RoomServiceImpl implements Booking_RoomService {
 	@Autowired
 	Booking_RoomDAO htdao;
 
+
 	@Override
-	public List<Booking_Room> findAll() {
-		return htdao.findAll();
+	public Page<Booking_Room> findAll(Pageable page) {
+		// TODO Auto-generated method stub
+		return htdao.findAll(page);
 	}
+
 
 	@Override
 	public Booking_Room findById(Integer id) {
@@ -52,10 +56,5 @@ public class Booking_RoomServiceImpl implements Booking_RoomService {
 		return htdao.getBookingDetailsForUser(user);
 	}
 
-	@Override
-	public Page<Booking_Room> findAlla(Pageable page) {
-		// TODO Auto-generated method stub
-		return htdao.findAll(page);
-	}
 
 }

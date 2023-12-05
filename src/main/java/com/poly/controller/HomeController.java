@@ -3,6 +3,8 @@ package com.poly.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,25 +73,15 @@ public class HomeController {
 		List<Hotels> HotelLevel5 = htservice.findHotelByHotelLevel(5);
 		model.addAttribute("HotelLevel5", HotelLevel5);
 		
-		List<RoomTypes> roomtype = rservice.findAll();
+		
+		List<RoomTypes> roomtype = rservice.findShop();
 		model.addAttribute("rt", roomtype);
 		return "index";
 	}
 
-
 	@RequestMapping({ "/admin", "/admin/index" })
 	public String admin(Model model) {
-		List<Hotels> hotels = htservice.findAll();
-		int count = hotels.size();
-		model.addAttribute("items", count);
 		return "admin/dashboard";
-	}
-
-	@RequestMapping({"/admin/myaccount" })
-	public String myaccount(Model model) {
-		List<Users> users = uservice.findAll();
-		model.addAttribute("users", users);
-		return "/auth/my-account";
 	}
 	
 	@RequestMapping("shop")

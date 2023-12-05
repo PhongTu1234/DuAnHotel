@@ -38,84 +38,11 @@ public class ServicesController {
  	@GetMapping("/services/index")
     public String showServicesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 		Pageable page = PageRequest.of(p, 10);
-		Page<Services> services = serviceService.findAlla(page);
+		Page<Services> services = serviceService.findAll(page);
 		model.addAttribute("services", services);
         return "admin/Services/index";
     }
  
- 	@RequestMapping("/services/lpage={last}")
-	public String serviceAdminLast(Model model, @PathVariable("last") String plast) {
-		List<Services> services = serviceService.findAll();
-		int SOLuongTrongTrang = 10;
-//		 model.addAttribute("users", userService.findAll());
-		 int count = services.size();
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-//				List<Users> users = userService.findAll();
-//				// model.addAttribute("roomtype", roomtype);
-//				// int counta = roomtype.size();
-//				model.addAttribute("users", users);
-
-		// model.addAttribute("count", count);
-
-		int start = Integer.parseInt(plast);
-		// int last = start - 1;
-		if (start == 1) {
-			List<Services> items = serviceService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("services", items);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		} else {
-			List<Services> items = serviceService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("services", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		model.addAttribute("endRounded", endRounded);
-		return "admin/Services/index";
-	}
-
-	@RequestMapping("/services/npage={next}")
-	public String serviceAdminNext(Model model, @PathVariable("next") String pnext) {
-
-		List<Services> services = serviceService.findAll();
-		int SOLuongTrongTrang = 10;
-		int count = services.size();
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		
-		
-		int start = Integer.parseInt(pnext);
-		if (start == endRounded) {
-			List<Services> items = serviceService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("services", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", null);
-		} else {
-			List<Services> items = serviceService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("services", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			
-		}
-		model.addAttribute("endRounded", (int)endRounded);
-		return "admin/Services/index";
-	}
- 	
- 	
 //    @GetMapping
 //    public String listServices(Model model) {
 //        model.addAttribute("sv", serviceService.findAll());

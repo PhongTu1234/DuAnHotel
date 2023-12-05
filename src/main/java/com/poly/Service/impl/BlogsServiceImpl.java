@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.poly.DAO.BlogsDAO;
 import com.poly.Service.BlogsService;
 import com.poly.entity.Blogs;
+import com.poly.entity.Hotels;
 
 @Service
 public class BlogsServiceImpl implements BlogsService {
@@ -18,8 +19,8 @@ public class BlogsServiceImpl implements BlogsService {
 	BlogsDAO htdao;
 
 	@Override
-	public List<Blogs> findAll() {
-		return htdao.findAll();
+	public Page<Blogs> findAll(Pageable page) {
+		return htdao.findAll(page);
 	}
 
 	@Override
@@ -46,12 +47,6 @@ public class BlogsServiceImpl implements BlogsService {
 	public List<Blogs> findPageAdmin(Integer page, Integer number) {
 		// TODO Auto-generated method stub
 		return htdao.findPageAdmin(page, number);
-	}
-
-	@Override
-	public Page<Blogs> findAlla(Pageable page) {
-		// TODO Auto-generated method stub
-		return htdao.findAll(page);
 	}
 
 }

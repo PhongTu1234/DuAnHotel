@@ -9,7 +9,6 @@ import com.poly.entity.Blogs;
 import com.poly.entity.Hotels;
 
 public interface BlogsService {
-	List<Blogs> findAll();
 
 	Blogs findById(Integer id);
 
@@ -21,5 +20,5 @@ public interface BlogsService {
 
 	List<Blogs> findPageAdmin(Integer page, Integer number);
 	
-	Page<Blogs> findAlla(Pageable page);
+	Page<Blogs> findAll(Pageable page);
 }

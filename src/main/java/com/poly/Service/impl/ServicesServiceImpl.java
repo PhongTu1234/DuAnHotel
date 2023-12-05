@@ -18,11 +18,6 @@ public class ServicesServiceImpl implements ServiceService {
 	ServiceDAO htdao;
 
 	@Override
-	public List<Services> findAll() {
-		return htdao.findAll();
-	}
-
-	@Override
 	public Services findById(Integer id) {
 		return htdao.findById(id).get();
 	}
@@ -55,9 +50,15 @@ public class ServicesServiceImpl implements ServiceService {
 	}
 
 	@Override
-	public Page<Services> findAlla(Pageable page) {
+	public Page<Services> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return htdao.findAll(page);
+	}
+
+	@Override
+	public List<Services> findShop() {
+		// TODO Auto-generated method stub
+		return htdao.findShop();
 	}
 
 }

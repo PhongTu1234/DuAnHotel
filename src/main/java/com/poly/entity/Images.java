@@ -35,19 +35,19 @@ public class Images implements Serializable {
 	@Column(name = "status")
 	String status;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "Images")
-	List<Blogs> Blogs;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "Images")
-	List<Images_Hotel> Images_Hotel;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "Images")
+//	List<Blogs> Blogs;
+//
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "Images")
+//	List<Images_Hotel> Images_Hotel;
 
 //	@JsonIgnore
 //	@OneToMany(mappedBy = "Images")
 //	List<Services> Service;
 //
-	@JsonIgnore
-	@OneToMany(mappedBy = "Images")
-	List<Images_Room> Images_Room;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "Images")
+//	List<Images_Room> Images_Room;
 }

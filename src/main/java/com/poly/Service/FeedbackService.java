@@ -9,8 +9,6 @@ import com.poly.entity.Feedback;
 import com.poly.entity.Hotels;
 
 public interface FeedbackService {
-	List<Feedback> findAll();
-
 	Feedback findById(Integer id);
 
 	Feedback create(Feedback Feedback);
@@ -21,5 +19,5 @@ public interface FeedbackService {
 
 	List<Feedback> findPageAdmin(Integer page, Integer number);
 	
-	Page<Feedback> findAlla(Pageable page);
+	Page<Feedback> findAll(Pageable page);
 }

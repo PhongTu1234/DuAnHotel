@@ -9,8 +9,6 @@ import com.poly.entity.Images;
 import com.poly.entity.Users;
 
 public interface ImagesService {
-	List<Images> findAll();
-
 	Images findById(Integer id);
 
 	Images create(Images Images);
@@ -23,6 +21,6 @@ public interface ImagesService {
 	
 	Images findByImageName(String name);
 	
-	Page<Images> findAlla(Pageable page);
+	Page<Images> findAll(Pageable page);
 
 }

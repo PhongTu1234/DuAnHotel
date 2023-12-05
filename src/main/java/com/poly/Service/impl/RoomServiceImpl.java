@@ -17,11 +17,6 @@ public class RoomServiceImpl implements RoomService {
 	RoomDAO rdao;
 
 	@Override
-	public List<Rooms> findAll() {
-		return rdao.findAll();
-	}
-
-	@Override
 	public Rooms findById(Integer id) {
 		return rdao.findById(id).get();
 	}
@@ -69,7 +64,7 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public Page<Rooms> findAlla(Pageable page) {
+	public Page<Rooms> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return rdao.findAll(page);
 	}

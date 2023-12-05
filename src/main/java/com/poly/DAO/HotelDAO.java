@@ -16,14 +16,13 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query("SELECT h FROM Hotels h WHERE h.Level between ?1 and ?2 AND h.Place.id=?3")
 	List<Hotels> findHotelByHotelLevelstarttoend(Integer start, Integer end, Integer placeId);
 	
-	@Query("SELECT h FROM Hotels h WHERE h.Level = ?1")
+	@Query("SELECT h FROM Hotels h WHERE h.Level = ?1 ")
 	List<Hotels> findHotelByHotelLevel(Integer level);
-
-	
-//	@Query(value = "SELECT * FROM Hotels h  order by h.hotel_id OFFSET ?1 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
-//	List<Hotels> findPage(Integer page);
 	
 	Page<Hotels> findAll(Pageable page);
+	
+	@Query("Select h from Hotels h")
+	List<Hotels> countHotel();
 
 	@Query(value = "select * from Hotels where Hotels.place_id = ?1", nativeQuery = true)
 	Page<Hotels> findHotelByPlaceid(Integer id, Pageable page );

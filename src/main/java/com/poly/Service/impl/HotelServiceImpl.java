@@ -17,8 +17,8 @@ public class HotelServiceImpl implements HotelService {
 	HotelDAO hdao;
 
 	@Override
-	public List<Hotels> findAll() {
-		return hdao.findAll();
+	public Page<Hotels> findAll(Pageable page) {
+		return hdao.findAll(page);
 	}
 
 	@Override
@@ -170,10 +170,12 @@ public class HotelServiceImpl implements HotelService {
 		return hdao.findByHotelName(name);
 	}
 
+
+
 	@Override
-	public Page<Hotels> findAlla(Pageable page) {
+	public List<Hotels> countHotel() {
 		// TODO Auto-generated method stub
-		return hdao.findAll(page);
+		return hdao.countHotel();
 	}
 
 }

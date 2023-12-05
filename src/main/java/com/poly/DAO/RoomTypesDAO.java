@@ -3,6 +3,7 @@ package com.poly.DAO;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,5 +19,8 @@ public interface RoomTypesDAO extends JpaRepository<RoomTypes, Integer> {
 	@Query("SELECT p FROM RoomTypes p where p.name = ?1")
 	RoomTypes findByRoomtypeName(String name);
 	
-	Page<RoomTypes> findAll(org.springframework.data.domain.Pageable page);
+	Page<RoomTypes> findAll(Pageable page);
+	
+	@Query("SELECT p FROM RoomTypes p")
+	List<RoomTypes> findShop();
 }

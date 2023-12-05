@@ -18,11 +18,6 @@ public class PaymentServiceImpl implements PaymentService {
 	PaymentDAO htdao;
 
 	@Override
-	public List<Payment> findAll() {
-		return htdao.findAll();
-	}
-
-	@Override
 	public Payment findById(Integer id) {
 		return htdao.findById(id).get();
 	}
@@ -55,7 +50,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Page<Payment> findAlla(Pageable page) {
+	public Page<Payment> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return htdao.findAll(page);
 	}

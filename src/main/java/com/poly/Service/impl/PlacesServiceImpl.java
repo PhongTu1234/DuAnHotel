@@ -18,8 +18,8 @@ public class PlacesServiceImpl implements PlacesService {
 	PlacesDAO htdao;
 
 	@Override
-	public List<Places> findAll() {
-		return htdao.findAll();
+	public Page<Places> findAll(Pageable page) {
+		return htdao.findAll(page);
 	}
 
 	@Override
@@ -77,10 +77,5 @@ public class PlacesServiceImpl implements PlacesService {
 		return htdao.findByPlaceName(name);
 	}
 
-	@Override
-	public Page<Places> findAlla(Pageable page) {
-		// TODO Auto-generated method stub
-		return htdao.findAll(page);
-	}
 
 }

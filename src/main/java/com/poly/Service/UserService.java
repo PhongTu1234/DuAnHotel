@@ -11,7 +11,7 @@ import com.poly.entity.Users;
 public interface UserService {
 	Users findById(String cmt);
 
-	Page<Users> findAlla(Pageable page);
+	Page<Users> findAll(Pageable page);
 	
 	List<Users> findAll();
 

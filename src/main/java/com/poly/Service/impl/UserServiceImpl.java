@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Page<Users> findAlla(Pageable page) {
+	public Page<Users> findAll(Pageable page) {
 		return adao.findAll(page);
 	}
 

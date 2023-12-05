@@ -9,8 +9,8 @@ import com.poly.entity.Booking_Room;
 import com.poly.entity.Bookings;
 
 public interface Booking_RoomService {
-	List<Booking_Room> findAll();
-
+	Page<Booking_Room> findAll(Pageable page);
+	
 	Booking_Room findById(Integer id);
 
 	Booking_Room create(Booking_Room Booking_Room);
@@ -23,5 +23,4 @@ public interface Booking_RoomService {
 
 	List<Booking_Room> getBookingDetailsForUser(String user);
 	
-	Page<Booking_Room> findAlla(Pageable page);
 }

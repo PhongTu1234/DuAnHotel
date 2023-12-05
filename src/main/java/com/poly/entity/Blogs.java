@@ -32,8 +32,11 @@ public class Blogs implements Serializable {
 
 	@Column(name = "author")
 	String Author;
+	
+	@Column(name = "image_name")
+	String img;
 
-	@ManyToOne
-	@JoinColumn(name = "image_id")
-	Images Images;
+//	@ManyToOne
+//	@JoinColumn(name = "image_id")
+//	Images Images;
 }

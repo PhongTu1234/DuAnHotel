@@ -27,9 +27,7 @@ import com.poly.entity.Rooms;
 public class RoomTypesController {
 	@Autowired
     private RoomTypesService rtService;
-	
-	private int SOLuongTrongTrang = 10;
-	
+		
 	//xu ly admin
  	@GetMapping("/roomtypes/form")
  	public String formRoomType(Model model) {
@@ -40,83 +38,11 @@ public class RoomTypesController {
  	@GetMapping("/roomtypes/index")
     public String showRoomTypesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 		Pageable page = PageRequest.of(p, 10);
-		Page<RoomTypes> roomtypes = rtService.findAlla(page);
+		Page<RoomTypes> roomtypes = rtService.findAll(page);
 		model.addAttribute("roomtypes", roomtypes);
         return "admin/RoomTypes/index";
     }
  
- 	@RequestMapping("/roomtypes/lpage={last}")
-	public String roomtypeAdminLast(Model model, @PathVariable("last") String plast) {
-		List<RoomTypes> roomtypes = rtService.findAll();
-		int SOLuongTrongTrang = 10;
-//		 model.addAttribute("users", userService.findAll());
-		 int count = roomtypes.size();
-//			int last = start - 1;
-//			int next = start + 1;
-		// int SOLuongTrongTrang = 10;
-		 double end = count / SOLuongTrongTrang;
-		 double endRound = Math.ceil(end);
-		 int endRounded = (int) Math.round(endRound);
-		 if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = (int) (endRound + 1);
-			}
-//				List<Users> users = userService.findAll();
-//				// model.addAttribute("roomtype", roomtype);
-//				// int counta = roomtype.size();
-//				model.addAttribute("users", users);
-
-		// model.addAttribute("count", count);
-
-		int start = Integer.parseInt(plast);
-		// int last = start - 1;
-		if (start == 1) {
-			List<RoomTypes> items = rtService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("roomtypes", items);
-			model.addAttribute("last", null);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		} else {
-			List<RoomTypes> items = rtService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("roomtypes", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-		}
-		model.addAttribute("endRounded", endRounded);
-		return "admin/RoomType/index";
-	}
-
-	@RequestMapping("/roomtypes/npage={next}")
-	public String roomtypeAdminNext(Model model, @PathVariable("next") String pnext) {
-
-		List<RoomTypes> roomtypes = rtService.findAll();
-		int SOLuongTrongTrang = 10;
-		int count = roomtypes.size();
-		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-		int endRounded = endRound;
-		if((endRound * SOLuongTrongTrang) < count ) {
-			endRounded = endRound + 1;
-		}
-		
-		int start = Integer.parseInt(pnext);
-		if (start == endRounded) {
-			List<RoomTypes> items = rtService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("roomtypes", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", null);
-		} else {
-			List<RoomTypes> items = rtService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-			model.addAttribute("roomtypes", items);
-			model.addAttribute("last", start - 1);
-			model.addAttribute("start", start);
-			model.addAttribute("next", start + 1);
-			
-		}
-		model.addAttribute("endRounded", (int)endRounded);
-		return "admin/RoomType/index";
-	}
- 	
 //    @GetMapping
 //    public String listPlaces(Model model) {
 //        model.addAttribute("places", placeService.findAll());

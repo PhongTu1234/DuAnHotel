@@ -3,6 +3,7 @@ package com.poly.DAO;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -38,5 +39,5 @@ public interface PlacesDAO extends JpaRepository<Places, Integer> {
 	@Query("SELECT p FROM Places p where p.name = ?1")
 	Places findByPlaceName(String name);
 	
-	Page<Places> findAll(org.springframework.data.domain.Pageable page);
+	Page<Places> findAll(Pageable page);
 }

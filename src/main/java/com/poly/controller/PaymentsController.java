@@ -39,84 +39,12 @@ public class PaymentsController {
 	 	@GetMapping("/payments/index")
 	    public String showPaymentsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 			Pageable page = PageRequest.of(p, 10);
-			Page<Payment> payments = paymentsService.findAlla(page);
+			Page<Payment> payments = paymentsService.findAll(page);
 			model.addAttribute("payments", payments);
 
 	        return "admin/Payment/index";
 	    }
 	 
-	 	@RequestMapping("/payments/lpage={last}")
-		public String paymentAdminLast(Model model, @PathVariable("last") String plast) {
-			List<Payment> payments = paymentsService.findAll();
-			int SOLuongTrongTrang = 10;
-//			 model.addAttribute("users", userService.findAll());
-			 int count = payments.size();
-//				int last = start - 1;
-//				int next = start + 1;
-			// int SOLuongTrongTrang = 10;
-			 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-				int endRounded = endRound;
-				if((endRound * SOLuongTrongTrang) < count ) {
-					endRounded = endRound + 1;
-				}
-//					List<Users> users = userService.findAll();
-//					// model.addAttribute("roomtype", roomtype);
-//					// int counta = roomtype.size();
-//					model.addAttribute("users", users);
-
-			// model.addAttribute("count", count);
-
-			int start = Integer.parseInt(plast);
-			// int last = start - 1;
-			if (start == 1) {
-				List<Payment> items = paymentsService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("payments", items);
-				model.addAttribute("last", null);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			} else {
-				List<Payment> items = paymentsService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("payments", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			}
-			model.addAttribute("endRounded", endRounded);
-			return "admin/Payment/index";
-		}
-
-		@RequestMapping("/payments/npage={next}")
-		public String paymentAdminNext(Model model, @PathVariable("next") String pnext) {
-
-			List<Payment> payments = paymentsService.findAll();
-			int SOLuongTrongTrang = 10;
-			int count = payments.size();
-			int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			
-			
-			int start = Integer.parseInt(pnext);
-			if (start == endRounded) {
-				List<Payment> items = paymentsService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("payments", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", null);
-			} else {
-				List<Payment> items = paymentsService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("payments", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-				
-			}
-			model.addAttribute("endRounded", (int)endRounded);
-			return "admin/Payment/index";
-		}
-	 	
 //	    @GetMapping
 //	    public String listPlaces(Model model) {
 //	        model.addAttribute("places", placeService.findAll());

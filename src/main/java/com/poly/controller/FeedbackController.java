@@ -47,82 +47,10 @@ public class FeedbackController {
 	 	@GetMapping("/feedback/index")
 	    public String showfeedbackIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
 	 		Pageable page = PageRequest.of(p, 10);
-			Page<Feedback> feedback = fbService.findAlla(page);
+			Page<Feedback> feedback = fbService.findAll(page);
 			model.addAttribute("feedback", feedback);
 	        return "admin/Feedback/index";
 	    }
-	 
-	 	@RequestMapping("/feedback/lpage={last}")
-		public String feedbackAdminLast(Model model, @PathVariable("last") String plast) {
-			List<Feedback> feedback = fbService.findAll();
-			int SOLuongTrongTrang = 10;
-//			 model.addAttribute("users", userService.findAll());
-			 int count = feedback.size();
-//				int last = start - 1;
-//				int next = start + 1;
-			// int SOLuongTrongTrang = 10;
-			 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-				int endRounded = endRound;
-				if((endRound * SOLuongTrongTrang) < count ) {
-					endRounded = endRound + 1;
-				}
-//					List<Users> users = userService.findAll();
-//					// model.addAttribute("roomtype", roomtype);
-//					// int counta = roomtype.size();
-//					model.addAttribute("users", users);
-
-			// model.addAttribute("count", count);
-
-			int start = Integer.parseInt(plast);
-			// int last = start - 1;
-			if (start == 1) {
-				List<Feedback> items = fbService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("feedback", items);
-				model.addAttribute("last", null);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			} else {
-				List<Feedback> items = fbService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("feedback", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-			}
-			model.addAttribute("endRounded", endRounded);
-			return "admin/Feedback/index";
-		}
-
-		@RequestMapping("/feedback/npage={next}")
-		public String feedbackAdminNext(Model model, @PathVariable("next") String pnext) {
-
-			List<Feedback> feedback = fbService.findAll();
-			int SOLuongTrongTrang = 10;
-			int count = feedback.size();
-			int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
-			int endRounded = endRound;
-			if((endRound * SOLuongTrongTrang) < count ) {
-				endRounded = endRound + 1;
-			}
-			
-			
-			int start = Integer.parseInt(pnext);
-			if (start == endRounded) {
-				List<Feedback> items = fbService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("feedback", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", null);
-			} else {
-				List<Feedback> items = fbService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
-				model.addAttribute("feedback", items);
-				model.addAttribute("last", start - 1);
-				model.addAttribute("start", start);
-				model.addAttribute("next", start + 1);
-				
-			}
-			model.addAttribute("endRounded", (int)endRounded);
-			return "admin/Feedback/index";
-		}
 	 	
 //	    @GetMapping
 //	    public String listPlaces(Model model) {
