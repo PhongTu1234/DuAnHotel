@@ -51,6 +51,17 @@ public class BookingsServiceImpl implements BookingsService {
 		return htdao.findPageAdmin(page, number);
 	}
 
+	@Override
+	public Page<Bookings> findAlla(Pageable page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+
+	@Override
+	public Bookings findByBookingID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

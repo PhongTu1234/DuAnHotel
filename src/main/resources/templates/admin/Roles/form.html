@@ -61,12 +61,12 @@
 									<div class="form-group row">
 										<label for="id" class="form-label">roleId</label> <input
 											type="text" class="form-control" id="id" th:field="*{id}"
-											placeholder="Enter ID">
+											placeholder="Enter ID" required>
 									</div>
 									<div class="form-group row">
 										<label for="name" class="form-label">roleName</label> <input
 											type="text" class="form-control" id="name"
-											th:field="*{name}" placeholder="Enter roleName">
+											th:field="*{name}" placeholder="Enter roleName" required>
 									</div>
 
 									<div class="form-group row">
@@ -74,7 +74,7 @@
 											th:utext="${roles.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/roles}" class="btn btn-secondary"> <i
+										<a th:href="@{/roles/form}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${roles.id}"> <a
 											th:href="@{/roles/delete/{id}(id=${roles.id})}"
@@ -88,7 +88,7 @@
 
 							</div>
 						</div>
-						<div class="card-header text-center">
+						<!--  <div class="card-header text-center">
 							<button type="button" class="btn btn-primary"
 								onclick="createForm()">
 								<i class="fas fa-plus"></i> Create
@@ -120,7 +120,7 @@
 							<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
 							</button>
-						</div>
+						</div>-->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>

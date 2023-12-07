@@ -67,37 +67,37 @@
 									</div>
 									<div class="form-group row">
 										<label for="Status" class="form-label">bookingStatus</label> <input
-											type="radio" class="form-control" id="Status"
-											th:field="*{Status}" placeholder="Enter bookingStatus">
+											type="text" class="form-control" id="Status"
+											th:field="*{Status}" placeholder="Enter bookingStatus" required>
 									</div>
 									<div class="form-group row">
 										<label for="BookingDate" class="form-label">Booking Date</label>
 										<input style="display:none;" type="date" class="form-control" id="BookingDate" th:field="*{BookingDate}" placeholder="Enter bookingDate">
-										<input class="form-control" type="date" th:field="*{bookingDateStr}" th:value="${#temporals.format(bookings.BookingDate, 'yyyy-MM-dd')}"/>
+										<input class="form-control" type="date" th:field="*{bookingDateStr}" th:value="${#temporals.format(bookings.BookingDate, 'yyyy-MM-dd')}" required/>
 									</div>
 									
 									<div class="form-group row">
 										<label for="CheckinDate" class="form-label">Checkin Date</label> 
 										<input style="display:none;" type="date" class="form-control" id="CheckinDate" th:field="*{CheckinDate}" placeholder="Enter bookingCheckinDate">
-										<input class="form-control" type="date" th:field="*{checkinDateStr}" th:value="${#temporals.format(bookings.CheckinDate, 'yyyy-MM-dd')}"/>
+										<input class="form-control" type="date" th:field="*{checkinDateStr}" th:value="${#temporals.format(bookings.CheckinDate, 'yyyy-MM-dd')}" required/>
 									</div>
 									
 									<div class="form-group row">
 										<label for="CheckoutDate" class="form-label">CheckoutDate</label> 
 										<input style="display:none;" type="date" class="form-control" id="CheckoutDate" th:field="*{CheckoutDate}" placeholder="Enter bookingCheckoutDate">
-										<input class="form-control" type="date" th:field="*{checkoutDateStr}" th:value="${#temporals.format(bookings.CheckoutDate, 'yyyy-MM-dd')}"/>
+										<input class="form-control" type="date" th:field="*{checkoutDateStr}" th:value="${#temporals.format(bookings.CheckoutDate, 'yyyy-MM-dd')}" required/>
 									</div>
 									
 									<div class="form-group row">
 										<label for="Payment.id" class="form-label">bookingPayment</label> <input
 											type="text" class="form-control" id="Payment.id"
 											th:field="*{Payment.id}"
-											placeholder="Enter bookingPayment">
+											placeholder="Enter bookingPayment" required>
 									</div>
 									<div class="form-group row">
 										<label for="Users.cmt" class="form-label">bookingUser</label> <input
 											type="text" class="form-control" id="Users.cmt"
-											th:field="*{Users.cmt}" placeholder="Enter bookingUser">
+											th:field="*{Users.cmt}" placeholder="Enter bookingUser" required>
 									</div>
 
 
@@ -106,7 +106,7 @@
 											th:utext="${bookings.id} != null ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/bookings}" class="btn btn-secondary"> <i
+										<a th:href="@{/bookings/form}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${bookings.id}"> <a
 											th:href="@{/bookings/delete/{id}(id=${bookings.id})}"
@@ -120,7 +120,7 @@
 
 							</div>
 						</div>
-						<div class="card-header text-center">
+						<!--  <div class="card-header text-center">
 							<button type="button" class="btn btn-primary"
 								onclick="createForm()">
 								<i class="fas fa-plus"></i> Create
@@ -152,7 +152,7 @@
 							<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
 							</button>
-						</div>
+						</div>-->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>

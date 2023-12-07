@@ -71,22 +71,26 @@
 									<div class="form-group row">
 										<label for="Title" class="form-label">blogTitle</label> <input
 											type="text" class="form-control" id="Title"
-											th:field="*{Title}" placeholder="Enter blogTitle">
+											th:field="*{Title}" placeholder="Enter blogTitle" required>
+											
 									</div>
 									<div class="form-group row">
 										<label for="Description" class="form-label">blogDescription</label> <input
 											type="text" class="form-control" id="Description"
-											th:field="*{Description}" placeholder="Enter blogDescription">
+											th:field="*{Description}" placeholder="Enter blogDescription" required> 
+										
 									</div>
 									<div class="form-group row">
 										<label for="Author" class="form-label">blogAuthor</label> <input
 											type="text" class="form-control" id="Author"
-											th:field="*{Author}" placeholder="Enter blogAuthor">
+											th:field="*{Author}" placeholder="Enter blogAuthor" required>
+										
 									</div>
 									<div class="form-group row">
 										<label for="Images.name" class="form-label">blogImageName</label> <input
-											type="image" class="form-control" id="Images.name"
-											th:field="*{Images.name}" placeholder="Enter blogImageId">
+											type="file" class="form-control" id="Images.name"
+											th:field="*{Images.name}" placeholder="Enter blogImageId" required>
+										
 									</div>
 
 									<div class="form-group row">
@@ -94,7 +98,7 @@
 											th:utext="${blogs.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/blogs}" class="btn btn-secondary"> <i
+										<a th:href="@{/blogs/form}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${blogs.id}"> <a
 											th:href="@{/blogs/delete/{id}(id=${blogs.id})}"
@@ -108,7 +112,7 @@
 
 							</div>
 						</div>
-						<div class="card-header text-center">
+						<!--  <div class="card-header text-center">
 							<button type="button" class="btn btn-primary"
 								onclick="createForm()">
 								<i class="fas fa-plus"></i> Create
@@ -140,7 +144,7 @@
 							<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
 							</button>
-						</div>
+						</div>-->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>

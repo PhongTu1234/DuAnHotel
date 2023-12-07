@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.poly.entity.Blogs;
+import com.poly.entity.Booking_Room;
 import com.poly.entity.Bookings;
 
 public interface BookingsDAO extends JpaRepository<Bookings, Integer> {
@@ -15,4 +16,5 @@ public interface BookingsDAO extends JpaRepository<Bookings, Integer> {
 	List<Bookings> findPageAdmin(Integer page, Integer number);
 	
 	Page<Bookings> findAll(Pageable page);
+
 }

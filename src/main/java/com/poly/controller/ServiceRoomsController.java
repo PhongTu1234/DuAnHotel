@@ -52,6 +52,80 @@ public class ServiceRoomsController {
         return "admin/ServiceRoom/index";
     }
  
+
+// 	@RequestMapping("/serviceRooms/lpage={last}")
+//	public String serviceRoomAdminLast(Model model, @PathVariable("last") String plast) {
+//		List<ServiceRooms> serviceRooms = sv_rService.findAll();
+//		int SOLuongTrongTrang = 10;
+////		 model.addAttribute("users", userService.findAll());
+//		 int count = serviceRooms.size();
+////			int last = start - 1;
+////			int next = start + 1;
+//		// int SOLuongTrongTrang = 10;
+//		 int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+//			int endRounded = endRound;
+//			if((endRound * SOLuongTrongTrang) < count ) {
+//				endRounded = endRound + 1;
+//			}
+////				List<Users> users = userService.findAll();
+////				// model.addAttribute("roomtype", roomtype);
+////				// int counta = roomtype.size();
+////				model.addAttribute("users", users);
+//
+//		// model.addAttribute("count", count);
+//
+//		int start = Integer.parseInt(plast);
+//		// int last = start - 1;
+//		if (start == 1) {
+//			List<ServiceRooms> items = sv_rService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("serviceRooms", items);
+//			model.addAttribute("last", null);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", start + 1);
+//		} else {
+//			List<ServiceRooms> items = sv_rService.findPageAdmin((start) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("serviceRooms", items);
+//			model.addAttribute("last", start - 1);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", start + 1);
+//		}
+//		model.addAttribute("endRounded", endRounded);
+//		return "admin/ServiceRoom/index";
+//	}
+
+//	@RequestMapping("/serviceRooms/npage={next}")
+//	public String serviceRoomAdminNext(Model model, @PathVariable("next") String pnext) {
+//
+//		List<ServiceRooms> serviceRooms = sv_rService.findAll();
+//		int SOLuongTrongTrang = 10;
+//		int count = serviceRooms.size();
+//		double end = count / SOLuongTrongTrang;
+//		int endRound = (int) Math.ceil(count / SOLuongTrongTrang);
+//		int endRounded = endRound;
+//		if((endRound * SOLuongTrongTrang) < count ) {
+//			endRounded = endRound + 1;
+//		}
+//		
+//		
+//		int start = Integer.parseInt(pnext);
+//		if (start == endRounded) {
+//			List<ServiceRooms> items = sv_rService.findPageAdmin((start - 1) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("serviceRooms", items);
+//			model.addAttribute("last", start - 1);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", null);
+//		} else {
+//			List<ServiceRooms> items = sv_rService.findPageAdmin((start-1) * SOLuongTrongTrang, SOLuongTrongTrang);
+//			model.addAttribute("serviceRooms", items);
+//			model.addAttribute("last", start - 1);
+//			model.addAttribute("start", start);
+//			model.addAttribute("next", start + 1);
+//			
+//		}
+//		model.addAttribute("endRounded", (int)endRounded);
+//		return "admin/ServiceRoom/index";
+//	}
+ 	
 //    @GetMapping
 //    public String listPlaces(Model model) {
 //        model.addAttribute("places", placeService.findAll());
@@ -84,7 +158,7 @@ public class ServiceRoomsController {
 //    }
     
     @PostMapping("/serviceRooms/update")
-    public ModelAndView updateServiceRoom(@ModelAttribute ServiceRooms serviceRooms, Model model) {
+    public ModelAndView updateServiceRoom(@ModelAttribute("serviceRooms") ServiceRooms serviceRooms, Model model) {
 //        if (serviceRooms.getId() != null) {
 //            // Nếu có ID, thực hiện cập nhật
 //        	sv_rService.update(serviceRooms);

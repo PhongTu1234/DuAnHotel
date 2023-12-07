@@ -71,17 +71,17 @@
 									<div class="form-group row">
 										<label for="Des" class="form-label">feedbackDescription</label> <input
 											type="text" class="form-control" id="Des"
-											th:field="*{Des}" placeholder="Enter feedbackDescription">
+											th:field="*{Des}" placeholder="Enter feedbackDescription" required>
 									</div>
 									<div class="form-group row">
 										<label for="Rooms.name" class="form-label">feedbackRoomName</label> <input
 											type="text" class="form-control" id="Rooms.name"
-											th:field="*{Rooms.name}" placeholder="Enter feedbackRoomName">
+											th:field="*{Rooms.name}" placeholder="Enter feedbackRoomName" required>
 									</div>
 									<div class="form-group row">
 										<label for="Users.cmt" class="form-label">feedbackCMT</label> <input
 											type="text" class="form-control" id="Users.cmt"
-											th:field="*{Users.cmt}" placeholder="Enter feedbackCMT">
+											th:field="*{Users.cmt}" placeholder="Enter feedbackCMT" required>
 									</div>
 
 									<div class="form-group row">
@@ -89,7 +89,7 @@
 											th:utext="${feedback.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/feedback}" class="btn btn-secondary"> <i
+										<a th:href="@{/feedback/form}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${feedback.id}"> <a
 											th:href="@{/feedback/delete/{id}(id=${feedback.id})}"
@@ -103,7 +103,7 @@
 
 							</div>
 						</div>
-						<div class="card-header text-center">
+						<!--  <div class="card-header text-center">
 							<button type="button" class="btn btn-primary"
 								onclick="createForm()">
 								<i class="fas fa-plus"></i> Create
@@ -135,7 +135,7 @@
 							<button ng-click="pager.last()" class="btn btn-danger">
 								<i class="fas fa-arrow-to-right"></i>
 							</button>
-						</div>
+						</div>-->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>

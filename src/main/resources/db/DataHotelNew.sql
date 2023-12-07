@@ -163,7 +163,13 @@ go
 CREATE TABLE blogs (
     id INT IDENTITY(1,1) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-	description VARCHAR(255) NOT NULL,
+	description VARCHAR(MAX) NOT NULL,
     author VARCHAR(100),
+<<<<<<< HEAD
 	image_name varchar(50) NOT NULL,
 );
+=======
+	image_id INT NOT NULL,
+	FOREIGN KEY (image_id) REFERENCES Images(image_id) ON DELETE CASCADE
+);
+>>>>>>> 3c1a9a0af692b48d06954bd8ae0497cd835f9891
