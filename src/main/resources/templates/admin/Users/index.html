@@ -8,6 +8,11 @@
 <title>Julie - Admin Dashboard</title>
 <link rel="shortcut icon" href="/assetss/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
+<style>
+.margin_right{
+	margin-right: 3px;
+}
+</style>
 </head>
 
 <body class="fixed-left">
@@ -18,7 +23,7 @@
 	</div>
 	<div id="wrapper">
 
-		<!--  <div ng-include="'/admin/_sidebar.html'"></div>-->
+		<!--  <div ng-include="'/admin/_sidebar.html'"></div> -->
 		<div th:replace="/admin/_sidebar.html"></div>
 		<div class="content-page">
 			<div class="content">
@@ -88,23 +93,54 @@
 						</div>
 						<div class="card-header text-center"
 							th:if="${users.totalPages > 1}">
-							<a th:href="@{/users/index(p=${users.number - 1})}"
-								th:if="${users.hasPrevious()}">
-								<button class="btn btn-primary">
-									<i class="fas fa-arrow-left"></i>
-								</button>
-							</a> <a
-								th:each="pageNumber : ${#numbers.sequence(0, users.totalPages - 1)}"
-								th:href="@{/users/index(p=${pageNumber})}"
-								th:class="${pageNumber == users.number ? 'btn btn-success active' : 'btn btn-success'}">
-								<span th:text="${pageNumber + 1}"></span>
-							</a> <a th:href="@{/users/index(p=${users.number + 1})}"
-								th:if="${users.hasNext()}">
-								<button class="btn btn-primary">
-									<i class="fas fa-arrow-right"></i>
-								</button>
-							</a>
+							<th:block th:if="${users.number > 0}">
+								<a th:href="@{/users/index(p=1)}">
+									<button class="btn btn-primary">
+										<i class="fas fa-step-backward"></i> First
+									</button>
+								</a>
+							</th:block>
+
+							<th:block th:if="${users.number > 0}">
+								<a th:href="@{/users/index(p=${users.number})}">
+									<button class="btn btn-primary">
+										<i class="fas fa-arrow-left"></i>
+									</button>
+									<span class="btn btn-success" th:text="${users.number}" style="padding: 6px 12px; font-size: 15px;"></span>
+								</a>
+							</th:block>
+							<th:block th:if="${users.number < users.totalPages - 1}">
+								<a
+									th:each="pageNumber : ${#numbers.sequence(users.number, users.number + 1)}"
+									th:href="@{/users/index(p=${pageNumber + 1})}"
+									th:class="${pageNumber == users.number ? 'btn btn-success active margin_right' : 'btn btn-success'}">
+									<span th:text="${pageNumber + 1}"></span>
+								</a>
+							</th:block>
+							<th:block  th:if="${users.number + 1 == users.totalPages}">
+								<a>
+									<span class="btn btn-success active" th:text="${users.number + 1}"></span>
+								</a>
+							</th:block>
+							
+							<th:block th:if="${users.number < users.totalPages - 1}">
+								<a th:href="@{/users/index(p=${users.number + 2})}">
+									<button class="btn btn-primary">
+										<i class="fas fa-arrow-right"></i>
+									</button>
+								</a>
+							</th:block>
+
+							<th:block th:if="${users.number < users.totalPages - 1}">
+								<a th:href="@{/users/index(p=${users.totalPages})}">
+									<button class="btn btn-primary">
+										Last <i class="fas fa-step-forward"></i>
+									</button>
+								</a>
+							</th:block>
 						</div>
+
+
 					</div>
 				</div>
 
