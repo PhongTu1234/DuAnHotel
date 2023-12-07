@@ -29,7 +29,7 @@ CREATE TABLE Hotels (
     hotel_name NVARCHAR(100) NOT NULL,      -- Tên khách sạn
     [address] NVARCHAR(200),                -- Địa chỉ của khách sạn
     phone_number VARCHAR(20),               -- Số điện thoại liên hệ của khách sạn
-	Email_hotel varchar(50),				-- Email của khách sạn
+	Email_hotel nvarchar(100),				-- Email của khách sạn
     [description] nvarchar(MAX),            -- Mô tả về khách sạn
 	place_id INT,							-- Địa điểm thuê khách sạn
 	hotel_level INT NOT NULL,				--Mức độ khách sạn

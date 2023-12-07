@@ -1,5 +1,6 @@
 package com.poly.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,11 @@ import com.poly.Service.PlacesService;
 import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
 import com.poly.Service.ServiceService;
+import com.poly.dto.RoomSearchDTO;
 import com.poly.entity.Hotels;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Rooms;
 import com.poly.entity.Services;
-import com.poly.entity.Users;
 
 @Controller
 public class HotelController {
@@ -41,6 +42,9 @@ public class HotelController {
 	
 	@Autowired
 	RoomService roomService;
+	
+	@Autowired
+	PlacesService placeService;
 	
 	private void shop(Model model) {
         List<RoomTypes> roomtype = rtService.findShop();
@@ -59,10 +63,42 @@ public class HotelController {
             model.addAttribute("countHotelLevel" + i, hotelLevel.size());
         }
     }
+	
+	@RequestMapping("/search")
+	public String searchRooms(
+	        @RequestParam(name = "services", required = false) List<Integer> serviceIds,
+	        @RequestParam(name = "roomTypes", required = false) List<Integer> roomTypeIds,
+	        @RequestParam(name = "pronia-range-slider", required = false) String priceRange,
+	        Model model
+	) {
+		shop(model);
+		
+	    RoomSearchDTO searchDTO = new RoomSearchDTO();
+	    searchDTO.setServiceIds(serviceIds);
+	    searchDTO.setRoomTypeIds(roomTypeIds);
 
-	@Autowired
-	PlacesService placeService;
+	    // Parse the priceRange string to a BigDecimal array
+	    if (priceRange != null && !priceRange.isEmpty()) {
+	        String[] priceValues = priceRange.split(",");
+	        BigDecimal[] priceArray = new BigDecimal[2];
 
+	        try {
+	            priceArray[0] = new BigDecimal(priceValues[0].trim());
+	            priceArray[1] = new BigDecimal(priceValues[1].trim());
+	        } catch (NumberFormatException e) {
+	            // Handle parsing error if needed
+	            e.printStackTrace();
+	        }
+
+	        searchDTO.setMinPrice(priceArray[0]);
+	        searchDTO.setMaxPrice(priceArray[1]);
+	    }
+
+	    List<Hotels> matchingHotels = hService.searchHotels(searchDTO);
+	    model.addAttribute("items", matchingHotels);
+	    return "shop";
+	}
+	
 	@RequestMapping("/hotel/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
 		Hotels item = hService.findById(id);
@@ -75,9 +111,9 @@ public class HotelController {
 
 	// Hotel
 	@RequestMapping("/hotel/all")
-	public String Hotel(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
+	public String Hotel(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
 		shop(model);
-		Pageable page = PageRequest.of(p, 10);		
+		Pageable page = PageRequest.of(p-1, 12);		
 		Page<Hotels> items = hService.findAll(page);
 		model.addAttribute("items", items);
 		return "shop";

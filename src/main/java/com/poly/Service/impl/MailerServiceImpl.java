@@ -71,7 +71,7 @@ public class MailerServiceImpl implements MailerService {
 //				+ "<p>If this was a mistake, just ignore this email and nothing will happen.</p>" + "</div>"
 //				+ "<div style='font-size:14px;padding:2em'>Copyright © 2022 <b>Julie</b>. All Rights Reserved.</div>"
 //				+ "</div>";
-		String content = "<div>" + link +"</div";
+		String content = "<div>" + link +"</div>";
 		helper.setSubject(subject);
 		helper.setText(content, true);
 		sender.send(message);

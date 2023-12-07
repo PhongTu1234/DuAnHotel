@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DAO.HotelDAO;
 import com.poly.Service.HotelService;
+import com.poly.dto.RoomSearchDTO;
 import com.poly.entity.Hotels;
 
 @Service
@@ -177,5 +178,15 @@ public class HotelServiceImpl implements HotelService {
 		// TODO Auto-generated method stub
 		return hdao.countHotel();
 	}
+	
+	@Override
+    public List<Hotels> searchHotels(RoomSearchDTO searchDTO) {
+        return hdao.findHotelsBySearchCriteria(
+                searchDTO.getServiceIds(),
+                searchDTO.getRoomTypeIds(),
+                searchDTO.getMinPrice(),
+                searchDTO.getMaxPrice()
+        );
+    }
 
 }

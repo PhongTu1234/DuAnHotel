@@ -1,11 +1,13 @@
 package com.poly.DAO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.poly.entity.Hotels;
 
@@ -57,15 +59,17 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query("SELECT p FROM Hotels p where p.name = ?1")
 	Hotels findByHotelName(String name);
 
-//	@Query("SELECT h FROM Hotels h " +
-//           "LEFT JOIN Places p ON h.Place.id = p.id " +
-//           "LEFT JOIN ServiceRooms sr ON h.Rooms.id = sr.Rooms.id " +
-//           "LEFT JOIN Services s ON sr.Services.id = s.id " +
-//           "LEFT JOIN Rooms r ON h.Rooms.id = r.id " +
-//           "LEFT JOIN RoomTypes rt ON r.RoomTypes.id = rt.id " +
-//           "WHERE LOWER(Hotels.name) LIKE LOWER('%' || :keyword || '%') " +
-//           "   OR LOWER(Places.name) LIKE LOWER('%' || :keyword || '%') " +
-//           "   OR LOWER(Services.name) LIKE LOWER('%' || :keyword || '%') " +
-//           "   OR LOWER(RoomTypes.name) LIKE LOWER('%' || :keyword || '%')")
-//    List<Hotels> searchAllEntities(@Param("keyword") String keyword);
+	@Query("SELECT DISTINCT h FROM Hotels h " +
+	           "JOIN h.Rooms r " +
+	           "JOIN r.Service_Room sr " +
+	           "WHERE (:serviceIds IS NULL OR sr.Services.id IN :serviceIds) " +
+	           "AND (:roomTypeIds IS NULL OR r.RoomTypes.id IN :roomTypeIds) " +
+	           "AND (:minPrice IS NULL OR r.price >= :minPrice) " +
+	           "AND (:maxPrice IS NULL OR r.price <= :maxPrice)")
+	    List<Hotels> findHotelsBySearchCriteria(
+	            @Param("serviceIds") List<Integer> serviceIds,
+	            @Param("roomTypeIds") List<Integer> roomTypeIds,
+	            @Param("minPrice") BigDecimal minPrice,
+	            @Param("maxPrice") BigDecimal maxPrice
+	    );
 }

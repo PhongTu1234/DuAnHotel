@@ -68,8 +68,8 @@ public class UsersController {
 //    }
 
 	@GetMapping("/users/index")
-	public String showUsersIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-		Pageable page = PageRequest.of(p, 10);
+	public String showUsersIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+		Pageable page = PageRequest.of(p-1, 3);
 		Page<Users> user = userService.findAll(page);
 		model.addAttribute("users", user);
 

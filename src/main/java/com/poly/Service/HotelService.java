@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.poly.dto.RoomSearchDTO;
 import com.poly.entity.Hotels;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Users;
@@ -71,5 +72,5 @@ public interface HotelService {
 	
 	Page<Hotels> findAll(Pageable page);
 
-
+	List<Hotels> searchHotels(RoomSearchDTO searchDTO);
 }
