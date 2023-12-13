@@ -22,7 +22,6 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Users")
-
 public class Users implements Serializable{
     @Id
     @Pattern(regexp = "^0[1-9][0-9]{10}$", message = "CMT phai du 12 so")
@@ -50,18 +49,10 @@ public class Users implements Serializable{
     
     @Column(name = "Changedpass")
     Boolean Changedpass;
-
-//    public Boolean isChangedpass() {
-//        return Changedpass;
-//    }
-//    
-//    public void setChangedpass(Boolean changedpass) {
-//        this.Changedpass = changedpass;
-//    }
     
     @JsonIgnore
-	@OneToMany(mappedBy = "Users",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	List<Authority> authorities;
+    @OneToMany(mappedBy = "Users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<Authority> authorities;
     
     @JsonIgnore
 	@OneToMany(mappedBy = "Users")

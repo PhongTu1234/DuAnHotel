@@ -29,5 +29,9 @@ public interface RoomService {
 	Rooms findByRoomName(String name);
 	
 	Page<Rooms> findAll(Pageable page);
+	
+	List<Rooms> findTop8ByOrderByRatingDesc();
+	
+	List<Rooms> findTop8RoomsByTotalBookingsAndPaymentStatus();
 
 }

@@ -60,8 +60,8 @@ public class RoomController {
  	}
 
  	@GetMapping("/rooms/index")
-    public String showRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-		Pageable page = PageRequest.of(p, 10);
+    public String showRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+		Pageable page = PageRequest.of(p-1, 10);
 		Page<Rooms> rooms = rservice.findAll(page);
 		model.addAttribute("rooms", rooms);
         return "admin/Rooms/index";

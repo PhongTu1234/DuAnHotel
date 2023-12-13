@@ -52,7 +52,7 @@ go
 
 -- Bảng Phòng
 CREATE TABLE Rooms (
-    room_id INT IDENTITY(1,1) PRIMARY KEY,                -- ID duy nhất cho phòng
+    room_id INT,                -- ID duy nhất cho phòng
     hotel_id INT NOT NULL,                  -- Khóa ngoại liên kết với bảng Khách sạn
     room_type_id INT,                       -- Khóa ngoại liên kết với bảng Loại Phòng
     roomname VARCHAR(50),					-- Số phòng
@@ -69,7 +69,7 @@ CREATE TABLE Rooms (
 );
 go
 CREATE TABLE img_room(
-	img_room_id INT IDENTITY(1,1) PRIMARY KEY,
+	img_room_id INT,
 	img_name varchar(50),
 	room_id int,
 	FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE
@@ -165,11 +165,5 @@ CREATE TABLE blogs (
     title VARCHAR(255) NOT NULL,
 	description VARCHAR(MAX) NOT NULL,
     author VARCHAR(100),
-<<<<<<< HEAD
 	image_name varchar(50) NOT NULL,
 );
-=======
-	image_id INT NOT NULL,
-	FOREIGN KEY (image_id) REFERENCES Images(image_id) ON DELETE CASCADE
-);
->>>>>>> 3c1a9a0af692b48d06954bd8ae0497cd835f9891

@@ -1,11 +1,11 @@
-Insert into RoomType
+Insert into RoomTypes
  values 
-(1, 'Single room'),
-(2, 'Twin room'),
-(3, 'Double room'),
-(4, 'Triple room'),
-(5, 'Quad room'),
-(6, 'Adjacent room'),
-(7, 'Connecting room'),
-(8, 'Handicapped room'),
-(9, 'Suite')
+('Single room'),
+('Twin room'),
+('Double room'),
+('Triple room'),
+('Quad room'),
+('Adjacent room'),
+('Connecting room'),
+('Handicapped room'),
+('Suite')

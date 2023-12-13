@@ -36,8 +36,8 @@ public class ServicesController {
  	}
 
  	@GetMapping("/services/index")
-    public String showServicesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-		Pageable page = PageRequest.of(p, 10);
+    public String showServicesIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+		Pageable page = PageRequest.of(p-1, 10);
 		Page<Services> services = serviceService.findAll(page);
 		model.addAttribute("services", services);
         return "admin/Services/index";

@@ -49,8 +49,8 @@ public class BookingRoomController {
  	}
 
  	@GetMapping("/bookingrooms/index")
-    public String showBookingRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
- 		Pageable page = PageRequest.of(p, 10);
+    public String showBookingRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+ 		Pageable page = PageRequest.of(p-1, 10);
 		Page<Booking_Room> bookingrooms = brService.findAll(page);
 		model.addAttribute("bookingrooms", bookingrooms);
 		

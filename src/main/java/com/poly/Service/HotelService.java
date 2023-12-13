@@ -72,5 +72,5 @@ public interface HotelService {
 	
 	Page<Hotels> findAll(Pageable page);
 
-	List<Hotels> searchHotels(RoomSearchDTO searchDTO);
+	Page<Hotels> searchHotels(RoomSearchDTO searchDTO, Pageable page);
 }

@@ -45,8 +45,8 @@ public class ServiceRoomsController {
  	}
 
  	@GetMapping("/serviceRooms/index")
-    public String showServiceRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-		Pageable page = PageRequest.of(p, 10);
+    public String showServiceRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+		Pageable page = PageRequest.of(p-1, 10);
 		Page<ServiceRooms> serviceRooms = sv_rService.findAll(page);
 		model.addAttribute("serviceRooms", serviceRooms);
         return "admin/ServiceRoom/index";

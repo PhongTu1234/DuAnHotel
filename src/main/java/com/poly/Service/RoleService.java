@@ -23,4 +23,7 @@ public interface RoleService {
 	Page<Role> findAll(Pageable page);
 	
 	List<Role> findShop();
+	
+    List<Role> findRolesByIds(List<String> roleIds);
+
 }

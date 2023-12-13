@@ -1,7 +1,10 @@
 package com.poly.controller;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -68,33 +71,36 @@ public class HotelController {
 	public String searchRooms(
 	        @RequestParam(name = "services", required = false) List<Integer> serviceIds,
 	        @RequestParam(name = "roomTypes", required = false) List<Integer> roomTypeIds,
-	        @RequestParam(name = "pronia-range-slider", required = false) String priceRange,
-	        Model model
+	        @RequestParam(name = "priceRange", required = false) String priceRange,
+	        Model model,
+	        @RequestParam(name = "p", defaultValue = "1") Integer p
 	) {
-		shop(model);
-		
+	    shop(model);
+	    Pageable page = PageRequest.of(p - 1, 12);
+
 	    RoomSearchDTO searchDTO = new RoomSearchDTO();
 	    searchDTO.setServiceIds(serviceIds);
 	    searchDTO.setRoomTypeIds(roomTypeIds);
 
-	    // Parse the priceRange string to a BigDecimal array
 	    if (priceRange != null && !priceRange.isEmpty()) {
-	        String[] priceValues = priceRange.split(",");
-	        BigDecimal[] priceArray = new BigDecimal[2];
+	        String[] priceValues = priceRange.split(";");
+	        if (priceValues.length == 2) {
+	            try {
+	                BigDecimal[] priceArray = new BigDecimal[2];
+	                priceArray[0] = new BigDecimal(priceValues[0].trim());
+	                priceArray[1] = new BigDecimal(priceValues[1].trim());
 
-	        try {
-	            priceArray[0] = new BigDecimal(priceValues[0].trim());
-	            priceArray[1] = new BigDecimal(priceValues[1].trim());
-	        } catch (NumberFormatException e) {
-	            // Handle parsing error if needed
-	            e.printStackTrace();
+	                searchDTO.setMinPrice(priceArray[0]);
+	                searchDTO.setMaxPrice(priceArray[1]);
+	            } catch (NumberFormatException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            System.err.println("Incorrect number of elements in the priceRange array.");
 	        }
-
-	        searchDTO.setMinPrice(priceArray[0]);
-	        searchDTO.setMaxPrice(priceArray[1]);
 	    }
 
-	    List<Hotels> matchingHotels = hService.searchHotels(searchDTO);
+	    Page<Hotels> matchingHotels = hService.searchHotels(searchDTO, page);
 	    model.addAttribute("items", matchingHotels);
 	    return "shop";
 	}
@@ -136,8 +142,8 @@ public class HotelController {
 	 	}
 
 	 	@GetMapping("/hotels/index")
-	    public String showHotelsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-	 		Pageable page = PageRequest.of(p, 10);
+	    public String showHotelsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+	 		Pageable page = PageRequest.of(p-1, 10);
 			Page<Hotels> hotels = hService.findAll(page);
 			model.addAttribute("hotels", hotels);
 			return "admin/Hotel/index";

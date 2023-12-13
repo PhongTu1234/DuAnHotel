@@ -36,8 +36,8 @@ public class RoomTypesController {
  	}
 
  	@GetMapping("/roomtypes/index")
-    public String showRoomTypesIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-		Pageable page = PageRequest.of(p, 10);
+    public String showRoomTypesIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+		Pageable page = PageRequest.of(p-1, 10);
 		Page<RoomTypes> roomtypes = rtService.findAll(page);
 		model.addAttribute("roomtypes", roomtypes);
         return "admin/RoomTypes/index";

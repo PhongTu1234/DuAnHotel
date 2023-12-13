@@ -8,6 +8,11 @@
 <title>Julie - Admin Dashboard</title>
 <link rel="shortcut icon" href="/assetss/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
+<style>
+.margin_right{
+	margin-right: 3px;
+}
+</style>
 </head>
 
 <body class="fixed-left">
@@ -64,7 +69,7 @@
 											<td class="align-center">[[(${item.id})]]</td>
 											<td class="align-center">[[(${item.Des})]]</td>
 											<td class="align-center">[[(${item.Rooms.name})]]</td>
-											<td class="align-center">[[(${item.Users.cmt})]]</td>
+											<td class="align-center">[[(${item.feedback.cmt})]]</td>
 											<td class="align-center">
 												<div class="btn-group btn-group-xs">
 													<button class="btn btn-icon">
@@ -85,22 +90,51 @@
 						</div>
 						<div class="card-header text-center"
 							th:if="${feedback.totalPages > 1}">
-							<a th:href="@{/feedback/index(p=${feedback.number - 1})}"
-								th:if="${feedback.hasPrevious()}">
-								<button class="btn btn-primary">
-									<i class="fas fa-arrow-left"></i>
-								</button>
-							</a> <a
-								th:each="pageNumber : ${#numbers.sequence(0, feedback.totalPages - 1)}"
-								th:href="@{/feedback/index(p=${pageNumber})}"
-								th:class="${pageNumber == feedback.number ? 'btn btn-success active' : 'btn btn-success'}">
-								<span th:text="${pageNumber + 1}"></span>
-							</a> <a th:href="@{/feedback/index(p=${feedback.number + 1})}"
-								th:if="${feedback.hasNext()}">
-								<button class="btn btn-primary">
-									<i class="fas fa-arrow-right"></i>
-								</button>
-							</a>
+							<th:block th:if="${feedback.number > 0}">
+								<a th:href="@{/feedback/index(p=1)}">
+									<button class="btn btn-primary">
+										<i class="fas fa-step-backward"></i> First
+									</button>
+								</a>
+							</th:block>
+
+							<th:block th:if="${feedback.number > 0}">
+								<a th:href="@{/feedback/index(p=${feedback.number})}">
+									<button class="btn btn-primary">
+										<i class="fas fa-arrow-left"></i>
+									</button>
+									<span class="btn btn-success" th:text="${feedback.number}" style="padding: 6px 12px; font-size: 15px;"></span>
+								</a>
+							</th:block>
+							<th:block th:if="${feedback.number < feedback.totalPages - 1}">
+								<a
+									th:each="pageNumber : ${#numbers.sequence(feedback.number, feedback.number + 1)}"
+									th:href="@{/feedback/index(p=${pageNumber + 1})}"
+									th:class="${pageNumber == feedback.number ? 'btn btn-success active margin_right' : 'btn btn-success'}">
+									<span th:text="${pageNumber + 1}"></span>
+								</a>
+							</th:block>
+							<th:block  th:if="${feedback.number + 1 == feedback.totalPages}">
+								<a>
+									<span class="btn btn-success active" th:text="${feedback.number + 1}"></span>
+								</a>
+							</th:block>
+							
+							<th:block th:if="${feedback.number < feedback.totalPages - 1}">
+								<a th:href="@{/feedback/index(p=${feedback.number + 2})}">
+									<button class="btn btn-primary">
+										<i class="fas fa-arrow-right"></i>
+									</button>
+								</a>
+							</th:block>
+
+							<th:block th:if="${feedback.number < feedback.totalPages - 1}">
+								<a th:href="@{/feedback/index(p=${feedback.totalPages})}">
+									<button class="btn btn-primary">
+										Last <i class="fas fa-step-forward"></i>
+									</button>
+								</a>
+							</th:block>
 						</div>
 						<!--  <script src="/assetss/js/init.js"></script>-->
 					</div>

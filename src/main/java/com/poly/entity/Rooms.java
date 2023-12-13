@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -55,6 +56,9 @@ public class Rooms implements Serializable {
 
     @Column(name = "description", columnDefinition = "TEXT")
     String description;
+    
+    @Transient
+    int totalBookings;
     
     @ManyToOne
 	@JoinColumn(name = "room_type_id")

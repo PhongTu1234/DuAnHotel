@@ -180,12 +180,13 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	@Override
-    public List<Hotels> searchHotels(RoomSearchDTO searchDTO) {
+    public Page<Hotels> searchHotels(RoomSearchDTO searchDTO, Pageable page ) {
         return hdao.findHotelsBySearchCriteria(
                 searchDTO.getServiceIds(),
                 searchDTO.getRoomTypeIds(),
                 searchDTO.getMinPrice(),
-                searchDTO.getMaxPrice()
+                searchDTO.getMaxPrice(),
+                page
         );
     }
 

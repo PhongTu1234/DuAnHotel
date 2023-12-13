@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleException(Exception e, Model model) {
-        model.addAttribute("error", e.getMessage());
-        return "/404";  // Provide the path to your custom 500 error page
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public String handleException(Exception e, Model model) {
+//        model.addAttribute("error", e.getMessage());
+//        return "/404";  // Provide the path to your custom 500 error page
+//    }
 }

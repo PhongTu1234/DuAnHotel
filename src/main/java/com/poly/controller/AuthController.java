@@ -137,7 +137,7 @@ public class AuthController {
         if (!loggedInUser.getChangedpass()) {
             return "redirect:/auth/changedpass";
         } else {
-            model.addAttribute("message", "Logged in successfully");
+            //model.addAttribute("message", "Logged in successfully");
             return "redirect:/index";
         }
     }

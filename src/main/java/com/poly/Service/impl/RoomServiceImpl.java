@@ -53,20 +53,27 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public List<Rooms> findPageAdmin(Integer page, Integer number) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Rooms findByRoomName(String name) {
-		// TODO Auto-generated method stub
 		return rdao.findByRoomName(name);
 	}
 
 	@Override
 	public Page<Rooms> findAll(Pageable page) {
-		// TODO Auto-generated method stub
 		return rdao.findAll(page);
+	}
+
+	@Override
+	public List<Rooms> findTop8ByOrderByRatingDesc() {
+		return rdao.findTop8ByOrderByRatingDesc();
+	}
+
+	@Override
+	public List<Rooms> findTop8RoomsByTotalBookingsAndPaymentStatus() {
+		return rdao.findTop8RoomsByTotalBookingsAndPaymentStatus();
 	}
 
 }

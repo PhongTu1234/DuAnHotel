@@ -13,10 +13,6 @@ import com.poly.entity.Services;
 public interface RoomDAO extends JpaRepository<Rooms, Integer> {
 	@Query("SELECT p FROM Rooms p WHERE p.RoomTypes.id=?1")
 	List<Rooms> findByRoomTypesId(String htid);
-
-//	@Override
-//	@Query("SELECT p FROM Rooms p")
-//	List<Rooms> findAll();
 	
 	Page<Rooms> findAll(org.springframework.data.domain.Pageable page);
 
@@ -29,11 +25,19 @@ public interface RoomDAO extends JpaRepository<Rooms, Integer> {
 	@Query("SELECT p FROM Rooms p WHERE p.id between 1513 and 1520")
 	List<Rooms> findByRoom1to8();
 	
-//	@Query(value = "SELECT * FROM Rooms h  order by h.room_id OFFSET ?1 ROWS FETCH NEXT ?2 ROWS only", nativeQuery = true)
-//	List<Rooms> findPageAdmin(Integer page, Pageable page);
+	@Query(value = "SELECT TOP 8 * FROM Rooms r ORDER BY r.rating DESC ", nativeQuery = true)
+    List<Rooms> findTop8ByOrderByRatingDesc();
 	
 	@Query("SELECT p FROM Rooms p where p.name = ?1")
 	Rooms findByRoomName(String name);
+	
+	@Query(value = "SELECT TOP 8 r.* FROM Booking_room b " +
+            "JOIN Rooms r ON b.room_id = r.room_id " +
+            "JOIN Bookings bk ON b.booking_id = bk.booking_id " +
+            "WHERE bk.payment_status = 1 " +
+            "GROUP BY r.room_id, r.roomname, r.rating, r.price, r.soluongphong, r.soluongchocheckin, r.soluongtrong, r.soluongdangthue, r.description, r.room_type_id, r.hotel_id " +
+            "ORDER BY COUNT(b.bookingroom_id) DESC", nativeQuery = true)
+    List<Rooms> findTop8RoomsByTotalBookingsAndPaymentStatus();
 	
 	
 }

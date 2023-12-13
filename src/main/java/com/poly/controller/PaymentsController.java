@@ -37,8 +37,8 @@ public class PaymentsController {
 	 	}
 
 	 	@GetMapping("/payments/index")
-	    public String showPaymentsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-			Pageable page = PageRequest.of(p, 10);
+	    public String showPaymentsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+			Pageable page = PageRequest.of(p-1, 10);
 			Page<Payment> payments = paymentsService.findAll(page);
 			model.addAttribute("payments", payments);
 

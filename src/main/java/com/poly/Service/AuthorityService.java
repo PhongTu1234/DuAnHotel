@@ -16,4 +16,8 @@ public interface AuthorityService {
 	public Authority create(Authority auth);
 
 	public void delete(Integer id);
+	
+	List<Authority> findRoleByCmt(String cmt);
+	
+	public void deleteAuthoritiesByUserCmt(String cmt);
 }

@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="sidebar-inner slimscrollleft">
-		<div id="sidebar-menu">
+		<div id="sidebar-menu" style="padding-bottom: 0px;">
 			<ul>
 				<li>
 					<a th:href="@{/admin}" class="waves-effect">
@@ -25,11 +25,17 @@
 					</a>
 				</li>
 				<li>
-					<a th:href="@{|/auth/index|}" class="waves-effect">
+					<a th:href="@{|/roles/index|}" class="waves-effect">
 						<i class="dripicons-to-do"></i>
-						<span>Authorities</span>
+						<span>Roles</span>
 					</a>
 				</li>
+<!-- 				<li> -->
+<!-- 					<a th:href="@{|/auth/index|}" class="waves-effect"> -->
+<!-- 						<i class="dripicons-to-do"></i> -->
+<!-- 						<span>Authorities</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 				<li>
 					<a th:href="@{|/blogs/index|}" class="waves-effect">
 						<i class="dripicons-to-do"></i>
@@ -60,34 +66,10 @@
 						<span>Hotels</span>
 					</a>
 				</li>
-				<!--  <li>
-					<a href="#!HotelType" class="waves-effect">
-						<i class="dripicons-to-do"></i>
-						<span>Hotel Types</span>
-					</a>
-				</li>-->
 				<li>
 					<a th:href="@{|/images/index|}" class="waves-effect">
 						<i class="dripicons-to-do"></i>
 						<span>Images</span>
-					</a>
-				</li>
-				<!--<li>
-					<a th:href="@{|/payments/index|}" class="waves-effect">
-						<i class="dripicons-to-do"></i>
-						<span>Payment</span>
-					</a>
-				</li>-->
-				<!--<li>
-					<a th:href="@{|/places/index|}" class="waves-effect">
-						<i class="dripicons-to-do"></i>
-						<span>Place</span>
-					</a>
-				</li>-->
-				<li>
-					<a th:href="@{|/roles/index|}" class="waves-effect">
-						<i class="dripicons-to-do"></i>
-						<span>Roles</span>
 					</a>
 				</li>
 				<li>
@@ -96,76 +78,12 @@
 						<span>Rooms</span>
 					</a>
 				</li>
-				<!--  <li>
-					<a th:href="@{|/roomtypes/index|}" class="waves-effect">
-						<i class="dripicons-to-do"></i>
-						<span>Rooms Type</span>
-					</a>
-				</li>-->
 				<li>
 					<a th:href="@{|/serviceRooms/index|}" class="waves-effect">
 						<i class="dripicons-to-do"></i>
 						<span>Service Room</span>
 					</a>
 				</li>
-				<!--<li>
-				<a th:href="@{|/services/index|}" class="waves-effect">
-						<i class="dripicons-to-do"></i>
-						<span>Service</span>
-					</a>
-				</li>-->
-				
-				
-
-				<!--  <li><a th:href="@{/admin}" class="waves-effect"> <i
-						class="dripicons-device-desktop"></i> <span>Dashboard</span>
-				</a></li>
-				<li><a class="waves-effect" href="/users/index"> <i
-						class="dripicons-to-do"></i> <span>Users</span>
-				</a></li>
-				<li><a href="#!authority" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Authorities</span>
-				</a></li>
-				<li><a th:href="@{/blog}" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Blogs</span>
-				</a></li>
-				<li><a href="#!booking" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Bookings</span>
-				</a></li>
-				<li><a href="#!bookingroom" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Booking Room</span>
-				</a></li>
-				<li><a href="#!feedback" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>FeedBack</span>
-				</a></li>
-				<li><a href="#!Hotel" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Hotels</span>
-				</a></li>
-				<li><a href="#!HotelType" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Hotel Types</span>
-				</a></li>
-				<li><a href="#!images" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Images</span>
-				</a></li>
-				<li><a href="#!payment" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Payment</span>
-				</a></li>
-				<li><a href="#!place" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Place</span>
-				</a></li>
-				<li><a href="#!roles" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Roles</span>
-				</a></li>
-				<li><a href="#!room" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Rooms</span>
-				</a></li>
-				<li><a href="#!roomtype" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Rooms Type</span>
-				</a></li>
-				<li><a href="#!service" class="waves-effect"> <i
-						class="dripicons-to-do"></i> <span>Service</span>
-				</a></li>-->
-
 			</ul>
 		</div>
 		<div class="clearfix"></div>

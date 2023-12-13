@@ -45,8 +45,8 @@ public class FeedbackController {
 	 	}
 
 	 	@GetMapping("/feedback/index")
-	    public String showfeedbackIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
-	 		Pageable page = PageRequest.of(p, 10);
+	    public String showfeedbackIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+	 		Pageable page = PageRequest.of(p-1, 10);
 			Page<Feedback> feedback = fbService.findAll(page);
 			model.addAttribute("feedback", feedback);
 	        return "admin/Feedback/index";

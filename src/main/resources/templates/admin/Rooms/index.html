@@ -8,6 +8,11 @@
 <title>Julie - Admin Dashboard</title>
 <link rel="shortcut icon" href="/assetss/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
+<style>
+.margin_right{
+	margin-right: 3px;
+}
+</style>
 </head>
 
 <body class="fixed-left">
@@ -101,22 +106,51 @@
 						</div>
 						<div class="card-header text-center"
 							th:if="${rooms.totalPages > 1}">
-							<a th:href="@{/rooms/index(p=${rooms.number - 1})}"
-								th:if="${rooms.hasPrevious()}">
-								<button class="btn btn-primary">
-									<i class="fas fa-arrow-left"></i>
-								</button>
-							</a> <a
-								th:each="pageNumber : ${#numbers.sequence(0, rooms.totalPages - 1)}"
-								th:href="@{/rooms/index(p=${pageNumber})}"
-								th:class="${pageNumber == rooms.number ? 'btn btn-success active' : 'btn btn-success'}">
-								<span th:text="${pageNumber + 1}"></span>
-							</a> <a th:href="@{/rooms/index(p=${rooms.number + 1})}"
-								th:if="${rooms.hasNext()}">
-								<button class="btn btn-primary">
-									<i class="fas fa-arrow-right"></i>
-								</button>
-							</a>
+							<th:block th:if="${rooms.number > 0}">
+								<a th:href="@{/rooms/index(p=1)}">
+									<button class="btn btn-primary">
+										<i class="fas fa-step-backward"></i> First
+									</button>
+								</a>
+							</th:block>
+
+							<th:block th:if="${rooms.number > 0}">
+								<a th:href="@{/rooms/index(p=${rooms.number})}">
+									<button class="btn btn-primary">
+										<i class="fas fa-arrow-left"></i>
+									</button>
+									<span class="btn btn-success" th:text="${rooms.number}" style="padding: 6px 12px; font-size: 15px;"></span>
+								</a>
+							</th:block>
+							<th:block th:if="${rooms.number < rooms.totalPages - 1}">
+								<a
+									th:each="pageNumber : ${#numbers.sequence(rooms.number, rooms.number + 1)}"
+									th:href="@{/rooms/index(p=${pageNumber + 1})}"
+									th:class="${pageNumber == rooms.number ? 'btn btn-success active margin_right' : 'btn btn-success'}">
+									<span th:text="${pageNumber + 1}"></span>
+								</a>
+							</th:block>
+							<th:block  th:if="${rooms.number + 1 == rooms.totalPages}">
+								<a>
+									<span class="btn btn-success active" th:text="${rooms.number + 1}"></span>
+								</a>
+							</th:block>
+							
+							<th:block th:if="${rooms.number < rooms.totalPages - 1}">
+								<a th:href="@{/rooms/index(p=${rooms.number + 2})}">
+									<button class="btn btn-primary">
+										<i class="fas fa-arrow-right"></i>
+									</button>
+								</a>
+							</th:block>
+
+							<th:block th:if="${rooms.number < rooms.totalPages - 1}">
+								<a th:href="@{/rooms/index(p=${rooms.totalPages})}">
+									<button class="btn btn-primary">
+										Last <i class="fas fa-step-forward"></i>
+									</button>
+								</a>
+							</th:block>
 						</div>
 						<!--  <script src="/assetss/js/init.js"></script>-->
 					</div>

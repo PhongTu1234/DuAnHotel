@@ -62,22 +62,25 @@
 									<div class="form-group row">
 										<label for="cmt" class="form-label">CMT</label> <input
 											type="number" class="form-control" id="cmt" th:field="*{cmt}"
-											placeholder="Enter CMT" >
-										<td style= "color: red;" th:if="${#fields.hasErrors('cmt')}" th:errors="*{cmt}"></td>
-											
+											placeholder="Enter CMT">
+										<td style="color: red;" th:if="${#fields.hasErrors('cmt')}"
+											th:errors="*{cmt}"></td>
+
 									</div>
 									<div class="form-group row">
 										<label for="password" class="form-label">Password</label> <input
 											type="text" class="form-control" id="password"
 											th:field="*{password}" placeholder="Enter password">
-										<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
-											
+										<td th:if="${#fields.hasErrors('password')}"
+											th:errors="*{password}"></td>
+
 									</div>
 									<div class="form-group row">
 										<label for="username" class="form-label">Fullname</label> <input
 											type="text" class="form-control" id="username"
 											th:field="*{username}" placeholder="Enter fullname">
-										<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+										<td th:if="${#fields.hasErrors('username')}"
+											th:errors="*{username}"></td>
 									</div>
 									<div class="form-group row">
 										<label for="email" class="form-label">Email</label> <input
@@ -89,34 +92,44 @@
 										<label for="phoneNumber" class="form-label">phoneNumber</label>
 										<input type="number" class="form-control" id="phoneNumber"
 											th:field="*{phoneNumber}" placeholder="Enter phoneNumber">
-											<td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></td>
+										<td th:if="${#fields.hasErrors('phoneNumber')}"
+											th:errors="*{phoneNumber}"></td>
 									</div>
-									<!--  <div class="form-group row">
-												<label for="phoneNumber" class="form-label">Role</label> <input
-													type="text" class="form-control" id="phoneNumber"
-													th:field="*{phoneNumber}" placeholder="Enter email">
-											</div>
-											<div class="form-group row">
-												<label for="image" class="form-label">Photo</label>
-												<div class="custom-file">
-													<input type="file" class="custom-file-input" id="image"
-														onchange="angular.element(this).scope().imageChanged(this.files)">
-													<label class="custom-file-label">Choose file</label>
-												</div>
-											</div>-->
 
-									<!--  <div class="form-group row">
-										<label class="form-label">Role</label>
-										<div class="form-check form-check-inline"
-											th:each="role : ${roles}">
-											<input class="form-check-input" type="radio"
-												th:id="${'role_' + role.role_id}" th:name="roles"
-												th:value="${role.role_id}"
-												th:checked="${hasRole(users.cmt, role.role_id)}"> <label
-												class="form-check-label" th:for="${'role_' + role.id}"
-												th:text="${role.name}"></label>
+									<div class="form-group">
+										<label class="form-label" style="margin-left: -16px;">Trạng
+											thái tài khoản</label>
+										<div class="form-group row">
+											<div class="form-check col-3">
+												<input class="form-check-input" type="checkbox"
+													name="notChangedPass" id="notChangedPassCheckbox"
+													th:checked="${users.Changedpass} == true"> <label
+													class="form-check-label" for="notChangedPassCheckbox">Đã
+													kích hoạt</label>
+											</div>
+											<div class="form-check col-3">
+												<input class="form-check-input" type="checkbox"
+													name="notChangedPass" id="notChangedPassCheckbox"
+													th:checked="${users.Changedpass} == false"> <label
+													class="form-check-label" for="notChangedPassCheckbox">Chưa
+													kích hoạt</label>
+											</div>
 										</div>
-									</div>-->
+									</div>
+
+									<div class="form-group">
+										<label class="form-label" style="margin-left: -16px;">Role</label>
+										<div class="form-group row">
+											<div class="form-check col-3"
+												th:each="role : ${roles}">
+												<input class="form-check-input" type="checkbox" th:id="${role.id}"
+													th:name="selectedRoles" th:value="${role.id}"
+													th:checked="${users.authorities != null and #lists.contains(users.authorities.![role.id], role.id)}">
+												<label class="form-check-label" th:for="${role.id}"
+													th:text="${role.name}"> </label>
+											</div>
+										</div>
+									</div>
 
 									<div class="form-group row">
 										<button type="submit" class="btn btn-primary"
@@ -154,8 +167,8 @@
 								<i class="fas fa-redo"></i> Reset
 							</button>
 						</div>-->
-						
-						
+
+
 						<!--  <div class="card-header text-center">
 									<button ng-click="pager.first()" class="btn btn-danger">
 										<i class="fas fa-arrow-to-left"></i>
@@ -204,21 +217,21 @@
 
 	<script src="assets/js/main.js"></script>
 	<script th:inline="javascript">
-				/*<![CDATA[*/
-				function createForm() {
-					window.location.href = '/users/create';
-				}
-		
-				function deleteForm() {
-					var cmt = document.getElementById("cmt").value;
-					window.location.href = '/users/delete/' + cmt;
-				}
-		
-				function resetForm() {
-					window.location.href = '/users/form';
-				}
-				/*]]>*/
-			</script>
+		/*<![CDATA[*/
+		function createForm() {
+			window.location.href = '/users/create';
+		}
+
+		function deleteForm() {
+			var cmt = document.getElementById("cmt").value;
+			window.location.href = '/users/delete/' + cmt;
+		}
+
+		function resetForm() {
+			window.location.href = '/users/form';
+		}
+		/*]]>*/
+	</script>
 </body>
 
 </html>

@@ -59,17 +59,49 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 	@Query("SELECT p FROM Hotels p where p.name = ?1")
 	Hotels findByHotelName(String name);
 
-	@Query("SELECT DISTINCT h FROM Hotels h " +
-	           "JOIN h.Rooms r " +
-	           "JOIN r.Service_Room sr " +
-	           "WHERE (:serviceIds IS NULL OR sr.Services.id IN :serviceIds) " +
-	           "AND (:roomTypeIds IS NULL OR r.RoomTypes.id IN :roomTypeIds) " +
-	           "AND (:minPrice IS NULL OR r.price >= :minPrice) " +
-	           "AND (:maxPrice IS NULL OR r.price <= :maxPrice)")
-	    List<Hotels> findHotelsBySearchCriteria(
-	            @Param("serviceIds") List<Integer> serviceIds,
-	            @Param("roomTypeIds") List<Integer> roomTypeIds,
-	            @Param("minPrice") BigDecimal minPrice,
-	            @Param("maxPrice") BigDecimal maxPrice
-	    );
+	@Query(value =
+		    "SELECT DISTINCT h.* " +
+		    "FROM Hotels h " +
+		    "JOIN Rooms r ON h.hotel_id = r.hotel_id " +
+		    "JOIN service_rooms sr ON r.room_id = sr.room_id " +
+		    "JOIN Services s ON sr.service_id = s.service_id " +
+		    "JOIN RoomTypes rt ON r.room_type_id = rt.room_type_id " +
+		    "WHERE (?1 IS NULL OR s.service_id IN (?1)) " +
+		    "AND (?2 IS NULL OR rt.room_type_id IN (?2)) " +
+		    "AND (?3 IS NULL OR r.price >= ?3) " +
+		    "AND (?4 IS NULL OR r.price <= ?4)",
+		    countQuery = "SELECT COUNT(DISTINCT h.hotel_id) " +
+		                 "FROM Hotels h " +
+		                 "JOIN Rooms r ON h.hotel_id = r.hotel_id " +
+		                 "JOIN service_rooms sr ON r.room_id = sr.room_id " +
+		                 "JOIN Services s ON sr.service_id = s.service_id " +
+		                 "JOIN RoomTypes rt ON r.room_type_id = rt.room_type_id " +
+		                 "WHERE (?1 IS NULL OR s.service_id IN (?1)) " +
+		                 "AND (?2 IS NULL OR rt.room_type_id IN (?2)) " +
+		                 "AND (?3 IS NULL OR r.price >= ?3) " +
+		                 "AND (?4 IS NULL OR r.price <= ?4)", nativeQuery = true)
+		Page<Hotels> findHotelsBySearchCriteria(@Param("1") List<Integer> serviceIds,
+		                                       @Param("2") List<Integer> roomTypeIds,
+		                                       @Param("3") BigDecimal minPrice,
+		                                       @Param("4") BigDecimal maxPrice,
+		                                       Pageable pageable);
+
+
+
+
+//	@Query("SELECT DISTINCT h FROM Hotels h " +
+//            "JOIN h.rooms r " +
+//            "JOIN r.service_Room sr " +
+//            "WHERE " +
+//            "(:serviceIds IS NULL OR sr.services.id IN :serviceIds) AND " +
+//            "(:roomTypeIds IS NULL OR r.roomTypes.id IN :roomTypeIds) AND " +
+//            "(:minPrice IS NULL OR r.price >= :minPrice) AND " +
+//            "(:maxPrice IS NULL OR r.price <= :maxPrice)")
+//    Page<Hotels> findHotelsBySearchCriteria(
+//            @Param("serviceIds") List<Integer> serviceIds,
+//            @Param("roomTypeIds") List<Integer> roomTypeIds,
+//            @Param("minPrice") Double minPrice,
+//            @Param("maxPrice") Double maxPrice,
+//            Pageable page
+//    );
 }

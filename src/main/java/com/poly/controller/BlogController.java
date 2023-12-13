@@ -52,8 +52,8 @@ public class BlogController {
  	}
 
  	@GetMapping("/blogs/index")
-    public String showBlogsIndex(Model model, @RequestParam(name = "p", defaultValue = "0") Integer p) {
- 		Pageable page = PageRequest.of(p, 10);
+    public String showBlogsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+ 		Pageable page = PageRequest.of(p-1, 10);
 		Page<Blogs> blogs = blogsService.findAll(page);
 		model.addAttribute("blogs", blogs);
 		return "admin/Blog/index";

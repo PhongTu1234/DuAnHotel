@@ -13,9 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.poly.DAO.UserDAO;
+import com.poly.Service.AuthorityService;
+import com.poly.Service.RoleService;
 import com.poly.Service.UserService;
+import com.poly.entity.Authority;
+import com.poly.entity.Role;
 import com.poly.entity.Users;
 
 @Service
@@ -26,7 +31,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	PasswordEncoder pe;
+	
+	@Autowired
+	RoleService roleService;
 
+	@Autowired
+	AuthorityService userRoleDAO;
+	
 	@Override
 	public Users findById(String cmt) {
 		return adao.findById(cmt).get();
@@ -124,4 +135,31 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return adao.findByUserName(name);
 	}
+	
+	@Override
+    @Transactional
+    public void updateRoles(String cmt, List<String> selectedRoleIds) {
+        Users user = adao.findById(cmt).orElse(null);
+
+        if (user != null) {
+            // Clear existing roles
+            user.getAuthorities().clear();
+            
+            
+
+            // Get roles based on the selectedRoleIds
+            List<Role> selectedRoles = roleService.findRolesByIds(selectedRoleIds);
+
+            // Create UserRole entities for the selected roles
+            for (Role role : selectedRoles) {
+                Authority userRole = new Authority();
+                userRole.setUsers(user);
+                userRole.setRole(role);
+                user.getAuthorities().add(userRole);
+            }
+
+            // Save the updated user
+            adao.save(user);
+        }
+    }
 }

@@ -41,4 +41,6 @@ public interface UserDAO extends JpaRepository<Users, String> {
 	Users findByUserName(String name);
 	
 	Page<Users> findAll(Pageable page);
+	
+	
 }

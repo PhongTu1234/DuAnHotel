@@ -41,8 +41,12 @@ public class HomeController {
 
 	@RequestMapping({ "/", "/index" })
 	public String index(Model model) {
-		List<Rooms> rooms = rtservice.findByRoom1to8();
+		List<Rooms> rooms = rtservice.findTop8ByOrderByRatingDesc();
 		model.addAttribute("items", rooms);
+		
+		List<Rooms> roomBestseller = rtservice.findTop8RoomsByTotalBookingsAndPaymentStatus();
+		model.addAttribute("roomBestseller", roomBestseller);
+		
 		Places top1 = placeservice.findPlaceWithMostHotels();
 		model.addAttribute("top1", top1);
 		int top1_id = top1.getId();

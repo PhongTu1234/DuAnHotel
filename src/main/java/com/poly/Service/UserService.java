@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.poly.entity.Users;
 
@@ -40,5 +41,7 @@ public interface UserService {
 	Page<Users> findPage(Integer page, Integer number);
 	
 	Users findByUserName(String name);
+	
+	void updateRoles(String cmt, List<String> selectedRoleIds);
 
 }
