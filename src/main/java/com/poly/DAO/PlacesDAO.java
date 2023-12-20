@@ -40,4 +40,7 @@ public interface PlacesDAO extends JpaRepository<Places, Integer> {
 	Places findByPlaceName(String name);
 	
 	Page<Places> findAll(Pageable page);
+	
+	@Query("SELECT p FROM Places p")
+	List<Places> findShop();
 }

@@ -21,4 +21,6 @@ public interface BlogsService {
 	List<Blogs> findPageAdmin(Integer page, Integer number);
 	
 	Page<Blogs> findAll(Pageable page);
+	
+	List<Blogs> findShop();
 }

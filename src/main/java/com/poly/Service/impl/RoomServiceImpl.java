@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DAO.RoomDAO;
 import com.poly.Service.RoomService;
+import com.poly.entity.Hotels;
 import com.poly.entity.Rooms;
 
 @Service
@@ -74,6 +75,16 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public List<Rooms> findTop8RoomsByTotalBookingsAndPaymentStatus() {
 		return rdao.findTop8RoomsByTotalBookingsAndPaymentStatus();
+	}
+
+	@Override
+	public Page<Rooms> adfindByHotelId(Integer hid, Pageable page) {
+		return rdao.adfindByHotelId(hid, page);
+	}
+
+	@Override
+	public Page<Hotels> findHotelAndRoomType(Pageable page) {
+		return rdao.findHotelAndRoomType(page);
 	}
 
 }

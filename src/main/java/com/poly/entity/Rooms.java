@@ -38,9 +38,6 @@ public class Rooms implements Serializable {
     
     @Column(name = "price", precision = 10, scale = 2) 
     BigDecimal price;
-    
-//    @Column(name = "status", length = 50)
-//    String status;
 
     @Column(name = "soluongphong")
     Integer soluongphong;
@@ -54,7 +51,7 @@ public class Rooms implements Serializable {
     @Column(name = "soluongdangthue")
     Integer soluongdangthue;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description")
     String description;
     
     @Transient
@@ -83,4 +80,11 @@ public class Rooms implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "Rooms")
 	List<Booking_Room> Booking_Room;
+	
+	public Images_Room getFirstImage() {
+        if (Images_Room != null && !Images_Room.isEmpty()) {
+            return Images_Room.get(0);
+        }
+        return null;
+    }
 }

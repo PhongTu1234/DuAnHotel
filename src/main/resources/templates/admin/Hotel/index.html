@@ -8,8 +8,12 @@
 <title>Julie - Admin Dashboard</title>
 <link rel="shortcut icon" href="/assetss/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-.margin_right{
+.margin_right {
 	margin-right: 3px;
 }
 </style>
@@ -47,13 +51,12 @@
 						</div>
 						<nav>
 							<div class="nav nav-tabs">
-								 	<a th:href="@{/hotels/form}" class="nav-link"
-									type="button">EDITION</a> 
-									<a href="javascript:(0);"
-									class="nav-link active" data-toggle="tab" data-target="#list"
-									type="button" role="tab" aria-selected="true">LIST HOTEL</a>
-									<a th:href="@{/places/index}" class="nav-link"
-									type="button">LIST PLACE</a> 
+								<a th:href="@{/hotels/form}" class="nav-link" type="button">EDITION</a>
+								<a href="javascript:(0);" class="nav-link active"
+									data-toggle="tab" data-target="#list" type="button" role="tab"
+									aria-selected="true">LIST HOTEL</a> <a
+									th:href="@{/places/index}" class="nav-link" type="button">LIST
+									PLACE</a>
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
@@ -61,38 +64,104 @@
 								<table class="table table-collapse table-bordered">
 									<thead>
 										<tr>
-											<th>hotelId</th>
-											<th>hotelName</th>
-											<th>hotelAddress</th>
-											<th>hotelPhone</th>
-											<th>hotelEmail</th>
-											
-											<th>hotelLevel</th>
-											<th>hotelPlace</th>
+											<th>STT</th>
+											<th>Name</th>
+											<th>Address</th>
+											<th>Phone</th>
+											<th>Email</th>
+											<th>Level</th>
+											<th>Place</th>
+											<th>Edit</th>
+											<th>Delete</th>
+											<th>ListRoom</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="item:${hotels}">
 											<td class="align-center">[[(${item.id})]]</td>
 											<td class="align-center">[[(${item.name})]]</td>
-											<td class="align-center">[[(${item.address})]]</td>
+											<td class="align-center" style="width: 220px;">[[(${item.address})]]</td>
 											<td class="align-center">[[(${item.phone})]]</td>
 											<td class="align-center">[[(${item.email})]]</td>
-											
-											<td class="align-center">[[(${item.Level})]]</td>
-											<td class="align-center">[[(${item.Place.name})]]</td>
-											<td class="align-center">
-												<div class="btn-group btn-group-xs">
-													<button class="btn btn-icon">
-														<a th:href="@{|/hotels/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
-														</a>
-														
-													</button>
-													<button class="btn btn-danger">
-														<a th:href="@{/hotels/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
-														</a>
-													</button>
-												</div>
+											<td class="align-center" style="width: 170px;">
+											<div class="rating-box">
+												<ul th:if="${item.Level == 1}" style="list-style: none; padding: 0; display: flex; font-size: 20px;">
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+													</ul>
+													<ul th:if="${item.Level == 2}"  style="list-style: none; padding: 0; display: flex; font-size: 20px;">
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+													</ul>
+													<ul th:if="${item.Level == 3}" style="list-style: none; padding: 0; display: flex; font-size: 20px;">
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+													</ul>
+													<ul th:if="${item.Level == 4}" style="list-style: none; padding: 0; display: flex; font-size: 20px;">
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+													</ul>
+													<ul th:if="${item.Level == 5}" style="list-style: none; padding: 0; display: flex; font-size: 20px;">
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+														<li style="margin-right: 5px;"><i class="fa fa-star"></i></li>
+													</ul>
+													<ul th:if="${item.Level == 0}" style="list-style: none; padding: 0; display: flex; font-size: 20px;">
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+														<li style="margin-right: 5px;"><i class="fa-solid fa-star"
+															style="color: #e6e6e6;"></i></li>
+													</ul>
+													</div>
+											</td>
+											<td class="align-center" style="width: 80px;">[[(${item.Place.name})]]</td>
+											<td class="text-center">
+												<button class="btn btn-icon">
+													<a th:href="@{|/hotels/${item.id}|}"><i
+														class="fa fa-xs fa-pen"></i> </a>
+												</button>
+											</td>
+											<td class="text-center">
+												<button class="btn btn-danger">
+													<a th:href="@{/hotels/delete/{id}(id=${item.id})}"><i
+														class="fa fa-xs fa-times"></i> </a>
+												</button>
+											</td>
+											<td class="text-center">
+												<button class="btn btn-warning">
+													<a th:href="@{|/hotels/${item.id}/EditRoomDetails|}"><i
+														class="fa-solid fa-xs fa-list"></i> </a>
+												</button>
 											</td>
 										</tr>
 									</tbody>
@@ -113,8 +182,8 @@
 								<a th:href="@{/hotels/index(p=${hotels.number})}">
 									<button class="btn btn-primary">
 										<i class="fas fa-arrow-left"></i>
-									</button>
-									<span class="btn btn-success" th:text="${hotels.number}" style="padding: 6px 12px; font-size: 15px;"></span>
+									</button> <span class="btn btn-success" th:text="${hotels.number}"
+									style="padding: 6px 12px; font-size: 15px;"></span>
 								</a>
 							</th:block>
 							<th:block th:if="${hotels.number < hotels.totalPages - 1}">
@@ -125,12 +194,12 @@
 									<span th:text="${pageNumber + 1}"></span>
 								</a>
 							</th:block>
-							<th:block  th:if="${hotels.number + 1 == hotels.totalPages}">
-								<a>
-									<span class="btn btn-success active" th:text="${hotels.number + 1}"></span>
+							<th:block th:if="${hotels.number + 1 == hotels.totalPages}">
+								<a> <span class="btn btn-success active"
+									th:text="${hotels.number + 1}"></span>
 								</a>
 							</th:block>
-							
+
 							<th:block th:if="${hotels.number < hotels.totalPages - 1}">
 								<a th:href="@{/hotels/index(p=${hotels.number + 2})}">
 									<button class="btn btn-primary">
@@ -146,7 +215,7 @@
 									</button>
 								</a>
 							</th:block>
-						</div>s
+						</div>
 						<!--  <script src="/assetss/js/init.js"></script>-->
 					</div>
 				</div>
@@ -157,7 +226,7 @@
 			</div>
 		</div>
 	</div>
-        
+
 
 	<script src="/assetss/js/jquery.min.js"></script>
 	<script src="/assetss/js/popper.min.js"></script>

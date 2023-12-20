@@ -15,4 +15,7 @@ public interface BlogsDAO extends JpaRepository<Blogs, Integer> {
 	List<Blogs> findPageAdmin(Integer page, Integer number);
 	
 	Page<Blogs> findAll(Pageable page);
+	
+	@Query("SELECT b FROM Blogs b")
+	List<Blogs> findShop();
 }

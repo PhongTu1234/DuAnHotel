@@ -162,4 +162,10 @@ public class UserServiceImpl implements UserService {
             adao.save(user);
         }
     }
+
+	@Override
+	public List<Users> findShop() {
+		// TODO Auto-generated method stub
+		return adao.findShop();
+	}
 }

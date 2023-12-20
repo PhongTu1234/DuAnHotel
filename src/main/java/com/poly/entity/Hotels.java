@@ -25,7 +25,6 @@ public class Hotels implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	@Column(name = "hotel_id")
 	Integer id;
 
@@ -69,4 +68,11 @@ public class Hotels implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "Hotels")
 	List<Booking_Room> Booking_Room;
+	
+	public Images_Hotel getFirstImage() {
+        if (Images_Hotel != null && !Images_Hotel.isEmpty()) {
+            return Images_Hotel.get(0);
+        }
+        return null;
+    }
 }

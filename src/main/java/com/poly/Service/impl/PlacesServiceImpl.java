@@ -77,5 +77,11 @@ public class PlacesServiceImpl implements PlacesService {
 		return htdao.findByPlaceName(name);
 	}
 
+	@Override
+	public List<Places> findShop() {
+		// TODO Auto-generated method stub
+		return htdao.findShop();
+	}
+
 
 }

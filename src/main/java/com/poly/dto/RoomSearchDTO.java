@@ -7,9 +7,13 @@ import java.util.stream.Collectors;
 public class RoomSearchDTO {
 
 	private List<Integer> serviceIds;
-    private List<Integer> roomTypeIds;
+	private List<Integer> roomTypeIds;
     private BigDecimal minPrice;
     private BigDecimal maxPrice;
+	
+	public BigDecimal getMinPrice() {
+		return minPrice;
+	}
 	public List<Integer> getServiceIds() {
 		return serviceIds;
 	}
@@ -21,9 +25,6 @@ public class RoomSearchDTO {
 	}
 	public void setRoomTypeIds(List<Integer> roomTypeIds) {
 		this.roomTypeIds = roomTypeIds;
-	}
-	public BigDecimal getMinPrice() {
-		return minPrice;
 	}
 	public void setMinPrice(BigDecimal minPrice) {
 		this.minPrice = minPrice;

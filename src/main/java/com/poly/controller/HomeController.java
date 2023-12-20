@@ -10,13 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poly.Service.BlogsService;
 import com.poly.Service.HotelService;
 import com.poly.Service.PlacesService;
+import com.poly.Service.RoleService;
 import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
 import com.poly.Service.UserService;
+import com.poly.entity.Blogs;
 import com.poly.entity.Hotels;
 import com.poly.entity.Places;
+import com.poly.entity.Role;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Rooms;
 import com.poly.entity.Users;
@@ -38,6 +42,12 @@ public class HomeController {
 
 	@Autowired
 	PlacesService placeservice;
+	
+	@Autowired
+	RoleService roleService;
+	
+	@Autowired
+	BlogsService blogService;
 
 	@RequestMapping({ "/", "/index" })
 	public String index(Model model) {
@@ -86,6 +96,26 @@ public class HomeController {
 
 	@RequestMapping({ "/admin", "/admin/index" })
 	public String admin(Model model) {
+		List<Hotels> hotel = htservice.countHotel();
+		model.addAttribute("countHotel", hotel.size());
+		
+		List<RoomTypes> roomtype = rservice.findShop();
+		model.addAttribute("countRoomType", roomtype.size());
+		
+		List<Users> user = uservice.findShop();
+		model.addAttribute("countUser", user.size());
+		
+		List<Role> role = roleService.findShop();
+		model.addAttribute("countRole", role.size());
+		
+		List<Blogs> blog = blogService.findShop();
+		model.addAttribute("countBlog", blog.size());
+		
+		List<Places> place = placeservice.findShop();
+		model.addAttribute("countPlaces", place.size());
+		
+		
+		
 		return "admin/dashboard";
 	}
 	

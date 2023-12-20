@@ -44,4 +44,5 @@ public interface UserService {
 	
 	void updateRoles(String cmt, List<String> selectedRoleIds);
 
+	List<Users> findShop();
 }

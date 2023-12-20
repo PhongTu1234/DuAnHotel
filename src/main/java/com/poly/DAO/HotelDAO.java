@@ -33,6 +33,9 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 			+ "						order by hotels.hotel_id OFFSET ?2 ROWS FETCH NEXT 15 ROWS only", nativeQuery = true)
 	List<Hotels> findHotelByLevel(Integer level, Integer page);
 	
+	@Query(value = "SELECT * FROM Hotels LEFT JOIN Rooms r ON r.hotel_id = Hotels.hotel_id WHERE r.room_id = ?1", nativeQuery = true)
+	Hotels findHotelByRoomId(Integer id);
+	
 	@Query(value =  "SELECT DISTINCT h.* "
 			+ "FROM Hotels h "
 			+ "JOIN Rooms r ON h.hotel_id = r.hotel_id "
@@ -86,9 +89,6 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 		                                       @Param("4") BigDecimal maxPrice,
 		                                       Pageable pageable);
 
-
-
-
 //	@Query("SELECT DISTINCT h FROM Hotels h " +
 //            "JOIN h.rooms r " +
 //            "JOIN r.service_Room sr " +
@@ -104,4 +104,6 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 //            @Param("maxPrice") Double maxPrice,
 //            Pageable page
 //    );
+	
+	
 }

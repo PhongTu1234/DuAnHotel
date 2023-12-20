@@ -190,4 +190,9 @@ public class HotelServiceImpl implements HotelService {
         );
     }
 
+	@Override
+	public Hotels findHotelByRoomId(Integer id) {
+		return hdao.findHotelByRoomId(id);
+	}
+
 }

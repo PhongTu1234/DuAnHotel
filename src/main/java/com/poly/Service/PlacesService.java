@@ -32,4 +32,6 @@ public interface PlacesService {
 	Places findByPlaceName(String name);
 	
 	Page<Places> findAll(Pageable page);
+	
+	List<Places> findShop();
 }

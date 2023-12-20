@@ -21,6 +21,8 @@ public interface RoomService {
 	void delete(Integer id);
 
 	List<Rooms> findByHotelId(Integer hid);
+	
+	Page<Rooms> adfindByHotelId(Integer hid, Pageable page);
 
 	List<Rooms> findByRoom1to8();
 
@@ -33,5 +35,7 @@ public interface RoomService {
 	List<Rooms> findTop8ByOrderByRatingDesc();
 	
 	List<Rooms> findTop8RoomsByTotalBookingsAndPaymentStatus();
+	
+	Page<Hotels> findHotelAndRoomType(Pageable page);
 
 }

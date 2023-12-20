@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.poly.Service.HotelService;
 import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
+import com.poly.entity.Hotels;
 import com.poly.entity.Places;
 import com.poly.entity.Rooms;
 
@@ -139,10 +140,23 @@ public class RoomController {
     	
     	
     }
+    
+    @RequestMapping("/hotels/{id}/EditRoomDetails")
+	public String RoomDetail(Model model, @PathVariable("id") Integer id, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+		Pageable page = PageRequest.of(p-1, 10);
+		Page<Rooms> room = rservice.adfindByHotelId(id, page);
+		model.addAttribute("rooms", room);
+		return "admin/Rooms/index";
+	}
 
-    @GetMapping("/rooms/delete/{id}")
-    public ModelAndView deleteRooms(@PathVariable("id") Integer id) {
+    @GetMapping("/hotels/deleteRoom={id}")
+    public String deleteRooms(@PathVariable("id") Integer id) {
+    	Rooms room = rservice.findById(id);
+    	Hotels hotel = room.getHotels();
+    	//String redirectUrl = "/hotels/EditRoomDetails=" + hotel.getId();
     	rservice.delete(id);
-        return new ModelAndView("redirect:/rooms/index");
+    	return "redirect:/hotels/" + hotel.getId() + "/EditRoomDetails";
     }
+    
+
 }

@@ -8,6 +8,7 @@
 <title>Julie - Admin Dashboard</title>
 <link rel="shortcut icon" href="/assetss/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
+
 </head>
 
 <body class="fixed-left">
@@ -41,28 +42,28 @@
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
 								<a class="nav-link active" data-toggle="tab" type="button"
-									role="tab" aria-selected="false">EDITION</a>
-									<a th:href="@{/rooms/index}" class="nav-link" type="button">LIST ROOM</a>
-									<a th:href="@{/roomtypes/index}" class="nav-link" type="button">LIST ROOMTYPE</a> 
+									role="tab" aria-selected="false">EDITION</a> <a
+									th:href="@{/rooms/index}" class="nav-link" type="button">LIST
+									ROOM</a> <a th:href="@{/roomtypes/index}" class="nav-link"
+									type="button">LIST ROOMTYPE</a>
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
-							<div class="col-md-4 text-center">
-								<span ng-if="form.image == null"> <img
-									ng-src="{{'/assets/images/cloud-upload.jpg'}}"
-									style="width: 80%; margin-top: 5rem">
-								</span> <span ng-if="form.image != null"> <img
-									ng-src="{{'/assets/images/'+form.image}}"
-									style="width: 80%; margin-top: 5rem">
-								</span>
+							<div class="col-md-4 text-center row">
+								<div class="col-6">
+									<span th:each="img : ${rooms.Images_Room}"> <img
+										th:src="@{/static/assetss/img/${img.name}}"
+										style="margin: 5px;">
+									</span>
+								</div>
 							</div>
 							<div class="col-md-8">
 								<form th:action="@{/rooms/update}" method="post"
 									th:object="${rooms}" class="form p-3">
 									<div class="col-12" th:if="${message}">
-											<div class="alert alert-warning p-2">
-												<i class="text-danger" th:text="${message}"></i>
-											</div>
+										<div class="alert alert-warning p-2">
+											<i class="text-danger" th:text="${message}"></i>
+										</div>
 									</div>
 									<!--  <div class="form-group row">
 										<label for="id" class="form-label">roomId</label> <input
@@ -70,24 +71,26 @@
 											placeholder="Enter ID">
 									</div>-->
 									<div class="form-group row">
-										<label for="Hotels.name" class="form-label">HotelName</label> <input
-											type="text" class="form-control" id="Hotels.name"
-											th:field="*{Hotels.name}" placeholder="Enter HotelName" required>
+										<label for="Hotels.name" class="form-label">HotelName</label>
+										<input type="text" class="form-control" id="Hotels.name"
+											th:field="*{Hotels.name}" placeholder="Enter HotelName"
+											required>
 									</div>
 									<div class="form-group row">
-										<label for="RoomTypes.name" class="form-label">RoomtypeName</label> <input
-											type="text" class="form-control" id="RoomTypes.name"
-											th:field="*{RoomTypes.name}" placeholder="Enter RoomtypeName" required>
+										<label for="RoomTypes.name" class="form-label">RoomtypeName</label>
+										<input type="text" class="form-control" id="RoomTypes.name"
+											th:field="*{RoomTypes.name}" placeholder="Enter RoomtypeName"
+											required>
 									</div>
 									<div class="form-group row">
 										<label for="name" class="form-label">roomName</label> <input
-											type="text" class="form-control" id="name"
-											th:field="*{name}" placeholder="Enter roomName" required>
+											type="text" class="form-control" id="name" th:field="*{name}"
+											placeholder="Enter roomName" required>
 									</div>
 									<div class="form-group row">
 										<label for="rate" class="form-label">roomRating</label> <input
-											type="text" class="form-control" id="rate"
-											th:field="*{rate}" placeholder="Enter roomRating" required>
+											type="text" class="form-control" id="rate" th:field="*{rate}"
+											placeholder="Enter roomRating" required>
 									</div>
 									<div class="form-group row">
 										<label for="price" class="form-label">roomPrice</label> <input
@@ -95,29 +98,42 @@
 											th:field="*{price}" placeholder="Enter roomPrice" required>
 									</div>
 									<div class="form-group row">
-										<label for="soluongphong" class="form-label">SoLuongPhong</label> <input
-											type="number" class="form-control" id="soluongphong"
-											th:field="*{soluongphong}" placeholder="Enter SoLuongPhong" required>
+										<label for="soluongphong" class="form-label">SoLuongPhong</label>
+										<input type="number" class="form-control" id="soluongphong"
+											th:field="*{soluongphong}" placeholder="Enter SoLuongPhong"
+											required>
+										<div class="input-group">
+											<input type="number" class="form-control" id="soluongphong"
+											th:field="*{soluongphong}" placeholder="Enter SoLuongPhong"
+											required>
+											<div class="input-group-append">
+												<button class="btn btn-outline-secondary" type="button">Trạng Thái Phòng</button>
+											</div>
+										</div>
 									</div>
 									<div class="form-group row">
-										<label for="soluongcheckin" class="form-label">SoLuongChoCheckin</label> <input
-											type="number" class="form-control" id="soluongcheckin"
-											th:field="*{soluongcheckin}" placeholder="SoLuongChoCheckin" required>
+										<label for="soluongcheckin" class="form-label">SoLuongChoCheckin</label>
+										<input type="number" class="form-control" id="soluongcheckin"
+											th:field="*{soluongcheckin}" placeholder="SoLuongChoCheckin"
+											required>
 									</div>
 									<div class="form-group row">
-										<label for="soluongtrong" class="form-label">SoLuongTrong</label> <input
-											type="number" class="form-control" id="soluongtrong"
-											th:field="*{soluongtrong}" placeholder="Enter SoLuongTrong" required>
+										<label for="soluongtrong" class="form-label">SoLuongTrong</label>
+										<input type="number" class="form-control" id="soluongtrong"
+											th:field="*{soluongtrong}" placeholder="Enter SoLuongTrong"
+											required>
 									</div>
 									<div class="form-group row">
-										<label for="soluongdangthue" class="form-label">SoLuongDangThue</label> <input
-											type="number" class="form-control" id="soluongdangthue"
-											th:field="*{soluongdangthue}" placeholder="Enter SoLuongDangThue" required>
+										<label for="soluongdangthue" class="form-label">SoLuongDangThue</label>
+										<input type="number" class="form-control" id="soluongdangthue"
+											th:field="*{soluongdangthue}"
+											placeholder="Enter SoLuongDangThue" required>
 									</div>
 									<div class="form-group row">
-										<label for="description" class="form-label">description</label> <input
-											type="text" class="form-control" id="description"
-											th:field="*{description}" placeholder="Enter description" required>
+										<label for="description" class="form-label">description</label>
+										<input type="text" class="form-control" id="description"
+											th:field="*{description}" placeholder="Enter description"
+											required>
 									</div>
 
 									<div class="form-group row">

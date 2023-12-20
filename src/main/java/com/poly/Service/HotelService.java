@@ -73,4 +73,6 @@ public interface HotelService {
 	Page<Hotels> findAll(Pageable page);
 
 	Page<Hotels> searchHotels(RoomSearchDTO searchDTO, Pageable page);
+	
+	Hotels findHotelByRoomId(Integer id);
 }

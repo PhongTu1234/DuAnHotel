@@ -50,8 +50,8 @@
 															<i class="fas fa-tasks text-gradient-success"></i>
 														</div>
 														<div class="col-10 text-right">
-															<h5 class="mt-0 mb-1" th:text="${items}">${b}</h5>
-															<p class="mb-0 font-12 text-muted">Products</p>
+															<h5 class="mt-0 mb-1" th:text="${countHotel}"></h5>
+															<p class="mb-0 font-12 text-muted">Hotels</p>
 														</div>
 													</div>
 												</div>
@@ -67,8 +67,8 @@
 															<i class="fas fa-tasks text-gradient-success"></i>
 														</div>
 														<div class="col-10 text-right">
-															<h5 class="mt-0 mb-1">4</h5>
-															<p class="mb-0 font-12 text-muted">Student</p>
+															<h5 class="mt-0 mb-1" th:text="${countRoomType}"></h5>
+															<p class="mb-0 font-12 text-muted">Room Type</p>
 														</div>
 													</div>
 												</div>
@@ -84,8 +84,8 @@
 															<i class="far fa-gem text-gradient-danger"></i>
 														</div>
 														<div class="col-10 text-right">
-															<h5 class="mt-0 mb-1">62</h5>
-															<p class="mb-0 font-12 text-muted">Categories</p>
+															<h5 class="mt-0 mb-1" th:text="${countUser}"></h5>
+															<p class="mb-0 font-12 text-muted">Account</p>
 														</div>
 													</div>
 												</div>
@@ -101,8 +101,42 @@
 															<i class="fas fa-users text-gradient-warning"></i>
 														</div>
 														<div class="col-10 text-right">
-															<h5 class="mt-0 mb-1">14</h5>
-															<p class="mb-0 font-12 text-muted">Account</p>
+															<h5 class="mt-0 mb-1" th:text="${countRole}"></h5>
+															<p class="mb-0 font-12 text-muted">Roles</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="card">
+											<div class="card-body">
+												<div class="icon-contain">
+													<div class="row">
+														<div class="col-2 align-self-center">
+															<i class="fas fa-users text-gradient-warning"></i>
+														</div>
+														<div class="col-10 text-right">
+															<h5 class="mt-0 mb-1" th:text="${countBlog}"></h5>
+															<p class="mb-0 font-12 text-muted">Blogs</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="card">
+											<div class="card-body">
+												<div class="icon-contain">
+													<div class="row">
+														<div class="col-2 align-self-center">
+															<i class="fas fa-users text-gradient-warning"></i>
+														</div>
+														<div class="col-10 text-right">
+															<h5 class="mt-0 mb-1" th:text="${countPlace}"></h5>
+															<p class="mb-0 font-12 text-muted">Places</p>
 														</div>
 													</div>
 												</div>

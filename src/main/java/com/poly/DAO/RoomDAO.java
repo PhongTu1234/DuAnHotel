@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.poly.entity.Hotels;
 import com.poly.entity.Rooms;
 import com.poly.entity.Services;
 
@@ -21,6 +22,9 @@ public interface RoomDAO extends JpaRepository<Rooms, Integer> {
 
 	@Query("SELECT p FROM Rooms p WHERE p.Hotels.id=?1")
 	List<Rooms> findByHotelId(Integer hid);
+	
+	@Query("SELECT p FROM Rooms p WHERE p.Hotels.id=?1")
+	Page<Rooms> adfindByHotelId(Integer hid, Pageable page);
 
 	@Query("SELECT p FROM Rooms p WHERE p.id between 1513 and 1520")
 	List<Rooms> findByRoom1to8();
@@ -39,5 +43,10 @@ public interface RoomDAO extends JpaRepository<Rooms, Integer> {
             "ORDER BY COUNT(b.bookingroom_id) DESC", nativeQuery = true)
     List<Rooms> findTop8RoomsByTotalBookingsAndPaymentStatus();
 	
+	@Query("SELECT h FROM Hotels h "
+//			+ " LEFT JOIN Rooms r ON r.hotel_id = h.hotel_id"
+//			+ " LEFT JOIN RoomTypes rt ON r.room_type_id = rt.room_type_id",
+	)
+	Page<Hotels> findHotelAndRoomType(Pageable page);  
 	
 }

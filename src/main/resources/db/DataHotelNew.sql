@@ -52,7 +52,7 @@ go
 
 -- Bảng Phòng
 CREATE TABLE Rooms (
-    room_id INT,                -- ID duy nhất cho phòng
+    room_id INT IDENTITY(1,1) PRIMARY KEY,                -- ID duy nhất cho phòng
     hotel_id INT NOT NULL,                  -- Khóa ngoại liên kết với bảng Khách sạn
     room_type_id INT,                       -- Khóa ngoại liên kết với bảng Loại Phòng
     roomname VARCHAR(50),					-- Số phòng
@@ -63,13 +63,13 @@ CREATE TABLE Rooms (
 	soluongtrong int,
 	soluongdangthue int,
     --status nvarchar(50),                    -- Trạng thái phòng (đã đặt, trống)
-    description TEXT,                       -- Mô tả về phòng
+    description VARCHAR(MAX),                       -- Mô tả về phòng
     FOREIGN KEY (room_type_id) REFERENCES RoomTypes(room_type_id) ON DELETE CASCADE,
 	FOREIGN KEY (hotel_id) REFERENCES Hotels(hotel_id) ON DELETE CASCADE,
 );
 go
 CREATE TABLE img_room(
-	img_room_id INT,
+	img_room_id INT IDENTITY(1,1) PRIMARY KEY,
 	img_name varchar(50),
 	room_id int,
 	FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE CASCADE

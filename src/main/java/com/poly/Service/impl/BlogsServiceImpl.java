@@ -49,4 +49,10 @@ public class BlogsServiceImpl implements BlogsService {
 		return htdao.findPageAdmin(page, number);
 	}
 
+	@Override
+	public List<Blogs> findShop() {
+		// TODO Auto-generated method stub
+		return htdao.findShop();
+	}
+
 }

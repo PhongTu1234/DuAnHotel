@@ -8,8 +8,11 @@
 <title>Julie - Admin Dashboard</title>
 <link rel="shortcut icon" href="/assetss/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="/assetss/css/style.css">
+<link rel="stylesheet"
+	th:href="@{/webjars/sweetalert2/11.0.18/sweetalert2.css}" />
+
 <style>
-.margin_right{
+.margin_right {
 	margin-right: 3px;
 }
 </style>
@@ -46,13 +49,12 @@
 						</div>
 						<nav>
 							<div class="nav nav-tabs">
-								 	<a th:href="@{/rooms/form}" class="nav-link"
-									type="button">EDITION</a> 
-									<a href="javascript:(0);"
-									class="nav-link active" data-toggle="tab" data-target="#list"
-									type="button" role="tab" aria-selected="true">LIST ROOM</a>
-									<a th:href="@{/roomtypes/index}" class="nav-link"
-									type="button">LIST ROOMTYPE</a>
+								<a th:href="@{/rooms/form}" class="nav-link" type="button">EDITION</a>
+								<a href="javascript:(0);" class="nav-link active"
+									data-toggle="tab" data-target="#list" type="button" role="tab"
+									aria-selected="true">LIST ROOM</a> <a
+									th:href="@{/roomtypes/index}" class="nav-link" type="button">LIST
+									ROOMTYPE</a>
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
@@ -60,45 +62,76 @@
 								<table class="table table-collapse table-bordered">
 									<thead>
 										<tr>
-											<th>roomId</th>
-											<th>HotelID</th>
-											<th>RoomtypeID</th>
-											<th>roomName</th>
-											<th>roomRating</th>
-											<th>roomPrice</th>
-											<th>SoLuongPhong</th>
-											<th>SoLuongChoCheckin</th>
-											<th>SoLuongTrong</th>
-											<th>SoLuongDangThue</th>
+											<th>STT</th>
+											<!-- 											<th>HotelID</th> -->
+											<th>Roomtype</th>
+											<th>Name</th>
+											<th>Rate</th>
+											<th>Price</th>
+											<th>Số Lượng</th>
+											<!-- 											<th>SoLuongChoCheckin</th> -->
+											<!-- 											<th>SoLuongTrong</th> -->
+											<!-- 											<th>SoLuongDangThue</th> -->
 											<th>description</th>
+											<th>Edit</th>
+											<th>Delete</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="item:${rooms}">
-											<td class="align-center">[[(${item.id})]]</td>
-											<td class="align-center">[[(${item.Hotels.name})]]</td>
+											<td class="text-center">[[(${item.id})]]</td>
+											<!-- 											<td class="align-center">[[(${item.Hotels.name})]]</td> -->
 											<td class="align-center">[[(${item.RoomTypes.name})]]</td>
 											<td class="align-center">[[(${item.name})]]</td>
 											<td class="align-center">[[(${item.rate})]]</td>
 											<td class="align-center">[[(${item.price})]]</td>
-											<td class="align-center">[[(${item.soluongphong})]]</td>
-											<td class="align-center">[[(${item.soluongcheckin})]]</td>
-											<td class="align-center">[[(${item.soluongtrong})]]</td>
-											<td class="align-center">[[(${item.soluongdangthue})]]</td>
+											<td class="text-center">[[(${item.soluongphong})]]</td>
+											<!-- 											<td class="align-center">[[(${item.soluongcheckin})]]</td> -->
+											<!-- 											<td class="align-center">[[(${item.soluongtrong})]]</td> -->
+											<!-- 											<td class="align-center">[[(${item.soluongdangthue})]]</td> -->
 											<td class="align-center">[[(${item.description})]]</td>
 											<td class="align-center">
 												<div class="btn-group btn-group-xs">
 													<button class="btn btn-icon">
-														<a th:href="@{|/rooms/${item.id}|}"><i class="fa fa-xs fa-pen"></i>
-														</a>
-														
+														<a th:href="@{|/rooms/${item.id}|}"><i
+															class="fa fa-xs fa-pen"></i> </a>
+
 													</button>
-													<button class="btn btn-danger">
-														<a th:href="@{/rooms/delete/{id}(id=${item.id})}"><i class="fa fa-xs fa-times"></i>
-														</a>
-													</button>
+
 												</div>
 											</td>
+											<td class="text-center">
+												<button class="btn btn-danger">
+													<a
+														th:onclick="'javascript:openConfirmationModal(' + ${item.id} + ')'"><i
+														class="fa fa-xs fa-times"></i></a>
+												</button>
+											</td>
+											<div class="modal fade" id="confirmationModal" tabindex="-1"
+												role="dialog" aria-labelledby="confirmationModalLabel"
+												aria-hidden="true">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="confirmationModalLabel">Confirm
+																Delete</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<p>Are you sure you want to delete this room?</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Cancel</button>
+															<a th:href="@{'/hotels/deleteRoom=' + ${item.id}}"
+																class="btn btn-danger">Delete</a>
+														</div>
+													</div>
+												</div>
+											</div>
 										</tr>
 									</tbody>
 								</table>
@@ -118,8 +151,8 @@
 								<a th:href="@{/rooms/index(p=${rooms.number})}">
 									<button class="btn btn-primary">
 										<i class="fas fa-arrow-left"></i>
-									</button>
-									<span class="btn btn-success" th:text="${rooms.number}" style="padding: 6px 12px; font-size: 15px;"></span>
+									</button> <span class="btn btn-success" th:text="${rooms.number}"
+									style="padding: 6px 12px; font-size: 15px;"></span>
 								</a>
 							</th:block>
 							<th:block th:if="${rooms.number < rooms.totalPages - 1}">
@@ -130,12 +163,12 @@
 									<span th:text="${pageNumber + 1}"></span>
 								</a>
 							</th:block>
-							<th:block  th:if="${rooms.number + 1 == rooms.totalPages}">
-								<a>
-									<span class="btn btn-success active" th:text="${rooms.number + 1}"></span>
+							<th:block th:if="${rooms.number + 1 == rooms.totalPages}">
+								<a> <span class="btn btn-success active"
+									th:text="${rooms.number + 1}"></span>
 								</a>
 							</th:block>
-							
+
 							<th:block th:if="${rooms.number < rooms.totalPages - 1}">
 								<a th:href="@{/rooms/index(p=${rooms.number + 2})}">
 									<button class="btn btn-primary">
@@ -162,7 +195,7 @@
 			</div>
 		</div>
 	</div>
-        
+
 
 	<script src="/assetss/js/jquery.min.js"></script>
 	<script src="/assetss/js/popper.min.js"></script>
@@ -184,6 +217,13 @@
 	<script src="/assetss/js/angular-route.min.js"></script>
 
 	<script src="assets/js/main.js"></script>
+
+	<script th:inline="javascript">
+		function openConfirmationModal(roomId) {
+			// Mở modal
+			$('#confirmationModal').modal('show');
+		}
+	</script>
 </body>
 
 </html>
