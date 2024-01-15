@@ -22,14 +22,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.poly.Service.AuthorityService;
+import com.poly.Service.BookingsService;
 import com.poly.Service.RoleService;
+import com.poly.Service.SlugService;
 import com.poly.Service.UserService;
 import com.poly.entity.Authority;
+import com.poly.entity.Bookings;
 import com.poly.entity.Hotels;
 import com.poly.entity.Role;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Services;
 import com.poly.entity.Users;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 public class UsersController {
@@ -41,24 +47,44 @@ public class UsersController {
 	
 	@Autowired
 	AuthorityService authorityService;
+	
+	@Autowired
+	BookingsService bookingsService;
+	
+	@Autowired
+	private SlugService slugService;
+	
+	@RequestMapping("/auth/myaccount")
+	public String MyAccount(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Users user = userService.findById(username);
+        model.addAttribute("user", user);
+        
+        List<Bookings> bookings =  bookingsService.findByStatusIsTrue(username);
+        model.addAttribute("bookings", bookings);
+		return "auth/my-account";
+	}
 
-	@GetMapping("users/form")
+	@GetMapping("/quan-ly-nguoi-dung/them-moi")
     public String userForm(Model model) {
         model.addAttribute("users", new Users());
         model.addAttribute("roles", roleService.findShop());
         return "admin/Users/form";
     }
 
-	@GetMapping("/users/index")
+	@GetMapping("/quan-ly-nguoi-dung/danh-sach")
 	public String showUsersIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
 		Pageable page = PageRequest.of(p-1, 10);
 		Page<Users> user = userService.findAll(page);
 		model.addAttribute("users", user);
 
+		model.addAttribute("slugService", slugService);
+		
 		return "admin/Users/index";
 	}
 
-    @GetMapping("users/{cmt}")
+    @GetMapping("/quan-ly-nguoi-dung/{slug}/{cmt}")
     public String viewUser(@PathVariable("cmt") String cmt, Model model) {
         Users user = userService.findById(cmt);
         model.addAttribute("users", user);

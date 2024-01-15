@@ -20,7 +20,6 @@ public class BookingsServiceImpl implements BookingsService {
 
 	@Override
 	public Page<Bookings> findAll(Pageable page) {
-		// TODO Auto-generated method stub
 		return htdao.findAll(page);
 	}
 
@@ -47,21 +46,36 @@ public class BookingsServiceImpl implements BookingsService {
 
 	@Override
 	public List<Bookings> findPageAdmin(Integer page, Integer number) {
-		// TODO Auto-generated method stub
 		return htdao.findPageAdmin(page, number);
 	}
 
 	@Override
 	public Page<Bookings> findAlla(Pageable page) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
 	public Bookings findByBookingID(Integer id) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public List<Bookings> findByStatusIsTrue(String cmt) {
+		return htdao.findByStatusIsTrue(cmt);
+	}
+
+
+	@Override
+	public Bookings findByIds(Integer id) {
+		return htdao.findByIds(id);
+	}
+
+
+	@Override
+	public Bookings checkStatus(String cmt) {
+		return htdao.checkStatus(cmt);
 	}
 
 }

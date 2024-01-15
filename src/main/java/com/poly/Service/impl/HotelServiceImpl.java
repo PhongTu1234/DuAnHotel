@@ -195,4 +195,10 @@ public class HotelServiceImpl implements HotelService {
 		return hdao.findHotelByRoomId(id);
 	}
 
+	@Override
+	public Page<Hotels> adfindByPlaceId(Integer hid, Pageable page) {
+		// TODO Auto-generated method stub
+		return hdao.adfindByPlaceId(hid, page);
+	}
+
 }

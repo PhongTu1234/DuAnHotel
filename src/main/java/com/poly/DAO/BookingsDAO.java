@@ -16,5 +16,14 @@ public interface BookingsDAO extends JpaRepository<Bookings, Integer> {
 	List<Bookings> findPageAdmin(Integer page, Integer number);
 	
 	Page<Bookings> findAll(Pageable page);
+	
+	@Query("SELECT b FROM Bookings b WHERE b.Users.cmt = ?1")
+    List<Bookings> findByStatusIsTrue(String cmt);
+	
+	@Query("SELECT b FROM Bookings b WHERE b.id = ?1")
+	Bookings findByIds(Integer id);
+	
+	@Query("SELECT b FROM Bookings b WHERE b.Status = false and b.Users.cmt = ?1")
+	Bookings checkStatus(String cmt);
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import com.poly.dto.RoomSearchDTO;
 import com.poly.entity.Hotels;
@@ -75,4 +76,6 @@ public interface HotelService {
 	Page<Hotels> searchHotels(RoomSearchDTO searchDTO, Pageable page);
 	
 	Hotels findHotelByRoomId(Integer id);
+	
+ 	Page<Hotels> adfindByPlaceId(Integer hid, Pageable page);
 }

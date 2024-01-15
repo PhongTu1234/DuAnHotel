@@ -24,4 +24,10 @@ public interface BookingsService {
 	Page<Bookings> findAlla(Pageable page);
 
 	Bookings findByBookingID(Integer id);
+	
+	List<Bookings> findByStatusIsTrue(String cmt);
+	
+	Bookings findByIds(Integer id);
+	
+	Bookings checkStatus(String cmt);
 }

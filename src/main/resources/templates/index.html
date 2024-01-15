@@ -152,7 +152,7 @@
 															data-tippy-arrow="true" data-tippy-theme="sharpborder">
 																<i class="pe-7s-look"></i>
 														</a></li>
-														<li><a href="cart.html" data-tippy="Add to cart"
+														<li><a th:href="@{'/BookingRoom/' + ${item.id}}" data-tippy="Add to cart"
 															data-tippy-inertia="true"
 															data-tippy-animation="shift-away" data-tippy-delay="50"
 															data-tippy-arrow="true" data-tippy-theme="sharpborder">
@@ -747,7 +747,7 @@
 								<div class="swiper-slide product-item" th:each="HotelLevel5:${HotelLevel5}">
 									<div class="product-img">
 										<a href="shop.html"> 
-											<img class="primary-img" th:src="@{/assetss/img/Hotel{id}_2.png(id=${HotelLevel5.id})}" alt="Product Images" style="height: 200px" >
+											<img class="primary-img" th:src="@{'/assetss/img/' + ${HotelLevel5.getFirstImage().name}}" alt="Product Images" style="height: 200px" >
 											<!--  <img class="secondary-img" src="assets/images/product/medium-size/1-10-270x300.jpg" alt="Product Images">-->
 										</a>
 										<div class="product-add-action">

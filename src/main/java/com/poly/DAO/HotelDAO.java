@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.poly.entity.Booking_Room;
 import com.poly.entity.Hotels;
 
 public interface HotelDAO extends JpaRepository<Hotels, Integer> {
@@ -105,5 +106,6 @@ public interface HotelDAO extends JpaRepository<Hotels, Integer> {
 //            Pageable page
 //    );
 	
-	
+	 @Query("SELECT p FROM Hotels p WHERE p.Place.id=?1")
+	 	Page<Hotels> adfindByPlaceId(Integer hid, Pageable page);
 }

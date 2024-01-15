@@ -40,7 +40,7 @@
                                     <a class="nav-link" id="account-details-tab" data-bs-toggle="tab" href="#account-details" role="tab" aria-controls="account-details" aria-selected="false">Account Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="account-logout-tab" th:href="@{/auth/login_register}" role="tab" aria-selected="false">Logout</a>
+                                    <a class="nav-link" id="account-logout-tab" th:href="@{/auth/logout}" role="tab" aria-selected="false">Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -51,7 +51,7 @@
                                         <p>Hello <b>Plant</b> (not Plant? <a th:href="@{/auth/login_register}">Sign
                                                 out</a>)</p>
                                         <p>From your account dashboard you can view your recent orders, manage your shipping and
-                                            billing addresses and <a th:href="@{/auth/myaccount}">edit yo ur password and account details</a>.</p>
+                                            billing addresses and <a th:href="@{/auth/myaccount}">edit your password and account details</a>.</p>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
@@ -67,25 +67,17 @@
                                                         <th>TOTAL</th>
                                                         <th></th>
                                                     </tr>
-                                                    <tr>
-                                                        <td><a class="account-order-id" th:href="@{/hotel/room/order/cart}">#5364</a></td>
-                                                        <td>Mar 27, 2019</td>
-                                                        <td>On Hold</td>
-                                                        <td>$162.00 for 2 items</td>
-                                                        <td><a th:href="@{/hotel/room/order/cart}" class="btn btn-dark"><span>View</span></a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="account-order-id" th:href="@{/hotel/room/order/cart}">#5356</a></td>
-                                                        <td>Mar 27, 2019</td>
-                                                        <td>On Hold</td>
-                                                        <td>$162.00 for 2 items</td>
-                                                        <td><a th:href="@{/hotel/room/order/cart}" class="btn btn-dark"><span>View</span></a>
-                                                        </td>
+                                                    <tr th:each="bookings : ${bookings}">
+                                                        <td><a class="account-order-id" th:href="@{'/hotel/room/order/cart/' + ${bookings.id}}" th:text="'#' + ${bookings.id}"></a></td>
+                                                        <td th:text="${bookings.BookingDate}"></td>
+                                                        <td th:if="${bookings.Status == true}">Hoàn Tất</td>
+                                                        <td th:if="${bookings.Status == false}">Chưa Hoàn Tất</td>
+                                                        <td>[[(${bookings.calculateTotalCost()})]]</td>
+                                                        <td><a th:href="@{'/hotel/room/order/cart/' + ${bookings.id}}" class="btn btn-dark"><span>View</span></a></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">

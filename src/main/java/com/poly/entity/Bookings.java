@@ -1,6 +1,7 @@
 package com.poly.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
@@ -69,4 +70,21 @@ public class Bookings implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "Bookings")
 	List<Booking_Room> Booking_Room;
+	
+	@Transient
+    public BigDecimal calculateTotalCost() {
+        BigDecimal totalCost = BigDecimal.ZERO;
+
+        if (Booking_Room != null) {
+            for (Booking_Room bookingRoom : Booking_Room) {
+                if (bookingRoom.getRooms() != null) {
+                    BigDecimal roomCost = bookingRoom.getRooms().getPrice()
+                            .multiply(BigDecimal.valueOf(bookingRoom.getCount()));
+                    totalCost = totalCost.add(roomCost);
+                }
+            }
+        }
+
+        return totalCost;
+    }
 }

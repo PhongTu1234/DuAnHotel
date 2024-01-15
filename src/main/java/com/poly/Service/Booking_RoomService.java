@@ -23,4 +23,7 @@ public interface Booking_RoomService {
 
 	List<Booking_Room> getBookingDetailsForUser(String user);
 	
+	Page<Booking_Room> adfindByHotelId(Integer hid, Pageable page);
+	
+	List<Booking_Room> findByIds(Integer id);
 }

@@ -51,7 +51,7 @@
 						</div>
 						<nav>
 							<div class="nav nav-tabs">
-								<a th:href="@{/hotels/form}" class="nav-link" type="button">EDITION</a>
+								<a th:href="@{/quan-ly-khach-san/them-moi}" class="nav-link" type="button">EDITION</a>
 								<a href="javascript:(0);" class="nav-link active"
 									data-toggle="tab" data-target="#list" type="button" role="tab"
 									aria-selected="true">LIST HOTEL</a> <a
@@ -147,19 +147,53 @@
 											<td class="align-center" style="width: 80px;">[[(${item.Place.name})]]</td>
 											<td class="text-center">
 												<button class="btn btn-icon">
-													<a th:href="@{|/hotels/${item.id}|}"><i
+													<a th:href="@{|'/quan-ly-khach-san/' + ${slugService.convertToSlug(item.name)} + '/' + ${item.id}|}"><i
 														class="fa fa-xs fa-pen"></i> </a>
 												</button>
 											</td>
-											<td class="text-center">
+											<!--  <td class="text-center">
 												<button class="btn btn-danger">
 													<a th:href="@{/hotels/delete/{id}(id=${item.id})}"><i
 														class="fa fa-xs fa-times"></i> </a>
 												</button>
+											</td>-->
+											
+											<td class="text-center">
+												<a th:onclick="'javascript:openConfirmationModal(' + ${item.id} + ')'">
+													<button class="btn btn-danger">
+														<i class="fa fa-xs fa-times"></i>
+													</button>
+												</a>
 											</td>
+											<div class="modal fade" id="confirmationModal" tabindex="-1"
+												role="dialog" aria-labelledby="confirmationModalLabel"
+												aria-hidden="true">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="confirmationModalLabel">Confirm
+																Delete</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<p>Are you sure you want to delete this hotel?</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Cancel</button>
+															<a th:href="@{'/hotels/delete/' + ${item.id}}"
+																class="btn btn-danger">Delete</a>
+														</div>item
+													</div>
+												</div>
+											</div>
+											
 											<td class="text-center">
 												<button class="btn btn-warning">
-													<a th:href="@{|/hotels/${item.id}/EditRoomDetails|}"><i
+													<a th:href="@{'/' + ${slugService.convertToSlug(item.name)} + '/quan-ly-phong/' + ${item.id} + '/danh-sach'}"><i
 														class="fa-solid fa-xs fa-list"></i> </a>
 												</button>
 											</td>
@@ -248,6 +282,13 @@
 	<script src="/assetss/js/angular-route.min.js"></script>
 
 	<script src="assets/js/main.js"></script>
+	
+	<script th:inline="javascript">
+		function openConfirmationModal(hotelId) {
+			// Mở modal
+			$('#confirmationModal').modal('show');
+		}
+	</script>
 </body>
 
 </html>

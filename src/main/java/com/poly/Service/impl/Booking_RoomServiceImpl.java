@@ -11,6 +11,7 @@ import com.poly.DAO.Booking_RoomDAO;
 import com.poly.Service.Booking_RoomService;
 import com.poly.entity.Blogs;
 import com.poly.entity.Booking_Room;
+import com.poly.entity.Bookings;
 
 @Service
 public class Booking_RoomServiceImpl implements Booking_RoomService {
@@ -56,5 +57,16 @@ public class Booking_RoomServiceImpl implements Booking_RoomService {
 		return htdao.getBookingDetailsForUser(user);
 	}
 
+
+	@Override
+	public Page<Booking_Room> adfindByHotelId(Integer hid, Pageable page) {
+		// TODO Auto-generated method stub
+		return htdao.adfindByHotelId(hid, page);
+	}
+
+	@Override
+	public List<Booking_Room> findByIds(Integer id) {
+		return htdao.findByIds(id);
+	}
 
 }

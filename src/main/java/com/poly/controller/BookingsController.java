@@ -27,7 +27,9 @@ import java.time.LocalDate;
 
 import com.poly.Service.BookingsService;
 import com.poly.Service.PaymentService;
+import com.poly.Service.SlugService;
 import com.poly.Service.UserService;
+import com.poly.entity.Booking_Room;
 import com.poly.entity.Bookings;
 import com.poly.entity.Payment;
 import com.poly.entity.Users;
@@ -52,15 +54,34 @@ public class BookingsController {
 	@Autowired
 	PaymentService paymentService;
 	
-	@RequestMapping("/hotel/room/order/cart")
-	public String cart() {
+	@Autowired
+	BookingsService bookingsService;
+	
+	@Autowired
+	private SlugService slugService;
+	
+	@RequestMapping("/hotel/room/order/cart/{id}")
+	public String cart(Model model, @PathVariable("id") Integer id) {
+		List<Booking_Room> bookings = brService.findByIds(id);
+		model.addAttribute("orders", bookings);
+		
+		model.addAttribute("slugService", slugService);
+		
+		Bookings booking =  bookingsService.findByIds(id);
+        model.addAttribute("bookings", booking);
 		return "/order/cart";
 	}
 	
-//	@RequestMapping("/hotel/room/order/cart/checkout")
-//	public String checkout() {
-//		return "/order/checkout";
-//	}
+	@RequestMapping("/hotel/room/order/cart/{id}/delete")
+	public String deleteBookingRoom(Model model, @PathVariable("id") Integer id) {
+		Booking_Room booking = brService.findById(id);
+		
+		brService.delete(id);
+		
+		return "redirect:/hotel/room/order/cart/" + booking.getBookings().getId();
+	}
+	
+	
 
 	@RequestMapping("/cart/checkout")
 	public String checkout() {

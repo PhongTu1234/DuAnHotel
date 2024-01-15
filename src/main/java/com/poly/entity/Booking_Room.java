@@ -36,8 +36,6 @@ public class Booking_Room implements Serializable {
 	@JoinColumn(name = "room_id")
 	Rooms Rooms;
 
-	@ManyToOne
-	@JoinColumn(name = "hotel_id")
-	Hotels Hotels;
+	
 
 }

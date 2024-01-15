@@ -65,9 +65,7 @@ public class Hotels implements Serializable {
 	@OneToMany(mappedBy = "Hotels")
 	List<Images_Hotel> Images_Hotel;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "Hotels")
-	List<Booking_Room> Booking_Room;
+
 	
 	public Images_Hotel getFirstImage() {
         if (Images_Hotel != null && !Images_Hotel.isEmpty()) {

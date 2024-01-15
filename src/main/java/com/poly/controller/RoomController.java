@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.poly.Service.HotelService;
 import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
+import com.poly.Service.ServiceService;
+import com.poly.Service.SlugService;
 import com.poly.entity.Hotels;
 import com.poly.entity.Places;
 import com.poly.entity.Rooms;
@@ -33,6 +35,12 @@ public class RoomController {
 
 	@Autowired
 	RoomTypesService rtService;
+	
+	@Autowired
+	ServiceService serviceService;
+	
+	@Autowired
+	private SlugService slugService;
 
 
 	@RequestMapping("/hotel/room/{id}")
@@ -54,27 +62,24 @@ public class RoomController {
 	
 	
 	//xu ly admin
- 	@GetMapping("/rooms/form")
+ 	@GetMapping("/quan-ly-phong/them-moi")
  	public String formRoom(Model model) {
  		model.addAttribute("rooms", new Rooms());
  		return "admin/Rooms/form";
  	}
 
- 	@GetMapping("/rooms/index")
+ 	@GetMapping("/quan-ly-phong/danh-sach")
     public String showRoomsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
 		Pageable page = PageRequest.of(p-1, 10);
 		Page<Rooms> rooms = rservice.findAll(page);
 		model.addAttribute("rooms", rooms);
+		
+		model.addAttribute("slugService", slugService);
+		
         return "admin/Rooms/index";
     }
- 
-//    @GetMapping
-//    public String listPlaces(Model model) {
-//        model.addAttribute("places", placeService.findAll());
-//        return "";
-//    }
 
-    @GetMapping("/rooms/{id}")
+    @GetMapping("/quan-ly-phong/{slug}/{id}")
     public String viewRooms(@PathVariable("id") Integer id, Model model) {
     	Rooms rooms = rservice.findById(id);
         model.addAttribute("rooms", rooms);
@@ -141,21 +146,36 @@ public class RoomController {
     	
     }
     
-    @RequestMapping("/hotels/{id}/EditRoomDetails")
-	public String RoomDetail(Model model, @PathVariable("id") Integer id, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+    @RequestMapping("/{slug}/quan-ly-phong/{id}/danh-sach")
+	public String RoomList(Model model, @PathVariable("id") Integer id, @RequestParam(name = "p", defaultValue = "1") Integer p) {
 		Pageable page = PageRequest.of(p-1, 10);
 		Page<Rooms> room = rservice.adfindByHotelId(id, page);
 		model.addAttribute("rooms", room);
+		
+		model.addAttribute("slugService", slugService);
+		
 		return "admin/Rooms/index";
 	}
+    
+    @RequestMapping("/{slugHotel}/quan-ly-phong/{slugRoom}/{id}/chinh-sua")
+	public String RoomDetail(Model model, @PathVariable("id") Integer id) {
+    	Rooms rooms = rservice.findById(id);
+        model.addAttribute("rooms", rooms);
+		
+		model.addAttribute("serivice", serviceService.findShop());
+		
+		return "admin/Rooms/form";
+	}    
 
     @GetMapping("/hotels/deleteRoom={id}")
     public String deleteRooms(@PathVariable("id") Integer id) {
     	Rooms room = rservice.findById(id);
     	Hotels hotel = room.getHotels();
+    	
     	//String redirectUrl = "/hotels/EditRoomDetails=" + hotel.getId();
+    	String slug = slugService.convertToSlug(hotel.getName());
     	rservice.delete(id);
-    	return "redirect:/hotels/" + hotel.getId() + "/EditRoomDetails";
+    	return "redirect:/hotels/" + slug + "/" + hotel.getId() + "/EditRoomDetails";
     }
     
 

@@ -25,8 +25,11 @@ import com.poly.Service.PlacesService;
 import com.poly.Service.RoomService;
 import com.poly.Service.RoomTypesService;
 import com.poly.Service.ServiceService;
+import com.poly.Service.SlugService;
 import com.poly.dto.RoomSearchDTO;
+import com.poly.entity.Booking_Room;
 import com.poly.entity.Hotels;
+import com.poly.entity.Places;
 import com.poly.entity.RoomTypes;
 import com.poly.entity.Rooms;
 import com.poly.entity.Services;
@@ -48,6 +51,9 @@ public class HotelController {
 
 	@Autowired
 	PlacesService placeService;
+
+	@Autowired
+	private SlugService slugService;
 
 	private void shop(Model model) {
 		List<RoomTypes> roomtype = rtService.findShop();
@@ -105,54 +111,48 @@ public class HotelController {
 		return "shop";
 	}
 
-	@RequestMapping("/hotel/detail/{id}")
+	@RequestMapping("/thong-tin-khach-san/{slug}/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
 		Hotels item = hService.findById(id);
 		model.addAttribute("item", item);
 
 		List<Rooms> room = roomService.findByHotelId(id);
 		model.addAttribute("room", room);
+		
 		return "hotel-detail";
 	}
-	
-	
 
 	// Hotel
-	@RequestMapping("/hotel/all")
+	@RequestMapping("/danh-sach-khach-san")
 	public String Hotel(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
 		shop(model);
 		Pageable page = PageRequest.of(p - 1, 12);
 		Page<Hotels> items = roomService.findHotelAndRoomType(page);
 		model.addAttribute("items", items);
-				
-		return "shop";
-	}
-
-	// Hotel By Place
-	@RequestMapping("/hotel/place={id}")
-	public String HotelByPlace(Model model, @PathVariable("id") Integer id) {
-		model.addAttribute("place_id", id);
-		List<Hotels> items = hService.findByPlaceId(id);
-		model.addAttribute("items", items);
+		
+		model.addAttribute("slugService", slugService);
 		return "shop";
 	}
 
 	// xu ly admin
-	@GetMapping("/hotels/form")
+	@GetMapping("/quan-ly-khach-san/them-moi")
 	public String formHotel(Model model) {
 		model.addAttribute("hotels", new Hotels());
 		return "admin/Hotel/form";
 	}
 
-	@GetMapping("/hotels/index")
+	@GetMapping("/quan-ly-khach-san/danh-sach")
 	public String showHotelsIndex(Model model, @RequestParam(name = "p", defaultValue = "1") Integer p) {
 		Pageable page = PageRequest.of(p - 1, 10);
 		Page<Hotels> hotels = hService.findAll(page);
 		model.addAttribute("hotels", hotels);
+		
+		model.addAttribute("slugService", slugService);
+		
 		return "admin/Hotel/index";
 	}
 
-	@GetMapping("/hotels/{id}")
+	@GetMapping("/quan-ly-khach-san/{slug}/{id}")
 	public String viewHotel(@PathVariable("id") Integer id, Model model) {
 		Hotels hotels = hService.findById(id);
 		model.addAttribute("hotels", hotels);
@@ -182,9 +182,31 @@ public class HotelController {
 		}
 	}
 
+//	 @RequestMapping("/places/{id}/EditHotelDetails")
+//		public String RoomDetail(Model model, @PathVariable("id") Integer id, @RequestParam(name = "p", defaultValue = "1") Integer p) {
+//			Pageable page = PageRequest.of(p-1, 10);
+//			Page<Hotels> br = hService.adfindByPlaceId(id, page);
+//			model.addAttribute("bookingrooms", br);
+//			
+//			
+//			
+//			return "admin/Hotel/index";
+//		}
+	
 	@GetMapping("/hotels/delete/{id}")
 	public ModelAndView deleteHotel(@PathVariable("id") Integer id) {
 		hService.delete(id);
 		return new ModelAndView("redirect:/hotels/index");
 	}
+	 
+//	 @GetMapping("/places/deleteHotel={id}")
+//	    public String deleteRooms(@PathVariable("id") Integer id) {
+//		 	Hotels hotel = hService.findById(id);
+//	    	Places place = hotel.getPlace();
+//	    	
+//	    	//String redirectUrl = "/hotels/EditRoomDetails=" + hotel.getId();
+////	    	String slug = slugService.convertToSlug(hotel.getName());
+//	    	hService.delete(id);
+//	    	return "redirect:/places/" + place.getId() + "/EditHotelDetails";
+//	    }
 }

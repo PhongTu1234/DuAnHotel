@@ -26,8 +26,10 @@
 									type="button" id="languageButton" data-bs-toggle="dropdown"
 									aria-label="language" aria-expanded="false">English</button>
 								<ul class="dropdown-menu" aria-labelledby="languageButton">
-									<li><a href="?lang=vi" class="dropdown-item" >Tiếng Việt</a></li>
-									<li><a href="?lang=en" class="dropdown-item" >Tiếng Anh</a></li>
+									<li><a href="?lang=vi" class="dropdown-item">Tiếng
+											Việt</a></li>
+									<li><a href="?lang=en" class="dropdown-item">Tiếng
+											Anh</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -46,7 +48,7 @@
 								123 456 789</a>
 						</div>
 
-						<a href="index.html" class="header-logo"> <img
+						<a th:href="@{/index}" class="header-logo"> <img
 							src="assets/images/logo/dark.png" alt="Header Logo">
 						</a>
 
@@ -63,34 +65,33 @@
 										<i class="pe-7s-users"></i>
 									</button>
 									<ul class="dropdown-menu" aria-labelledby="settingButton">
-										<!--<li><a class="dropdown-item" href="my-account.html">My account</a></li>-->
+										<!--<li><a class="dropdown-item" th:href="@{/auth/myaccount}">My account</a></li>-->
 										<!-- <li><a class="dropdown-item" th:href="@{/auth/login/form}">Login | Register</a></li> -->
 										<th:block th:unless="${#request.remoteUser}">
-											<li><a class="dropdown-item" th:href="@{/auth/login/form}">Login</a></li>
-											<li>
-												<a class="dropdown-item" th:href="@{/auth/register}">Register</a>
+											<li><a class="dropdown-item"
+												th:href="@{/auth/login/form}">Login</a></li>
+											<li><a class="dropdown-item" th:href="@{/auth/register}">Register</a>
 											</li>
-											<li>
-												<a class="dropdown-item" th:href="@{/auth/forgot-password}">Forgot Password?</a>
-											</li>
+											<li><a class="dropdown-item"
+												th:href="@{/auth/forgot-password}">Forgot Password?</a></li>
 										</th:block>
 										<th:block th:if="${#request.remoteUser}">
-											<li th:if="${#request.isUserInRole('Dire') or #request.isUserInRole('STAF')}">
+											<li
+												th:if="${#request.isUserInRole('Dire') or #request.isUserInRole('STAF')}">
 												<a class="dropdown-item" th:href="@{/admin}">Adminstrator</a>
 											</li>
-											<li>
-												<a class="dropdown-item" th:href="@{/order/list}">Your Order</a>
-											</li>
-											<li>
-												<a class="dropdown-item" th:href="@{/auth/change-password}">Change Password</a>
-											</li>
-											<li>
-												<a class="dropdown-item" th:href="@{/auth/logout}">Logout</a>
+											<li><a class="dropdown-item"
+												th:href="@{/auth/myaccount}">My account</a></li>
+											<li><a class="dropdown-item" th:href="@{/order/list}">Your
+													Order</a></li>
+											<li><a class="dropdown-item"
+												th:href="@{/auth/change-password}">Change Password</a></li>
+											<li><a class="dropdown-item" th:href="@{/auth/logout}">Logout</a>
 											</li>
 										</th:block>
 									</ul>
 								</li>
-								<li class="d-none d-lg-block"><a href="wishlist.html">
+								<li class="d-none d-lg-block"><a th:href="@{/hotel/room/wishlist}">
 										<i class="pe-7s-like"></i>
 								</a></li>
 								<li class="minicart-wrap me-3 me-lg-0"><a href="#miniCart"
@@ -115,42 +116,79 @@
 					<div class="main-menu position-relative">
 						<nav class="main-nav">
 							<ul>
-								<li class="drop-holder"><a href="index.html"><s:message code="header.home"/></a>
-									<ul class="drop-menu">
-										<li><a href="index.html">Home One</a></li>
-										<li><a href="index-2.html">Home Two</a></li>
-									</ul></li>
-								<li class="megamenu-holder"><a href="shop">Shop</a>
+								<li class="drop-holder"><a th:href="@{/index}">Home</a>
+								</li><li class="megamenu-holder"><a th:href="@{/hotel/all}">Shop</a>
 									<ul class="drop-menu megamenu">
-										<li><span class="title">Hotel Style</span>
-											<ul>
-												<li th:each="ht:${ht}"><a
-													th:href="@{|/index?htid=${ht.id}|}">[[${ht.Level}]]</a></li>
-											</ul></li>
 										<li><span class="title">Hotel Types</span>
 											<ul>
-												<li><a th:href="@{/hotel/all}">all</a></li>
-												<li><a th:href="@{/hotel/0to1}">0-1</a></li>
-												<li><a th:href="@{/hotel/1to2}">1-2</a></li>
-												<li><a th:href="@{/hotel/2to3}">2-3</a></li>
-												<li><a th:href="@{/hotel/3to4}">3-4</a></li>
-												<li><a th:href="@{/hotel/4to5}">4-5</a></li>
-												<li><a th:href="@{/hotel/5}">5</a></li>
-											</ul></li>
+												<li><a th:href="@{|/hotel/HotelType=${0}|}"> <i
+												class="fa fa-chevron-right"> <i class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i>
+											</i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${1}|}"> <i
+												class="fa fa-chevron-right"> <i class="fa-solid fa-star"
+													style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i> <i
+													class="fa-solid fa-star"
+													style="color: #e6e6e6; font-size: 20px;"></i>
+											</i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${2}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${3}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i> <i
+												class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i>
+										</a></li>
+										<li><a th:href="@{|/hotel/HotelType=${4}|}"> <i
+												class="fa fa-chevron-right"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="font-size: 20px;"></i> <i class="fa-solid fa-star"
+												style="color: #e6e6e6; font-size: 20px;"></i>
+										</a></li>
+										<li>
+											<!-- <a th:href="@{|/hotel/HotelType=${5}/page=${1}|}" >  -->
+											<a th:href="@{|/hotel/HotelType=${5}|}" > 
+												<i class="fa fa-chevron-right"></i>
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+												<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+											</a>
+										</li>
+											</ul>
+										</li>
 										<li><span class="title">Room Style</span>
 											<ul>
-												<li th:each="rt:${rt}"><a
-													th:href="@{|/index?htid=${rt.id}|}">[[${rt.name}]]</a></li>
-											</ul></li>
-										<li><span class="title">Product Related</span>
-											<ul>
-												<li><a href="my-account.html">My Account</a></li>
-												<li><a href="login-register.html">Login | Register</a>
-												</li>
-												<li><a href="cart.html">Shopping Cart</a></li>
-												<li><a href="wishlist.html">Wishlist</a></li>
-												<li><a href="compare.html">Compare</a></li>
-												<li><a href="checkout.html">Checkout</a></li>
+												<li th:each="rt:${rt}"><a>[[${rt.name}]]</a></li>
 											</ul></li>
 									</ul></li>
 								<li class="drop-holder"><a th:href="@{/blog}">Blog</a>
@@ -162,9 +200,9 @@
 								<li class="drop-holder"><a href="#">Pages</a>
 									<ul class="drop-menu">
 										<li><a href="faq">FAQ</a></li>
-										<li><a href="404">Error 404</a></li>
+										<li><a href="404.html">Error 404</a></li>
 									</ul></li>
-								<li><a href="contact">Contact Us</a></li>
+								<li><a th:href="@{/contact}">Contact Us</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -178,7 +216,7 @@
 				<div class="row align-items-center">
 					<div class="col-lg-3 col-6">
 
-						<a href="index" class="header-logo"> <img
+						<a th:href="@{/index}" class="header-logo"> <img
 							src="assets/images/logo/dark.png" alt="Header Logo">
 						</a>
 
@@ -187,27 +225,67 @@
 						<div class="main-menu">
 							<nav class="main-nav">
 								<ul>
-									<li class="drop-holder"><a href="index">Home</a>
-										<ul class="drop-menu">
-											<li><a href="index">Home One</a></li>
-											<li><a href="index-2.html">Home Two</a></li>
-										</ul></li>
-									<li class="megamenu-holder"><a href="shop">Shop</a>
+									<li class="drop-holder"><a th:href="@{/index}">Home</a>
+									<li class="megamenu-holder"><a href="shop.html">Catagory</a>
 										<ul class="drop-menu megamenu">
-											<li><span class="title">Shop Layout</span>
-												<ul>
-													<li><a href="shop">Shop Default</a></li>
-													<li><a href="shop-grid-fullwidth.html">Shop Grid
-															Fullwidth</a></li>
-													<li><a href="shop-right-sidebar.html">Shop Right
-															Sidebar</a></li>
-													<li><a href="shop-list-fullwidth.html">Shop List
-															Fullwidth</a></li>
-													<li><a href="shop-list-left-sidebar.html">Shop
-															List Left Sidebar</a></li>
-													<li><a href="shop-list-right-sidebar.html">Shop
-															List Right Sidebar</a></li>
-												</ul></li>
+											<li><span class="title">Hotel Types</span>
+											<ul>
+												<li>
+													<a th:href="@{|/hotel/HotelType=${0}|}">
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+													</a>
+												</li>
+												<li>
+													<a th:href="@{|/hotel/HotelType=${1}|}"> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+													</a>
+												</li>
+												<li>
+													<a th:href="@{|/hotel/HotelType=${2}|}"> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+													</a>
+												</li>
+												<li>
+													<a th:href="@{|/hotel/HotelType=${3}|}"> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+													</a>
+												</li>
+												<li>
+													<a th:href="@{|/hotel/HotelType=${4}|}"> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="color: #e6e6e6; font-size: 20px;"></i>
+													</a>
+												</li>
+												<li>
+													<a th:href="@{|/hotel/HotelType=${5}|}"> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+														<i class="fa-solid fa-star" style="font-size: 20px;"></i> 
+													</a>
+												</li>
+											</ul>
+										</li>
 											<li><span class="title">Product Style</span>
 												<ul>
 													<li><a href="single-product-variable.html">Single
@@ -559,8 +637,8 @@
 				<span>Subtotal</span> <span class="ammount">$79.35</span>
 			</div>
 			<div class="group-btn_wrap d-grid gap-2">
-				<a href="cart.html" class="btn btn-dark">View Cart</a> <a
-					href="checkout.html" class="btn btn-dark">Checkout</a>
+				<a th:href="@{/order/list}" class="btn btn-dark">View Cart</a> <a
+					th:href="@{/hotel/room/order/cart/checkout}" class="btn btn-dark">Checkout</a>
 			</div>
 		</div>
 	</div>

@@ -176,10 +176,11 @@
 									<div class="col-md-4 col-sm-6" th:each="a:${items}">
 										<div class="product-item">
 											<div class="product-img">
-												<a th:href="@{|/hotel/detail/${a.id}|}"> <img
+												<a th:href="@{'/thong-tin-khach-san/' + ${slugService.convertToSlug(a.name)} + '/' + ${a.id}}"> <img
 													class="primary-img"
-													th:src="@{|/static/assetss/img/${a.getFirstImage().name}|}"
-													alt="Product Images"> 
+													th:src="@{'/assetss/img/' + ${a.getFirstImage().name}}"
+													alt="Product Images"
+													style="height: 200px"> 
 												</a>
 												<div class="product-add-action">
 													<ul>
@@ -206,7 +207,7 @@
 												</div>
 											</div>
 											<div class="product-content">
-												<a class="product-name" th:href="@{|/hotel/detail/${a.id}|}">[[(${a.name})]]</a>
+												<a class="product-name" th:href="@{'/thong-tin-khach-san/' + ${slugService.convertToSlug(a.name)} + '/' + ${a.id}}">[[(${a.name})]]</a>
 												<div class="price-box pb-1">
 													<span class="new-price">$23.45</span>
 												</div>

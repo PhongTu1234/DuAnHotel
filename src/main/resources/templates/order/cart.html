@@ -33,7 +33,7 @@
                                             <tr>
                                                 <th class="product_remove">remove</th>
                                                 <th class="product-thumbnail">images</th>
-                                                <th class="cart-product-name">Product</th>
+                                                <th class="cart-product-name">Khách sạn (Phòng)</th>
                                                 <th class="product-price">Unit Price</th>
                                                 <th class="product-quantity">Quantity</th>
                                                 <th class="product-subtotal">Total</th>
@@ -42,22 +42,22 @@
                                         <tbody>
                                             <tr th:each="order:${orders}">
                                                 <td class="product_remove">
-                                                    <a href="#">
+                                                    <a th:href="@{|/hotel/room/order/cart/${order.id}/delete|}" th:if="${order.Bookings.Status == false}">
                                                         <i class="pe-7s-close" data-tippy="Remove" data-tippy-inertia="true"
                                                     data-tippy-animation="shift-away" data-tippy-delay="50"
                                                     data-tippy-arrow="true" data-tippy-theme="sharpborder"></i>
                                                     </a>
                                                 </td>
                                                 <td class="product-thumbnail">
-                                                    <a href="#">
-                                                        <img src="assets/images/product/small-size/1-1-112x124.png" alt="Cart Thumbnail">
+                                                    <a th:if="${order.Rooms.Images_Room != null}">
+                                                        <img th:src="@{'/assetss/img/' + ${order.Rooms.getFirstImage().name}}" alt="Cart Thumbnail">
                                                     </a>
                                                 </td>
-                                                <td class="product-name"><a href="#">[[(${order.Rooms.name})]]</a></td>
-                                                <td class="product-price"><span class="amount">$23.45</span></td>
-                                                <td class="quantity">
+                                                <td class="product-name"><a th:href="@{'/thong-tin-khach-san/' + ${slugService.convertToSlug(order.Rooms.Hotels.name)} + '/' + ${order.Rooms.Hotels.id}}">[[(${order.Rooms.Hotels.name})]] ([[(${order.Rooms.name})]])</a></td>
+                                                <td class="product-price"><span class="amount">$[[(${order.Rooms.price})]]</span></td>
+                                                <td class="quantity" th:if="${order.Bookings.Status == false}">
                                                     <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" value="1" type="text">
+                                                        <input class="cart-plus-minus-box" th:value="${order.count}" type="text">
                                                         <div class="dec qtybutton">
                                                             <i class="fa fa-minus"></i>
                                                         </div>
@@ -66,7 +66,12 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="product-subtotal"><span class="amount">$23.45</span></td>
+                                                <td class="quantity" th:if="${order.Bookings.Status == true}">
+                                                    <div style="font-size: 20px;">
+                                                        <span th:text="${order.count}"></span>
+                                                    </div>
+                                                </td>
+                                                <td class="product-subtotal"><span class="amount">$[[(${order.count*order.Rooms.price})]]</span></td>
                                             </tr>
                                             
                                         </tbody>
@@ -75,11 +80,10 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="coupon-all">
-                                            <div class="coupon">
-                                                <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                                <input class="button mt-xxs-30" name="apply_coupon" value="Apply coupon" type="submit">
+                                            <div class="coupon2" th:if="${bookings.Status == true}">
+                                                <input class="button" name="update_cart" value="Update cart" type="submit" disable>
                                             </div>
-                                            <div class="coupon2">
+                                            <div class="coupon2" th:if="${bookings.Status == false}">
                                                 <input class="button" name="update_cart" value="Update cart" type="submit">
                                             </div>
                                         </div>
@@ -90,10 +94,10 @@
                                         <div class="cart-page-total">
                                             <h2>Cart totals</h2>
                                             <ul>
-                                                <li>Subtotal <span>$79.35</span></li>
-                                                <li>Total <span>$79.35</span></li>
+                                                <li>Subtotal <span>$[[(${bookings.calculateTotalCost()})]]</span></li>
+                                                <li>Total <span>$[[(${bookings.calculateTotalCost()})]]</span></li>
                                             </ul>
-                                            <a href="#">Proceed to checkout</a>
+                                            <a th:href="@{/checkout}">Proceed to checkout</a>
                                         </div>
                                     </div>
                                 </div>

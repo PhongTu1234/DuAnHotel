@@ -52,9 +52,7 @@
 								<a th:href="@{/rooms/form}" class="nav-link" type="button">EDITION</a>
 								<a href="javascript:(0);" class="nav-link active"
 									data-toggle="tab" data-target="#list" type="button" role="tab"
-									aria-selected="true">LIST ROOM</a> <a
-									th:href="@{/roomtypes/index}" class="nav-link" type="button">LIST
-									ROOMTYPE</a>
+									aria-selected="true">LIST ROOM</a>
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
@@ -92,20 +90,20 @@
 											<td class="align-center">[[(${item.description})]]</td>
 											<td class="align-center">
 												<div class="btn-group btn-group-xs">
-													<button class="btn btn-icon">
-														<a th:href="@{|/rooms/${item.id}|}"><i
-															class="fa fa-xs fa-pen"></i> </a>
-
-													</button>
-
+													<a th:href="@{'/' + ${slugService.convertToSlug(item.Hotels.name)} + '/quan-ly-phong/' + ${slugService.convertToSlug(item.name)} + '/' + ${item.id} + '/chinh-sua'}">
+														<button class="btn btn-icon">
+															<i class="fa fa-xs fa-pen"></i> 
+	
+														</button>
+													</a>
 												</div>
 											</td>
 											<td class="text-center">
-												<button class="btn btn-danger">
-													<a
-														th:onclick="'javascript:openConfirmationModal(' + ${item.id} + ')'"><i
-														class="fa fa-xs fa-times"></i></a>
-												</button>
+												<a th:onclick="'javascript:openConfirmationModal(' + ${item.id} + ')'">
+													<button class="btn btn-danger">
+														<i class="fa fa-xs fa-times"></i>
+													</button>
+												</a>
 											</td>
 											<div class="modal fade" id="confirmationModal" tabindex="-1"
 												role="dialog" aria-labelledby="confirmationModalLabel"

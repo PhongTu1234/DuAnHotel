@@ -47,14 +47,13 @@
 							</div>
 						</nav>
 						<div class="row mx-0 bg-white">
-							<div class="col-md-4 text-center">
-								<span ng-if="form.image == null"> <img
-									ng-src="{{'/assets/images/cloud-upload.jpg'}}"
-									style="width: 80%; margin-top: 5rem">
-								</span> <span ng-if="form.image != null"> <img
-									ng-src="{{'/assets/images/'+form.image}}"
-									style="width: 80%; margin-top: 5rem">
-								</span>
+							<div class="col-md-4 text-center row">
+								<div class="col-6" th:each="img : ${rooms.Images_Room}">
+									<span> <img
+										th:src="@{/static/assetss/img/${img.name}}"
+										style="margin: 5px;">
+									</span>
+								</div>
 							</div>
 							<div class="col-md-8">
 								<form th:action="@{/hotels/update}" method="post"
@@ -70,37 +69,37 @@
 											placeholder="Enter ID">
 									</div>-->
 									<div class="form-group row">
-										<label for="name" class="form-label">hotelName</label> <input
+										<label for="name" class="form-label">Hotel Name</label> <input
 											type="text" class="form-control" id="name"
 											th:field="*{name}" placeholder="Enter hotelName" required>
 									</div>
 									<div class="form-group row">
-										<label for="address" class="form-label">hotelAddress</label> <input
+										<label for="address" class="form-label">Hotel Address</label> <input
 											type="text" class="form-control" id="address"
 											th:field="*{address}" placeholder="Enter hotelAddress" required>
 									</div>
 									<div class="form-group row">
-										<label for="phone" class="form-label">hotelPhone</label> <input
+										<label for="phone" class="form-label">Hotel Phone</label> <input
 											type="number" class="form-control" id="phone"
 											th:field="*{phone}" placeholder="Enter hotelPhone" required>
 									</div>
 									<div class="form-group row">
-										<label for="email" class="form-label">hotelEmail</label> <input
+										<label for="email" class="form-label">Hotel Email</label> <input
 											type="email" class="form-control" id="email"
 											th:field="*{email}" placeholder="Enter hotelEmail" required>
 									</div>
 									<div class="form-group row">
-										<label for="description" class="form-label">hotelDescription</label> <input
+										<label for="description" class="form-label">Description</label> <input
 											type="text" class="form-control" id="description"
 											th:field="*{description}" placeholder="Enter hotelDescription" required>
 									</div>
 									<div class="form-group row">
-										<label for="Level" class="form-label">hotelLevel</label> <input
+										<label for="Level" class="form-label">Hotel Level</label> <input
 											type="text" class="form-control" id="Level"
 											th:field="*{Level}" placeholder="Enter hotelLevel" required>
 									</div>
 									<div class="form-group row">
-										<label for="Place.name" class="form-label">hotelPlace</label> <input
+										<label for="Place.name" class="form-label">Place</label> <input
 											type="text" class="form-control" id="Place.name" 
 											th:field="*{Place.name}" placeholder="Enter hotelPlace" required>
 									</div>
@@ -110,7 +109,7 @@
 											th:utext="${hotels.id} ? 'Update' : 'Create'">
 											<i class="fas fa-save"></i> Submit
 										</button>
-										<a th:href="@{/hotels/form}" class="btn btn-secondary"> <i
+										<a th:href="@{/quan-ly-khach-san/them-moi}" class="btn btn-secondary"> <i
 											class="fas fa-redo"></i> Reset
 										</a> <span th:if="${hotels.id}"> <a
 											th:href="@{/hotels/delete/{id}(id=${hotels.id})}"
@@ -124,39 +123,6 @@
 
 							</div>
 						</div>
-						<!-- <div class="card-header text-center">
-							<button type="button" class="btn btn-primary"
-								onclick="createForm()">
-								<i class="fas fa-plus"></i> Create
-							</button>
-							<button type="submit" class="btn btn-success">
-								<i class="far fa-save"></i> Update
-							</button>
-							<button type="button" class="btn btn-danger"
-								onclick="deleteForm()">
-								<i class="fas fa-trash"></i> Delete
-							</button>
-							<button type="button" class="btn btn-secondary"
-								onclick="resetForm()">
-								<i class="fas fa-redo"></i> Reset
-							</button>
-						</div>
-						<div class="card-header text-center">
-							<button ng-click="pager.first()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-left"></i>
-							</button>
-							<button ng-click="pager.prev()" class="btn btn-primary">
-								<i class="fas fa-arrow-left"></i>
-							</button>
-							<button class="btn btn-success">{{pager.page + 1}} of
-								{{pager.count?pager.count:'1'}}</button>
-							<button ng-click="pager.next()" class="btn btn-primary">
-								<i class="fas fa-arrow-right"></i>
-							</button>
-							<button ng-click="pager.last()" class="btn btn-danger">
-								<i class="fas fa-arrow-to-right"></i>
-							</button>
-						</div> -->
 						<script src="/assetss/js/init.js"></script>
 					</div>
 				</div>
